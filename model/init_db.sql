@@ -8,7 +8,7 @@ CREATE TABLE users (
     user-points INT DEFAULT 0,
 );
 
-INSERT INTO users (user-id, shop-id, username, user-email, user-points)
+INSERT INTO users (user-id, shop-id, username, password, user-email, user-points)
 VALUES 
- (1, null, pass1, buyer1, buyer1@msb.inc, 0)
- (2, 1, pass2, seller1, seller1@msb.inc, 0);
+ (1, null, user1-buyer, pass1, buyer1@msb.inc, 0)
+ (2, 1, user2-seller, pass2, seller1@msb.inc, 0);
