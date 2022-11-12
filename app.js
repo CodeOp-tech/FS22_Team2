@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes 
-// added authRouter
+// added authRouter 
 app.use('/', authRouter);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
