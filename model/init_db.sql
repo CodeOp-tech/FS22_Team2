@@ -2,8 +2,9 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     user-id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     shop-id INT,
-    username VARCHAR(255),
-    user-email VARCHAR(255),
+    username VARCHAR(30) NOT NULL UNIQUE,
+    password VARCHAR (200) NOT NULL,
+    user-email VARCHAR(255) NOT NULL,
     user-points INT DEFAULT 0,
 );
 
