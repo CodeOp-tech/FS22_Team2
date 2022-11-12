@@ -7,4 +7,4 @@ In your terminal:
 
 - `cd client` and run `npm install`. This will install React client dependencies.
 
-- `cd ..` back to your project directory and `npm install bcrypt` for authentication and authorization.
+- `cd ..` back to your project directory and run `npm install bcrypt`, then `npm install jsonwebtoken` for authentication and authorization dependencies.
