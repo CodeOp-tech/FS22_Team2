@@ -10,5 +10,5 @@ CREATE TABLE users (
 
 INSERT INTO users (user-id, shop-id, username, user-email, user-points)
 VALUES 
- (1, null, buyer1, buyer1@msb.inc, 0)
- (2, 1, seller1, seller1@msb.inc, 0);
+ (1, null, pass1, buyer1, buyer1@msb.inc, 0)
+ (2, 1, pass2, seller1, seller1@msb.inc, 0);
