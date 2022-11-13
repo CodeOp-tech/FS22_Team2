@@ -5,6 +5,8 @@ import logo from './logo.svg';
 import './App.css';
 import { application } from 'express';
 import UserProfileView from "./views/UserProfileView.js"
+import Local from "./helpers/Local.js";
+import Api from "./helpers/Api.js";
 
 function App() {
   const [user, setUser] = useState(Local.getUser()); // useState 1
