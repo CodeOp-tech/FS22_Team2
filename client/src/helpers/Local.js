@@ -30,6 +30,21 @@ class Local {
         if (!userjson) {
             return '';
         }
+
+        let user = JSON.parse(userjson);
+        return user.id;
+    }
+
+    static getUsername() {
+        let userjson = localStorage.getItem('user');
+        if (!userjson) {
+            return '';
+        }
+
+        let user = JSON.parse(userjson);
+        return user.username;
     }
 
 }
+
+export default Local;
