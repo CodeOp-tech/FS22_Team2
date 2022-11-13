@@ -5,20 +5,18 @@ import './App.css';
 import Local from "./helpers/Local.js";
 import Api from "./helpers/Api.js";
 
-import Navbar from './components/Navbar.js';
+import Navbar from "./components/Navbar.js";
 
 import PrivateRoute from "./components/PrivateRoute";
 import UserProfileView from "./views/UserProfileView.js";
 import LoginView from "./views/LoginView.js";
-import ErrorView from './views/ErrorView';
-
-import { application } from 'express';
-
+import ErrorView from "./views/ErrorView";
 import logo from './logo.svg';
 
 function App() {
   const [user, setUser] = useState(Local.getUser()); // useState 1
-  const [loginErrorMessage, setLoginErrorMessage] = useState('') // useState 2
+  const [loginErrorMessage, setLoginErrorMessage] = useState(''); // useState 2
+  // QUESTION: throwing error on app startup: useNavigate() may be used only in the context of a <Router> component
   const navigate = useNavigate();
 
   async function doLogin(username, password) {
@@ -56,6 +54,10 @@ function App() {
           Learn React
         </a>
       </header>
+    <Navbar 
+      user={user} 
+      logoutCb={doLogout} 
+    />
 
     <Routes>
       <Route 
@@ -65,7 +67,7 @@ function App() {
 
       <Route 
         path ="/users/userId" 
-        element ={
+        element={
         <PrivateRoute>
           <UserProfileView />
         </PrivateRoute>
@@ -83,7 +85,9 @@ function App() {
 
       <Route 
         path="*" 
-        element={<ErrorView code="404" text="Page not found" 
+        element={<ErrorView 
+          code="404" 
+          text="Page not found" 
         />} 
       />
 

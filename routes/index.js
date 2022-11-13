@@ -9,6 +9,7 @@ router.get("/", function (req, res, next) {
 });
 
 // GET members-only
+// QUESTION: On Postman, returns "Unauthorized", even after logging in ("POST" login via postman, returns successfully)
 router.get('/members-only', ensureUserLoggedIn, function(req, res) {
   res.send({ message: 'Here is your Members Only content from the server...' });
 });
