@@ -5,14 +5,14 @@ const jwt = require("jsonwebtoken");
 const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require('../config.js');
 const db = require("../model/helper.js");
 
-// Register new user
+// Register new user - works!
 router.post ('/register', async (req,res) => {
     let { username, password, email} = req.body;
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
     try {
         let sql = `
-            INSERT INTO users (username, password, user-email)
+            INSERT INTO users (username, password, user_email)
             VALUES ('${username}', '${hashedPassword}', '${email}')
         `;
         await db(sql);
@@ -22,7 +22,7 @@ router.post ('/register', async (req,res) => {
     }
 });  
 
-// Log in user
+// Log in user - works!
 router.post('/login', async (req, res) => {
     let { username, password } = req.body;
 

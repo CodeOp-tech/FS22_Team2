@@ -1,12 +1,11 @@
-import React, { useState, useNavigate } from "react";
+import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import './App.css';
 
 import Local from "./helpers/Local.js";
 import Api from "./helpers/Api.js";
 
-import Navbar from './components.Navbar.js'
-;
+import Navbar from './components/Navbar.js';
 
 import PrivateRoute from "./components/PrivateRoute";
 import UserProfileView from "./views/UserProfileView.js";
@@ -78,7 +77,7 @@ function App() {
         element={
         <LoginView 
           loginCb={(u, p) => doLogin(u, p)} 
-          loginError={loginErrorMsg} 
+          loginError={loginErrorMessage} 
         />}
       />
 

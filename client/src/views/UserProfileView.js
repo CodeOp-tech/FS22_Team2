@@ -35,9 +35,9 @@ function UserProfileView(props) {
     return (
         <div className="UserProfileView">
             <h1>User Profile View</h1>
-            ID: {user.user-id}<br />
+            ID: {user.userId}<br />
             Username: {user.username}<br />
-            Email: {user.user-email}
+            Email: {user.userEmail}
         </div>
     );
 }

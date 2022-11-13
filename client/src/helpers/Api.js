@@ -5,7 +5,7 @@ class Api {
     static async loginUser(username, password) {
         let body = { username, password };
 
-        return await this._doFetch('/login', POST, body);
+        return await this._doFetch('/login', 'POST', body);
     }
 
     // GET all users
@@ -52,7 +52,7 @@ class Api {
         };
 
         try {
-            let response = await fetch(ur, options);
+            let response = await fetch(url, options);
             if (response.ok) {
                 myresponse.ok = true;
                 myresponse.data = await response.json();

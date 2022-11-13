@@ -3,9 +3,9 @@ var router = express.Router();
 const { ensureSameUser } = require('../middleware/guards');
 const db = require('../model/helper.js')
 
-// GET all users
+// GET all users - works!
 router.get('/', async function(req, res, next) {
-  let sql = 'SELECT * FORM users ORDER BY username';
+  let sql = 'SELECT * FROM users ORDER BY username';
 
   try {
     let results = await db(sql);
@@ -20,9 +20,10 @@ router.get('/', async function(req, res, next) {
 
 // GET one user
 // Ensure user can only see their own profile
-router.get('/userId', ensureSameUser, async function(req, res, next) {
+// QUESTION: On Postman, returns "Unauthorized", even after logging in ("POST" login via postman, returns successfully)
+router.get('/:userId', ensureSameUser, async function(req, res, next) {
   let { userId } = req.params;
-  let sql = `SELECT * FROM users WHERE user-id == ${userId};`
+  let sql = `SELECT * FROM users WHERE user_id == ${userId};`
 
   try {
     let results = await db(sql);
