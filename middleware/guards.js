@@ -14,7 +14,7 @@ function ensureUserLoggedIn(req, res, next) {
     }
 }
 
-// Make sure user is accessing their own page
+// Make sure user is accessing their own profile page
 function ensureSameUser(req, res, next) {
     let token = _getToken(req);
     try {
