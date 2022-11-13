@@ -25,6 +25,7 @@ router.post ('/register', async (req,res) => {
 // Log in user
 router.post('/login', async (req, res) => {
     let { username, password } = req.body;
+
     try {
         // look for username
         let results = await db(`SELECT * FROM users WHERE username = '${username}'`);
@@ -37,6 +38,7 @@ router.post('/login', async (req, res) => {
             let passwordsMatch = await bcrypt.compare(password, user.password);
             if (passwordsMatch) {
                 let payload = { userId : user.id };
+                // Create token w/JWT
                 let token = jwt.sign(payload, SECRET_KEY);
                 delete user.password;
                 res.send({
@@ -52,3 +54,5 @@ router.post('/login', async (req, res) => {
         res.status(500).send({ error: err.message });
     }
 });
+
+module.exports = router;

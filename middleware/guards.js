@@ -1,4 +1,3 @@
-// testing out JSON Web Token
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = require("../config.js");
 
@@ -7,6 +6,7 @@ function ensureUserLoggedIn(req, res, next) {
     let token = _getToken(req);
 
     try {
+        // checks if toekn if valid; continues if ok, throws error if not
         jwt.verify(token, SECRET_KEY);
         next();
     } catch (err) {
@@ -18,8 +18,11 @@ function ensureUserLoggedIn(req, res, next) {
 function ensureSameUser(req, res, next) {
     let token = _getToken(req);
     try {
+        // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
+        // if token is ok, check that user id matches
         if (payload.user-id === Number(req.params.user-id)) {
+        // if okay, will proceed; else will throw error
             next();
         } else {
             res.status(403).send({ error: 'Forbidden' });
@@ -28,3 +31,23 @@ function ensureSameUser(req, res, next) {
         res.status(401).send({ error: 'Unauthorized' });
     }
 }
+
+// get JWT token if found, else return ''
+function _getToken(req) {
+    // Return '' if header not found
+    if ( !('authorization' in req.headers) ) {
+        return '';
+    }
+
+    // Split header into 'Bearer' and token
+    let authHeader = req.headers['authorization'];
+    let [str, token] = authHeader.split(' ');
+
+    return (str === 'Bearer') ? token : '';
+}
+
+
+module.exports = {
+    ensureUserLoggedIn,
+    ensureSameUser
+};

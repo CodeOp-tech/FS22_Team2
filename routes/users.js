@@ -15,9 +15,7 @@ router.get('/', async function(req, res, next) {
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
-}
-
-)
+});
 
 
 // GET one user

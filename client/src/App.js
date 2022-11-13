@@ -1,12 +1,21 @@
 import React, { useState, useNavigate } from "react";
-import { Routes, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
-import logo from './logo.svg';
+import { Routes, Route, useNavigate } from "react-router-dom";
 import './App.css';
-import { application } from 'express';
-import UserProfileView from "./views/UserProfileView.js"
+
 import Local from "./helpers/Local.js";
 import Api from "./helpers/Api.js";
+
+import Navbar from './components.Navbar.js'
+;
+
+import PrivateRoute from "./components/PrivateRoute";
+import UserProfileView from "./views/UserProfileView.js";
+import LoginView from "./views/LoginView.js";
+import ErrorView from './views/ErrorView';
+
+import { application } from 'express';
+
+import logo from './logo.svg';
 
 function App() {
   const [user, setUser] = useState(Local.getUser()); // useState 1
@@ -33,6 +42,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* header is all defualt from setup - revisit */}
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -47,12 +57,37 @@ function App() {
           Learn React
         </a>
       </header>
+
     <Routes>
-      <Route path ="/users/userId" element ={
+      <Route 
+        path="/" 
+        element={<h1>Home</h1>} 
+      />
+
+      <Route 
+        path ="/users/userId" 
+        element ={
         <PrivateRoute>
           <UserProfileView />
         </PrivateRoute>
-      } />
+        } 
+      />
+
+      <Route 
+        path="/login" 
+        element={
+        <LoginView 
+          loginCb={(u, p) => doLogin(u, p)} 
+          loginError={loginErrorMsg} 
+        />}
+      />
+
+      <Route 
+        path="*" 
+        element={<ErrorView code="404" text="Page not found" 
+        />} 
+      />
+
     </Routes>
 
     </div>
