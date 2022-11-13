@@ -1,8 +1,10 @@
 import React, { useState, useNavigate } from "react";
-import { Routes, Route, PrivateRoute } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import logo from './logo.svg';
 import './App.css';
 import { application } from 'express';
+import UserProfileView from "./views/UserProfileView.js"
 
 function App() {
   const [user, setUser] = useState(Local.getUser()); // useState 1
