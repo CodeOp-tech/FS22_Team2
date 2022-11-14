@@ -59,6 +59,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
             {/* To get total, we call getTotalCostCb (function in App) from CartContext pipeline */}
             <h1>Total: {getTotalCostCb().toFixed(2)}</h1> 
 
+            {/* This button will make a Stripe API call to an actual Stripe account */}
             <Button variant="success">
                 Purchase items!
             </Button>

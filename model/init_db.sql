@@ -41,6 +41,7 @@ CREATE TABLE `products` (
 	`product_image` varchar(255) NOT NULL,
 	`product_quantity` INT NOT NULL,
 	`product_description` varchar(255) NOT NULL,
+	`stripe_product_id` varchar(255),
 	`shop_id` INT NOT NULL,
 	PRIMARY KEY (`product_id`)
 );
