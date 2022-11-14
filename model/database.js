@@ -11,7 +11,7 @@ const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
   password: DB_PASS,
-  database: DB_NAME || "msb",
+  database: DB_NAME || "msb", // Jess note: Change this if changing database name & also change in .env
   multipleStatements: true,
 });
 
@@ -22,7 +22,7 @@ con.connect(function (err) {
   let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `users` and `shops` was successful!");
+    console.log("Tables creation in databases `msb` was successful!");
 
     console.log("Closing...");
   });
