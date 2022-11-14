@@ -1,20 +1,44 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Card, Button, Form, Row, Col } from "react-bootstrap";
 // NOTE: See React Bootstrap cards for more info: https://react-bootstrap.github.io/components/cards/
 import CartContext from "../CartContext";
 
 function ProductCard(props) {
-  // props.product is the product we are selling
-  const product = props.product;
+  const [productQuantity, setProductQuantity] = useState(0);
+  
+  const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
+
   const { items,
+    productData,
+    getProductDataCb,
     getProductQuantityCb,
     addOneToCartCb,
     removeOneFromCartCb,
     deleteFromCartCb,
     getTotalCostCb } = useContext(CartContext);
-  
-  const productQuantity = getProductQuantityCb(product.product_id);
-  const addToCart = addOneToCartCb(product.product_id);
+
+    function handleClick(id) {
+      getProductQuantityCb(id);
+      addOneToCartCb(id); 
+      console.log(items);
+      setProductQuantity(items.quantity);
+      getProductDataCb(id);
+    }
+
+    function handleClickRemove(id) {
+      removeOneFromCartCb(id);
+      console.log(items);
+    }
+
+    function handleClickDelete(id) {
+      deleteFromCartCb(id);
+      console.log(items);
+    }
+
+let find = items.find(e => e.id === product.product_id);
+console.log(find);
+  // const productQuantity = getProductQuantityCb(product.product_id);
+  // const addToCart = addOneToCartCb(product.product_id);
   
   return (
     <Card>
@@ -24,7 +48,23 @@ function ProductCard(props) {
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
         <Card.Text>${product.price}</Card.Text>
         <Card.Text>{product.product_description}</Card.Text>
-        <Button variant="primary" onClick={() => addToCart(product.product_id)}>Add To Cart</Button>
+        
+        { find ? 
+        <>
+        <Form as={Row}>
+          <Form.Label column="true" sm="6">In Cart: {productQuantity} </Form.Label>
+          <Col sm="6">
+            <Button sm="6" onClick={() => handleClick(product.product_id)} className="mx-2">+</Button>
+            <Button sm="6" onClick={() => handleClickRemove(product.product_id)} className="mx-2">-</Button>
+          </Col>
+        </Form>
+        <Button variant="danger" onClick={() => handleClickDelete(product.product_id)} className="mx-2">Remove from cart</Button>
+        </>
+        :
+        <Button variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
+        }
+        
+        
       </Card.Body>
     </Card>
   );

@@ -11,11 +11,13 @@ import CartContext from "./CartContext";
 function App() {
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
+  const [productData, setProductData] = useState([]);
 
   useEffect(() => {
     getProducts();
   }, []);
 
+  // NOTE: NEEDS TO BE UPDATED WITH ACTUAL STORE_ID
   async function getProducts(shop_id) {
     // shop_id should be passed from child
     try {
@@ -32,12 +34,13 @@ function App() {
   }
 
   function getProductData(id) {
-    let productData = products.find((product) => product.id === id); // once products state is set, can find productData for each product
+    let productData = products.find((product) => product.product_id === id); // once products state is set, can find productData for each product
 
     if (productData === undefined) {
       console.log("Product data does not exist for ID: " + id);
       return undefined;
     }
+    setProductData(productData);
     return productData;
   }
 
@@ -49,12 +52,15 @@ function App() {
 
     if (quantity === undefined) {
       return 0;
+    } else {
+      return quantity;
     }
-    return quantity;
   }
 
-  function addOneToCart(id) {
-    const quantity = getProductQuantity(id);
+  function addOneToCart(id) { // id (ie. product.product_id) passed from child ProductCard 
+    const quantity = getProductQuantity(id); 
+    const product = getProductData(id);
+    console.log(product);
 
     if (quantity === 0) {
       // product is not in cart
@@ -64,8 +70,10 @@ function App() {
           ...cartProducts, // spread elements, take all of objects already in cart and put them in this array
           {
             // add an additional object
-            id: id,
+            id: id, // id is the product id
             quantity: 1,
+            name: product.product_name,
+            price: product.price
           },
         ]
       );
@@ -120,7 +128,10 @@ function App() {
   /* ---Context Objects--- */
 
   const contextObjCart = {
+    products,
     items: cartProducts,
+    productData: productData,
+    getProductDataCb: getProductData,
     getProductQuantityCb: getProductQuantity,
     addOneToCartCb: addOneToCart,
     removeOneFromCartCb: removeOneFromCart,
@@ -143,7 +154,7 @@ function App() {
                   />
                 }
               />
-
+             
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
