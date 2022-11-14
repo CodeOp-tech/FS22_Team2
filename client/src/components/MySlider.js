@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "../App.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,8 +7,9 @@ import bottle from "../DC/bottle.jpg";
 import box from "../DC/box.jpg";
 import cam from "../DC/cam.jpg";
 import toast from "../DC/toast.jpg";
+import "./MySlider.css";
 
-export default function Slider() {
+export default function MySlider() {
   return (
     <div style={{ margin: "30px" }}>
       <h2>react slider</h2>
