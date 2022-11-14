@@ -2,21 +2,55 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // import necessary as it has the stylesheets necessary for Bootstrap components
 import { Container } from "react-bootstrap"; // wraps entire application to sit more centered of screen
-import { BrowserRouter, Routes, Route } from "react-router-dom"; // BrowserRouter = the overarching router
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"; // BrowserRouter = the overarching router
 import Cancel from "./views/Cancel";
 import ShopView from "./views/ShopView";
 import Success from "./views/Success";
 import CartContext from "./CartContext";
 
+import Local from "./helpers/Local.js";
+import Api from "./helpers/Api.js";
+
+import Navbar from "./components/Navbar.js";
+
+import PrivateRoute from "./components/PrivateRoute";
+import UserProfileView from "./views/UserProfileView.js";
+import LoginView from "./views/LoginView.js";
+import ErrorView from "./views/ErrorView";
+import logo from './logo.svg';
 
 function App() {
   const [products, setProducts] = useState([]); // useState 1 (products fetched from database upon page render)
   const [cartProducts, setCartProducts] = useState([]); // useState 2 (populates only upon adding to cart)
   const [productData, setProductData] = useState([]); // useState 3 (populates only upon adding to cart)
+  const [user, setUser] = useState(Local.getUser()); // useState 4
+  const [loginErrorMessage, setLoginErrorMessage] = useState(''); // useState 5
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProducts();
   }, []);
+  
+  // log in user
+  async function doLogin(username, password) {
+    let myResponse = await Api.loginUser(username, password);
+    if (myResponse.ok) {
+      Local.saveUserInfo(myResponse.data.token, myResponse.data.user);
+      setUser(myResponse.data.user);
+      setLoginErrorMessage('');
+      navigate('/');
+    } else {
+      setLoginErrorMessage('Login failed');
+    }
+  }
+
+  // log out user
+  function doLogout() {
+    Local.removeUserInfo();
+    setUser(null);
+    //Navbar should send user to home page
+  }
 
   // TO-DO NOTE: NEEDS TO BE UPDATED WITH ACTUAL STORE_ID
   async function getProducts(shop_id) {
@@ -154,7 +188,17 @@ function App() {
       <Container>
         <CartContext.Provider value={contextObjCart}>
           <BrowserRouter>
+            <Navbar 
+              user={user} 
+              logoutCb={doLogout} 
+             />
+                
             <Routes>
+              <Route 
+                path="/" 
+                element={<h1>Home</h1>} 
+              />
+                         
               <Route
                 path="shop"
                 element={
@@ -168,6 +212,32 @@ function App() {
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
+                
+              <Route 
+                path ="/users/userId" 
+                element={
+                <PrivateRoute>
+                  <UserProfileView />
+                </PrivateRoute>
+                } 
+               />
+
+            <Route 
+              path="/login" 
+              element={
+              <LoginView 
+                loginCb={(u, p) => doLogin(u, p)} 
+                loginError={loginErrorMessage} 
+              />}
+            />
+
+            <Route 
+              path="*" 
+              element={<ErrorView 
+                code="404" 
+                text="Page not found" 
+              />} 
+            />
             </Routes>
           </BrowserRouter>
         </CartContext.Provider>

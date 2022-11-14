@@ -83,5 +83,3 @@ ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk2` FOREIGN KEY (
 
 
 
-
-
