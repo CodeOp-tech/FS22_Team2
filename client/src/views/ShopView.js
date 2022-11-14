@@ -5,12 +5,7 @@ import ProductCard from "../components/ProductCard";
 
 function ShopView(props) {
 
-  // NOTE: Need to be able to pass shop_id somehow to parent App (for now, hardcoded in App)
-
-  // function getShopId() {
-  //   props.getProductsCb(shop_id)
-  // }
-
+  // TO-DO NOTE: Need to be able to pass shop_id somehow to parent App (for now, hardcoded in App)
 
   return (
     <>

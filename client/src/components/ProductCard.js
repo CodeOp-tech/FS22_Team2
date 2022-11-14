@@ -4,12 +4,10 @@ import { Card, Button, Form, Row, Col } from "react-bootstrap";
 import CartContext from "../CartContext";
 
 function ProductCard(props) {
-  const [productQuantity, setProductQuantity] = useState(0);
-  
+
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
 
-  const { items,
-    productData,
+  const { cartProducts,
     getProductDataCb,
     getProductQuantityCb,
     addOneToCartCb,
@@ -20,25 +18,22 @@ function ProductCard(props) {
     function handleClick(id) {
       getProductQuantityCb(id);
       addOneToCartCb(id); 
-      console.log(items);
-      setProductQuantity(items.quantity);
+      console.log(cartProducts);
       getProductDataCb(id);
     }
 
     function handleClickRemove(id) {
       removeOneFromCartCb(id);
-      console.log(items);
+      console.log(cartProducts);
     }
 
     function handleClickDelete(id) {
       deleteFromCartCb(id);
-      console.log(items);
+      console.log(cartProducts);
     }
 
-let find = items.find(e => e.id === product.product_id);
+let find = cartProducts.find(e => e.id === product.product_id);
 console.log(find);
-  // const productQuantity = getProductQuantityCb(product.product_id);
-  // const addToCart = addOneToCartCb(product.product_id);
   
   return (
     <Card>
@@ -52,7 +47,7 @@ console.log(find);
         { find ? 
         <>
         <Form as={Row}>
-          <Form.Label column="true" sm="6">In Cart: {productQuantity} </Form.Label>
+          <Form.Label column="true" sm="6">In Cart: {find.quantity} </Form.Label>
           <Col sm="6">
             <Button sm="6" onClick={() => handleClick(product.product_id)} className="mx-2">+</Button>
             <Button sm="6" onClick={() => handleClickRemove(product.product_id)} className="mx-2">-</Button>

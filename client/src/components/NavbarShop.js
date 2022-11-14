@@ -1,19 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button, Container, Navbar, Modal } from "react-bootstrap";
 import CartContext from "../CartContext";
-import CartProduct from "./CartProduct";
+import CartProductModal from "./CartProductModal";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
 function NavbarShop() {
-    const { items,
-        productData,
-        getProductDataCb,
-        getProductQuantityCb,
-        addOneToCartCb,
-        removeOneFromCartCb,
-        deleteFromCartCb,
-        getTotalCostCb } = useContext(CartContext);
+    // NOTE: cartProducts passed down by CartContext. Only cartProducts needed in this context
+    // cartProducts state (see App) has four properties: id, quantity, name and price
+    const { cartProducts, getTotalCostCb } = useContext(CartContext);
 
     const [show, setShow] = useState(false); // initially not show modal
     
@@ -25,13 +20,8 @@ function NavbarShop() {
         setShow(true);
     }
 
-    // function productData(id) {
-    //     getProductDataCb(id);
-    // }
-
-// NOTE: items passed down by CartContext (which is also cartProducts state (see App), has two properties: id and quantity)
 // use reduce method to get total amount of quantities to display in Cart button below
-const productsCount = items.reduce((sum, product) => sum + product.quantity, 0);
+const productsCount = cartProducts.reduce((sum, product) => sum + product.quantity, 0);
 
   return (
     <>
@@ -57,16 +47,24 @@ const productsCount = items.reduce((sum, product) => sum + product.quantity, 0);
             {productsCount > 0 ?
             <>
             <p>Items in your cart:</p>
-            {items.map((currentProduct, idx) => (
-                <CartProduct key={idx} id={currentProduct.id} 
+             {/* Map through items array, for each item send id, quantity, name and price prop to child CartProductModal */}
+            {cartProducts.map((currentProduct, idx) => (
+                <CartProductModal key={idx} id={currentProduct.id} 
                 quantity={currentProduct.quantity}
-                name={currentProduct.product_name}
+                name={currentProduct.name}
                 price={currentProduct.price}
-                ></CartProduct> 
+                ></CartProductModal> 
             ))}
+
+            {/* To get total, we call getTotalCostCb (function in App) from CartContext pipeline */}
+            <h1>Total: {getTotalCostCb().toFixed(2)}</h1> 
+
+            <Button variant="success">
+                Purchase items!
+            </Button>
             </>
             :
-            <h1></h1>
+            <h1>No items in your cart.<br />Happy shopping!</h1>
             }
 
         </Modal.Body>
