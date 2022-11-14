@@ -13,8 +13,26 @@ function ensureUserLoggedIn(req, res, next) {
     }
 }
 
-// Make sure user is accessing their own profile page
+// Make sure user is accessing their own profile page - works!
 function ensureSameUser(req, res, next) {
+    let token = _getToken(req);
+    try {
+        // check that token is ok (if not, will throw error)
+        let payload = jwt.verify(token, SECRET_KEY);
+        // if token is ok, check that user id matches
+        if (payload.userId === Number(req.params.userId)) {
+        // if okay, will proceed; else will throw error
+            next();
+        } else {
+            res.status(403).send({ error: 'Forbidden' });
+        }
+    } catch(err) {
+        res.status(401).send({ error: 'Unauthorized' });
+    }
+}
+
+// Make sure the person accessing this resource is the owner of the shop
+function ensureShopOwner(req, res, next) {
     let token = _getToken(req);
     try {
         // check that token is ok (if not, will throw error)
