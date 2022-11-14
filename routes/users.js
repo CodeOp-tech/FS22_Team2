@@ -18,9 +18,8 @@ router.get('/', async function(req, res, next) {
 });
 
 
-// GET one user
+// GET one user - works!
 // Ensure user can only see their own profile
-// QUESTION: On Postman, returns "Unauthorized", even after logging in ("POST" login via postman, returns successfully)
 router.get('/:userId', ensureSameUser, async function(req, res, next) {
   let { userId } = req.params;
   let sql = `SELECT * FROM users WHERE user_id = ${Number(userId)};`
