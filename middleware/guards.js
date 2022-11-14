@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require("../config.js");
 
-// Make sure user logged in
+// Make sure user logged in - works!
 function ensureUserLoggedIn(req, res, next) {
     let token = _getToken(req);
     try {
@@ -20,7 +20,6 @@ function ensureSameUser(req, res, next) {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
         // if token is ok, check that user id matches
-        console.log(payload, "*************");
         if (payload.userId === Number(req.params.userId)) {
         // if okay, will proceed; else will throw error
             next();
