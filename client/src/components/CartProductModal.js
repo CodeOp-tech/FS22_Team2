@@ -1,3 +1,4 @@
+// Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
 // NOTE: CartProductModal is a child/lives within the NavbarShop component
 
 import React, { useContext } from "react";

@@ -79,7 +79,8 @@ function App() {
             id: id, // id is the product id that was passed from child ProductCard
             quantity: 1,
             name: product.product_name,
-            price: product.price
+            price: product.price,
+            stripe_id: product.stripe_product_id
           },
         ]
       );

@@ -1,5 +1,7 @@
+// Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
+
 var express = require('express');
-const stripe = require('stripe');
+const stripe = require('stripe')('pk_test_51M44XcBIwndE5957AFPxf2L7EGzX9EjVFN44RHmf7y1tcKRePIRn1VTbWbc4iqKKFC6gVwEECkkYnDmWQA5kqXHc00E4SmyYoB');
 var router = express.Router();
 
 router.post('/checkout', async function(req, res,) { 
@@ -22,13 +24,13 @@ router.post('/checkout', async function(req, res,) {
     */
 
     console.log(req.body);
-    
-    const items = req.body.items;
+
+    const items = req.body.items; // take the items passed from front-end, NavbarShop
     let lineItems = []; // what Stripe calls items for API call
-    items.forEach((item) => {
+    items.forEach((item) => { // take the items and make them into a format that Stripe understands
         lineItems.push(
             {
-                price: item.id,
+                price: item.stripe_id, // Stripe wants the id it provides, sent over in a price field
                 quantity: item.quantity
             }
         )
@@ -49,5 +51,6 @@ router.post('/checkout', async function(req, res,) {
 
   });
 
+  app.listen(5000, () => console.log("Listening on port 5000")) // demo is 4000
 
 module.exports = router;
