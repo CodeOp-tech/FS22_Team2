@@ -1,33 +1,84 @@
-DROP TABLE IF EXISTS skateMoves;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS shops;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS purchases;
+DROP TABLE IF EXISTS purchased_items;
 
-
-CREATE TABLE skateMoves(
-    id INT NOT NULL PRIMARY KEY,
-    level VARCHAR(255),
-    name VARCHAR(255),
-    video VARCHAR(255),
-    category VARCHAR(255),
-    description VARCHAR(500)
+CREATE TABLE `users` (
+	`user_id` INT NOT NULL AUTO_INCREMENT,
+	`username` varchar(30) NOT NULL UNIQUE,
+	`password` varchar(100) NOT NULL,
+	`email` varchar(100) NOT NULL,
+	`user_points` INT,
+	`shop_id` INT,
+	PRIMARY KEY (`user_id`)
 );
 
-INSERT INTO skateMoves (id, level, name, video, category, description)
-VALUES (1, "Beginner", "PloughStop","vTransition.mp4", "stops", "Plow/plough stop is a must-have skill for any roller skater. It is one of the basics method of stopping, the first one to learn before t-stop and turn-around toe stop."),
-(2, "Intermediate", "TStop","tStop.mp4", "stops", "The T-stop is a very easy and effective way to come to a full halt."),
-(3, "Advanced", "ToeStop", "toeStop.mp4", "stops", "The toe stops come in handy for much more than breaking. By mastering these 5 techniques your life as a roller skater will become much easier and fun.Using the toe stop as a break takes a little to get used to. But by using the instructions in this video, you’ll get the hold of it in no time."),
-(4, "Beginner", "VTransition", "vTransition.mp4", "transitions", "this move does not take that long to learn and master.If you are having trouble maintaining balance with this transition, hold your arms out to the side. This will prevent you from falling over to one side and maintain a good, set balance."),
-(5, "Intermediate", "PivotTransition", "pivotTransition.mp4", "transitions", "Now this one can be a little bit scary if you're going at speed to transition. Take it slow and steady!"),
-(6, "Advanced", "ManualTransition", "manuelTransition.mp4", "transitions", "staggering the feet is the most important step,The trick is to look forward while coming into the jump, and keep looking the same way after you jump, No need to turn your head.");
+CREATE TABLE `shops` (
+	`shop_id` INT NOT NULL AUTO_INCREMENT,
+	`shop_name` varchar(255) NOT NULL,
+	`shop_address` varchar(255) NOT NULL UNIQUE,
+	`shop_description` varchar(255) NOT NULL,
+	`shop_image` varchar(255) NOT NULL,
+	`website` varchar(255),
+	`phone` varchar(255),
+	`shop_email` varchar(255),
+	`shop_points` INT,
+	PRIMARY KEY (`shop_id`)
+);
 
--- CREATE TABLE cats(
---     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
---     name VARCHAR(100),
---     video VARCHAR(100),
---     category VARCHAR(100)
--- );
--- INSERT INTO cats (id,  name, video, category)
--- VALUES (1, "beginner", "ploughStop","vTransition.mp4", "stops"),
--- (2, "intermediate", "tStop","tStop.mp4", "stops"),
--- (3, "advanced", "toeStop", "toeStop.mp4", "stops"),
--- (4, "beginner", "vTransition", "vTransition.mp4", "transitions"),
--- (5, "intermediate", "pivotTransition", "pivotTransition.mp4", "transitions"),
--- (6, "advanced", "manuelTransition", "manuelTransition.mp4", "transitions");
+INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
+VALUES
+('Shop One', 'Shop One Address', 'Shop One is the Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopone.com', '12345678', 'shopone@one.com', 100),
+('Shop Two', 'Shop Two Address', 'Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0);
+
+CREATE TABLE `products` (
+	`product_id` INT NOT NULL AUTO_INCREMENT,
+	`product_name` varchar(255) NOT NULL,
+	`price` FLOAT NOT NULL,
+	`product_image` varchar(255) NOT NULL,
+	`product_quantity` INT NOT NULL,
+	`product_description` varchar(255) NOT NULL,
+	`shop_id` INT NOT NULL,
+	PRIMARY KEY (`product_id`)
+);
+
+INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
+VALUES 
+('Coffee', 5.99, 'https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg', 20, 'Coffee brewed and served fresh in-store', 1),
+('Sunglasses', 10.99, 'https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c3VuZ2xhc3Nlc3xlbnwwfHwwfHw%3D&w=1000&q=80', 10, 'Fancy sunglasses', 2),
+('Camera', 59.99, 'https://t3.ftcdn.net/jpg/00/79/36/04/360_F_79360425_13tH0FGR7nYTNlXWKOWtLmzk7BAikO1b.jpg', 50, 'The best camera around', 2);
+
+CREATE TABLE `purchases` (
+	`purchase_id` INT NOT NULL AUTO_INCREMENT,
+	`purchase_date` DATETIME NOT NULL,
+	`purchase_sum` FLOAT NOT NULL,
+	`user_id` INT NOT NULL,
+	PRIMARY KEY (`purchase_id`)
+);
+
+CREATE TABLE `purchased_items` (
+	`purchased_items_id` INT NOT NULL AUTO_INCREMENT,
+	`purchase_quantity` INT NOT NULL,
+	`purchase_id` INT NOT NULL,
+	`product_id` INT NOT NULL,
+	`shop_id` INT NOT NULL,
+	PRIMARY KEY (`purchased_items_id`)
+);
+
+ALTER TABLE `users` ADD CONSTRAINT `users_fk0` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
+
+ALTER TABLE `products` ADD CONSTRAINT `products_fk0` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
+
+ALTER TABLE `purchases` ADD CONSTRAINT `purchases_fk0` FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`);
+
+ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk0` FOREIGN KEY (`purchase_id`) REFERENCES `purchases`(`purchase_id`);
+
+ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk1` FOREIGN KEY (`product_id`) REFERENCES `products`(`product_id`);
+
+ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk2` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
+
+
+
+
+
