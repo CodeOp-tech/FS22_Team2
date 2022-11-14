@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // import necessary as it has the stylesheets necessary for Bootstrap components
 import { Container } from "react-bootstrap"; // wraps entire application to sit more centered of screen
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"; // BrowserRouter = the overarching router
+import { Routes, Route, useNavigate } from "react-router-dom"; // BrowserRouter = the overarching router
 import Cancel from "./views/Cancel";
 import ShopView from "./views/ShopView";
 import Success from "./views/Success";
@@ -187,7 +187,7 @@ function App() {
 
       <Container>
         <CartContext.Provider value={contextObjCart}>
-          <BrowserRouter>
+          {/* <BrowserRouter> */}
             <Navbar 
               user={user} 
               logoutCb={doLogout} 
@@ -239,7 +239,7 @@ function App() {
               />} 
             />
             </Routes>
-          </BrowserRouter>
+          {/* </BrowserRouter> */}
         </CartContext.Provider>
       </Container>
     </div>
