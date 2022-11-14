@@ -49,30 +49,48 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
   });
 
 // POST create new shop
-router.post('/new/userId', async function(req, res, next) {
+router.post('/new/:userId', async function(req, res, next) {
 // add new shop (auto-increment, add all other fields, preset points to 0)
 let { userId } = req.params;
 let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email } = req.body;
+
+let sqlPost = `
+    INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
+    VALUES ("${shop_name}", "${shop_address}", "${shop_description}", "${shop_image}", "${website}", "${phone}", "${shop_email}", 0);
+    SELECT LAST_INSERT_ID()
+`
 let sqlJoin = `
     SELECT users.*, shops.*
     FROM users
     LEFT JOIN shops on users.shop_id = shops.shop_id
     WHERE user_id = ${Number(userId)}
 `
-let sqlPost = `
-    INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
-    VALUES (${shop_name}, ${shop_address}, ${shop_description}, ${shop_image}, ${website}, ${phone}, ${shop_email}, 0)
-`
 // add shop_id to user record
-let sqlPut = `
-    INSERT INTO users (shop_id)
-    VALUES (${LAST_INSERT_ID()})
+// let sqlPut = `
+//     INSERT INTO users (shop_id)
+//     VALUES (${newShop})
+//     WHERE user_id = ${Number(userId)}
+// `
+try {
+    let postResults = await db(sqlPost);
+    console.log(postResults);
+    let newShop = postResults.data[0].insertId;
+    console.log(newShop);
+    let putResults = await db(
+        `
+    UPDATE users SET shop_id=${newShop}
     WHERE user_id = ${Number(userId)}
-`
+    `);
+    let joinResults = await db(sqlJoin);
+    res.send(joinResults.data[0]);
+    //res.send("hey");
+      } catch (err) {
+        res.status(500).send({ error: err.message })
+      }
 });
 
 
-// PUT edit shop info
+// PUT edit shop info - works!
 router.put("/edit/:shopId", async (req, res) => { 
     let shopId  = req.params.shopId;
     let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email } = req.body;
