@@ -23,7 +23,7 @@ router.get('/', async function(req, res, next) {
 // QUESTION: On Postman, returns "Unauthorized", even after logging in ("POST" login via postman, returns successfully)
 router.get('/:userId', ensureSameUser, async function(req, res, next) {
   let { userId } = req.params;
-  let sql = `SELECT * FROM users WHERE user_id == ${userId};`
+  let sql = `SELECT * FROM users WHERE user_id = ${Number(userId)};`
 
   try {
     let results = await db(sql);
