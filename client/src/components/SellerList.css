@@ -1,0 +1,16 @@
+.card img{
+    width: 130px;
+    border: solid rgba(0, 128, 0, 0.514);
+    border-radius: 10px;
+    margin-top: 5px;
+    
+}
+
+.card{
+    border:solid rgba(237, 84, 37, 0.279);
+    border-radius: 20px;
+    width: 150px;
+    text-align: center;
+    margin-left: 100px;
+    padding: 10px;
+}
