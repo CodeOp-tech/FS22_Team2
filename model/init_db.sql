@@ -4,29 +4,34 @@ DROP TABLE IF EXISTS shops;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS purchases;
 DROP TABLE IF EXISTS purchased_items;
-SET FOREIGN_KEY_CHECKS=1;
 
-CREATE TABLE `users` (
-	`user_id` INT NOT NULL AUTO_INCREMENT,
-	`username` varchar(30) NOT NULL UNIQUE,
-	`password` varchar(100) NOT NULL,
-	`email` varchar(100) NOT NULL,
-	`user_points` INT,
-	`shop_id` INT,
-	PRIMARY KEY (`user_id`)
+CREATE TABLE users (
+	user_id INT NOT NULL AUTO_INCREMENT,
+	username varchar(30) NOT NULL UNIQUE,
+	password varchar(100) NOT NULL,
+	email varchar(100) NOT NULL,
+	user_points INT,
+	shop_id INT,
+	PRIMARY KEY (user_id)
 );
 
-CREATE TABLE `shops` (
-	`shop_id` INT NOT NULL AUTO_INCREMENT,
-	`shop_name` varchar(255) NOT NULL,
-	`shop_address` varchar(255) NOT NULL UNIQUE,
-	`shop_description` varchar(255) NOT NULL,
-	`shop_image` varchar(255) NOT NULL,
-	`website` varchar(255),
-	`phone` varchar(255),
-	`shop_email` varchar(255),
-	`shop_points` INT,
-	PRIMARY KEY (`shop_id`)
+INSERT INTO users (username, password, email, user_points, shop_id)
+VALUES 
+('user1_buyer', '$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W', 'user1@msb.inc', 0, null),
+('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'user2@msb.inc', 0, 1),
+('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 3);
+
+CREATE TABLE shops (
+	shop_id INT NOT NULL AUTO_INCREMENT,
+	shop_name varchar(255) NOT NULL,
+	shop_address varchar(255) NOT NULL UNIQUE,
+	shop_description varchar(255) NOT NULL,
+	shop_image varchar(255) NOT NULL,
+	website varchar(255),
+	phone varchar(255),
+	shop_email varchar(255),
+	shop_points INT,
+	PRIMARY KEY (shop_id)
 );
 
 INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
@@ -80,6 +85,8 @@ ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk0` FOREIGN KEY (
 ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk1` FOREIGN KEY (`product_id`) REFERENCES `products`(`product_id`);
 
 ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk2` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
+
+SET FOREIGN_KEY_CHECKS=1;
 
 
 

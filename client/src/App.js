@@ -187,7 +187,6 @@ function App() {
 
       <Container>
         <CartContext.Provider value={contextObjCart}>
-          {/* <BrowserRouter> */}
             <Navbar 
               user={user} 
               logoutCb={doLogout} 
@@ -239,7 +238,6 @@ function App() {
               />} 
             />
             </Routes>
-          {/* </BrowserRouter> */}
         </CartContext.Provider>
       </Container>
     </div>
