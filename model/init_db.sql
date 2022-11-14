@@ -11,10 +11,9 @@ CREATE TABLE users (
 
 INSERT INTO users (username, password, user_email, user_points, shop_id)
 VALUES 
- ('user1-buyer', 'pass1', 'buyer1@msb.inc', 0, null),
- ('user2-seller', 'pass2', 'seller1@msb.inc', 0, 1),
- ('user3-seller', 'pass3', 'seller1@msb.inc', 0, 2);
-
+ ('user1_buyer', '$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W', 'buyer1@msb.inc', 0, null),
+ ('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'seller1@msb.inc', 0, 1),
+ ('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'seller1@msb.inc', 0, 2);
 
 DROP TABLE IF EXISTS shops;
 CREATE TABLE shops (
@@ -34,3 +33,5 @@ INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, websit
 VALUES
 ('Shop One', 'Shop One Address', 'Shop One is the Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopone.com', '12345678', 'shopone@one.com', 100),
 ('Shop Two', 'Shop Two Address', 'Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0);
+
+
