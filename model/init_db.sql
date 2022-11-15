@@ -73,7 +73,7 @@ INSERT INTO purchases (purchase_date, purchase_sum, purchase_points, user_id)
 VALUES
 ('Wed Jul 28 2022 14:39', 5, 10, 1),
 ('Sun Sept 12 2022 10:05', 50, 80, 1),
-('Sat November 02 2022 12:23', 555, 120, 2);
+('Sat Nov 02 2022 12:23', 555, 120, 2);
 
 
 CREATE TABLE `purchased_items` (
