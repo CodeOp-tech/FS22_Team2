@@ -12,7 +12,7 @@ function BuyerPurchaseView() {
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">Date</th>
+                <th scope="col">Date & Time</th>
                 <th scope="col">Shop</th>
                 <th scope="col">Product</th>
                 <th scope="col">Price</th>
@@ -42,7 +42,7 @@ function BuyerPurchaseView() {
                         <td>{purchasedItemsByUser.combo[0].productName}</td>
                         <td>{purchasedItemsByUser.combo[0].price}</td>
                         <td>{purchasedItemsByUser.quantity}</td>
-                        <td>{purchasedItemsByUser.combo[0].price * purchasedItemsByUser.quantity} </td>
+                        <td>{(purchasedItemsByUser.combo[0].price * purchasedItemsByUser.quantity).toFixed(2)} </td>
                         <td>{purchasedItemsByUser.combo[0].points}</td>
                  </tr>
                     
@@ -53,7 +53,7 @@ function BuyerPurchaseView() {
                         <td>{purchasedItemsByUser.combo[1].productName}</td>
                         <td>{purchasedItemsByUser.combo[1].price}</td>
                         <td>{purchasedItemsByUser.quantity}</td>
-                        <td>{purchasedItemsByUser.combo[1].price * purchasedItemsByUser.quantity} </td>
+                        <td>{(purchasedItemsByUser.combo[1].price * purchasedItemsByUser.quantity).toFixed(2)} </td>
                         <td>{purchasedItemsByUser.combo[1].points}</td>
                 </tr>
             </tbody>
