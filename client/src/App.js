@@ -26,6 +26,7 @@ function App() {
   const [productData, setProductData] = useState([]); // useState 3 (populates only upon adding to cart)
   const [user, setUser] = useState(Local.getUser()); // useState 4
   const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -120,7 +121,6 @@ function App() {
             name: product.product_name,
             price: product.price,
             stripe_id: product.stripe_product_id
-
           },
         ]
       );
@@ -173,6 +173,15 @@ function App() {
       })
     );
   }
+
+  // async function getPurchasedItems() {
+  //   let myresponse = await Api.getPurchasedItems();
+  //   if (myresponse.ok) {
+  //     setPurchasedItems(myresponse.data);
+  //   } else {
+  //     setError(myresponse.error);
+  //   }
+  // }
 
   /* ---Context Objects--- */
 

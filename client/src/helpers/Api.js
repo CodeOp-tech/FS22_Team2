@@ -1,30 +1,8 @@
 import Local from './Local.js';
 
 class Api {
-    // Log in a user
-    static async loginUser(username, password) {
-        let body = { username, password };
-
-        return await this._doFetch('/login', 'POST', body);
-    }
-
-    // GET all users
-    static async getUsers() {
-        return await this._doFetch('/users');
-    }
-
-    // GET user by id
-    static async getUser(userId) {
-        return await this._doFetch(`/users/${userId}`);
-    }
-
-    // GET general private content (members-only access pages, etc.)
-    static async getContent(url) {
-        return await this._doFetch(url);
-    }
-
-    // _doFetch method - internal use only, to user in other functions
-    static async _doFetch(url, method = 'GET', body = null) {
+     // _doFetch method - internal use only, to user in other functions
+     static async _doFetch(url, method = 'GET', body = null) {
         // prep fetch options
         let options = {
             method,
@@ -66,6 +44,39 @@ class Api {
         }
         return myresponse;
     }
+
+    // Log in a user
+    static async loginUser(username, password) {
+        let body = { username, password };
+
+        return await this._doFetch('/login', 'POST', body);
+    }
+
+    // GET all users
+    static async getUsers() {
+        return await this._doFetch('/users');
+    }
+
+    // GET user by id
+    static async getUser(userId) {
+        return await this._doFetch(`/users/${userId}`);
+    }
+
+    // GET general private content (members-only access pages, etc.)
+    static async getContent(url) {
+        return await this._doFetch(url);
+    }
+
+    // GET purchased items
+    static async getPurchasedItems() {
+        return await this._doFetch('/purchased_items');
+    }
+
+    // GET purchased items by user id
+    static async getPurchasedItemsByUser(user_id) {
+        return await this._doFetch(`/purchased_items/${user_id}`);
+    }
+
 }
 
 export default Api;

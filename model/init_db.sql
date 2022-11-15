@@ -64,9 +64,17 @@ CREATE TABLE `purchases` (
 	`purchase_id` INT NOT NULL AUTO_INCREMENT,
 	`purchase_date` DATETIME NOT NULL,
 	`purchase_sum` FLOAT NOT NULL,
+	`purchase_points` INT,
 	`user_id` INT NOT NULL,
 	PRIMARY KEY (`purchase_id`)
 );
+
+INSERT INTO purchases (purchase_date, purchase_sum, purchase_points, user_id)
+VALUES
+('2022-01-19 15:14:07.999999', 5, 10, 1),
+('2022-08-24 09:35:45.999999', 50, 80, 1),
+('2022-09-08 11:43:50.999999', 555, 120, 2);
+
 
 CREATE TABLE `purchased_items` (
 	`purchased_items_id` INT NOT NULL AUTO_INCREMENT,
@@ -76,6 +84,12 @@ CREATE TABLE `purchased_items` (
 	`shop_id` INT NOT NULL,
 	PRIMARY KEY (`purchased_items_id`)
 );
+
+INSERT INTO purchased_items (purchase_quantity, purchase_id, product_id, shop_id)
+VALUES
+(1, 1, 1, 1),
+(10, 2, 2, 2),
+(5, 3, 3, 2);
 
 ALTER TABLE `users` ADD CONSTRAINT `users_fk0` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
 
