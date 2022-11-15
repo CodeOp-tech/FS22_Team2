@@ -67,6 +67,20 @@ class Api {
         return await this._doFetch(url);
     }
 
+     // ADD/POST purchases 
+     static async addPurchases(purchase_date, purchase_sum, purchase_points, user_id) {
+        let body = {purchase_date, purchase_sum, purchase_points, user_id };
+
+        return await this._doFetch('/purchases', 'POST', body);
+    }
+
+    // ADD/POST purchased_items
+    static async addPurchasedItems(purchase_quantity, purchase_id, product_id, shop_id) {
+        let body = {purchase_quantity, purchase_id, product_id, shop_id };
+
+        return await this._doFetch('/purchased_items', 'POST', body);
+    }
+
     // GET purchased items
     static async getPurchasedItems() {
         return await this._doFetch('/purchased_items');

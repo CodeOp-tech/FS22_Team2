@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-
 function NavBar(props) {
+
     return (
         <nav className="Navbar navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: 'teal' }}>
             <div className="container-fluid">
@@ -18,9 +18,25 @@ function NavBar(props) {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
-                        <li>
-                            <NavLink className="nav-link" to="/shop">Shop</NavLink>
-                        </li>
+
+                         {/* Only show "Shop" if user is logged in */}
+                         {
+                            props.user && (
+                                <li>
+                                    <NavLink className="nav-link" to="/shop">Shop</NavLink>
+                                </li>
+                            )
+                        }
+                        
+                        {/* Only show "Customer Purchase History" if user is logged in */}
+                        {
+                            props.user && (
+                                <li>
+                                    <NavLink className="nav-link" to="/customer_purchases">Purchase History</NavLink>
+                                </li>
+                            )
+                        }
+
                         {/* Only show "Members Only" if user is logged in */}
                         {
                             props.user && (

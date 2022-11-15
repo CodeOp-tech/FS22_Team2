@@ -17,8 +17,9 @@ import PrivateRoute from "./components/PrivateRoute";
 import UserProfileView from "./views/UserProfileView.js";
 import LoginView from "./views/LoginView.js";
 import ErrorView from "./views/ErrorView";
-import logo from "./logo.svg";
 import HomeView from "./views/HomeView";
+import BuyerPurchaseView from "./views/BuyerPurchaseView";
+import SellerPurchaseView from "./views/SellerPurchaseView";
 
 function App() {
   const [products, setProducts] = useState([]); // useState 1 (products fetched from database upon page render)
@@ -27,11 +28,13 @@ function App() {
   const [user, setUser] = useState(Local.getUser()); // useState 4
   const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
   const [error, setError] = useState("");
+  const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getProducts();
+    getPurchasedItemsByUser();
   }, []);
 
   // log in user
@@ -106,7 +109,19 @@ function App() {
     // individual product info is called from the getProductData function
     // so that we can add the name and price field to the cartProducts objects
     const product = getProductData(id);
+    const newQuantity = product.product_quantity - 1;
     console.log(product);
+    console.log(newQuantity);
+
+    // NOTE: Update total quantity available for product
+    setProducts(
+      products.map(
+        (product) => 
+        product.product_id === id
+        ? {...product, product_quantity: newQuantity}
+        : product))
+
+    console.log(products);
 
     if (quantity === 0) {
       // product is not in cart
@@ -183,18 +198,49 @@ function App() {
   //   }
   // }
 
+  // URGENT NOTE: WORK IN PROGRESS
+  async function addPurchases(purchase_date, purchase_sum, purchase_points, user_id) {
+    let myresponse = await Api.addPurchases(`${new Date.toDateString()}`, `${Local.getUserId()}` );
+    if (myresponse.ok) {
+      setPurchasedItemsByUser(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  };
+
+  // URGENT NOTE: WORK IN PROGRESS
+  async function addPurchasedItems(purchase_quantity, purchase_id, product_id, shop_id) {
+    let myresponse = await Api.addPurchasedItems();
+    if (myresponse.ok) {
+      setPurchasedItemsByUser(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  };
+
+  async function getPurchasedItemsByUser(user_id) {
+    let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId());
+    if (myresponse.ok) {
+      setPurchasedItemsByUser(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  };
+
   /* ---Context Objects--- */
 
   const contextObjCart = {
     products,
     cartProducts,
     productData,
+    purchasedItemsByUser,
     getProductDataCb: getProductData,
     getProductQuantityCb: getProductQuantity,
     addOneToCartCb: addOneToCart,
     removeOneFromCartCb: removeOneFromCart,
     deleteFromCartCb: deleteFromCart,
     getTotalCostCb: getTotalCost,
+    getPurchasedItemsByUserCb: getPurchasedItemsByUser
   };
 
   return (
@@ -220,6 +266,9 @@ function App() {
             {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
             <Route path="success" element={<Success />} />
             <Route path="cancel" element={<Cancel />} />
+            
+            <Route path="customer_purchases" element={<BuyerPurchaseView />} />
+            <Route path="seller_purchases" element={<SellerPurchaseView />} />
 
             <Route
               path="/users/userId"
