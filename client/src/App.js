@@ -17,31 +17,32 @@ import PrivateRoute from "./components/PrivateRoute";
 import UserProfileView from "./views/UserProfileView.js";
 import LoginView from "./views/LoginView.js";
 import ErrorView from "./views/ErrorView";
-import logo from './logo.svg';
+import logo from "./logo.svg";
+import HomeView from "./views/HomeView";
 
 function App() {
   const [products, setProducts] = useState([]); // useState 1 (products fetched from database upon page render)
   const [cartProducts, setCartProducts] = useState([]); // useState 2 (populates only upon adding to cart)
   const [productData, setProductData] = useState([]); // useState 3 (populates only upon adding to cart)
   const [user, setUser] = useState(Local.getUser()); // useState 4
-  const [loginErrorMessage, setLoginErrorMessage] = useState(''); // useState 5
-  
+  const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
+
   const navigate = useNavigate();
 
   useEffect(() => {
     getProducts();
   }, []);
-  
+
   // log in user
   async function doLogin(username, password) {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
       Local.saveUserInfo(myResponse.data.token, myResponse.data.user);
       setUser(myResponse.data.user);
-      setLoginErrorMessage('');
-      navigate('/');
+      setLoginErrorMessage("");
+      navigate("/");
     } else {
-      setLoginErrorMessage('Login failed');
+      setLoginErrorMessage("Login failed");
     }
   }
 
@@ -70,8 +71,9 @@ function App() {
 
   // NOTE: Because products live within products table, to access individual product information
   // we do so via "products" state (which is fetched from getProducts function above)
-  function getProductData(id) { // id (ie. product.product_id) passed from child ProductCard 
-    let productData = products.find((product) => product.product_id === id); 
+  function getProductData(id) {
+    // id (ie. product.product_id) passed from child ProductCard
+    let productData = products.find((product) => product.product_id === id);
     // once products state is set, can find productData for each product
 
     if (productData === undefined) {
@@ -80,10 +82,11 @@ function App() {
     }
     setProductData(productData);
     // must return productData in order for it to be used in addOneToCart function
-    return productData; 
+    return productData;
   }
 
-  function getProductQuantity(id) { // id (ie. product.product_id) passed from child ProductCard 
+  function getProductQuantity(id) {
+    // id (ie. product.product_id) passed from child ProductCard
     const quantity = cartProducts.find(
       (product) => product.id === id
     )?.quantity; // if we find the product with a certain id, we want to know it's quantity (cartProducts array which consists objects made up of id and quantity)
@@ -96,11 +99,12 @@ function App() {
     }
   }
 
-  function addOneToCart(id) { // id (ie. product.product_id) passed from child ProductCard 
-    const quantity = getProductQuantity(id); 
+  function addOneToCart(id) {
+    // id (ie. product.product_id) passed from child ProductCard
+    const quantity = getProductQuantity(id);
     // individual product info is called from the getProductData function
     // so that we can add the name and price field to the cartProducts objects
-    const product = getProductData(id); 
+    const product = getProductData(id);
     console.log(product);
 
     if (quantity === 0) {
@@ -114,7 +118,9 @@ function App() {
             id: id, // id is the product id that was passed from child ProductCard
             quantity: 1,
             name: product.product_name,
-            price: product.price
+            price: product.price,
+            stripe_id: product.stripe_product_id
+
           },
         ]
       );
@@ -131,7 +137,8 @@ function App() {
     }
   }
 
-  function removeOneFromCart(id) { // id (ie. product.product_id) passed from child ProductCard 
+  function removeOneFromCart(id) {
+    // id (ie. product.product_id) passed from child ProductCard
     const quantity = getProductQuantity(id);
 
     if (quantity === 1) {
@@ -157,7 +164,8 @@ function App() {
     return totalCost;
   }
 
-  function deleteFromCart(id) { // id (ie. product.product_id) passed from child ProductCard 
+  function deleteFromCart(id) {
+    // id (ie. product.product_id) passed from child ProductCard
     // filter = [] if an object meets a condition, add the object to array
     setCartProducts((cartProducts) =>
       cartProducts.filter((currentProduct) => {
@@ -182,62 +190,55 @@ function App() {
 
   return (
     <div className="App">
-
-   
-
       <Container>
         <CartContext.Provider value={contextObjCart}>
-            <Navbar 
-              user={user} 
-              logoutCb={doLogout} 
-             />
-                
-            <Routes>
-              <Route 
-                path="/" 
-                element={<h1>Home</h1>} 
-              />
-                         
-              <Route
-                path="shop"
-                element={
-                  <ShopView
-                    products={products}
-                    // getProductsCb={(shop_id) => getProducts(shop_id)}
-                  />
-                }
-              />
-             
-              {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
-              <Route path="success" element={<Success />} />
-              <Route path="cancel" element={<Cancel />} />
-                
-              <Route 
-                path ="/users/userId" 
-                element={
+
+          <Navbar user={user} logoutCb={doLogout} />
+
+          <Routes>
+            <Route path="/" element={<HomeView />} />
+
+            <Route
+              path="shop"
+              element={
+                <ShopView
+                  products={products}
+                  // getProductsCb={(shop_id) => getProducts(shop_id)}
+                />
+              }
+            />
+
+            {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
+            <Route path="success" element={<Success />} />
+            <Route path="cancel" element={<Cancel />} />
+
+            <Route
+              path="/users/userId"
+              element={
+              
                 <PrivateRoute>
                   <UserProfileView />
                 </PrivateRoute>
-                } 
-               />
+              }
+            />
 
-            <Route 
-              path="/login" 
+            <Route
+              path="/login"
               element={
-              <LoginView 
-                loginCb={(u, p) => doLogin(u, p)} 
-                loginError={loginErrorMessage} 
-              />}
+                <LoginView
+                  loginCb={(u, p) => doLogin(u, p)}
+                  loginError={loginErrorMessage}
+                />
+              }
             />
 
-            <Route 
-              path="*" 
-              element={<ErrorView 
-                code="404" 
-                text="Page not found" 
-              />} 
+            <Route
+              path="*"
+              element={<ErrorView code="404" text="Page not found" />}
             />
-            </Routes>
+
+          </Routes>
+
         </CartContext.Provider>
       </Container>
     </div>
