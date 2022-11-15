@@ -119,6 +119,8 @@ function App() {
             quantity: 1,
             name: product.product_name,
             price: product.price,
+            stripe_id: product.stripe_product_id
+
           },
         ]
       );

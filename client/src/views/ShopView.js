@@ -1,3 +1,5 @@
+// Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
+
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import NavbarShop from '../components/NavbarShop';
