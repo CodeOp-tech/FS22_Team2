@@ -18,8 +18,8 @@ function NavBar(props) {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/users">Users</NavLink>
+                        <li>
+                            <NavLink className="nav-link" to="/shop">Shop</NavLink>
                         </li>
                         {/* Only show "Members Only" if user is logged in */}
                         {
