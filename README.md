@@ -7,6 +7,11 @@ In your terminal:
 
 - `cd client` and run `npm install`. This will install React client dependencies.
 
-- still in your client folder, run `npm install react-router-dom@6` to install React Router
-
-- `cd ..` back to your project directory and run `npm install bcrypt`, then `npm install jsonwebtoken` for authentication and authorization dependencies.
+### Database
+- CREATE DATABASE msb
+- in server folder, create .env file containing:
+`DB_HOST=localhost
+DB_NAME=msb
+DB_USER=root
+DB_PASS=[your password]
+SECRET_KEY=[your secret key]`
