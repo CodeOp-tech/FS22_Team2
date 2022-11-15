@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
+const { ensureSameUser } = require('../middleware/guards');
 
 // GET ALL PRODUCTS REGARDLESS OF STORE
 router.get('/', async function(req, res,) { 
@@ -15,6 +16,7 @@ router.get('/', async function(req, res,) {
   });
 
 // GET PRODUCTS BASED OFF STORE ID
+// NOTE: Doesn't need protection b/c just to display products; can't edit
   router.get('/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
 // which is passed from front end fetch at...
     let id = req.params.shop_id;
@@ -30,8 +32,11 @@ router.get('/', async function(req, res,) {
   });
 
   // ADD PRODUCT BASED OFF STORE ID
-  router.post("/", async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below
+  // PROTECTED - need to make sure shop owner is the only one who can add products
+  // QUESTION: Need to do a left join to tie userId to store_id to product_id
+  router.post("/:userId", ensureSameUser, async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below
     let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
+    let { userId } = req.params;
   
     let sql = `
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
@@ -49,7 +54,9 @@ router.get('/', async function(req, res,) {
   });
 
   // EDIT PRODUCT BASED OFF PRODUCT ID (shop_id passed in req.body)
-  router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
+  // NOTE: Protected b/c need to make sure shop owner is the only one who can edit products
+  // QUESTION: Is this enough? Do we need to do any kind of check to make sure user is also shop owner?
+  router.put("/:product_id/user_id", async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
     let id  = req.params.product_id;
     let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
    
