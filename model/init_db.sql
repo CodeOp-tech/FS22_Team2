@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS shops;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS purchases;
 DROP TABLE IF EXISTS purchased_items;
-SET FOREIGN_KEY_CHECKS=1;
+
 
 CREATE TABLE `users` (
 	`user_id` INT NOT NULL AUTO_INCREMENT,
@@ -83,6 +83,7 @@ ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk1` FOREIGN KEY (
 
 ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk2` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
 
+SET FOREIGN_KEY_CHECKS=1;
 
 
 

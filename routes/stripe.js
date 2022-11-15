@@ -51,6 +51,6 @@ router.post('/checkout', async function(req, res,) {
 
   });
 
-  app.listen(5000, () => console.log("Listening on port 5000")) // demo is 4000
+//   app.listen(5000, () => console.log("Listening on port 5000")) // demo is 4000
 
 module.exports = router;
