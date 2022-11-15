@@ -13,9 +13,29 @@ class Api {
         return await this._doFetch('/users');
     }
 
-    // GET user by id
+    // GET user by id (PROTECTED)
     static async getUser(userId) {
         return await this._doFetch(`/users/${userId}`);
+    }
+
+    // GET all shops
+    static async getAllShops() {
+        return await this._doFetch('/shops');
+    }
+    
+    // GET shop by shop_id
+    static async getShopProfile() {
+        return await this._doFetch(`/shops/profile/${shop_id}`);
+    }
+
+    // GET shop by owner's user_id (PROTECTED)
+    static async getUserShop(user_id) {
+        return await this._doFetch(`/shops/${user_id}`);
+    }
+
+    // POST create new shop (PROTECTED)
+    static async createShop() {
+        return await this._doFetch(`/shops/new/${user_id}`);
     }
 
     // GET general private content (members-only access pages, etc.)

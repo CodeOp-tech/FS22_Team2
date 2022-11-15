@@ -26,6 +26,7 @@ function App() {
   const [productData, setProductData] = useState([]); // useState 3 (populates only upon adding to cart)
   const [user, setUser] = useState(Local.getUser()); // useState 4
   const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
+  const [shop, setShop] = useState(Local.getShop());// useState 6
 
   const navigate = useNavigate();
 

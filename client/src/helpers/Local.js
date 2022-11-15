@@ -11,6 +11,7 @@ class Local {
     static removeUserInfo() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('userShop'); // added
     }
 
     // get current token
@@ -24,7 +25,7 @@ class Local {
         return userjson ? JSON.parse(userjson) : null;
     }
 
-    // get current user info (if there is one) - QUESTION: besides string vs. null, how is this different from above?
+    // get current user Id
     static getUserId() {
         let userjson = localStorage.getItem('user');
         if (!userjson) {
@@ -32,7 +33,7 @@ class Local {
         }
 
         let user = JSON.parse(userjson);
-        return user.id;
+        return user.user_id;
     }
 
     static getUsername() {
@@ -43,6 +44,18 @@ class Local {
 
         let user = JSON.parse(userjson);
         return user.username;
+    }
+
+    // if user has a shop, save it to localStorage
+    static saveUserShop(token, user) {
+        // localStorage.setItem('token', token);
+        // localStorage.setItem('user', JSON.stringify(user));
+    }
+    
+    // get current user's shop info (if there is one logged in/saved in localStorage)
+    static getUserShop() {
+        let shopjson = localStorage.getItem('userShop');
+        return shopjson ? JSON.parse(shopjson) : null;
     }
 
 }
