@@ -22,27 +22,39 @@ function BuyerPurchaseView() {
                 </tr>
             </thead>
             <tbody>
+                {/* {purchasedItemsByUser.map((p) => (
+                     <tr key={p.id}>
+                        <th scope="row">{p.id}</th>
+                        <td>{p.combo[p.id].date}</td>
+                        <td>{p.combo[p.id].shopName}</td>
+                        <td>{p.combo[p.id].productName}</td>
+                        <td>{p.combo[p.id].price}</td>
+                        <td>{p.quantity}</td>
+                        <td>{p.combo[p.id].price * purchasedItemsByUser.quantity} </td>
+                        <td>{p.combo[p.id].points}</td>
+                 </tr>
+                ))} */}
+        
+                    <tr key={purchasedItemsByUser.id}>
+                        <th scope="row">{purchasedItemsByUser.id}</th>
+                        <td>{purchasedItemsByUser.combo[0].date}</td>
+                        <td>{purchasedItemsByUser.combo[0].shopName}</td>
+                        <td>{purchasedItemsByUser.combo[0].productName}</td>
+                        <td>{purchasedItemsByUser.combo[0].price}</td>
+                        <td>{purchasedItemsByUser.quantity}</td>
+                        <td>{purchasedItemsByUser.combo[0].price * purchasedItemsByUser.quantity} </td>
+                        <td>{purchasedItemsByUser.combo[0].points}</td>
+                 </tr>
+                    
                 <tr>
-                    <th scope="row">1</th>
-                    <td>{purchasedItemsByUser.combo[0].date}</td>
-                    <td>{purchasedItemsByUser.combo[0].shopName}</td>
-                    <td>{purchasedItemsByUser.combo[0].productName}</td>
-                    <td>{purchasedItemsByUser.combo[0].price}</td>
-                    <td>{purchasedItemsByUser.quantity}</td>
-                    <td>{purchasedItemsByUser.combo[0].price * purchasedItemsByUser.quantity} </td>
-                    <td>{purchasedItemsByUser.combo[0].points}</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                <th scope="row">2</th>
+                        <td>{purchasedItemsByUser.combo[1].date}</td>
+                        <td>{purchasedItemsByUser.combo[1].shopName}</td>
+                        <td>{purchasedItemsByUser.combo[1].productName}</td>
+                        <td>{purchasedItemsByUser.combo[1].price}</td>
+                        <td>{purchasedItemsByUser.quantity}</td>
+                        <td>{purchasedItemsByUser.combo[1].price * purchasedItemsByUser.quantity} </td>
+                        <td>{purchasedItemsByUser.combo[1].points}</td>
                 </tr>
             </tbody>
         </table>
