@@ -12,7 +12,6 @@ import "./MySlider.css";
 export default function MySlider() {
   return (
     <div style={{ margin: "30px" }}>
-      <h2>react slider</h2>
       <Slider
         autoplay={true}
         autoplaySpeed={3000}

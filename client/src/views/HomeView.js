@@ -4,8 +4,8 @@ import MySlider from "../components/MySlider";
 function HomeView() {
   return (
     <div>
-      <h1>Home!</h1>;
-      <MySlider />;
+      <h1>Home!</h1>
+      <MySlider />
     </div>
   );
 }
