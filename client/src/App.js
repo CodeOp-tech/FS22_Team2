@@ -192,7 +192,7 @@ function App() {
     <div className="App">
       <Container>
         <CartContext.Provider value={contextObjCart}>
-          {/* <BrowserRouter> */}
+
           <Navbar user={user} logoutCb={doLogout} />
 
           <Routes>
@@ -215,6 +215,7 @@ function App() {
             <Route
               path="/users/userId"
               element={
+              
                 <PrivateRoute>
                   <UserProfileView />
                 </PrivateRoute>
@@ -235,8 +236,9 @@ function App() {
               path="*"
               element={<ErrorView code="404" text="Page not found" />}
             />
+
           </Routes>
-          {/* </BrowserRouter> */}
+
         </CartContext.Provider>
       </Container>
     </div>

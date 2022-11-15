@@ -6,7 +6,7 @@ function NavBar(props) {
     return (
         <nav className="Navbar navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: 'teal' }}>
             <div className="container-fluid">
-                <span className="navbar-brand font-weight-bold">AuthAuth</span>
+                <span className="navbar-brand font-weight-bold">MSB, Inc.</span>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -18,8 +18,8 @@ function NavBar(props) {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/users">Users</NavLink>
+                        <li>
+                            <NavLink className="nav-link" to="/shop">Shop</NavLink>
                         </li>
                         {/* Only show "Members Only" if user is logged in */}
                         {
