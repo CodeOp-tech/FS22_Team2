@@ -12,7 +12,7 @@ class Local {
     static removeUserInfo() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        localStorage.removeItem('userShop'); // added
+        localStorage.removeItem('shop'); // added
     }
 
     // get current token
@@ -46,18 +46,23 @@ class Local {
         let user = JSON.parse(userjson);
         return user.username;
     }
-
-    // if user has a shop, save it to localStorage
-    // QUESTION: getUserShop returns a combined object including user & shop info - can we set that whole thing as user info? Do we need to separate? If so, how?
-    static saveUserShop(shop) {
-        // localStorage.setItem('token', token);
-        // localStorage.setItem('user', JSON.stringify(user));
-    }
     
+    /****** SHOP INFO *****/
     // get current user's shop info (if there is one logged in/saved in localStorage)
-    static getUserShop() {
-        let shopjson = localStorage.getItem('userShop');
+    static getShop() {
+        let shopjson = localStorage.getItem('shop');
         return shopjson ? JSON.parse(shopjson) : null;
+    }
+
+    // get current shop id
+    static getShopId() {
+        let shopjson = localStorage.getItem('shop');
+        if (!shopjson) {
+            return '';
+        }
+    
+        let shop = JSON.parse(shopjson);
+        return shop.shop_id;
     }
 
 }

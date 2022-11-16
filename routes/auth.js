@@ -52,18 +52,28 @@ router.post ('/register', async (req,res) => {
 
 
 // Log in user - works!
+// need to add shop info here
 router.post('/login', async (req, res) => {
     let { username, password } = req.body;
 
     try {
         // look for username
-        let results = await db(`SELECT * FROM users WHERE username = '${username}'`);
+        let userResults = await db(`SELECT * FROM users WHERE username = '${username}'`);
         // if username not found, throw error
-        if (results.data.length === 0) {
+        if (userResults.data.length === 0) {
             res.status(401).send({ error: 'Login failed'});
         // else if user does exist, save user info & check if passwords match
         } else {
-            let user = results.data[0];
+            // save user info as object
+            let user = userResults.data[0];
+            // make shop accessible outside if statement
+            let shop = null;
+            // if user.shop_id is not null
+            if (user.shop_id) {
+                // return and save user's shop as an object
+                let shopResults = await db(`SELECT * FROM shops WHERE shop_id = '${user.user_id}'`);
+                shop = shopResults.data[0];
+            }
             let passwordsMatch = await bcrypt.compare(password, user.password);
             if (passwordsMatch) {
                 // add shop_id to token (with comma)
@@ -73,7 +83,8 @@ router.post('/login', async (req, res) => {
                 res.send({
                     message: 'Login succeeded',
                     token: token,
-                    user: user
+                    user: user,
+                    shop: shop
                 });
             console.log(payload)
             } else {

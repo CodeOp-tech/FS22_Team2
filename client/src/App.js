@@ -26,7 +26,7 @@ function App() {
   const [productData, setProductData] = useState([]); // useState 3 (populates only upon adding to cart)
   const [user, setUser] = useState(Local.getUser()); // useState 4
   const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
-  const [userShop, setUserShop] = useState(Local.getUserShop()); // useState 6
+  const [shop, setShop] = useState(Local.getShop()); // useState 6
 
   const navigate = useNavigate();
 
@@ -35,12 +35,14 @@ function App() {
   }, []);
 
   // log in user
+  // when log in, save
   // QUESTION: How to check if user has shop (Api.getUserShop(user_id)) and Local.SaveUserShop?
   async function doLogin(username, password) {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
-      Local.saveUserInfo(myResponse.data.token, myResponse.data.user);
+      Local.saveUserInfo(myResponse.data.token, myResponse.data.user, myResponse.data.shop);
       setUser(myResponse.data.user);
+      setShop(myResponse.data.shop);
       setLoginErrorMessage("");
       navigate("/");
     } else {
@@ -52,6 +54,7 @@ function App() {
   function doLogout() {
     Local.removeUserInfo();
     setUser(null);
+    setShop(null);
     //Navbar should send user to home page
   }
 
