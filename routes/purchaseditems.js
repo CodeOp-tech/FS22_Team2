@@ -62,7 +62,7 @@ router.get('/', async function(req, res,) {
   });
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
-  router.get('/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
+  router.get('/shops/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
     // which is passed from front end fetch at...
         let id = req.params.shop_id;
     
@@ -74,7 +74,7 @@ router.get('/', async function(req, res,) {
             LEFT JOIN purchases ON purchased_items.purchase_id = purchases.purchase_id 
             LEFT JOIN products ON purchased_items.product_id = products.product_id
             LEFT JOIN shops ON purchased_items.shop_id = shops.shop_id
-          WHERE shop_id = ${Number(id)}
+          WHERE purchased_items.shop_id = ${Number(id)}
           ORDER BY purchase_date`); 
           let purchased_items = joinToJson(results); 
           res.send(purchased_items);

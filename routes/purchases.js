@@ -31,11 +31,11 @@ router.get('/', async function(req, res,) {
 
   // ADD PURCHASE TO GENERAL PURCHASE DATABASE BUT RETURN ONLY PURCHASES ASSOCIATED WITH USER
   router.post("/", async (req, res) => { // NOTE: front-end fetch must pass user_id through req.body below
-    let { purchase_date, purchase_sum, purchase_points, user_id } = req.body;
+    let { purchase_sum, purchase_points, user_id } = req.body;
   
     let sql = `
-        INSERT INTO products (purchase_date, purchase_sum, purchase_points, user_id)
-        VALUES ('${purchase_date}', '${purchase_sum}', '${purchase_points}', ${Number(user_id)})
+        INSERT INTO purchases ( purchase_sum, purchase_points, user_id)
+        VALUES ( ${purchase_sum}, ${purchase_points}, ${Number(user_id)})
     `;
   
     try {

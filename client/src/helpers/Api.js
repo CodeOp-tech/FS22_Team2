@@ -68,8 +68,8 @@ class Api {
     }
 
      // ADD/POST purchases 
-     static async addPurchases(purchase_date, purchase_sum, purchase_points, user_id) {
-        let body = {purchase_date, purchase_sum, purchase_points, user_id };
+     static async addPurchases(purchase_sum, purchase_points, user_id) {
+        let body = {purchase_sum, purchase_points, user_id };
 
         return await this._doFetch('/purchases', 'POST', body);
     }

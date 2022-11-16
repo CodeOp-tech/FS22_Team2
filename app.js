@@ -13,7 +13,7 @@ var usersRouter = require("./routes/users");
 var productsRouter = require("./routes/products");
 var stripeRouter = require("./routes/stripe");
 var purchasesRouter = require("./routes/purchases");
-var purchased_itemsRouter = require("./routes/purchased_items");
+var purchaseditemsRouter = require("./routes/purchaseditems");
 
 var app = express();
 
@@ -34,7 +34,7 @@ app.use("/shops", shopsRouter);
 app.use("/products", productsRouter);
 app.use("/stripe", stripeRouter);
 app.use("/purchases", purchasesRouter);
-app.use("/purchased_items", purchased_itemsRouter);
+app.use("/purchaseditems", purchaseditemsRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

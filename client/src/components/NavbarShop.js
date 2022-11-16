@@ -10,7 +10,7 @@ import CartProductModal from "./CartProductModal";
 function NavbarShop() {
     // NOTE: cartProducts passed down by CartContext. Only cartProducts needed in this context
     // cartProducts state (see App) has five properties: id, quantity, name, price and stripe_id
-    const { cartProducts, getTotalCostCb } = useContext(CartContext);
+    const { cartProducts, getTotalCostCb, totalCost, addPurchasesCb } = useContext(CartContext);
 
     const [show, setShow] = useState(false); // initially not show modal
     
@@ -20,6 +20,14 @@ function NavbarShop() {
 
     function handleShow() {
         setShow(true);
+        getTotalCostCb();
+    }
+
+    function handleClick() {
+        checkout();
+        // NOTE: ACTUAL WORKFLOW SHOULD BE ONLY UPON RECEIVING SUCCESS PAGE,
+        // addPurchasesCb() is called
+        addPurchasesCb();
     }
 
      // POST to checkout
@@ -36,8 +44,8 @@ function NavbarShop() {
             if(response.url) {
                 window.location.assign(response.url);
             }
-        });
-     }
+        }) 
+    }
 
 // use reduce method to get total amount of quantities to display in Cart button below
 const productsCount = cartProducts.reduce((sum, product) => sum + product.quantity, 0);
@@ -76,10 +84,10 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
             ))}
 
             {/* To get total, we call getTotalCostCb (function in App) from CartContext pipeline */}
-            <h1>Total: {getTotalCostCb().toFixed(2)}</h1> 
+            <h1>Total: {totalCost}</h1> 
 
             {/* This button will make a Stripe API call to an actual Stripe account */}
-            <Button variant="success" onClick={checkout}>
+            <Button variant="success" onClick={handleClick}>
                 Purchase items!
             </Button>
             </>

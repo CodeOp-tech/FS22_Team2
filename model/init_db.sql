@@ -62,18 +62,18 @@ VALUES
 
 CREATE TABLE `purchases` (
 	`purchase_id` INT NOT NULL AUTO_INCREMENT,
-	`purchase_date` varchar(255) NOT NULL,
+	`purchase_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
 	`purchase_sum` FLOAT NOT NULL,
 	`purchase_points` INT,
 	`user_id` INT NOT NULL,
 	PRIMARY KEY (`purchase_id`)
 );
 
-INSERT INTO purchases (purchase_date, purchase_sum, purchase_points, user_id)
+INSERT INTO purchases ( purchase_sum, purchase_points, user_id)
 VALUES
-('Wed Jul 28 2022 14:39', 5, 10, 1),
-('Sun Sept 12 2022 10:05', 50, 80, 1),
-('Sat Nov 02 2022 12:23', 555, 120, 2);
+(5, 10, 1),
+(50, 80, 1),
+(555, 120, 2);
 
 
 CREATE TABLE `purchased_items` (

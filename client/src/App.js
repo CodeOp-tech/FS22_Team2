@@ -27,8 +27,10 @@ function App() {
   const [productData, setProductData] = useState([]); // useState 3 (populates only upon adding to cart)
   const [user, setUser] = useState(Local.getUser()); // useState 4
   const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""); // useState 6
+  const [purchases, setPurchases] = useState([]); // useState 7 (populates only upon clicking Purchase Items in Shopping cart)
   const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]);
+  const [totalCost, setTotalCost] = useState([]);
 
   const navigate = useNavigate();
 
@@ -109,19 +111,15 @@ function App() {
     // individual product info is called from the getProductData function
     // so that we can add the name and price field to the cartProducts objects
     const product = getProductData(id);
-    const newQuantity = product.product_quantity - 1;
     console.log(product);
-    console.log(newQuantity);
-
+  
     // NOTE: Update total quantity available for product
     setProducts(
       products.map(
         (product) => 
         product.product_id === id
-        ? {...product, product_quantity: newQuantity}
+        ? {...product, product_quantity: product.product_quantity - 1}
         : product))
-
-    console.log(products);
 
     if (quantity === 0) {
       // product is not in cart
@@ -176,7 +174,9 @@ function App() {
       const productData = getProductData(cartItem.id);
       totalCost += productData.price * cartItem.quantity;
     });
-    return totalCost;
+    // let fixed = totalCost.toFixed(2);
+    setTotalCost(totalCost);
+    // return totalCost;
   }
 
   function deleteFromCart(id) {
@@ -189,20 +189,12 @@ function App() {
     );
   }
 
-  // async function getPurchasedItems() {
-  //   let myresponse = await Api.getPurchasedItems();
-  //   if (myresponse.ok) {
-  //     setPurchasedItems(myresponse.data);
-  //   } else {
-  //     setError(myresponse.error);
-  //   }
-  // }
-
   // URGENT NOTE: WORK IN PROGRESS
-  async function addPurchases(purchase_date, purchase_sum, purchase_points, user_id) {
-    let myresponse = await Api.addPurchases(`${new Date.toDateString()}`, `${Local.getUserId()}` );
+  // NOTE: Need to figure out how to pass total points to purchase_points below (NOW HARDCODED)
+  async function addPurchases(purchase_sum, purchase_points, user_id) {
+    let myresponse = await Api.addPurchases(`${totalCost}`, 50, `${Local.getUserId()}` );
     if (myresponse.ok) {
-      setPurchasedItemsByUser(myresponse.data);
+      setPurchases(myresponse.data);
     } else {
       setError(myresponse.error);
     }
@@ -234,6 +226,8 @@ function App() {
     cartProducts,
     productData,
     purchasedItemsByUser,
+    totalCost,
+    addPurchasesCb: addPurchases,
     getProductDataCb: getProductData,
     getProductQuantityCb: getProductQuantity,
     addOneToCartCb: addOneToCart,

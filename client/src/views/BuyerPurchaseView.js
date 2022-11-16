@@ -34,7 +34,8 @@ function BuyerPurchaseView() {
                         <td>{p.combo[p.id].points}</td>
                  </tr>
                 ))} */}
-                {purchasedItemsByUser && 
+
+                {/* {purchasedItemsByUser && 
                     <tr key={purchasedItemsByUser.id}>
                         <th scope="row">1</th>
                         <td>{purchasedItemsByUser.combo[0].date}</td>
@@ -45,7 +46,7 @@ function BuyerPurchaseView() {
                         <td>{(purchasedItemsByUser.combo[0].price * purchasedItemsByUser.quantity).toFixed(2)} </td>
                         <td>{purchasedItemsByUser.combo[0].points}</td>
                  </tr>
-                 }
+                 } */}
                     
                 {/* <tr>
                 <th scope="row">2</th>
