@@ -44,3 +44,14 @@
   height: auto;
   margin-left: 250px;
 }
+/* .blur {
+  position: absolute;
+  border-radius: 50%;
+  width: 22rem;
+  height: 14rem;
+  background: #ee715c;
+  filter: blur(72px);
+  z-index: -9;
+  top: -18%;
+  left: 56%;
+} */
