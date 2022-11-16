@@ -3,7 +3,7 @@ var router = express.Router();
 const { ensureSameUser } = require('../middleware/guards');
 const db = require('../model/helper.js')
 
-// GET all users - works!
+// GET all users
 // NOT PROTECTED: get username and points for leaderboard, remove al other info. If we add other info to db, remember to delete later
 router.get('/', async function(req, res, next) {
   let sql = 'SELECT * FROM users ORDER BY username';
@@ -21,7 +21,7 @@ router.get('/', async function(req, res, next) {
 });
 
 
-// GET one user - works!
+// GET one user
 // PROTECTED: user can only see their own profile
 router.get('/:userId', ensureSameUser, async function(req, res, next) {
   let { userId } = req.params;

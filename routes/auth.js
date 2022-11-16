@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require('../config.js');
 const db = require("../model/helper.js");
 
-// Register new user (and shop) - works!
+// Register new user (and shop)
 router.post ('/register', async (req,res) => {
     // has_shop in req.body should be a boolean (needs to come from front end?)
     let { username, password, email, has_shop } = req.body;
@@ -51,8 +51,7 @@ router.post ('/register', async (req,res) => {
 });  
 
 
-// Log in user - works!
-// need to add shop info here
+// Log in user
 router.post('/login', async (req, res) => {
     let { username, password } = req.body;
 

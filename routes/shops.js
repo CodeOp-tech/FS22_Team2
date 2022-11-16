@@ -3,7 +3,7 @@ var router = express.Router();
 const { ensureSameUser, ensureShopOwner } = require('../middleware/guards');
 const db = require('../model/helper.js')
 
-// GET all shops - works!
+// GET all shops
 // NOT PROTECTED
 router.get('/', async function(req, res, next) {
     let sql = 'SELECT * FROM shops ORDER BY shop_id';
@@ -17,7 +17,7 @@ router.get('/', async function(req, res, next) {
     }
   });
 
-// GET shop by shop_id - works!
+// GET shop by shop_id
 // NOT PROTECTED - for public profile page
 router.get('/profile/:shop_id', async function(req, res, next) {
     let { shop_id } = req.params;
@@ -32,7 +32,7 @@ router.get('/profile/:shop_id', async function(req, res, next) {
     }
   });
 
-// GET a user's shop info - works!
+// GET a user's shop info
 // PROTECTED - for editing profile page
 router.get('/:userId', ensureSameUser, async function(req, res, next) {
     let { userId } = req.params;
@@ -51,43 +51,44 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
     }
   });
 
-// POST create new shop - works!
-// PROTECTED - user should only be able to create their own shop
-router.post('/new/:userId', ensureSameUser, async function(req, res, next) {
-// add new shop (auto-increment, add all other fields, preset points to 0)
-let { userId } = req.params;
-let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email } = req.body;
+// POST create new shop - NOT USED because post only happens on user registration for now
+// // PROTECTED - user should only be able to create their own shop
+// router.post('/new/:userId', ensureSameUser, async function(req, res, next) {
+// // add new shop (auto-increment, add all other fields, preset points to 0)
+// let { userId } = req.params;
+// let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email } = req.body;
 
-let sqlPost = `
-  INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
-  VALUES ("${shop_name}", "${shop_address}", "${shop_description}", "${shop_image}", "${website}", "${phone}", "${shop_email}", 0);
-  SELECT LAST_INSERT_ID()
-`
-let sqlJoin = `
-  SELECT users.*, shops.*
-  FROM users
-  LEFT JOIN shops on users.shop_id = shops.shop_id
-  WHERE user_id = ${Number(userId)}
-`
+// let sqlPost = `
+//   INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
+//   VALUES ("${shop_name}", "${shop_address}", "${shop_description}", "${shop_image}", "${website}", "${phone}", "${shop_email}", 0);
+//   SELECT LAST_INSERT_ID()
+// `
+// let sqlJoin = `
+//   SELECT users.*, shops.*
+//   FROM users
+//   LEFT JOIN shops on users.shop_id = shops.shop_id
+//   WHERE user_id = ${Number(userId)}
+// `
 
-try {
-    let postResults = await db(sqlPost);
-    console.log(postResults);
-    let newShop = postResults.data[0].insertId;
-    let putResults = await db(
-        `
-    UPDATE users SET shop_id=${newShop}
-    WHERE user_id = ${Number(userId)}
-    `);
-    let joinResults = await db(sqlJoin);
-    res.send(joinResults.data[0]);
-      } catch (err) {
-        res.status(500).send({ error: err.message })
-      }
-});
+// try {
+//     let postResults = await db(sqlPost);
+//     console.log(postResults);
+//     let newShop = postResults.data[0].insertId;
+//     let putResults = await db(
+//         `
+//     UPDATE users SET shop_id=${newShop}
+//     WHERE user_id = ${Number(userId)}
+//     `);
+//     let joinResults = await db(sqlJoin);
+//     res.send(joinResults.data[0]);
+//       } catch (err) {
+//         res.status(500).send({ error: err.message })
+//       }
+// });
 
 
-// PUT edit shop info - works!
+// PUT edit shop info
+// PROTECTED - user should only be able to enter own shop
 router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => { 
     let { shopId, userId }  = req.params;
     let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email } = req.body;

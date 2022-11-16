@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require("../config.js");
 
-// Make sure user logged in - works!
+// Make sure user logged in 
 function ensureUserLoggedIn(req, res, next) {
     let token = _getToken(req);
     try {
@@ -13,7 +13,7 @@ function ensureUserLoggedIn(req, res, next) {
     }
 }
 
-// Make sure user is accessing their own profile page - works!
+// Make sure user is accessing their own profile page 
 function ensureSameUser(req, res, next) {
     let token = _getToken(req);
     try {
@@ -31,7 +31,7 @@ function ensureSameUser(req, res, next) {
     }
 }
 
-// DOESN'T WORK: Make sure user is accessing their own shop
+// Make sure user is accessing their own shop
 function ensureShopOwner(req, res, next) {
     let token = _getToken(req);
     try {

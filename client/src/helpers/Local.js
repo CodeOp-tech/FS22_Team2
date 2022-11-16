@@ -1,6 +1,7 @@
 // localStorage implementation
 
 class Local {
+    /****** USER INFO *****/
     // save user's info to localStorage
     static saveUserInfo(token, user, shop) {
         localStorage.setItem('token', token);
@@ -61,6 +62,17 @@ class Local {
             return '';
         }
     
+        let shop = JSON.parse(shopjson);
+        return shop.shop_id;
+    }
+
+    // get current shop id
+    static getShopId() {
+        let shopjson = localStorage.getItem('shop');
+        if (!shopjson) {
+            return '';
+        }
+        
         let shop = JSON.parse(shopjson);
         return shop.shop_id;
     }

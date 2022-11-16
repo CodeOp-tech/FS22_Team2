@@ -32,11 +32,8 @@ router.get('/', async function(req, res,) {
   });
 
   // ADD PRODUCT BASED OFF STORE ID
-  // PROTECTED - need to make sure shop owner is the only one who can add products
-  // QUESTION: Need to do a left join to tie userId to store_id to product_id
-  router.post("/:userId", ensureSameUser, async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below
+  router.post("/:userId", async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below
     let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
-    let { userId } = req.params;
   
     let sql = `
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
