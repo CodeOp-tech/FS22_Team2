@@ -1,4 +1,9 @@
 .App {
   text-align: center;
   font-family: sans-serif;
+  padding: 0.5rem 3.5rem;
+  overflow: hidden;
+  background-color: #f0efed;
+  margin: 0%;
+  background-image: url("/Users/meganwalsh/Desktop/CodeOp_Activities/GROUPTWO/FS22_Team2/client/src/DC/MinBack.jpg");
 }

@@ -17,7 +17,7 @@ export default function MySlider() {
         autoplaySpeed={3000}
         dots={true}
         pauseOnHover={true}
-        centerMode={true}
+        //centerMode={true}
         centerPadding={60}
         initialSlide={1}
         infinite={true}
