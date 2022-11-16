@@ -48,7 +48,7 @@ router.get('/', async function(req, res,) {
     // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
     try {
       let results = await db(
-        `SELECT purchased_items.*, purchases.purchase_date, shops.shop_name, products.product_name, products.price, purchases.purchase_points, purchases.user_id 
+        `SELECT purchased_items.*, purchases.purchase_date, shops.shop_name, products.product_name, products.price, purchases.user_id 
         FROM purchased_items
         LEFT JOIN purchases ON purchased_items.purchase_id = purchases.purchase_id 
         LEFT JOIN products ON purchased_items.product_id = products.product_id
@@ -70,7 +70,7 @@ router.get('/', async function(req, res,) {
         // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
         try {
           let results = await db(
-            `SELECT purchased_items.*, purchase_date, shop_name, product_name, price, purchase_quantity, purchase_points, user_id 
+            `SELECT purchased_items.*, purchase_date, shop_name, product_name, price, purchase_quantity, user_id 
             FROM purchased_items
             LEFT JOIN purchases ON purchased_items.purchase_id = purchases.purchase_id 
             LEFT JOIN products ON purchased_items.product_id = products.product_id
@@ -88,11 +88,11 @@ router.get('/', async function(req, res,) {
   router.post("/:user_id", async (req, res) => { // NOTE: front-end fetch must pass purchase_id, product_id and shop_id through req.body below
     let id = req.params.user_id;
 
-    let { purchase_quantity, purchase_id, product_id, shop_id } = req.body;
+    let { purchase_quantity, purchase_points, purchase_id, product_id, shop_id } = req.body;
   
     let sql = `
-        INSERT INTO purchased_items (purchase_quantity, purchase_id, product_id, shop_id)
-        VALUES ('${Number(purchase_quantity)}', '${Number(purchase_id)}', '${Number(product_id)}', ${Number(shop_id)})
+        INSERT INTO purchased_items (purchase_quantity, purchase_points, purchase_id, product_id, shop_id)
+        VALUES ('${Number(purchase_quantity)}', '${Number(purchase_points)}', '${Number(purchase_id)}', '${Number(product_id)}', ${Number(shop_id)})
     `;
   
     try {

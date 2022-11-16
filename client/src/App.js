@@ -29,10 +29,9 @@ function App() {
   const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
   const [error, setError] = useState(""); // useState 6
   const [purchases, setPurchases] = useState([]); // useState 7 (populates only upon clicking Purchase Items in Shopping cart)
-  const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]);
-  const [purchasedItemsByShop, setPurchasedItemsByShop] = useState([]);
-  const [totalCost, setTotalCost] = useState([]);
-  const [newQuantity, setNewQuantity] = useState([]);
+  const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]); // useState 8
+  const [purchasedItemsByShop, setPurchasedItemsByShop] = useState([]); // useState 9
+  const [totalCost, setTotalCost] = useState([]); // useState 10
 
   const navigate = useNavigate();
 
@@ -105,16 +104,6 @@ function App() {
       return 0;
     } else {
       return quantity;
-    }
-  }
-
-   // EDIT/PUT product quantity in product database
-   async function updateQuantity(product_id, product_quantity) {
-    let myresponse = await Api.updateQuantity(`${totalCost}`, 50, `${Local.getUserId()}` );
-    if (myresponse.ok) {
-      setNewQuantity(myresponse.data);
-    } else {
-      setError(myresponse.error);
     }
   }
 
@@ -204,8 +193,8 @@ function App() {
 
   // URGENT NOTE: WORK IN PROGRESS
   // NOTE: Need to figure out how to pass total points to purchase_points below (NOW HARDCODED)
-  async function addPurchases(purchase_sum, purchase_points, user_id) {
-    let myresponse = await Api.addPurchases(`${totalCost}`, 50, `${Local.getUserId()}` );
+  async function addPurchases(purchase_sum, user_id) {
+    let myresponse = await Api.addPurchases(`${totalCost}`, 1 ); //INSERT `${Local.getUserId()}`
     if (myresponse.ok) {
       setPurchases(myresponse.data);
     } else {
@@ -214,7 +203,7 @@ function App() {
   };
 
   // URGENT NOTE: WORK IN PROGRESS
-  async function addPurchasedItems(purchase_quantity, purchase_id, product_id, shop_id) {
+  async function addPurchasedItems(purchase_quantity, purchase_points, purchase_id, product_id, shop_id) {
     let myresponse = await Api.addPurchasedItems();
     if (myresponse.ok) {
       setPurchasedItemsByUser(myresponse.data);
@@ -224,9 +213,9 @@ function App() {
   };
 
   async function getPurchasedItemsByUser(user_id) {
-    let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId());
+    let myresponse = await Api.getPurchasedItemsByUser(1); // INSERT: Local.getUserId();
     if (myresponse.ok) {
-      setPurchasedItemsByUser(myresponse.data);
+      setPurchasedItemsByUser(myresponse.data)
     } else {
       setError(myresponse.error);
     }
