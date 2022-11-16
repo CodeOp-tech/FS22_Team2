@@ -12,6 +12,8 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var productsRouter = require("./routes/products");
 var stripeRouter = require("./routes/stripe");
+var purchasesRouter = require("./routes/purchases");
+var purchaseditemsRouter = require("./routes/purchaseditems");
 
 var app = express();
 
@@ -22,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // commented out because if it's live, path directs here 
 // app.use(express.static(path.join(__dirname, "public")));
-
+app.use( express.static('public') );
 // Routes 
 // added authRouter 
 app.use("/", authRouter);
@@ -31,6 +33,8 @@ app.use("/users", usersRouter);
 app.use("/shops", shopsRouter);
 app.use("/products", productsRouter);
 app.use("/stripe", stripeRouter);
+app.use("/purchases", purchasesRouter);
+app.use("/purchaseditems", purchaseditemsRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

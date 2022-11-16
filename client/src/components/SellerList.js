@@ -3,13 +3,14 @@ import './SellerList.css'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
+
 function SellerList(props) {
   return (
     <div className='sell-list'>
-      {/* {props.productData.map (p => (
-      <Card style={{width: '15rem'}}
-            key={p.id}>
-            <Card.Img variant='top' src='{p.product_image}'/>
+      {props.productsData?.map (p => ( // why does this work with the ?
+      <Card key={p.id}
+            style={{width: '15rem'}}>
+            <Card.Img variant='top' src={p.url}/>
             <Card.Body>
              <Card.Title>
                 {p.product_name}
@@ -22,12 +23,11 @@ function SellerList(props) {
             </Card.Body>  
         </Card>
                    
-        ))} */}
-       
-      <Card>
-            <Card.Img variant='top' src='https://static.vecteezy.com/system/resources/previews/003/806/865/original/avocado-illustration-with-a-cute-and-adorable-face-vector.jpg'/>
-            <Card.Body>
-             <Card.Title>
+        ))}
+      {/* <Card>
+        <Card.Body>
+            <Card.Img variant='top'  src='https://cdn.shopify.com/s/files/1/0277/6262/2567/products/medium-chubby-hoop-earrings-earrings-missoma-18ct-gold-plated-817200_600x.jpg?v=1638046361'/>
+            <Card.Title>
                 Product Name
             </Card.Title>
             <Card.Text>
@@ -36,7 +36,9 @@ function SellerList(props) {
                 <Button className='delete-p'  type='button'>Delete</Button>
                 <Button className='edit-p'  type='button'>Edit</Button>
             </Card.Body>  
-        </Card>
+        </Card> */}
+
+        
     </div>
   )
 }

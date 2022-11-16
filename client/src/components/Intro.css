@@ -1,0 +1,57 @@
+.intro {
+  display: flex;
+  height: 77vh;
+  margin-top: 6rem;
+}
+.i.left {
+  display: flex;
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+  gap: 2rem;
+}
+.i-name {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 3rem;
+  text-align: left;
+  color: #385a65;
+}
+.i-name > :nth-child(2) {
+  font-weight: 100;
+  font-size: 14px;
+  color: gray;
+  margin-top: 10px;
+  text-align: left;
+}
+.i-right {
+  flex: 1;
+  position: relative;
+  text-align: right;
+}
+.i-right > * {
+  position: absolute;
+  z-index: 1;
+  text-align: right;
+}
+
+.lady img {
+  transform: scale (0.2);
+  left: -15%;
+  top: -5%;
+  width: 600px;
+  height: auto;
+  margin-left: 250px;
+}
+/* .blur {
+  position: absolute;
+  border-radius: 50%;
+  width: 22rem;
+  height: 14rem;
+  background: #ee715c;
+  filter: blur(72px);
+  z-index: -9;
+  top: -18%;
+  left: 56%;
+} */

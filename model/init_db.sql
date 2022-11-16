@@ -55,7 +55,7 @@ CREATE TABLE `products` (
 
 INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id)
 VALUES 
-('Coffee', 5.99, 'https://www.tastingtable.com/img/gallery/coffee-brands-ranked-from-worst-to-best/l-intro-1645231221.jpg', 20, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 1),
+('Coffee', 5.99, 'coffee.jpg', 20, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 1),
 ('Sunglasses', 10.99, 'https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c3VuZ2xhc3Nlc3xlbnwwfHwwfHw%3D&w=1000&q=80', 10, 'Defend yourself from all that shade you be getting wearing these babies', 'price_1M49GDBIwndE5957XZPxGANH', 2),
 ('Camera', 59.99, 'https://t3.ftcdn.net/jpg/00/79/36/04/360_F_79360425_13tH0FGR7nYTNlXWKOWtLmzk7BAikO1b.jpg', 50, 'The best camera around', 'price_1M49HEBIwndE59571OqKQqvk', 2),
 ('Scarf', 30.99, 'https://m.media-amazon.com/images/I/81oP362UnbL._AC_UY1000_.jpg', 100, 'Scarf to keep you warm', 'price_1M44dEBIwndE5957Cait0D15', 1),
@@ -63,20 +63,34 @@ VALUES
 
 CREATE TABLE `purchases` (
 	`purchase_id` INT NOT NULL AUTO_INCREMENT,
-	`purchase_date` DATETIME NOT NULL,
+	`purchase_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
 	`purchase_sum` FLOAT NOT NULL,
 	`user_id` INT NOT NULL,
 	PRIMARY KEY (`purchase_id`)
 );
 
+INSERT INTO purchases ( purchase_sum, user_id)
+VALUES
+(5, 1),
+(50, 1),
+(555, 2);
+
+
 CREATE TABLE `purchased_items` (
 	`purchased_items_id` INT NOT NULL AUTO_INCREMENT,
 	`purchase_quantity` INT NOT NULL,
+	`purchase_points` INT,
 	`purchase_id` INT NOT NULL,
 	`product_id` INT NOT NULL,
 	`shop_id` INT NOT NULL,
 	PRIMARY KEY (`purchased_items_id`)
 );
+
+INSERT INTO purchased_items (purchase_quantity, purchase_points, purchase_id, product_id, shop_id)
+VALUES
+(1, 2, 1, 1, 1),
+(10, 2, 2, 2, 2),
+(5, 2, 3, 3, 2);
 
 ALTER TABLE `users` ADD CONSTRAINT `users_fk0` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
 

@@ -1,7 +1,7 @@
 // Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
 
 var express = require('express');
-const stripe = require('stripe')('pk_test_51M44XcBIwndE5957AFPxf2L7EGzX9EjVFN44RHmf7y1tcKRePIRn1VTbWbc4iqKKFC6gVwEECkkYnDmWQA5kqXHc00E4SmyYoB');
+const stripe = require('stripe')('sk_test_51M44XcBIwndE5957JT6M9Ci3tHIx8cPZPBSqjFCjlBx2gXxkLcIu9LrPwy74M2qaRIHTXHIw0JC7EFQSCeT4ALpE00uXfmJS60');
 var router = express.Router();
 
 router.post('/checkout', async function(req, res,) { 

@@ -1,50 +1,8 @@
 import Local from './Local.js';
 
 class Api {
-    // Log in a user
-    static async loginUser(username, password) {
-        let body = { username, password };
-
-        return await this._doFetch('/login', 'POST', body);
-    }
-
-    // GET all users
-    static async getUsers() {
-        return await this._doFetch('/users');
-    }
-
-    // GET user by id (PROTECTED)
-    static async getUser(user_id) {
-        return await this._doFetch(`/users/${user_id}`);
-    }
-
-    // GET all shops
-    static async getAllShops() {
-        return await this._doFetch('/shops');
-    }
-    
-    // GET shop by shop_id
-    static async getShopProfile(shop_id) {
-        return await this._doFetch(`/shops/profile/${shop_id}`);
-    }
-
-    // GET shop by owner's user_id (PROTECTED)
-    static async getUserShop(user_id) {
-        return await this._doFetch(`/shops/${user_id}`);
-    }
-
-    // POST create new shop (PROTECTED)
-    static async createShop(user_id) {
-        return await this._doFetch(`/shops/new/${user_id}`);
-    }
-
-    // GET general private content (members-only access pages, etc.)
-    static async getContent(url) {
-        return await this._doFetch(url);
-    }
-
-    // _doFetch method - internal use only, to user in other functions
-    static async _doFetch(url, method = 'GET', body = null) {
+    //_doFetch method - internal use only, to user in other functions
+     static async _doFetch(url, method = 'GET', body = null) {
         // prep fetch options
         let options = {
             method,
@@ -86,6 +44,85 @@ class Api {
         }
         return myresponse;
     }
+
+    // Log in a user
+    static async loginUser(username, password) {
+        let body = { username, password };
+
+        return await this._doFetch('/login', 'POST', body);
+    }
+
+    // GET all users
+    static async getUsers() {
+        return await this._doFetch('/users');
+    }
+
+    // GET user by id (PROTECTED)
+    static async getUser(user_id) {
+        return await this._doFetch(`/users/${user_id}`);
+    }
+    
+    // GET general private content (members-only access pages, etc.)
+    static async getContent(url) {
+        return await this._doFetch(url);
+    }
+    
+    // GET all shops
+    static async getAllShops() {
+        return await this._doFetch('/shops');
+    }
+    
+    // GET shop by shop_id
+    static async getShopProfile(shop_id) {
+        return await this._doFetch(`/shops/profile/${shop_id}`);
+    }
+
+    // GET shop by owner's user_id (PROTECTED)
+    static async getUserShop(user_id) {
+        return await this._doFetch(`/shops/${user_id}`);
+    }
+
+    // POST create new shop (PROTECTED)
+    static async createShop(user_id) {
+        return await this._doFetch(`/shops/new/${user_id}`);
+    }
+
+    // EDIT/PUT product quantity
+    static async updateQuantity(product_id, product_quantity) {
+        let body = { product_quantity }
+        return await this._doFetch(`/products/${product_id}`, 'PUT', body);
+    }
+
+     // ADD/POST purchases 
+     static async addPurchases(purchase_sum, user_id) {
+        let body = {purchase_sum, user_id };
+
+        return await this._doFetch('/purchases', 'POST', body);
+    }
+
+    // ADD/POST purchased_items
+    static async addPurchasedItems(purchase_quantity, purchase_points, purchase_id, product_id, shop_id) {
+        let body = {purchase_quantity, purchase_points, purchase_id, product_id, shop_id };
+
+        return await this._doFetch('/purchaseditems', 'POST', body);
+    }
+
+    // GET purchased items
+    static async getPurchasedItems() {
+        return await this._doFetch('/purchaseditems');
+    }
+
+    // GET purchased items by user id
+    static async getPurchasedItemsByUser(user_id) {
+        return await this._doFetch(`/purchaseditems/${user_id}`);
+    }
+
+    // GET purchased items by shop id
+    static async getPurchasedItemsByShop(shop_id) {
+        return await this._doFetch(`/purchaseditems/shops/${shop_id}`);
+    }
+
+
 }
 
 export default Api;
