@@ -31,6 +31,7 @@ function App() {
   const [purchases, setPurchases] = useState([]); // useState 7 (populates only upon clicking Purchase Items in Shopping cart)
   const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]);
   const [totalCost, setTotalCost] = useState([]);
+  const [newQuantity, setNewQuantity] = useState([]);
 
   const navigate = useNavigate();
 
@@ -102,6 +103,16 @@ function App() {
       return 0;
     } else {
       return quantity;
+    }
+  }
+
+   // EDIT/PUT product quantity in product database
+   async function updateQuantity(product_id, product_quantity) {
+    let myresponse = await Api.updateQuantity(`${totalCost}`, 50, `${Local.getUserId()}` );
+    if (myresponse.ok) {
+      setNewQuantity(myresponse.data);
+    } else {
+      setError(myresponse.error);
     }
   }
 

@@ -67,6 +67,12 @@ class Api {
         return await this._doFetch(url);
     }
 
+    // EDIT/PUT product quantity
+    static async updateQuantity(product_id, product_quantity) {
+        let body = { product_quantity }
+        return await this._doFetch(`/products/${product_id}`, 'PUT', body);
+    }
+
      // ADD/POST purchases 
      static async addPurchases(purchase_sum, purchase_points, user_id) {
         let body = {purchase_sum, purchase_points, user_id };
@@ -78,17 +84,17 @@ class Api {
     static async addPurchasedItems(purchase_quantity, purchase_id, product_id, shop_id) {
         let body = {purchase_quantity, purchase_id, product_id, shop_id };
 
-        return await this._doFetch('/purchased_items', 'POST', body);
+        return await this._doFetch('/purchaseditems', 'POST', body);
     }
 
     // GET purchased items
     static async getPurchasedItems() {
-        return await this._doFetch('/purchased_items');
+        return await this._doFetch('/purchaseditems');
     }
 
     // GET purchased items by user id
     static async getPurchasedItemsByUser(user_id) {
-        return await this._doFetch(`/purchased_items/${user_id}`);
+        return await this._doFetch(`/purchaseditems/${user_id}`);
     }
 
 }

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
 
+// NOTE FROM JESS: JSON Helper function NOT USED SO FAR because need each as separate objects to map in Purchase View
 /*****Join to JSON Helper function*****/
 function joinToJson(results) {
     // Create array of shops/purchases/products/users object
@@ -24,7 +25,7 @@ function joinToJson(results) {
         productId: row0.product_id,
         combo 
     };
-    return purchaseditems;
+    return [purchaseditems];
 }
 
 // GET ALL PURCHASED_ITEMS REGARDLESS OF USERS / SHOPS
@@ -54,7 +55,7 @@ router.get('/', async function(req, res,) {
         LEFT JOIN shops ON purchased_items.shop_id = shops.shop_id
       WHERE user_id = ${Number(id)}
       ORDER BY purchase_date`); 
-      let purchased_items = joinToJson(results);  
+      let purchased_items = results.data;  
       res.send(purchased_items);
   } catch (err) {
       res.status(500).send({ error: err.message });
