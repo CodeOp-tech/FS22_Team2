@@ -34,15 +34,12 @@ function ensureSameUser(req, res, next) {
 // DOESN'T WORK: Make sure user is accessing their own shop
 function ensureShopOwner(req, res, next) {
     let token = _getToken(req);
-    // What is the req? How to pass shop_id here?
-
     try {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
-        // if token is ok, check that user id matches
-        if (payload.userId === Number(req.params.userId)) {
-            // get user object for req userId
-            // if that users shop_id matches req params shop_id
+        // if token is ok, check that userId & shopId match
+        // QUESTION: is user identity already verified by matched token? If so, why do we need to check userId on ensureSameUser?
+        if (payload.userId === Number(req.params.userId) && payload.shopId === Number(req.params.shopId)) {
             // if okay, will proceed; else will throw error
             next();
         } else {
@@ -70,5 +67,6 @@ function _getToken(req) {
 
 module.exports = {
     ensureUserLoggedIn,
-    ensureSameUser
+    ensureSameUser,
+    ensureShopOwner
 };

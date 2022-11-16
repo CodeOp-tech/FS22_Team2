@@ -12,6 +12,7 @@ CREATE TABLE users (
 	password varchar(100) NOT NULL,
 	email varchar(100) NOT NULL,
 	user_points INT,
+	has_shop BOOLEAN NOT NULL DEFAULT 0,
 	shop_id INT,
 	PRIMARY KEY (user_id)
 );

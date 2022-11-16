@@ -47,7 +47,8 @@ class Local {
     }
 
     // if user has a shop, save it to localStorage
-    static saveUserShop(token, user) {
+    // QUESTION: getUserShop returns a combined object including user & shop info - can we set that whole thing as user info? Do we need to separate? If so, how?
+    static saveUserShop(shop) {
         // localStorage.setItem('token', token);
         // localStorage.setItem('user', JSON.stringify(user));
     }

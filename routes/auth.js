@@ -5,18 +5,43 @@ const jwt = require("jsonwebtoken");
 const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require('../config.js');
 const db = require("../model/helper.js");
 
-// Register new user - works!
+// Register new user - works! 
 router.post ('/register', async (req,res) => {
-    let { username, password, email} = req.body;
+    // add has_shop to req.body
+    let { username, password, email, has_shop } = req.body;
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
-
+    let shop_id = null;
+    
     try {
-        let sql = `
-            INSERT INTO users (username, password, user_email)
-            VALUES ('${username}', '${hashedPassword}', '${email}')
-        `;
-        await db(sql);
-        res.send({message: 'Registration succeeded'});
+        // add user
+        // QUESTION: do we need to add has_shop to db?
+        let userPostResults = await db(`
+            INSERT INTO users (username, password, email)
+            VALUES ('${username}', '${hashedPassword}', '${email}');
+        `);
+        console.log(userPostResults);
+
+        // save user_id for later
+        // SELECT LAST_INSERT_ID()
+        // let user_id = userPostResults.data[0].insertId;
+
+        // if user selects has_shop, post empty shop object
+        // somewhere in here, also need to redirect to shop edit page
+        // if (has_shop) {
+        //     let shopPostResults = await db(`
+        //         INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points);
+        //         SELECT LAST_INSERT_ID()
+        //     `);
+
+        //     // save new shop_id and add it to new user
+        //     shop_id = shopPostResults.data[0].insertId;
+        //     let putResults = await db(`
+        //         UPDATE users SET shop_id=${shop_id}
+        //         WHERE user_id = ${Number(user_id)}
+        //     `);
+        // } 
+        res.send({userPostResults});
+        // message: 'Registration succeeded'
     } catch (err) {
         res.status(500).send({ error: err.message });
     }
@@ -37,7 +62,8 @@ router.post('/login', async (req, res) => {
             let user = results.data[0];
             let passwordsMatch = await bcrypt.compare(password, user.password);
             if (passwordsMatch) {
-                let payload = { userId : user.user_id };
+                // add shop_id to token (with comma)
+                let payload = { userId : user.user_id, shopId : user.shop_id };
                 let token = jwt.sign(payload, SECRET_KEY);
                 delete user.password;
                 res.send({
@@ -45,6 +71,7 @@ router.post('/login', async (req, res) => {
                     token: token,
                     user: user
                 });
+            console.log(payload)
             } else {
                 res.status(401).send({ error: 'Login failed' }); 
             }

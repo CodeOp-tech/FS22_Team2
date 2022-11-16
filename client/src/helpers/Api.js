@@ -14,8 +14,8 @@ class Api {
     }
 
     // GET user by id (PROTECTED)
-    static async getUser(userId) {
-        return await this._doFetch(`/users/${userId}`);
+    static async getUser(user_id) {
+        return await this._doFetch(`/users/${user_id}`);
     }
 
     // GET all shops
@@ -24,7 +24,7 @@ class Api {
     }
     
     // GET shop by shop_id
-    static async getShopProfile() {
+    static async getShopProfile(shop_id) {
         return await this._doFetch(`/shops/profile/${shop_id}`);
     }
 
@@ -34,7 +34,7 @@ class Api {
     }
 
     // POST create new shop (PROTECTED)
-    static async createShop() {
+    static async createShop(user_id) {
         return await this._doFetch(`/shops/new/${user_id}`);
     }
 

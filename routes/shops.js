@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { ensureSameUser } = require('../middleware/guards');
+const { ensureSameUser, ensureShopOwner } = require('../middleware/guards');
 const db = require('../model/helper.js')
 
 // GET all shops - works!
@@ -90,7 +90,8 @@ try {
 // PUT edit shop info
 // PROTECTED - user should only be able to edit their own shop info
 // KIND OF WORKS: if logged in user doesn't match req.params user, returns Forbidden. AND if user tries to edit a different shop, doesn't work. BUT if user tries to edit a different shop, just returns that unchanged shop object. Want it to return Forbidden. Need an ensureShopOwner route or something.
-router.put("/edit/:shopId/:userId", ensureSameUser, async (req, res) => { 
+// switch ensureSameUser to ensureShopOwner; don't need both because shopid is tied to userid in payload; if you want more than 1, look up correct syntax
+router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => { 
     let { shopId, userId }  = req.params;
     let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email } = req.body;
     let sqlUser = `SELECT * FROM users WHERE user_id = ${Number(userId)};`;
@@ -102,6 +103,7 @@ router.put("/edit/:shopId/:userId", ensureSameUser, async (req, res) => {
         delete user.password;
         let shopResult= await db(sqlShop);
         let shop = shopResult.data[0];
+      // if !user.shop_id =
       if (user.shop_id === shop.shop_id && shop_name) {
         await db(
           `UPDATE shops SET shop_name='${shop_name}' WHERE shop_id=${shopId}`

@@ -26,7 +26,7 @@ function App() {
   const [productData, setProductData] = useState([]); // useState 3 (populates only upon adding to cart)
   const [user, setUser] = useState(Local.getUser()); // useState 4
   const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
-  const [shop, setShop] = useState(Local.getShop());// useState 6
+  const [userShop, setUserShop] = useState(Local.getUserShop()); // useState 6
 
   const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ function App() {
   }, []);
 
   // log in user
+  // QUESTION: How to check if user has shop (Api.getUserShop(user_id)) and Local.SaveUserShop?
   async function doLogin(username, password) {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
@@ -90,7 +91,7 @@ function App() {
     // id (ie. product.product_id) passed from child ProductCard
     const quantity = cartProducts.find(
       (product) => product.id === id
-    )?.quantity; // if we find the product with a certain id, we want to know it's quantity (cartProducts array which consists objects made up of id and quantity)
+    )?.quantity; // if we find the product with a certain id, we want to know its quantity (cartProducts array which consists objects made up of id and quantity)
     // cartProducts array example: [ { id: 1, quantity: 2 } ]
 
     if (quantity === undefined) {

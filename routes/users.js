@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
     let results = await db(sql);
     let users = results.data;
     users.forEach(u => delete u.password);
-    users.forEach(u => delete u.user_email);
+    users.forEach(u => delete u.email);
     users.forEach(u => delete u.shop_id);
     res.send(users);
   } catch (err) {
