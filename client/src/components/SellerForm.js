@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
+import { Form, Col, Row, Button } from 'react-bootstrap';
 import './SellerForm.css'
 
 const EMPTY_FORM ={
-    date: '', // need date? for future reference (e.g. keeps track of how long the shop has been with the website)
     product_name:'',
-    porduct_image:'',
+    product_image:'',
     price:'',
     product_description:'',
     product_quantity:'',
@@ -17,29 +17,41 @@ const EMPTY_FORM ={
 
 function SellerForm(props) {
     const [productData, setProductData] = useState(EMPTY_FORM);
+    const [files, setFiles] = useState(null)
 
-    function handleSubmit (e) {
+      function handleSubmit (e) {
         e.preventDefault();
 
         let formData = new FormData();
-       
-        formData.append('productfile', file, file.name);
-
-        addProduct (productData);
+        formData.append('product_name', productData.product_name);
+        formData.append('productimg', files, files.name);
+        formData.append('price', productData.price);
+        formData.append('product_description', productData.product_description);
+        formData.append('product_quantity', productData.product_quantity);
+        console.log(formData)
+        props.addProductCb(formData);
 
         setProductData(EMPTY_FORM);
+        setFiles(null);
+        e.target.reset();
       }
 
-    function handleSubmit (e) {
-      e.preventDefault();
-      let formData = new FormData();
-      formData.append
+  function handleFileChange(e) {
+    console.log('upload', e.target.files[0])
+        setFiles(e.target.files[0]); //is the products refering to products.js routes file?
     }
+
+    // function handleSubmit (e) {
+    //   e.preventDefault();
+    //   let formData = new FormData();
+    //   formData.append
+    // }
     
       function handleChange (e){
         let {name, value} = e.target;
         setProductData (data => ({...data, [name]: value}));
-      }
+    }
+      
 
       function handleChangeCheck (e) {
         let checkbox = e.target.checked;
@@ -52,109 +64,111 @@ function SellerForm(props) {
 
   return (
 
-    <form className='seller-form' onSubmit={handleSubmit}>
-        <label className='date'>
-          Date
-            <input
-             type='date'
-             name='date'
-             vlaue={productData.date}
-             onChange={handleChange}
-             />
-        </label>
-        <label className='product-name'>
-            Product Name 
-            <input
+    <Form className='seller-form' onSubmit={handleSubmit}>
+      <Form.Group className='mb-3'>
+        <Form.Label className='product-name'>
+            Product Name </Form.Label>
+            <Form.Control
              type='text'
-             name='product_id'
+             name='product_name'
              value={productData.product_name}
              onChange={handleChange}
              />
-        </label>
-        <label className='product-name'>
-            Product Decription
-            <input
-             type='text'
+      </Form.Group>
+      <Form.Group className='mb-3'>
+        <Form.Label className='product-name'>
+            Product Description 
+        </Form.Label>
+            <Form.Control 
+             type='textarea'
              name='product_description'
              value={productData.product_description}
              onChange={handleChange}
              />
-        </label>
-        <label className='price'>
+        </Form.Group>
+         <Row>
+           <Col>
+        <Form.Group className='mb-3'>
+        <Form.Label className='price'>
             Price
-            <input
+        </Form.Label>
+            <Form.Control
              type='number'
              name='price'
              value={productData.price}
              onChange={handleChange}
              />
-        </label>
-        <label className='product-quantity'>
+        </Form.Group>
+         </Col>
+         <Col>
+        <Form.Group className='mb-3'>
+        <Form.Label className='product-quantity'>
             Qauntity
-            <input
+            </Form.Label> 
+            <Form.Control
              type='number'
              name='product_quantity'
              value={productData.product_quantity}
              onChange={handleChange}
              />
-        </label>
-        <label className='product-image'>
-            Image
-            <input
+        
+        </Form.Group>
+        </Col>
+        </Row>
+        <Form.Group className='mb-3'>
+        <Form.Label className='product-image'>
+            Image</Form.Label>
+            <Form.Control
              type='file'
              name='product_image'
-             value={productData.porduct_image}
-             onChange={handleChange}
+             onChange={handleFileChange}
              />
-        </label>
-        <label className='product-checklist'>
+        </Form.Group>
+        <Form.Group className='mb-3'>
             This product is...
-            Recyclable
-            <input
+            <Form.Check
+             label = 'Recyclable'
              type='checkbox'
              name='checklist1'
              value={productData.checklist1}
              onChange={handleChangeCheck}
              />
-        </label>
-        <label className='product-checklist'>
-            Made from recycled products
-            <input
+        
+            <Form.Check
+             label='Made from recycled products'
              type='checkbox'
              name='checklist2'
              value={productData.checklist2}
              onChange={handleChangeCheck}
              />
-        </label>
-        <label className='product-checklist'>
-            Locally Sourced
-            <input
+        
+            <Form.Check
+             label='Locally Sourced'
              type='checkbox'
              name='checklist3'
              value={productData.checklist3}
              onChange={handleChangeCheck}
              />
-        </label>
-        <label className='product-checklist'>
-            Has no toxic materials 
-            <input
+             
+            <Form.Check
+             label='Has no toxic materials'
              type='checkbox'
              name='checklist4'
              value={productData.checklist4}
              onChange={handleChangeCheck}
              />
-        </label>
-        <label className='product-checklist'>
-            Fairtrade
-            <input
+            
+            <Form.Check
+             label='Fairtrade'
              type='checkbox'
              name='checklist5'
              value={productData.checklist5}
              onChange={handleChangeCheck}
              />
-        </label>
-        <button type="submit">Submit</button>
-    </form>
+
+        </Form.Group>
+        <Button type="submit">Submit</Button>
+    </Form>
 
 
   )
