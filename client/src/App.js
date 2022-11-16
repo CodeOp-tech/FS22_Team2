@@ -120,8 +120,7 @@ function App() {
             quantity: 1,
             name: product.product_name,
             price: product.price,
-            stripe_id: product.stripe_product_id
-
+            stripe_id: product.stripe_product_id,
           },
         ]
       );
@@ -193,7 +192,6 @@ function App() {
     <div className="App">
       <Container>
         <CartContext.Provider value={contextObjCart}>
-
           <Navbar user={user} logoutCb={doLogout} />
 
           <Routes>
@@ -217,7 +215,6 @@ function App() {
             <Route
               path="/users/userId"
               element={
-              
                 <PrivateRoute>
                   <UserProfileView />
                 </PrivateRoute>
@@ -238,9 +235,7 @@ function App() {
               path="*"
               element={<ErrorView code="404" text="Page not found" />}
             />
-
           </Routes>
-
         </CartContext.Provider>
       </Container>
     </div>
