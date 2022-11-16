@@ -19,6 +19,7 @@ function NavBar(props) {
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
 
+
                          {/* Only show "Shop" if user is logged in */}
                          {
                             props.user && (
@@ -48,6 +49,13 @@ function NavBar(props) {
                                 </li>
                             )
                         }
+
+                        <li>
+                            <NavLink className="nav-link" to="/shop">Shop</NavLink>
+                        </li>
+                        <li>
+                            <NavLink className="nav-link" to="/seller">Seller</NavLink>
+                        </li>
 
                         {/* Only show "Members Only" if user is logged in */}
                         {

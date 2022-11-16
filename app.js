@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // commented out because if it's live, path directs here 
 // app.use(express.static(path.join(__dirname, "public")));
-
+app.use( express.static('public') );
 // Routes 
 // added authRouter 
 app.use("/", authRouter);

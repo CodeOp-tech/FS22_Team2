@@ -38,7 +38,7 @@ let find = cartProducts.find(e => e.id === product.product_id);
   return (
     <Card>
       <Card.Body> {/* used to pad content inside a <Card> */}
-        <Card.Img variant="top" src={product.product_image} />
+        <Card.Img variant="top" src={product.url} />
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
         <Card.Text>${product.price}</Card.Text>

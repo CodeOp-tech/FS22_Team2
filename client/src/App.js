@@ -20,6 +20,7 @@ import ErrorView from "./views/ErrorView";
 import HomeView from "./views/HomeView";
 import BuyerPurchaseView from "./views/BuyerPurchaseView";
 import SellerPurchaseView from "./views/SellerPurchaseView";
+import SellerDash from "./views/SellerDash";
 
 function App() {
   const [products, setProducts] = useState([]); // useState 1 (products fetched from database upon page render)
@@ -65,7 +66,7 @@ function App() {
   async function getProducts(shop_id) {
     // shop_id should be passed from child
     try {
-      let response = await fetch(`/products/1`); // NOTE: Temporarily hardcoding store_id here for testing
+      let response = await fetch(`/products`); // NOTE: Temporarily hardcoding store_id here for testing
       if (response.ok) {
         let result = await response.json();
         setProducts(result);
@@ -253,7 +254,6 @@ function App() {
     <div className="App">
       <Container>
         <CartContext.Provider value={contextObjCart}>
-
           <Navbar user={user} logoutCb={doLogout} />
 
           <Routes>
@@ -268,6 +268,7 @@ function App() {
                 />
               }
             />
+            <Route path="/seller" element={<SellerDash/>}/> //remove after 
 
             {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
             <Route path="success" element={<Success />} />
@@ -279,7 +280,6 @@ function App() {
             <Route
               path="/users/userId"
               element={
-              
                 <PrivateRoute>
                   <UserProfileView />
                 </PrivateRoute>
@@ -300,9 +300,7 @@ function App() {
               path="*"
               element={<ErrorView code="404" text="Page not found" />}
             />
-
           </Routes>
-
         </CartContext.Provider>
       </Container>
     </div>
