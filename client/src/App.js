@@ -33,6 +33,7 @@ function App() {
   const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]); // useState 8
   const [purchasedItemsByShop, setPurchasedItemsByShop] = useState([]); // useState 9
   const [totalCost, setTotalCost] = useState([]); // useState 10
+  const [shop, setShop] = useState(Local.getShop()); // useState 11
 
   const navigate = useNavigate();
 
@@ -43,11 +44,14 @@ function App() {
   }, []);
 
   // log in user
+  // when log in, save
+  // QUESTION: How to check if user has shop (Api.getUserShop(user_id)) and Local.SaveUserShop?
   async function doLogin(username, password) {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
-      Local.saveUserInfo(myResponse.data.token, myResponse.data.user);
+      Local.saveUserInfo(myResponse.data.token, myResponse.data.user, myResponse.data.shop);
       setUser(myResponse.data.user);
+      setShop(myResponse.data.shop);
       setLoginErrorMessage("");
       navigate("/");
     } else {
@@ -59,6 +63,7 @@ function App() {
   function doLogout() {
     Local.removeUserInfo();
     setUser(null);
+    setShop(null);
     //Navbar should send user to home page
   }
 
@@ -98,7 +103,7 @@ function App() {
     // id (ie. product.product_id) passed from child ProductCard
     const quantity = cartProducts.find(
       (product) => product.id === id
-    )?.quantity; // if we find the product with a certain id, we want to know it's quantity (cartProducts array which consists objects made up of id and quantity)
+    )?.quantity; // if we find the product with a certain id, we want to know its quantity (cartProducts array which consists objects made up of id and quantity)
     // cartProducts array example: [ { id: 1, quantity: 2 } ]
 
     if (quantity === undefined) {

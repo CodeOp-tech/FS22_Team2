@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require("../config.js");
 
-// Make sure user logged in - works!
+// Make sure user logged in 
 function ensureUserLoggedIn(req, res, next) {
     let token = _getToken(req);
     try {
@@ -13,7 +13,7 @@ function ensureUserLoggedIn(req, res, next) {
     }
 }
 
-// Make sure user is accessing their own profile page - works!
+// Make sure user is accessing their own profile page 
 function ensureSameUser(req, res, next) {
     let token = _getToken(req);
     try {
@@ -31,15 +31,16 @@ function ensureSameUser(req, res, next) {
     }
 }
 
-// Make sure the person accessing this resource is the owner of the shop
+// Make sure user is accessing their own shop
 function ensureShopOwner(req, res, next) {
     let token = _getToken(req);
     try {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
-        // if token is ok, check that user id matches
-        if (payload.userId === Number(req.params.userId)) {
-        // if okay, will proceed; else will throw error
+        // if token is ok, check that userId & shopId match
+        // QUESTION: is user identity already verified by matched token? If so, why do we need to check userId on ensureSameUser?
+        if (payload.userId === Number(req.params.userId) && payload.shopId === Number(req.params.shopId)) {
+            // if okay, will proceed; else will throw error
             next();
         } else {
             res.status(403).send({ error: 'Forbidden' });
@@ -66,5 +67,6 @@ function _getToken(req) {
 
 module.exports = {
     ensureUserLoggedIn,
-    ensureSameUser
+    ensureSameUser,
+    ensureShopOwner
 };

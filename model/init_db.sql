@@ -20,14 +20,15 @@ INSERT INTO users (username, password, email, user_points, shop_id)
 VALUES 
 ('user1_buyer', '$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W', 'user1@msb.inc', 0, null),
 ('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'user2@msb.inc', 0, 1),
-('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 3);
+('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 2);
 
+-- removed NOT NULL constraint to create empty shop
 CREATE TABLE shops (
 	shop_id INT NOT NULL AUTO_INCREMENT,
-	shop_name varchar(255) NOT NULL,
-	shop_address varchar(255) NOT NULL UNIQUE,
-	shop_description varchar(255) NOT NULL,
-	shop_image varchar(255) NOT NULL,
+	shop_name varchar(255),
+	shop_address varchar(255),
+	shop_description varchar(255),
+	shop_image varchar(255),
 	website varchar(255),
 	phone varchar(255),
 	shop_email varchar(255),

@@ -1,7 +1,7 @@
 import Local from './Local.js';
 
 class Api {
-     // _doFetch method - internal use only, to user in other functions
+    //_doFetch method - internal use only, to user in other functions
      static async _doFetch(url, method = 'GET', body = null) {
         // prep fetch options
         let options = {
@@ -57,14 +57,34 @@ class Api {
         return await this._doFetch('/users');
     }
 
-    // GET user by id
-    static async getUser(userId) {
-        return await this._doFetch(`/users/${userId}`);
+    // GET user by id (PROTECTED)
+    static async getUser(user_id) {
+        return await this._doFetch(`/users/${user_id}`);
     }
-
+    
     // GET general private content (members-only access pages, etc.)
     static async getContent(url) {
         return await this._doFetch(url);
+    }
+    
+    // GET all shops
+    static async getAllShops() {
+        return await this._doFetch('/shops');
+    }
+    
+    // GET shop by shop_id
+    static async getShopProfile(shop_id) {
+        return await this._doFetch(`/shops/profile/${shop_id}`);
+    }
+
+    // GET shop by owner's user_id (PROTECTED)
+    static async getUserShop(user_id) {
+        return await this._doFetch(`/shops/${user_id}`);
+    }
+
+    // POST create new shop (PROTECTED)
+    static async createShop(user_id) {
+        return await this._doFetch(`/shops/new/${user_id}`);
     }
 
     // EDIT/PUT product quantity
