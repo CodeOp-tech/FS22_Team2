@@ -3,16 +3,17 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // import necessary as it has the stylesheets necessary for Bootstrap components
 import { Container } from "react-bootstrap"; // wraps entire application to sit more centered of screen
 import { Routes, Route, useNavigate } from "react-router-dom"; // BrowserRouter = the overarching router
-import Cancel from "./views/Cancel";
-import ShopView from "./views/ShopView";
-import Success from "./views/Success";
-import CartContext from "./CartContext";
 
 import Local from "./helpers/Local.js";
 import Api from "./helpers/Api.js";
 
 import Navbar from "./components/Navbar.js";
 
+import Cancel from "./views/Cancel";
+import ShopView from "./views/ShopView";
+import SingleShopView from "./views/SingleShopView";
+import Success from "./views/Success";
+import CartContext from "./CartContext";
 import PrivateRoute from "./components/PrivateRoute";
 import UserProfileView from "./views/UserProfileView.js";
 import LoginView from "./views/LoginView.js";
@@ -34,11 +35,14 @@ function App() {
   const [purchasedItemsByShop, setPurchasedItemsByShop] = useState([]); // useState 9
   const [totalCost, setTotalCost] = useState([]); // useState 10
   const [shop, setShop] = useState(Local.getShop()); // useState 11
+  const [productsByShop, setProductsByShop] = useState([]); // useState 12
+  const [purchasedItems, setPurchasedItems] = useState([]); // useState 13
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getProducts();
+    getProductsByShop();
     getPurchasedItemsByUser();
     getPurchasedItemsByShop();
   }, []);
@@ -67,11 +71,10 @@ function App() {
     //Navbar should send user to home page
   }
 
-  // TO-DO NOTE: NEEDS TO BE UPDATED WITH ACTUAL STORE_ID
-  async function getProducts(shop_id) {
-    // shop_id should be passed from child
+  // GET ALL PRODUCTS (regardless of store)
+  async function getProducts() {
     try {
-      let response = await fetch(`/products`); // NOTE: Temporarily hardcoding store_id here for testing
+      let response = await fetch(`/products`); 
       if (response.ok) {
         let result = await response.json();
         setProducts(result);
@@ -80,6 +83,17 @@ function App() {
       }
     } catch (err) {
       console.log(`Server error: ${err.message}`);
+    }
+  }
+
+  // TO-DO NOTE: NEEDS TO BE UPDATED WITH ACTUAL SHOP_ID PASSED BY FUNCTION
+  async function getProductsByShop(shop_id) {
+    // shop_id should be passed from child
+    let myresponse = await Api.getProductsByShop(1); // URGENT NOTE: To update: currently hardcoded
+    if (myresponse.ok) {
+      setProductsByShop(myresponse.data);
+    } else {
+      setError(myresponse.error);
     }
   }
 
@@ -141,7 +155,8 @@ function App() {
             quantity: 1,
             name: product.product_name,
             price: product.price,
-            stripe_id: product.stripe_product_id
+            stripe_id: product.stripe_product_id,
+            shop_id: product.shop_id
           },
         ]
       );
@@ -198,11 +213,11 @@ function App() {
   }
 
   // URGENT NOTE: WORK IN PROGRESS
-  // NOTE: Need to figure out how to pass total points to purchase_points below (NOW HARDCODED)
   async function addPurchases(purchase_sum, user_id) {
     let myresponse = await Api.addPurchases(`${totalCost}`, 1 ); //INSERT `${Local.getUserId()}`
     if (myresponse.ok) {
       setPurchases(myresponse.data);
+      addPurchasedItems();
     } else {
       setError(myresponse.error);
     }
@@ -210,16 +225,16 @@ function App() {
 
   // URGENT NOTE: WORK IN PROGRESS
   async function addPurchasedItems(purchase_quantity, purchase_points, purchase_id, product_id, shop_id) {
-    let myresponse = await Api.addPurchasedItems();
+    let myresponse = await Api.addPurchasedItems(`${cartProducts.quantity}`, purchase_points, purchase_id, `${cartProducts.id}`, `${cartProducts.shop_id}`); 
     if (myresponse.ok) {
-      setPurchasedItemsByUser(myresponse.data);
+      setPurchasedItems(myresponse.data);
     } else {
       setError(myresponse.error);
     }
   };
 
   async function getPurchasedItemsByUser(user_id) {
-    let myresponse = await Api.getPurchasedItemsByUser(1); // INSERT: Local.getUserId();
+    let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId()); // INSERT: Local.getUserId();
     if (myresponse.ok) {
       setPurchasedItemsByUser(myresponse.data)
     } else {
@@ -228,7 +243,7 @@ function App() {
   };
 
   async function getPurchasedItemsByShop(shop_id) {
-    let myresponse = await Api.getPurchasedItemsByShop(1); // INSERT: Local.getShopId()
+    let myresponse = await Api.getPurchasedItemsByShop(Local.getShopId()); // INSERT: Local.getShopId()
     if (myresponse.ok) {
       setPurchasedItemsByShop(myresponse.data);
     } else {
@@ -264,12 +279,22 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeView />} />
 
+            {/* NOTE: This route shows all products of all shops */}
             <Route
-              path="shop"
+              path="shops"
               element={
                 <ShopView
                   products={products}
-                  // getProductsCb={(shop_id) => getProducts(shop_id)}
+                />
+              }
+            />
+
+            {/* NOTE: This route shows products of a single selected shop */}
+            <Route
+              path="shop"
+              element={
+                <SingleShopView
+                  products={productsByShop}
                 />
               }
             />

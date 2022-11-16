@@ -47,6 +47,7 @@ let find = cartProducts.find(e => e.id === product.product_id);
         { find ? 
         <>
         <Form as={Row}>
+          {/* find is declared above to identify exact product in cartProducts, and within cartProducts there is the quantity property*/}
           <Form.Label column="true" sm="6">In Cart: {find.quantity} </Form.Label>
           <Col sm="6">
             <Button sm="6" onClick={() => handleClick(product.product_id)} className="mx-2">+</Button>

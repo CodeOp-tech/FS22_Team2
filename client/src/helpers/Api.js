@@ -87,6 +87,11 @@ class Api {
         return await this._doFetch(`/shops/new/${user_id}`);
     }
 
+    // GET products by shop
+    static async getProductsByShop(shop_id) {
+        return await this._doFetch(`/products/${shop_id}`);
+    }
+
     // EDIT/PUT product quantity
     static async updateQuantity(product_id, product_quantity) {
         let body = { product_quantity }

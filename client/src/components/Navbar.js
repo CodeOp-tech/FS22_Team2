@@ -24,7 +24,7 @@ function NavBar(props) {
                          {
                             props.user && (
                                 <li>
-                                    <NavLink className="nav-link" to="/shop">Shop</NavLink>
+                                    <NavLink className="nav-link" to="/shops">All Shops</NavLink>
                                 </li>
                             )
                         }
