@@ -24,10 +24,10 @@ VALUES
 
 CREATE TABLE shops (
 	shop_id INT NOT NULL AUTO_INCREMENT,
-	shop_name varchar(255) NOT NULL,
-	shop_address varchar(255) NOT NULL UNIQUE,
-	shop_description varchar(255) NOT NULL,
-	shop_image varchar(255) NOT NULL,
+	shop_name varchar(255),
+	shop_address varchar(255),
+	shop_description varchar(255),
+	shop_image varchar(255),
 	website varchar(255),
 	phone varchar(255),
 	shop_email varchar(255),

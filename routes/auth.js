@@ -5,47 +5,51 @@ const jwt = require("jsonwebtoken");
 const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require('../config.js');
 const db = require("../model/helper.js");
 
-// Register new user - works! 
+// Register new user (and shop) - works!
 router.post ('/register', async (req,res) => {
-    // add has_shop to req.body
+    // has_shop in req.body should be a boolean (needs to come from front end?)
     let { username, password, email, has_shop } = req.body;
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
-    let shop_id = null;
-    
+
     try {
-        // add user
-        // QUESTION: do we need to add has_shop to db?
-        let userPostResults = await db(`
+        // add new user to db w/input info
+        let sqlPostUser = `
             INSERT INTO users (username, password, email)
             VALUES ('${username}', '${hashedPassword}', '${email}');
-        `);
-        console.log(userPostResults);
-
+            SELECT LAST_INSERT_ID()
+        `;
+        
+        // add new shop to db w/fields preset to null
+        let sqlPostShop = `
+            INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
+            VALUES (${null}, ${null}, ${null}, ${null}, ${null}, ${null}, ${null}, 0);
+            SELECT LAST_INSERT_ID()
+        `
+        // POST new user
+        let userResults = await db(sqlPostUser);
         // save user_id for later
-        // SELECT LAST_INSERT_ID()
-        // let user_id = userPostResults.data[0].insertId;
+        let user_id = userResults.data[0].insertId;
 
-        // if user selects has_shop, post empty shop object
+        // if user opts to add a shop
         // somewhere in here, also need to redirect to shop edit page
-        // if (has_shop) {
-        //     let shopPostResults = await db(`
-        //         INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points);
-        //         SELECT LAST_INSERT_ID()
-        //     `);
+        if (has_shop) {
+            // POST new shop
+            let shopResults = await db(sqlPostShop);
+            // save shop_id
+            let shop_id = shopResults.data[0].insertId;
+            // add shop_id to user's record
+            await db(`
+                UPDATE users SET shop_id=${shop_id}
+                WHERE user_id = ${Number(user_id)}
+            `);
+        }
 
-        //     // save new shop_id and add it to new user
-        //     shop_id = shopPostResults.data[0].insertId;
-        //     let putResults = await db(`
-        //         UPDATE users SET shop_id=${shop_id}
-        //         WHERE user_id = ${Number(user_id)}
-        //     `);
-        // } 
-        res.send({userPostResults});
-        // message: 'Registration succeeded'
+        res.send({message: 'Registration succeeded'});
     } catch (err) {
         res.status(500).send({ error: err.message });
     }
 });  
+
 
 // Log in user - works!
 router.post('/login', async (req, res) => {
