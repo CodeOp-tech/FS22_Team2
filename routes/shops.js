@@ -20,8 +20,8 @@ router.get('/', async function(req, res, next) {
 // GET shop by shop_id - works!
 // NOT PROTECTED - for public profile page
 router.get('/profile/:shop_id', async function(req, res, next) {
-    let { shopId } = req.params;
-    let sql = `SELECT * FROM shops WHERE shop_id = ${Number(shopId)};`
+    let { shop_id } = req.params;
+    let sql = `SELECT * FROM shops WHERE shop_id = ${Number(shop_id)};`
   
     try {
       let results = await db(sql);
@@ -87,10 +87,7 @@ try {
 });
 
 
-// PUT edit shop info
-// PROTECTED - user should only be able to edit their own shop info
-// KIND OF WORKS: if logged in user doesn't match req.params user, returns Forbidden. AND if user tries to edit a different shop, doesn't work. BUT if user tries to edit a different shop, just returns that unchanged shop object. Want it to return Forbidden. Need an ensureShopOwner route or something.
-// switch ensureSameUser to ensureShopOwner; don't need both because shopid is tied to userid in payload; if you want more than 1, look up correct syntax
+// PUT edit shop info - works!
 router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => { 
     let { shopId, userId }  = req.params;
     let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email } = req.body;

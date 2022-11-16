@@ -12,7 +12,6 @@ CREATE TABLE users (
 	password varchar(100) NOT NULL,
 	email varchar(100) NOT NULL,
 	user_points INT,
-	has_shop BOOLEAN NOT NULL DEFAULT 0,
 	shop_id INT,
 	PRIMARY KEY (user_id)
 );
@@ -21,7 +20,7 @@ INSERT INTO users (username, password, email, user_points, shop_id)
 VALUES 
 ('user1_buyer', '$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W', 'user1@msb.inc', 0, null),
 ('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'user2@msb.inc', 0, 1),
-('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 3);
+('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 2);
 
 CREATE TABLE shops (
 	shop_id INT NOT NULL AUTO_INCREMENT,
