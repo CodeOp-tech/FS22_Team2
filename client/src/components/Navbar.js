@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-
 function NavBar(props) {
+
     return (
         <nav className="Navbar navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: 'teal' }}>
             <div className="container-fluid">
@@ -18,12 +18,45 @@ function NavBar(props) {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
+
+
+                         {/* Only show "Shop" if user is logged in */}
+                         {
+                            props.user && (
+                                <li>
+                                    <NavLink className="nav-link" to="/shop">Shop</NavLink>
+                                </li>
+                            )
+                        }
+                        
+                        {/* NOTE FROM JESS TO ZOE: Need to authorize only customers here */}
+                        {/* Only show "Customer Purchase History" if customer is logged in */}
+                        {
+                            props.user && (
+                                <li>
+                                    <NavLink className="nav-link" to="/customer_purchases">Purchase History</NavLink>
+                                </li>
+                            )
+                        }
+
+                        {/* NOTE FROM JESS TO ZOE: Need to authorize only shops/sellers here
+                        Please feel free to modify title of "Shops: Purchase History" - just to differentiate for now */}
+                        {/* Only show "Buyer Purchase History" if buyer is logged in */}
+                        {
+                            props.user && (
+                                <li>
+                                    <NavLink className="nav-link" to="/shop_purchases">Shops: Purchase History</NavLink>
+                                </li>
+                            )
+                        }
+
                         <li>
                             <NavLink className="nav-link" to="/shop">Shop</NavLink>
                         </li>
                         <li>
                             <NavLink className="nav-link" to="/seller">Seller</NavLink>
                         </li>
+
                         {/* Only show "Members Only" if user is logged in */}
                         {
                             props.user && (

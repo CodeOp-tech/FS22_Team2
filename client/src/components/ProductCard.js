@@ -1,6 +1,6 @@
 // Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
 
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Card, Button, Form, Row, Col } from "react-bootstrap";
 // NOTE: See React Bootstrap cards for more info: https://react-bootstrap.github.io/components/cards/
 import CartContext from "../CartContext";
@@ -14,8 +14,7 @@ function ProductCard(props) {
     getProductQuantityCb,
     addOneToCartCb,
     removeOneFromCartCb,
-    deleteFromCartCb,
-    getTotalCostCb } = useContext(CartContext);
+    deleteFromCartCb } = useContext(CartContext);
 
     function handleClick(id) {
       getProductQuantityCb(id);
@@ -35,7 +34,6 @@ function ProductCard(props) {
     }
 
 let find = cartProducts.find(e => e.id === product.product_id);
-console.log(find);
   
   return (
     <Card>
