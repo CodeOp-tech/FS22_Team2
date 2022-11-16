@@ -28,11 +28,23 @@ function NavBar(props) {
                             )
                         }
                         
-                        {/* Only show "Customer Purchase History" if user is logged in */}
+                        {/* NOTE FROM JESS TO ZOE: Need to authorize only customers here */}
+                        {/* Only show "Customer Purchase History" if customer is logged in */}
                         {
                             props.user && (
                                 <li>
                                     <NavLink className="nav-link" to="/customer_purchases">Purchase History</NavLink>
+                                </li>
+                            )
+                        }
+
+                        {/* NOTE FROM JESS TO ZOE: Need to authorize only shops/sellers here
+                        Please feel free to modify title of "Shops: Purchase History" - just to differentiate for now */}
+                        {/* Only show "Buyer Purchase History" if buyer is logged in */}
+                        {
+                            props.user && (
+                                <li>
+                                    <NavLink className="nav-link" to="/shop_purchases">Shops: Purchase History</NavLink>
                                 </li>
                             )
                         }

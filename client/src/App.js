@@ -30,6 +30,7 @@ function App() {
   const [error, setError] = useState(""); // useState 6
   const [purchases, setPurchases] = useState([]); // useState 7 (populates only upon clicking Purchase Items in Shopping cart)
   const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]);
+  const [purchasedItemsByShop, setPurchasedItemsByShop] = useState([]);
   const [totalCost, setTotalCost] = useState([]);
   const [newQuantity, setNewQuantity] = useState([]);
 
@@ -38,6 +39,7 @@ function App() {
   useEffect(() => {
     getProducts();
     getPurchasedItemsByUser();
+    getPurchasedItemsByShop();
   }, []);
 
   // log in user
@@ -230,6 +232,15 @@ function App() {
     }
   };
 
+  async function getPurchasedItemsByShop(shop_id) {
+    let myresponse = await Api.getPurchasedItemsByShop(1); // INSERT: Local.getShopId()
+    if (myresponse.ok) {
+      setPurchasedItemsByShop(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  };
+
   /* ---Context Objects--- */
 
   const contextObjCart = {
@@ -237,6 +248,7 @@ function App() {
     cartProducts,
     productData,
     purchasedItemsByUser,
+    purchasedItemsByShop,
     totalCost,
     addPurchasesCb: addPurchases,
     getProductDataCb: getProductData,
@@ -273,7 +285,7 @@ function App() {
             <Route path="cancel" element={<Cancel />} />
             
             <Route path="customer_purchases" element={<BuyerPurchaseView />} />
-            <Route path="seller_purchases" element={<SellerPurchaseView />} />
+            <Route path="shop_purchases" element={<SellerPurchaseView />} />
 
             <Route
               path="/users/userId"

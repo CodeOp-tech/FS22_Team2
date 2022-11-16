@@ -97,6 +97,12 @@ class Api {
         return await this._doFetch(`/purchaseditems/${user_id}`);
     }
 
+    // GET purchased items by shop id
+    static async getPurchasedItemsByShop(shop_id) {
+        return await this._doFetch(`/purchaseditems/shops/${shop_id}`);
+    }
+
+
 }
 
 export default Api;

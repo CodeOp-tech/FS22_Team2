@@ -77,7 +77,7 @@ router.get('/', async function(req, res,) {
             LEFT JOIN shops ON purchased_items.shop_id = shops.shop_id
           WHERE purchased_items.shop_id = ${Number(id)}
           ORDER BY purchase_date`); 
-          let purchased_items = joinToJson(results); 
+          let purchased_items = results.data; 
           res.send(purchased_items);
       } catch (err) {
           res.status(500).send({ error: err.message });
