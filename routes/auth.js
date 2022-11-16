@@ -31,7 +31,7 @@ router.post ('/register', async (req,res) => {
         let user_id = userResults.data[0].insertId;
 
         // if user opts to add a shop
-        // somewhere in here, also need to redirect to shop edit page
+        // somewhere in here, also need to redirect to shop edit page 
         if (has_shop) {
             // POST new shop
             let shopResults = await db(sqlPostShop);

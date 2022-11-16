@@ -22,6 +22,7 @@ VALUES
 ('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'user2@msb.inc', 0, 1),
 ('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 2);
 
+-- removed NOT NULL constraint to create empty shop
 CREATE TABLE shops (
 	shop_id INT NOT NULL AUTO_INCREMENT,
 	shop_name varchar(255),

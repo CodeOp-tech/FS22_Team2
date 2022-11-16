@@ -2,9 +2,10 @@
 
 class Local {
     // save user's info to localStorage
-    static saveUserInfo(token, user) {
+    static saveUserInfo(token, user, shop) {
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('shop', JSON.stringify(shop));
     }
 
     // remove user's info from localStorage
