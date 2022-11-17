@@ -45,6 +45,13 @@ class Api {
         return myresponse;
     }
 
+    // Register a new user
+    static async registerUser(username, password, email, has_shop) {
+        let body = { username, password, email, has_shop };
+
+        return await this._doFetch('/register', 'POST', body);
+    }
+    
     // Log in a user
     static async loginUser(username, password) {
         let body = { username, password };

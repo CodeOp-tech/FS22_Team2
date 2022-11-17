@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap';
-import './ShopRegForm.css'
+import './ShopEditForm.css'
 
 const EMPTY_FORM ={
   shop_name:'',
@@ -17,7 +17,7 @@ const EMPTY_FORM ={
   wo_biz: 0
 }
 
-function ShopRegForm(props) {
+function ShopEditForm(props) {
     const [shopData, setShopData] = useState(EMPTY_FORM);
     const [files, setFiles] = useState(null)
 
@@ -62,6 +62,7 @@ function ShopRegForm(props) {
             ...data, [e.target.name]:1
         }));
       }
+  }
 
 
   return (
@@ -196,4 +197,4 @@ function ShopRegForm(props) {
   )
 }
 
-export default ShopRegForm;
+export default ShopEditForm;

@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar.js";
 
 import PrivateRoute from "./components/PrivateRoute";
 import UserProfileView from "./views/UserProfileView.js";
+import RegistrationView from "./views/RegistrationView.js";
 import LoginView from "./views/LoginView.js";
 import ErrorView from "./views/ErrorView";
 import HomeView from "./views/HomeView";
@@ -27,13 +28,14 @@ function App() {
   const [cartProducts, setCartProducts] = useState([]); // useState 2 (populates only upon adding to cart)
   const [productData, setProductData] = useState([]); // useState 3 (populates only upon adding to cart)
   const [user, setUser] = useState(Local.getUser()); // useState 4
-  const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 5
-  const [error, setError] = useState(""); // useState 6
-  const [purchases, setPurchases] = useState([]); // useState 7 (populates only upon clicking Purchase Items in Shopping cart)
-  const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]); // useState 8
-  const [purchasedItemsByShop, setPurchasedItemsByShop] = useState([]); // useState 9
-  const [totalCost, setTotalCost] = useState([]); // useState 10
-  const [shop, setShop] = useState(Local.getShop()); // useState 11
+  const [regErrorMessage, setRegErrorMessage] = useState(""); // useState 5
+  const [loginErrorMessage, setLoginErrorMessage] = useState(""); // useState 6
+  const [error, setError] = useState(""); // useState 7
+  const [purchases, setPurchases] = useState([]); // useState 8 (populates only upon clicking Purchase Items in Shopping cart)
+  const [purchasedItemsByUser, setPurchasedItemsByUser] = useState([]); // useState 9
+  const [purchasedItemsByShop, setPurchasedItemsByShop] = useState([]); // useState 10
+  const [totalCost, setTotalCost] = useState([]); // useState 11
+  const [shop, setShop] = useState(Local.getShop()); // useState 12
 
   const navigate = useNavigate();
 
@@ -43,9 +45,19 @@ function App() {
     getPurchasedItemsByShop();
   }, []);
 
+  // register new user
+  async function doRegister(username, password, email, has_shop) {
+    let myResponse = await Api.registerUser(username, password, email, has_shop);
+    if (myResponse.ok) {
+      // This will direct user to the MyShop page on login, if they have a shop. Else will take them to UserDash.
+      doLogin(username, password)
+    } else {
+      setRegErrorMessage("Registration failed");
+    }
+  }
+  
   // log in user
   // when log in, save
-  // QUESTION: How to check if user has shop (Api.getUserShop(user_id)) and Local.SaveUserShop?
   async function doLogin(username, password) {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
@@ -53,7 +65,12 @@ function App() {
       setUser(myResponse.data.user);
       setShop(myResponse.data.shop);
       setLoginErrorMessage("");
+      // If user has a shop, send them to SellerDash page on login. If not, send them to UserDash
+      if (shop.shop_id) {
+        navigate("/seller");
+      } else {
       navigate("/");
+      }
     } else {
       setLoginErrorMessage("Login failed");
     }
@@ -131,6 +148,7 @@ function App() {
 
     if (quantity === 0) {
       // product is not in cart
+      let thisQuantity = 1;
       setCartProducts(
         // set state
         [
@@ -138,9 +156,11 @@ function App() {
           {
             // add an additional object
             id: id, // id is the product id that was passed from child ProductCard
-            quantity: 1,
+            quantity: thisQuantity,
             name: product.product_name,
             price: product.price,
+            productPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)),
+            totalPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)) * thisQuantity,
             stripe_id: product.stripe_product_id
           },
         ]
@@ -151,7 +171,7 @@ function App() {
         cartProducts.map(
           (product) =>
             product.id === id
-              ? { ...product, quantity: product.quantity + 1 } // if statement is true, take the entire product object and add one to quantity
+              ? { ...product, quantity: product.quantity + 1, totalPoints: product.productPoints * (product.quantity + 1)} // if statement is true, take the entire product object and add one to quantity, add points proportionally
               : product // if statement is false, return product object
         )
       );
@@ -169,7 +189,7 @@ function App() {
         cartProducts.map(
           (product) =>
             product.id === id
-              ? { ...product, quantity: product.quantity - 1 } // if statement is true, take the entire product object and minus one from quantity
+              ? { ...product, quantity: product.quantity - 1, totalPoints: product.productPoints * (product.quantity - 1) } // if statement is true, take the entire product object and minus one from quantity
               : product // if statement is false, return product object
         )
       );
@@ -297,6 +317,16 @@ function App() {
                 <LoginView
                   loginCb={(u, p) => doLogin(u, p)}
                   loginError={loginErrorMessage}
+                />
+              }
+            />
+
+            <Route
+              path="/register"
+              element={
+                <RegistrationView
+                  registerCb={(username, password, email, has_shop) => doRegister(username, password, email, has_shop)}
+                  regError={regErrorMessage}
                 />
               }
             />
