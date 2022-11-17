@@ -27,10 +27,11 @@ function UserRegForm(props) {
 
     function handleChangeCheck (e) {
         if (e.target.checked) {
-            setHasShop(1);
-        } else {
             setHasShop(0);
+        } else {
+            setHasShop(1);
         }
+        console.log(hasShop);
     }
 
     function handleSubmit(event) {
@@ -93,16 +94,20 @@ function UserRegForm(props) {
                         </Form.Group>
 
                     <Form.Group className='mb-3'>
-                        <Form.Check
-                            label="Would you like to open a shop?"
-                            type="checkbox"
-                            name="has-shop"
-                            value={hasShop}
-                            onChange={handleChangeCheck}
-                        />
+                        <Col>
+                            Would you like to open a shop?
+                        </Col>
+                        <Col>
+                            <Form.Check
+                                type="checkbox"
+                                name="has-shop"
+                                value={hasShop}
+                                onChange={handleChangeCheck}
+                            />
+                        </Col>
                     </Form.Group>
 
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <Button type="submit" className="btn btn-primary">Submit</Button>
                 </Form>
             </div>
         </div>
