@@ -91,7 +91,7 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
 // PROTECTED - user should only be able to enter own shop
 router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => { 
     let { shopId, userId }  = req.params;
-    let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email } = req.body;
+    let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz } = req.body;
     let sqlUser = `SELECT * FROM users WHERE user_id = ${Number(userId)};`;
     let sqlShop = `SELECT * FROM shops WHERE shop_id = ${Number(shopId)};`;
 
@@ -132,6 +132,26 @@ router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => {
 
       if (user.shop_id === shop.shop_id && shop_email) {
         await db(`UPDATE shops SET shop_email='${shop_email}' WHERE shop_id=${shopId}`);
+      }
+
+      if (user.shop_id === shop.shop_id && donate) {
+        await db(`UPDATE shops SET donate='${Number(donate)}' WHERE shop_id=${shopId}`);
+      }
+
+      if (user.shop_id === shop.shop_id && led_lights) {
+        await db(`UPDATE shops SET led_lights='${Number(led_lights)}' WHERE shop_id=${shopId}`);
+      }
+
+      if (user.shop_id === shop.shop_id && small_biz) {
+        await db(`UPDATE shops SET small_biz='${Number(small_biz)}' WHERE shop_id=${shopId}`);
+      }
+
+      if (user.shop_id === shop.shop_id && min_biz) {
+        await db(`UPDATE shops SET min_biz='${Number(min_biz)}' WHERE shop_id=${shopId}`);
+      }
+
+      if (user.shop_id === shop.shop_id && wo_biz) {
+        await db(`UPDATE shops SET wo_biz='${Number(wo_biz)}' WHERE shop_id=${shopId}`);
       }
 
       const results = await db(`SELECT * FROM shops WHERE shop_id = ${Number(shopId)}`);

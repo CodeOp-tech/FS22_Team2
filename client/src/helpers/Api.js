@@ -66,6 +66,15 @@ class Api {
     static async getContent(url) {
         return await this._doFetch(url);
     }
+
+    /******* SHOP FETCHES *******/
+
+    // EDIT/PUT shop info
+    static async updateShop(shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz, shop_id, user_id) {
+
+        let body = { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz }
+        return await this._doFetch(`/shops/edit/${shop_id}/ ${user_id}`, 'PUT', body);
+    }
     
     // GET all shops
     static async getAllShops() {
@@ -83,9 +92,11 @@ class Api {
     }
 
     // POST create new shop (PROTECTED)
-    static async createShop(user_id) {
-        return await this._doFetch(`/shops/new/${user_id}`);
-    }
+    // static async createShop(user_id) {
+    //     return await this._doFetch(`/shops/new/${user_id}`);
+    // } 
+
+    /******* PRODUCT FETCHES *******/
 
     // EDIT/PUT product quantity
     static async updateQuantity(product_id, product_quantity) {
