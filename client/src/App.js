@@ -233,7 +233,7 @@ function App() {
 
   // URGENT NOTE: WORK IN PROGRESS
   async function addPurchasedItems(purchase_quantity, purchase_points, purchase_id, product_id, shop_id) {
-    let myresponse = await Api.addPurchasedItems(`${cartProducts.quantity}`, purchase_points, purchase_id, `${cartProducts.id}`, `${cartProducts.shop_id}`); 
+    let myresponse = await Api.addPurchasedItems(`${cartProducts.quantity}`, `${cartProducts.purchase_points}`, purchase_id, `${cartProducts.id}`, `${cartProducts.shop_id}`); 
     if (myresponse.ok) {
       setPurchasedItems(myresponse.data);
     } else {

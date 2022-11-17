@@ -5,6 +5,7 @@ import ProductCard from "../components/ProductCard";
 import Search from "../components/Search";
 import ProductContext from "../ProductContext";
 
+
 function ShopView(props) {
   const { searchedByShop } = useContext(ProductContext);
 

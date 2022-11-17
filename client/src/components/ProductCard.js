@@ -1,13 +1,13 @@
 // Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Card, Button, Form, Row, Col } from "react-bootstrap";
 // NOTE: See React Bootstrap cards for more info: https://react-bootstrap.github.io/components/cards/
 import CartContext from "../CartContext";
 import ProductContext from "../ProductContext";
+import "./ProductCard.css";
 
 function ProductCard(props) {
-
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
 
   const { getProductDataCb } = useContext(ProductContext);
@@ -40,7 +40,14 @@ let find = cartProducts.find(e => e.id === product.product_id);
   return (
     <Card>
       <Card.Body> {/* used to pad content inside a <Card> */}
-        <Card.Img variant="top" src={product.url} />
+        <div className="image">
+          <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
+          <div className="overlay">
+            <div className="text">
+              Click on image to see more product info
+            </div>
+          </div>
+        </div>
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
         <Card.Text>${product.price}</Card.Text>
