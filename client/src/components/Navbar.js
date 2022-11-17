@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-function NavBar(props) {
+function Navbar(props) {
 
     return (
         <nav className="Navbar navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: 'teal' }}>
@@ -97,4 +97,4 @@ function NavBar(props) {
     );
 }
 
-export default NavBar;
+export default Navbar;
