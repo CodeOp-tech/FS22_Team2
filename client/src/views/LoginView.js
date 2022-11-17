@@ -62,7 +62,7 @@ function LoginView(props) {
                             />
                         </label>
                     </div>
-
+                    
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
                 <div class="SignUpPrompt">
