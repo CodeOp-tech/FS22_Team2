@@ -1,0 +1,45 @@
+.FeaturedBusiness {
+  padding: 0 3rem 0 3rem;
+  display: flex;
+  height: 90vh;
+  /* flex-direction: column;
+  position: relative; */
+  margin-bottom: 8rem;
+  margin-top: 9rem;
+  margin-bottom: 13rem;
+}
+.awesome {
+  display: flex;
+  flex-direction: column;
+  color: orange;
+  font-size: 2.5rem;
+  font-weight: bold;
+  position: relative;
+}
+
+.para {
+  font-size: 20px;
+  color: gray;
+}
+.cards {
+  flex: auto;
+  margin: 65px;
+}
+.card {
+  display: flex;
+  background-color: whitesmoke;
+  padding: 1rem 0.76rem;
+}
+.card h2 {
+  line-height: 150%;
+}
+.card p {
+  padding-top: 1rem;
+  line-height: 150%;
+}
+.featImg img {
+  padding: 5px;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 50%;
+}
