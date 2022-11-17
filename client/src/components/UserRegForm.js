@@ -23,20 +23,17 @@ function UserRegForm(props) {
         }
     }
 
-    function handleChangeCheck (e) {
-        if (e.target.checked) {
-            setProductData((data) => ({
-               ...data, [e.target.name]:1
-           }));
-        }
-    }
+    // function handleChangeCheck (e) {
+    //     if (e.target.checked) {
+    //         setProductData((data) => ({
+    //            ...data, [e.target.name]:1
+    //        }));
+    //     }
+    // }
 
     function handleSubmit(event) {
         event.preventDefault();
-        /***** CHANGE TO REG *****/
-        // props.loginCb(username, password);
-        // if has_shop, post user and take to seller dash
-        // else post user and take to user dash
+        props.registerCb(username, password, email);
     }
 
     return (
@@ -45,8 +42,8 @@ function UserRegForm(props) {
                 <h2>Sign up!</h2>
                 
                 {
-                    props.loginError && (
-                        <div className="alert alert-danger">{props.loginError}</div>
+                    props.regError && (
+                        <div className="alert alert-danger">{props.regError}</div>
                     )
                 }
 
@@ -90,7 +87,7 @@ function UserRegForm(props) {
                         </label>
                     </div>
 
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label>Would you like to open a shop?
                             <input
                                 type="checkbox"
@@ -101,7 +98,7 @@ function UserRegForm(props) {
                                 onChange={handleChange}
                             />
                         </label>
-                    </div>
+                    </div> */}
 
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

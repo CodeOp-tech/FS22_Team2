@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 
 
 function LoginView(props) {
@@ -64,6 +65,11 @@ function LoginView(props) {
 
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+                <div class="SignUpPrompt">
+                    <p>
+                        Don't have an account? <NavLink className="nav-link" to="/register">Sign up here.</NavLink>
+                    </p>
+                </div>
             </div>
         </div>
     );

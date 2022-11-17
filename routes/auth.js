@@ -6,9 +6,10 @@ const { BCRYPT_WORK_FACTOR, SECRET_KEY } = require('../config.js');
 const db = require("../model/helper.js");
 
 // Register new user (and shop)
+// NOTE: removed has_shop to test; add back in later
 router.post ('/register', async (req,res) => {
     // has_shop in req.body should be a boolean (needs to come from front end?)
-    let { username, password, email, has_shop } = req.body;
+    let { username, password, email } = req.body;
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
     try {
@@ -30,18 +31,18 @@ router.post ('/register', async (req,res) => {
         // save user_id for later
         let user_id = userResults.data[0].insertId;
 
-        // if user opts to add a shop
-        if (has_shop) {
-            // POST new shop
-            let shopResults = await db(sqlPostShop);
-            // save shop_id
-            let shop_id = shopResults.data[0].insertId;
-            // add shop_id to user's record
-            await db(`
-                UPDATE users SET shop_id=${shop_id}
-                WHERE user_id = ${Number(user_id)}
-            `);
-        }
+        // // if user opts to add a shop
+        // if (has_shop) {
+        //     // POST new shop
+        //     let shopResults = await db(sqlPostShop);
+        //     // save shop_id
+        //     let shop_id = shopResults.data[0].insertId;
+        //     // add shop_id to user's record
+        //     await db(`
+        //         UPDATE users SET shop_id=${shop_id}
+        //         WHERE user_id = ${Number(user_id)}
+        //     `);
+        // }
 
         res.send({message: 'Registration succeeded'});
     } catch (err) {

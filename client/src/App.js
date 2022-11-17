@@ -59,8 +59,9 @@ function App() {
 
 
   // register new user
+  // NOTE: removed has_shop to test; add back in later
   async function doRegister(username, password, email, has_shop) {
-    let myResponse = await Api.registerUser(username, password, email, has_shop);
+    let myResponse = await Api.registerUser(username, password, email);
     if (myResponse.ok) {
       // This will direct user to the SellerDash page on login, if they have a shop. Else will take them to UserDash.
       doLogin(username, password)
@@ -334,7 +335,7 @@ function App() {
       <Container>
         <ProductContext.Provider value={contextObjProduct}>
           <CartContext.Provider value={contextObjCart}>
-            <Navbar user={user} logoutCb={doLogout} />
+            <Navbar user={user} shop={shop} logoutCb={doLogout} />
 
             <Routes>
               <Route path="/" element={<HomeView />} />
