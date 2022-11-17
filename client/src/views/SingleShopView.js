@@ -6,8 +6,7 @@ import Search from "../components/Search";
 import ProductContext from "../ProductContext";
 
 function ShopView(props) {
-  const { productsByShop,
-    searchedByShop } = useContext(ProductContext);
+  const { searchedByShop } = useContext(ProductContext);
 
     // URGENT TO-DO NOTE: Include shop name in h1
 
@@ -19,7 +18,7 @@ function ShopView(props) {
       <Row xs={1} md={3} className="g-4">
         {" "}
         {/* On an extra small screen, only show 1 column but on medium screen show 3 columns */}
-        {searchedByShop.map((product, idx) => ( // received searched state from parent App, where search/filter function takes place
+        {searchedByShop.map((product, idx) => ( // received searchedByShop state from parent App, where search/filter function takes place (with original state being productsByShop)
           <Col align="center" key={idx}>
             <ProductCard product={product} /> {/* Send mapped product above as props to ProductCard to use*/}
           </Col>

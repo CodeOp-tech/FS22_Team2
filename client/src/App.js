@@ -48,9 +48,12 @@ function App() {
     getProductsByShop();
     getPurchasedItemsByUser();
     getPurchasedItemsByShop();
-    setSearched(products);
-    setSearchedByShop(productsByShop);
   }, []);
+
+  useEffect(() => {
+    setSearched(products); // this must be done, if not All Shops page renders empty because search/filter function running (must set the page with all products)
+    setSearchedByShop(productsByShop); // this must be done, if not individual Shop page renders empty (must set the page with shop's products)
+  }, [products, productsByShop]); // whenever products or productsByShop change
 
   // log in user
   // when log in, save
@@ -261,7 +264,7 @@ function App() {
       return p.product_name.toLowerCase().includes(input.toLowerCase()); 
       // convert both product_name and input to lowercase so not case sensitive
     })
-    setSearched(tempProducts);
+    setSearched(tempProducts); // searched state set to ShopView via ProductContext
   }
 
   function searchShop(input) {
@@ -269,7 +272,7 @@ function App() {
       return p.product_name.toLowerCase().includes(input.toLowerCase()); 
       // convert both product_name and input to lowercase so not case sensitive
     })
-    setSearchedByShop(tempProducts);
+    setSearchedByShop(tempProducts); // searchedByShop state set to SingleShopView via ProductContext
   }
 
   /* ---Context Objects--- */

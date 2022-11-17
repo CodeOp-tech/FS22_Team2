@@ -8,7 +8,7 @@ import Search from "../components/Search";
 import ProductContext from "../ProductContext";
 
 function ShopView(props) {
-  const { products, searched } = useContext(ProductContext);
+  const { searched } = useContext(ProductContext);
 
   // TO-DO NOTE: Need to be able to pass shop_id somehow to parent App (for now, hardcoded in App)
 
@@ -20,7 +20,7 @@ function ShopView(props) {
       <Row xs={1} md={3} className="g-4">
         {" "}
         {/* On an extra small screen, only show 1 column but on medium screen show 3 columns */}
-        {searched.map((product, idx) => ( // received props.products from parent App
+        {searched.map((product, idx) => ( // received searched state from parent App, from search function (with original state being "products")
           <Col align="center" key={idx}>
             <ProductCard product={product} /> 
           </Col>
