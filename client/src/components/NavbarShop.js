@@ -24,7 +24,7 @@ function NavbarShop() {
     }
 
     function handleClick() {
-        // checkout();
+        checkout();
         // NOTE: ACTUAL WORKFLOW SHOULD BE ONLY UPON RECEIVING SUCCESS PAGE,
         // addPurchasesCb() is called
         addPurchasesCb();

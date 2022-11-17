@@ -58,7 +58,7 @@ function App() {
   useEffect(() => {
     getPurchasedItemsByUser();
     getPurchasedItemsByShop();
-  }, [purchases, purchasedItems]);
+  }, [purchases, purchasedItems, purchasedItemsByUser, purchasedItemsByShop]);
 
   // register new user
   async function doRegister(username, password, email, has_shop) {
