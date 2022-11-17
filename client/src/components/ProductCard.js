@@ -6,7 +6,7 @@ import { Card, Button, Form, Row, Col } from "react-bootstrap";
 import CartContext from "../CartContext";
 import ProductContext from "../ProductContext";
 import "./ProductCard.css";
-import Popup from "../components/Popup";
+import PopUpView from "../views/PopUpView";
 
 function ProductCard(props) {
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
@@ -86,7 +86,7 @@ let find = cartProducts.find(e => e.id === product.product_id);
         }
         
         {/* Pass product via props to child Popup*/}
-        <Popup trigger={buttonPopup} setTriggerCb={removePopup} product={product}/> 
+        <PopUpView trigger={buttonPopup} setTriggerCb={removePopup} product={product}/> 
 
       </Card.Body>
     </Card>
