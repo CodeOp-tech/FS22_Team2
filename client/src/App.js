@@ -3,16 +3,18 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // import necessary as it has the stylesheets necessary for Bootstrap components
 import { Container } from "react-bootstrap"; // wraps entire application to sit more centered of screen
 import { Routes, Route, useNavigate } from "react-router-dom"; // BrowserRouter = the overarching router
-import Cancel from "./views/Cancel";
-import ShopView from "./views/ShopView";
-import Success from "./views/Success";
-import CartContext from "./CartContext";
 
 import Local from "./helpers/Local.js";
 import Api from "./helpers/Api.js";
 
 import Navbar from "./components/Navbar.js";
 
+import Cancel from "./views/Cancel";
+import ShopView from "./views/ShopView";
+import SingleShopView from "./views/SingleShopView";
+import Success from "./views/Success";
+import ProductContext from "./ProductContext";
+import CartContext from "./CartContext";
 import PrivateRoute from "./components/PrivateRoute";
 import UserProfileView from "./views/UserProfileView.js";
 import RegistrationView from "./views/RegistrationView.js";
@@ -36,14 +38,25 @@ function App() {
   const [purchasedItemsByShop, setPurchasedItemsByShop] = useState([]); // useState 10
   const [totalCost, setTotalCost] = useState([]); // useState 11
   const [shop, setShop] = useState(Local.getShop()); // useState 12
+  const [productsByShop, setProductsByShop] = useState([]); // useState 13
+  const [purchasedItems, setPurchasedItems] = useState([]); // useState 14
+  const [searched, setSearched] = useState([]); // useState 15
+  const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getProducts();
+    getProductsByShop();
     getPurchasedItemsByUser();
     getPurchasedItemsByShop();
   }, []);
+
+  useEffect(() => {
+    setSearched(products); // this must be done, if not All Shops page renders empty because search/filter function running (must set the page with all products)
+    setSearchedByShop(productsByShop); // this must be done, if not individual Shop page renders empty (must set the page with shop's products)
+  }, [products, productsByShop]); // whenever products or productsByShop change
+
 
   // register new user
   async function doRegister(username, password, email, has_shop) {
@@ -55,7 +68,7 @@ function App() {
       setRegErrorMessage("Registration failed");
     }
   }
-  
+
   // log in user
   // when log in, save
   async function doLogin(username, password) {
@@ -84,11 +97,10 @@ function App() {
     //Navbar should send user to home page
   }
 
-  // TO-DO NOTE: NEEDS TO BE UPDATED WITH ACTUAL STORE_ID
-  async function getProducts(shop_id) {
-    // shop_id should be passed from child
+  // GET ALL PRODUCTS (regardless of store)
+  async function getProducts() {
     try {
-      let response = await fetch(`/products`); // NOTE: Temporarily hardcoding store_id here for testing
+      let response = await fetch(`/products`); 
       if (response.ok) {
         let result = await response.json();
         setProducts(result);
@@ -97,6 +109,17 @@ function App() {
       }
     } catch (err) {
       console.log(`Server error: ${err.message}`);
+    }
+  }
+
+  // TO-DO NOTE: NEEDS TO BE UPDATED WITH ACTUAL SHOP_ID PASSED BY FUNCTION
+  async function getProductsByShop(shop_id) {
+    // shop_id should be passed from child
+    let myresponse = await Api.getProductsByShop(1); // URGENT NOTE: To update: currently hardcoded
+    if (myresponse.ok) {
+      setProductsByShop(myresponse.data);
+    } else {
+      setError(myresponse.error);
     }
   }
 
@@ -159,6 +182,7 @@ function App() {
             quantity: thisQuantity,
             name: product.product_name,
             price: product.price,
+            shop_id: product.shop_id,
             productPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)),
             totalPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)) * thisQuantity,
             stripe_id: product.stripe_product_id
@@ -218,9 +242,8 @@ function App() {
   }
 
   // URGENT NOTE: WORK IN PROGRESS
-  // NOTE: Need to figure out how to pass total points to purchase_points below (NOW HARDCODED)
   async function addPurchases(purchase_sum, user_id) {
-    let myresponse = await Api.addPurchases(`${totalCost}`, 1 ); //INSERT `${Local.getUserId()}`
+    let myresponse = await Api.addPurchases(`${totalCost}`, `${Local.getUserId()}`); //INSERT `${Local.getUserId()}`
     if (myresponse.ok) {
       setPurchases(myresponse.data);
       addPurchasedItems();
@@ -233,14 +256,14 @@ function App() {
   async function addPurchasedItems(purchase_quantity, purchase_points, purchase_id, product_id, shop_id) {
     let myresponse = await Api.addPurchasedItems(`${cartProducts.quantity}`, `${cartProducts.totalPoints}`, 3, `${cartProducts.id}`, `${cartProducts.shop_id}`);
     if (myresponse.ok) {
-      setPurchasedItemsByUser(myresponse.data);
+      setPurchasedItems(myresponse.data);
     } else {
       setError(myresponse.error);
     }
   };
 
   async function getPurchasedItemsByUser(user_id) {
-    let myresponse = await Api.getPurchasedItemsByUser(1); // INSERT: Local.getUserId();
+    let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId()); // INSERT: Local.getUserId();
     if (myresponse.ok) {
       setPurchasedItemsByUser(myresponse.data)
     } else {
@@ -249,7 +272,7 @@ function App() {
   };
 
   async function getPurchasedItemsByShop(shop_id) {
-    let myresponse = await Api.getPurchasedItemsByShop(1); // INSERT: Local.getShopId()
+    let myresponse = await Api.getPurchasedItemsByShop(Local.getShopId()); // INSERT: Local.getShopId()
     if (myresponse.ok) {
       setPurchasedItemsByShop(myresponse.data);
     } else {
@@ -257,17 +280,30 @@ function App() {
     }
   };
 
+  function search(input) {
+    let tempProducts = products.filter((p) => {
+      return p.product_name.toLowerCase().includes(input.toLowerCase()); 
+      // convert both product_name and input to lowercase so not case sensitive
+    })
+    setSearched(tempProducts); // searched state set to ShopView via ProductContext
+  }
+
+  function searchShop(input) {
+    let tempProducts = productsByShop.filter((p) => {
+      return p.product_name.toLowerCase().includes(input.toLowerCase()); 
+      // convert both product_name and input to lowercase so not case sensitive
+    })
+    setSearchedByShop(tempProducts); // searchedByShop state set to SingleShopView via ProductContext
+  }
+
   /* ---Context Objects--- */
 
   const contextObjCart = {
-    products,
     cartProducts,
-    productData,
     purchasedItemsByUser,
     purchasedItemsByShop,
     totalCost,
     addPurchasesCb: addPurchases,
-    getProductDataCb: getProductData,
     getProductQuantityCb: getProductQuantity,
     addOneToCartCb: addOneToCart,
     removeOneFromCartCb: removeOneFromCart,
@@ -276,53 +312,75 @@ function App() {
     getPurchasedItemsByUserCb: getPurchasedItemsByUser
   };
 
+  const contextObjProduct = {
+    products,
+    productData,
+    searched,
+    searchedByShop,
+    productsByShop,
+    getProductDataCb: getProductData,
+    searchCb: search,
+    searchShopCb: searchShop
+  };
+
   return (
     <div className="App">
       <Container>
-        <CartContext.Provider value={contextObjCart}>
-          <Navbar user={user} logoutCb={doLogout} />
+        <ProductContext.Provider value={contextObjProduct}>
+          <CartContext.Provider value={contextObjCart}>
+            <Navbar user={user} logoutCb={doLogout} />
 
-          <Routes>
-            <Route path="/" element={<HomeView />} />
+            <Routes>
+              <Route path="/" element={<HomeView />} />
 
-            <Route
-              path="shop"
-              element={
-                <ShopView
-                  products={products}
-                  // getProductsCb={(shop_id) => getProducts(shop_id)}
-                />
-              }
-            />
-            <Route path="/seller" element={<SellerDash/>}/> //remove after 
+              {/* NOTE: This route shows all products of all shops */}
+              <Route
+                path="shops"
+                element={
+                  <ShopView
+                    products={products}
+                  />
+                }
+              />
 
-            {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
-            <Route path="success" element={<Success />} />
-            <Route path="cancel" element={<Cancel />} />
-            
-            <Route path="customer_purchases" element={<BuyerPurchaseView />} />
-            <Route path="shop_purchases" element={<SellerPurchaseView />} />
+              {/* NOTE: This route shows products of a single selected shop */}
+              <Route
+                path="shop"
+                element={
+                  <SingleShopView
+                    products={productsByShop}
+                  />
+                }
+              />
+              <Route path="/seller" element={<SellerDash/>}/> //remove after 
 
-            <Route
-              path="/users/userId"
-              element={
-                <PrivateRoute>
-                  <UserProfileView />
-                </PrivateRoute>
-              }
-            />
+              {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
+              <Route path="success" element={<Success />} />
+              <Route path="cancel" element={<Cancel />} />
+              
+              <Route path="customer_purchases" element={<BuyerPurchaseView />} />
+              <Route path="shop_purchases" element={<SellerPurchaseView />} />
 
-            <Route
-              path="/login"
-              element={
-                <LoginView
-                  loginCb={(u, p) => doLogin(u, p)}
-                  loginError={loginErrorMessage}
-                />
-              }
-            />
+              <Route
+                path="/users/userId"
+                element={
+                  <PrivateRoute>
+                    <UserProfileView />
+                  </PrivateRoute>
+                }
+              />
 
-            <Route
+              <Route
+                path="/login"
+                element={
+                  <LoginView
+                    loginCb={(u, p) => doLogin(u, p)}
+                    loginError={loginErrorMessage}
+                  />
+                }
+              />
+              
+              <Route
               path="/register"
               element={
                 <RegistrationView
@@ -332,12 +390,13 @@ function App() {
               }
             />
 
-            <Route
-              path="*"
-              element={<ErrorView code="404" text="Page not found" />}
-            />
-          </Routes>
-        </CartContext.Provider>
+              <Route
+                path="*"
+                element={<ErrorView code="404" text="Page not found" />}
+              />
+            </Routes>
+          </CartContext.Provider>
+        </ProductContext.Provider>
       </Container>
     </div>
   );

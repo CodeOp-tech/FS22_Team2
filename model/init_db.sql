@@ -55,12 +55,12 @@ CREATE TABLE `products` (
 	`product_description` varchar(255) NOT NULL,
 	`stripe_product_id` varchar(255),
 	`shop_id` INT NOT NULL,
-	PRIMARY KEY (`product_id`),
-	recycled BOOLEAN DEFAULT 0,
-	no_fridge BOOLEAN DEFAULT 0,
-	fair_trade BOOLEAN DEFAULT 0,
-	`local` BOOLEAN DEFAULT 0,
-	organic BOOLEAN DEFAULT 0
+	`recycled` BOOLEAN DEFAULT 0,
+  `no_fridge` BOOLEAN DEFAULT 0,
+  `fair_trade` BOOLEAN DEFAULT 0,
+  `local` BOOLEAN DEFAULT 0,
+  `organic` BOOLEAN DEFAULT 0,
+	PRIMARY KEY (`product_id`)
 );
 
 INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic)
