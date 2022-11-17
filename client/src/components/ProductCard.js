@@ -4,13 +4,15 @@ import { useContext } from "react";
 import { Card, Button, Form, Row, Col } from "react-bootstrap";
 // NOTE: See React Bootstrap cards for more info: https://react-bootstrap.github.io/components/cards/
 import CartContext from "../CartContext";
+import ProductContext from "../ProductContext";
 
 function ProductCard(props) {
 
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
 
+  const { getProductDataCb } = useContext(ProductContext);
+
   const { cartProducts,
-    getProductDataCb,
     getProductQuantityCb,
     addOneToCartCb,
     removeOneFromCartCb,

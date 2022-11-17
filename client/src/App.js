@@ -13,6 +13,7 @@ import Cancel from "./views/Cancel";
 import ShopView from "./views/ShopView";
 import SingleShopView from "./views/SingleShopView";
 import Success from "./views/Success";
+import ProductContext from "./ProductContext";
 import CartContext from "./CartContext";
 import PrivateRoute from "./components/PrivateRoute";
 import UserProfileView from "./views/UserProfileView.js";
@@ -37,6 +38,8 @@ function App() {
   const [shop, setShop] = useState(Local.getShop()); // useState 11
   const [productsByShop, setProductsByShop] = useState([]); // useState 12
   const [purchasedItems, setPurchasedItems] = useState([]); // useState 13
+  const [searched, setSearched] = useState([]); // useState 14
+  const [searchedByShop, setSearchedByShop] = useState([]); // useState 15
 
   const navigate = useNavigate();
 
@@ -45,6 +48,8 @@ function App() {
     getProductsByShop();
     getPurchasedItemsByUser();
     getPurchasedItemsByShop();
+    setSearched(products);
+    setSearchedByShop(productsByShop);
   }, []);
 
   // log in user
@@ -214,7 +219,7 @@ function App() {
 
   // URGENT NOTE: WORK IN PROGRESS
   async function addPurchases(purchase_sum, user_id) {
-    let myresponse = await Api.addPurchases(`${totalCost}`, 1 ); //INSERT `${Local.getUserId()}`
+    let myresponse = await Api.addPurchases(`${totalCost}`, `${Local.getUserId()}`); //INSERT `${Local.getUserId()}`
     if (myresponse.ok) {
       setPurchases(myresponse.data);
       addPurchasedItems();
@@ -251,17 +256,30 @@ function App() {
     }
   };
 
+  function search(input) {
+    let tempProducts = products.filter((p) => {
+      return p.product_name.toLowerCase().includes(input.toLowerCase()); 
+      // convert both product_name and input to lowercase so not case sensitive
+    })
+    setSearched(tempProducts);
+  }
+
+  function searchShop(input) {
+    let tempProducts = productsByShop.filter((p) => {
+      return p.product_name.toLowerCase().includes(input.toLowerCase()); 
+      // convert both product_name and input to lowercase so not case sensitive
+    })
+    setSearchedByShop(tempProducts);
+  }
+
   /* ---Context Objects--- */
 
   const contextObjCart = {
-    products,
     cartProducts,
-    productData,
     purchasedItemsByUser,
     purchasedItemsByShop,
     totalCost,
     addPurchasesCb: addPurchases,
-    getProductDataCb: getProductData,
     getProductQuantityCb: getProductQuantity,
     addOneToCartCb: addOneToCart,
     removeOneFromCartCb: removeOneFromCart,
@@ -270,68 +288,81 @@ function App() {
     getPurchasedItemsByUserCb: getPurchasedItemsByUser
   };
 
+  const contextObjProduct = {
+    products,
+    productData,
+    searched,
+    searchedByShop,
+    productsByShop,
+    getProductDataCb: getProductData,
+    searchCb: search,
+    searchShopCb: searchShop
+  };
+
   return (
     <div className="App">
       <Container>
-        <CartContext.Provider value={contextObjCart}>
-          <Navbar user={user} logoutCb={doLogout} />
+        <ProductContext.Provider value={contextObjProduct}>
+          <CartContext.Provider value={contextObjCart}>
+            <Navbar user={user} logoutCb={doLogout} />
 
-          <Routes>
-            <Route path="/" element={<HomeView />} />
+            <Routes>
+              <Route path="/" element={<HomeView />} />
 
-            {/* NOTE: This route shows all products of all shops */}
-            <Route
-              path="shops"
-              element={
-                <ShopView
-                  products={products}
-                />
-              }
-            />
+              {/* NOTE: This route shows all products of all shops */}
+              <Route
+                path="shops"
+                element={
+                  <ShopView
+                    products={products}
+                  />
+                }
+              />
 
-            {/* NOTE: This route shows products of a single selected shop */}
-            <Route
-              path="shop"
-              element={
-                <SingleShopView
-                  products={productsByShop}
-                />
-              }
-            />
-            <Route path="/seller" element={<SellerDash/>}/> //remove after 
+              {/* NOTE: This route shows products of a single selected shop */}
+              <Route
+                path="shop"
+                element={
+                  <SingleShopView
+                    products={productsByShop}
+                  />
+                }
+              />
+              <Route path="/seller" element={<SellerDash/>}/> //remove after 
 
-            {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
-            <Route path="success" element={<Success />} />
-            <Route path="cancel" element={<Cancel />} />
-            
-            <Route path="customer_purchases" element={<BuyerPurchaseView />} />
-            <Route path="shop_purchases" element={<SellerPurchaseView />} />
+              {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
+              <Route path="success" element={<Success />} />
+              <Route path="cancel" element={<Cancel />} />
+              
+              <Route path="customer_purchases" element={<BuyerPurchaseView />} />
+              <Route path="shop_purchases" element={<SellerPurchaseView />} />
 
-            <Route
-              path="/users/userId"
-              element={
-                <PrivateRoute>
-                  <UserProfileView />
-                </PrivateRoute>
-              }
-            />
+              <Route
+                path="/users/userId"
+                element={
+                  <PrivateRoute>
+                    <UserProfileView />
+                  </PrivateRoute>
+                }
+              />
 
-            <Route
-              path="/login"
-              element={
-                <LoginView
-                  loginCb={(u, p) => doLogin(u, p)}
-                  loginError={loginErrorMessage}
-                />
-              }
-            />
+              <Route
+                path="/login"
+                element={
+                  <LoginView
+                    loginCb={(u, p) => doLogin(u, p)}
+                    loginError={loginErrorMessage}
+                  />
+                }
+              />
 
-            <Route
-              path="*"
-              element={<ErrorView code="404" text="Page not found" />}
-            />
-          </Routes>
-        </CartContext.Provider>
+              <Route
+                path="*"
+                element={<ErrorView code="404" text="Page not found" />}
+              />
+            </Routes>
+          </CartContext.Provider>
+        </ProductContext.Provider>
       </Container>
     </div>
   );
