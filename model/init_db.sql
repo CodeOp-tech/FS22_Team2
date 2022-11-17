@@ -81,10 +81,9 @@ CREATE TABLE `purchases` (
 
 INSERT INTO purchases ( purchase_sum, user_id)
 VALUES
-(5, 1),
-(50, 1),
-(555, 2);
-
+(5.99, 1),
+(100.99, 1),
+(59.99, 2);
 
 CREATE TABLE `purchased_items` (
 	`purchased_items_id` INT NOT NULL AUTO_INCREMENT,
@@ -98,9 +97,9 @@ CREATE TABLE `purchased_items` (
 
 INSERT INTO purchased_items (purchase_quantity, purchase_points, purchase_id, product_id, shop_id)
 VALUES
-(1, 2, 1, 1, 1),
+(1, 4, 1, 1, 1),
 (10, 2, 2, 2, 2),
-(5, 2, 3, 3, 2);
+(1, 2, 3, 3, 2);
 
 ALTER TABLE `users` ADD CONSTRAINT `users_fk0` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
 

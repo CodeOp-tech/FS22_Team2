@@ -1,6 +1,6 @@
 // Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Card, Button, Form, Row, Col } from "react-bootstrap";
 // NOTE: See React Bootstrap cards for more info: https://react-bootstrap.github.io/components/cards/
 import CartContext from "../CartContext";
@@ -10,6 +10,7 @@ import Popup from "../components/Popup";
 
 function ProductCard(props) {
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
+  const [buttonPopup, setButtonPopup] = useState(false);
 
   const { getProductDataCb } = useContext(ProductContext);
 
@@ -19,28 +20,42 @@ function ProductCard(props) {
     removeOneFromCartCb,
     deleteFromCartCb } = useContext(CartContext);
 
-    function handleClick(id) {
+    // useEffect(() => {
+    //   showPopup();
+    //   removePopup();
+    // }, [buttonPopup])
+
+    function handleClick(id) { // id is received from onClick function below, product.product_id (product = props.product, see above)
       getProductQuantityCb(id);
       addOneToCartCb(id); 
       console.log(cartProducts);
-      getProductDataCb(id);
+      getProductDataCb(id); // getProductDataCb called, to provide access to product properties to display product name, price & description below
     }
 
-    function handleClickRemove(id) {
+    function handleClickRemove(id) { // id is received from onClick function below, product.product_id (product = props.product, see above)
       removeOneFromCartCb(id);
       console.log(cartProducts);
     }
 
-    function handleClickDelete(id) {
+    function handleClickDelete(id) { // id is received from onClick function below, product.product_id (product = props.product, see above)
       deleteFromCartCb(id);
       console.log(cartProducts);
     }
+
+    function showPopup() {
+      setButtonPopup(true);
+    }
+
+    function removePopup() {
+      setButtonPopup(false);
+    }
+
 
 let find = cartProducts.find(e => e.id === product.product_id);
   
   return (
     <Card>
-      <Card.Body> {/* used to pad content inside a <Card> */}
+      <Card.Body onClick={showPopup}> {/* used to pad content inside a <Card> */}
         <div className="image">
           <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
           <div className="overlay">
@@ -70,9 +85,8 @@ let find = cartProducts.find(e => e.id === product.product_id);
         <Button variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
         }
         
-        <Popup>
-
-        </Popup>
+        {/* Pass product via props to child Popup*/}
+        <Popup trigger={buttonPopup} setTriggerCb={removePopup} product={product}/> 
 
       </Card.Body>
     </Card>

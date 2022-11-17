@@ -48,6 +48,8 @@ function App() {
   useEffect(() => {
     getProducts();
     getProductsByShop();
+    getPurchasedItemsByUser();
+    getPurchasedItemsByShop();
   }, []);
 
   useEffect(() => {
@@ -55,10 +57,10 @@ function App() {
     setSearchedByShop(productsByShop); // this must be done, if not individual Shop page renders empty (must set the page with shop's products)
   }, [products, productsByShop]); // whenever products or productsByShop change
 
-  useEffect(() => {
-    getPurchasedItemsByUser();
-    getPurchasedItemsByShop();
-  }, [purchases, purchasedItems, purchasedItemsByUser, purchasedItemsByShop]);
+  // useEffect(() => {
+  //   getPurchasedItemsByUser();
+  //   getPurchasedItemsByShop();
+  // }, [purchasedItemsByUser, purchasedItemsByShop]);
 
   // register new user
   async function doRegister(username, password, email, has_shop) {
@@ -261,17 +263,6 @@ function App() {
   }
   };
 
-  // URGENT NOTE: WORK IN PROGRESS
-  // async function addPurchasedItems(items) {
-
-  //   let myresponse = await Api.addPurchasedItems(items);
-  //   if (myresponse.ok) {
-  //     setPurchasedItems(myresponse.data);
-  //   } else {
-  //     setError(myresponse.error);
-  //   }
-  // };
-
   async function getPurchasedItemsByUser(user_id) {
     let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId()); // INSERT: Local.getUserId();
     if (myresponse.ok) {
@@ -362,14 +353,14 @@ function App() {
                   />
                 }
               />
-              <Route path="/seller" element={<SellerDash/>}/> //remove after 
+              <Route path="/seller" element={<SellerDash/>}/> {/*remove after*/} 
 
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
               
-              <Route path="customer_purchases" element={<BuyerPurchaseView />} />
-              <Route path="shop_purchases" element={<SellerPurchaseView />} />
+              <Route onClick={getPurchasedItemsByUser} path="customer_purchases" element={<BuyerPurchaseView />} />
+              <Route onClick={getPurchasedItemsByShop} path="shop_purchases" element={<SellerPurchaseView />} />
 
               <Route
                 path="/users/userId"
@@ -405,6 +396,7 @@ function App() {
                 element={<ErrorView code="404" text="Page not found" />}
               />
             </Routes>
+
           </CartContext.Provider>
         </ProductContext.Provider>
       </Container>
