@@ -1,6 +1,9 @@
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 
+.MySlider {
+  margin-top: 90px;
+}
 img {
   border-radius: 30%;
   margin: 0 auto;

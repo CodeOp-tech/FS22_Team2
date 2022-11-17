@@ -11,76 +11,85 @@ import "./MySlider.css";
 
 export default function MySlider() {
   return (
-    <div style={{ margin: "30px" }}>
-      <Slider
-        autoplay={true}
-        autoplaySpeed={3000}
-        dots={true}
-        pauseOnHover={true}
-        //centerMode={true}
-        centerPadding={60}
-        initialSlide={1}
-        infinite={true}
-        lazyLoad={true}
-        slidesToShow={3}
-        width={60}
-        responsive={[
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
-              infinite: true,
-              dots: true,
-            },
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
-              initialSlide: 2,
-            },
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-            },
-          },
-        ]}
+    <div>
+      <div
+        classname="MySlider"
+        style={{
+          margin: "30px",
+          marginTop: "200px",
+        }}
       >
-        <div>
-          <img
-            src={bottle}
-            alt=""
-            style={{ width: " 60", height: "40vh", padding: "20px" }}
-          />
-        </div>
-        <div>
-          <img
-            src={box}
-            alt=""
-            style={{ width: " 60", height: "40vh", padding: "20px" }}
-          />
-        </div>
-        <div>
-          <img
-            src={cam}
-            alt=""
-            style={{ width: " 60", height: "40vh", padding: "20px" }}
-          />
-        </div>
+        <h3>This month's Prizes</h3>
+        <Slider
+          autoplay={true}
+          autoplaySpeed={3000}
+          dots={true}
+          pauseOnHover={true}
+          //centerMode={true}
+          centerPadding={60}
+          initialSlide={1}
+          infinite={true}
+          lazyLoad={true}
+          slidesToShow={3}
+          width={60}
+          responsive={[
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true,
+              },
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2,
+              },
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ]}
+        >
+          <div>
+            <img
+              src={bottle}
+              alt=""
+              style={{ width: " 60", height: "40vh", padding: "20px" }}
+            />
+          </div>
+          <div>
+            <img
+              src={box}
+              alt=""
+              style={{ width: " 60", height: "40vh", padding: "20px" }}
+            />
+          </div>
+          <div>
+            <img
+              src={cam}
+              alt=""
+              style={{ width: " 60", height: "40vh", padding: "20px" }}
+            />
+          </div>
 
-        <div>
-          <img
-            src={toast}
-            alt=""
-            style={{ width: " 60", height: "40vh", padding: "20px" }}
-          />
-        </div>
-      </Slider>
+          <div>
+            <img
+              src={toast}
+              alt=""
+              style={{ width: " 60", height: "40vh", padding: "20px" }}
+            />
+          </div>
+        </Slider>
+      </div>
     </div>
   );
 }

@@ -16,11 +16,7 @@ function HomeView() {
       <br></br>
 
       <Podium winners={PodiumData} />
-
-      <br></br>
-
-      <h2> This Month You Can Win...</h2>
-
+      <hr></hr>
       <MySlider />
 
       <FeaturedBusiness />
