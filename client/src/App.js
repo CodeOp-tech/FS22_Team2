@@ -223,6 +223,7 @@ function App() {
     let myresponse = await Api.addPurchases(`${totalCost}`, 1 ); //INSERT `${Local.getUserId()}`
     if (myresponse.ok) {
       setPurchases(myresponse.data);
+      addPurchasedItems();
     } else {
       setError(myresponse.error);
     }
@@ -230,7 +231,7 @@ function App() {
 
   // URGENT NOTE: WORK IN PROGRESS
   async function addPurchasedItems(purchase_quantity, purchase_points, purchase_id, product_id, shop_id) {
-    let myresponse = await Api.addPurchasedItems();
+    let myresponse = await Api.addPurchasedItems(`${cartProducts.quantity}`, `${cartProducts.totalPoints}`, 3, `${cartProducts.id}`, `${cartProducts.shop_id}`);
     if (myresponse.ok) {
       setPurchasedItemsByUser(myresponse.data);
     } else {
