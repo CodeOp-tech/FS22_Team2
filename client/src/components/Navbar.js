@@ -32,16 +32,30 @@ function Navbar(props) {
                                 </li>
                             )
                         }
+                        {/* 
+                            props.user && (
+                                <li className="nav-item">
+                                    ADD USER DASH HERE
+                                </li>
+                            )
+                        */}
                         {
                             props.user && (
                                 <li className="nav-item">
-                                    {/* user dashboard */}
+                                    <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
                                 </li>
                             )
                         }
 
                         {/* seller pages: only visible to logged in users who have shops */}
                         {/* NOTE FROM ZOE TO JESS: Changed "Shops: Purchase History" to "Sales History" */}
+                        {
+                            props.shop && (
+                                <li>
+                                    <NavLink className="nav-link" to="/seller">My Shop</NavLink>
+                                </li>
+                            )
+                        }
                         {
                             props.shop && (
                                 <li>
@@ -52,15 +66,12 @@ function Navbar(props) {
                     </ul>
                 </div>
 
-                {/* Right-aligned stuff, based on whether user is logged in */}
+                {/* Login/Logout: right-aligned, based on whether user is logged in */}
                 {
                     props.user
                         ?   
                             (
                                 <ul className="navbar-nav">
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
-                                    </li>
                                     <li className="nav-item">
                                         {/* Log out user. Then go to home page. */}
                                         <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>
