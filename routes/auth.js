@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
             // if user.shop_id is not null
             if (user.shop_id) {
                 // return and save user's shop as an object
-                let shopResults = await db(`SELECT * FROM shops WHERE shop_id = '${user.user_id}'`);
+                let shopResults = await db(`SELECT * FROM shops WHERE shop_id = '${user.shop_id}'`);
                 shop = shopResults.data[0];
             }
             let passwordsMatch = await bcrypt.compare(password, user.password);

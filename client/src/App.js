@@ -62,7 +62,7 @@ function App() {
   async function doRegister(username, password, email, has_shop) {
     let myResponse = await Api.registerUser(username, password, email, has_shop);
     if (myResponse.ok) {
-      // This will direct user to the MyShop page on login, if they have a shop. Else will take them to UserDash.
+      // This will direct user to the SellerDash page on login, if they have a shop. Else will take them to UserDash.
       doLogin(username, password)
     } else {
       setRegErrorMessage("Registration failed");
@@ -75,18 +75,24 @@ function App() {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
       Local.saveUserInfo(myResponse.data.token, myResponse.data.user, myResponse.data.shop);
+      // setUser(Local.getUser);
       setUser(myResponse.data.user);
+      // setShop(Local.getShop);
       setShop(myResponse.data.shop);
+      console.log(shop);
       setLoginErrorMessage("");
       // If user has a shop, send them to SellerDash page on login. If not, send them to UserDash
-      if (shop.shop_id) {
-        navigate("/seller");
-      } else {
+      // console logging "shop" returns null even though shop is saved in localstorage
+      // QUESTION: doesn't work, stays on login page for buyers & sellers - why?
+      // if (shop.shop_id) {
+      //   navigate("/seller");
+      // } else {
       navigate("/");
-      }
+     //  }
     } else {
       setLoginErrorMessage("Login failed");
     }
+    console.log(shop);
   }
 
   // log out user
