@@ -48,8 +48,6 @@ function App() {
   useEffect(() => {
     getProducts();
     getProductsByShop();
-    getPurchasedItemsByUser();
-    getPurchasedItemsByShop();
   }, []);
 
   useEffect(() => {
@@ -57,6 +55,10 @@ function App() {
     setSearchedByShop(productsByShop); // this must be done, if not individual Shop page renders empty (must set the page with shop's products)
   }, [products, productsByShop]); // whenever products or productsByShop change
 
+  useEffect(() => {
+    getPurchasedItemsByUser();
+    getPurchasedItemsByShop();
+  }, [purchases, purchasedItems]);
 
   // register new user
   async function doRegister(username, password, email, has_shop) {
@@ -226,8 +228,8 @@ function App() {
       const productData = getProductData(cartItem.id);
       totalCost += productData.price * cartItem.quantity;
     });
-    // let fixed = totalCost.toFixed(2);
-    setTotalCost(totalCost);
+    let fixed = totalCost.toFixed(2); //toFixed(2) rounds number of decimals to two
+    setTotalCost(fixed);
     // return totalCost;
   }
 
@@ -246,21 +248,29 @@ function App() {
     let myresponse = await Api.addPurchases(`${totalCost}`, `${Local.getUserId()}`); //INSERT `${Local.getUserId()}`
     if (myresponse.ok) {
       setPurchases(myresponse.data);
-      addPurchasedItems();
+      console.log(myresponse.data);
+      let data = myresponse.data;
+      let purchaseId = data[data.length - 1].purchase_id;
+      // myresponse.data.purchase_id
+      let myresponse2 = await Api.addPurchasedItems(purchaseId, cartProducts);
+    if (myresponse2.ok) {
+      setPurchasedItems(myresponse2.data)
     } else {
-      setError(myresponse.error);
+      setError(myresponse2.error);
     }
+  }
   };
 
   // URGENT NOTE: WORK IN PROGRESS
-  async function addPurchasedItems(purchase_quantity, purchase_points, purchase_id, product_id, shop_id) {
-    let myresponse = await Api.addPurchasedItems(`${cartProducts.quantity}`, `${cartProducts.totalPoints}`, 3, `${cartProducts.id}`, `${cartProducts.shop_id}`);
-    if (myresponse.ok) {
-      setPurchasedItems(myresponse.data);
-    } else {
-      setError(myresponse.error);
-    }
-  };
+  // async function addPurchasedItems(items) {
+
+  //   let myresponse = await Api.addPurchasedItems(items);
+  //   if (myresponse.ok) {
+  //     setPurchasedItems(myresponse.data);
+  //   } else {
+  //     setError(myresponse.error);
+  //   }
+  // };
 
   async function getPurchasedItemsByUser(user_id) {
     let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId()); // INSERT: Local.getUserId();

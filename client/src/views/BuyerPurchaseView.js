@@ -29,9 +29,9 @@ function BuyerPurchaseView() {
                         <td>{(p.purchase_date)}</td>
                         <td>{p.shop_name}</td>
                         <td>{p.product_name}</td>
-                        <td>{p.price}</td>
+                        <td>{p.price.toFixed(2)}</td>
                         <td>{p.purchase_quantity}</td>
-                        <td>{p.price * p.purchase_quantity} </td>
+                        <td>{(p.price * p.purchase_quantity).toFixed(2)} </td>
                         <td>{p.purchase_points}</td>
                  </tr>
                 ))}

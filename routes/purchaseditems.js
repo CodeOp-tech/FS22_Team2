@@ -85,24 +85,29 @@ router.get('/', async function(req, res,) {
       });
 
   // ADD PURCHASE TO GENERAL PURCHASE DATABASE BUT RETURN ONLY PURCHASES ASSOCIATED WITH USER
-  router.post("/:user_id", async (req, res) => { // NOTE: front-end fetch must pass purchase_id, product_id and shop_id through req.body below
-    let id = req.params.user_id;
+  router.post("/", async (req, res) => { // NOTE: front-end fetch must pass purchase_id, product_id and shop_id through req.body below
+    // let id = req.params.user_id;
 
-    let { purchase_quantity, purchase_points, purchase_id, product_id, shop_id } = req.body;
-  
-    let sql = `
+    let { purchaseId, cartProducts } = req.body;
+
+    // Insert statement once for each item 
+    for (let i = 0; i < cartProducts.length; i++) {
+      let sql = `
         INSERT INTO purchased_items (purchase_quantity, purchase_points, purchase_id, product_id, shop_id)
-        VALUES ('${Number(purchase_quantity)}', '${Number(purchase_points)}', '${Number(purchase_id)}', '${Number(product_id)}', ${Number(shop_id)})
+        VALUES ('${Number(cartProducts[i].quantity)}', '${Number(cartProducts[i].totalPoints)}', '${Number(purchaseId)}', '${Number(cartProducts[i].id)}', ${Number(cartProducts[i].shop_id)})
     `;
-  
-    try {
+    
+      try {
         await db(sql);  
-        let result = await db(`SELECT * FROM purchases WHERE user_id = ${Number(id)}`); // user_id taken from req.params
+        let result = await db(`SELECT * FROM purchased_items WHERE purchase_id = ${Number(purchaseId)}`); // purchaseId taken from req.body
         let purchased_items = result.data;
         res.status(201).send(purchased_items); // 201 status because indicates request has succeeded and lead to creation of resource
     } catch (err) {
         res.status(500).send({ error: err.message });
     }
+    }
+  
+    
   });
 
   module.exports = router;

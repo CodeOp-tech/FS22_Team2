@@ -6,6 +6,7 @@ import { Card, Button, Form, Row, Col } from "react-bootstrap";
 import CartContext from "../CartContext";
 import ProductContext from "../ProductContext";
 import "./ProductCard.css";
+import Popup from "../components/Popup";
 
 function ProductCard(props) {
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
@@ -69,7 +70,10 @@ let find = cartProducts.find(e => e.id === product.product_id);
         <Button variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
         }
         
-        
+        <Popup>
+
+        </Popup>
+
       </Card.Body>
     </Card>
   );
