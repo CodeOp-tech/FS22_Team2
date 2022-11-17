@@ -40,12 +40,13 @@ function Navbar(props) {
                         }
 
                         {/* NOTE FROM JESS TO ZOE: Need to authorize only shops/sellers here
-                        Please feel free to modify title of "Shops: Purchase History" - just to differentiate for now */}
+                         */}
+                        {/* NOTE FROM ZOE TO JESS: Changed "Shops: Purchase History" to "Sales History" */}
                         {/* Only show "Buyer Purchase History" if buyer is logged in */}
                         {
                             props.user && (
                                 <li>
-                                    <NavLink className="nav-link" to="/shop_purchases">Shops: Purchase History</NavLink>
+                                    <NavLink className="nav-link" to="/shop_purchases">Sales History</NavLink>
                                 </li>
                             )
                         }

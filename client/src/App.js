@@ -75,24 +75,24 @@ function App() {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
       Local.saveUserInfo(myResponse.data.token, myResponse.data.user, myResponse.data.shop);
+      console.log(myResponse.data.user);
+      console.log(myResponse.data.shop); 
       // setUser(Local.getUser);
       setUser(myResponse.data.user);
       // setShop(Local.getShop);
       setShop(myResponse.data.shop);
-      console.log(shop);
       setLoginErrorMessage("");
       // If user has a shop, send them to SellerDash page on login. If not, send them to UserDash
       // console logging "shop" returns null even though shop is saved in localstorage
-      // QUESTION: doesn't work, stays on login page for buyers & sellers - why?
-      // if (shop.shop_id) {
-      //   navigate("/seller");
-      // } else {
+      // QUESTION: doesn't work, goes to seller page for sellers but stays on login page for buyers
+      if (myResponse.data.user.shop_id) {
+        navigate("/seller");
+      } else  {
       navigate("/");
-     //  }
+      }
     } else {
       setLoginErrorMessage("Login failed");
     }
-    console.log(shop);
   }
 
   // log out user
