@@ -9,9 +9,9 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px ); */
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 4px );
 }
 
 .popup-inner {
@@ -19,7 +19,7 @@
     padding: 32px;
     width: 100%;
     max-width: 940px;
-    height: 840px;
+    height: 800px;
     background-color:rgba(255, 255, 255, 90%);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 10px );

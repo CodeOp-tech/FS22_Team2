@@ -127,6 +127,7 @@ function App() {
     }
   }
 
+  // GET PRODUCT DATA FOR INDIVIDUAL PRODUCTS
   // NOTE: Because products live within products table, to access individual product information
   // we do so via "products" state (which is fetched from getProducts function above)
   function getProductData(id) {
@@ -143,6 +144,7 @@ function App() {
     return productData;
   }
 
+  // GET PRODUCT QUANTITY OF PRODUCTS ADDED TO SHOPPING CART
   function getProductQuantity(id) {
     // id (ie. product.product_id) passed from child ProductCard
     const quantity = cartProducts.find(
@@ -157,6 +159,7 @@ function App() {
     }
   }
 
+  // ADD ONE PRODUCT TO SHOPPING CART
   function addOneToCart(id) {
     // id (ie. product.product_id) passed from child ProductCard
     const quantity = getProductQuantity(id);
@@ -175,7 +178,7 @@ function App() {
 
     if (quantity === 0) {
       // product is not in cart
-      let thisQuantity = 1;
+      let thisQuantity = 1; // thisQuantity is set outside of object so totalPoints can refer to it
       setCartProducts(
         // set state
         [
@@ -188,6 +191,7 @@ function App() {
             price: product.price,
             shop_id: product.shop_id,
             productPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)),
+            // totalPoints created separate from productPoints, to store total points from productPoints multiplied by quantity of product in shopping cart 
             totalPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)) * thisQuantity,
             stripe_id: product.stripe_product_id
           },
@@ -206,6 +210,7 @@ function App() {
     }
   }
 
+  // REMOVE ONE PRODUCT FROM SHOPPING CART
   function removeOneFromCart(id) {
     // id (ie. product.product_id) passed from child ProductCard
     const quantity = getProductQuantity(id);
@@ -224,6 +229,7 @@ function App() {
     }
   }
 
+  // GET TOTAL SUM OF ALL PRODUCTS IN SHOPPING CART
   function getTotalCost() {
     let totalCost = 0;
     cartProducts.map((cartItem) => {
@@ -232,9 +238,9 @@ function App() {
     });
     let fixed = totalCost.toFixed(2); //toFixed(2) rounds number of decimals to two
     setTotalCost(fixed);
-    // return totalCost;
   }
 
+  // DELETE FROM SHOPPING CART
   function deleteFromCart(id) {
     // id (ie. product.product_id) passed from child ProductCard
     // filter = [] if an object meets a condition, add the object to array
@@ -245,7 +251,7 @@ function App() {
     );
   }
 
-  // URGENT NOTE: WORK IN PROGRESS
+  // ADD PURCHASE (ie. receipt of a single purchase) INTO PURCHASES TABLES (DATABASE)
   async function addPurchases(purchase_sum, user_id) {
     let myresponse = await Api.addPurchases(`${totalCost}`, `${Local.getUserId()}`); //INSERT `${Local.getUserId()}`
     if (myresponse.ok) {
@@ -253,7 +259,7 @@ function App() {
       console.log(myresponse.data);
       let data = myresponse.data;
       let purchaseId = data[data.length - 1].purchase_id;
-      // myresponse.data.purchase_id
+    // ADD ALL PRODUCTS (ie. purchased_items) PURCHASED INTO PURCHASED_ITEMS TABLES (DATABASE)
       let myresponse2 = await Api.addPurchasedItems(purchaseId, cartProducts);
     if (myresponse2.ok) {
       setPurchasedItems(myresponse2.data)
@@ -263,6 +269,7 @@ function App() {
   }
   };
 
+  // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
   async function getPurchasedItemsByUser(user_id) {
     let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId()); // INSERT: Local.getUserId();
     if (myresponse.ok) {
@@ -272,6 +279,7 @@ function App() {
     }
   };
 
+  // GET ALL PURCHASED ITEMS (ie. all customer purchases at said shop) TO DISPLAY TO SHOP
   async function getPurchasedItemsByShop(shop_id) {
     let myresponse = await Api.getPurchasedItemsByShop(Local.getShopId()); // INSERT: Local.getShopId()
     if (myresponse.ok) {
