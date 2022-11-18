@@ -82,7 +82,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         {
                             props.user && (
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
+                                    <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
                                 </li>
                             )
                         }

@@ -379,7 +379,7 @@ function App() {
               <Route onClick={getPurchasedItemsByShop} path="shop_purchases" element={<SellerPurchaseView />} />
 
               <Route
-                path="/users/userId"
+                path="/users/:userId"
                 element={
                   <PrivateRoute>
                     <UserProfileView />
