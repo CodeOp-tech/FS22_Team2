@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './SellerList.css'
 import {Card, Row, Col, Button} from 'react-bootstrap'
 
@@ -10,12 +10,8 @@ function SellerList(props) {
 // function handleToggleEdit(){
 //     setIsEdit(!isEdit)
 
-
-
-
 return (
     <div className='sell-list'>
-      
       {props.productsData?.map (p => ( // why does this work with the ?
       <Card key={p.product_id}
             style={{width: '15rem'}}>
@@ -65,4 +61,4 @@ return (
   )
 }
 
-export default SellerList
+export default SellerList;

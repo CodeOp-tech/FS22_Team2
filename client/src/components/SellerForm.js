@@ -169,4 +169,4 @@ function SellerForm(props) {
   )
 }
 
-export default SellerForm
+export default SellerForm;

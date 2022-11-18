@@ -29,16 +29,16 @@ function UserRegForm(props) {
     // if box is already checked, clicking it will uncheck it: so set hasShop to 0 (aka false); 
     function handleChangeCheck (e) {
         if (e.target.checked) {
-            setHasShop(0);
-        } else {
             setHasShop(1);
+        } else {
+            setHasShop(0);
         }
         console.log(hasShop);
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        props.registerCb(username, password, email);
+        props.registerCb(username, password, email, hasShop);
     }
 
     return (

@@ -24,7 +24,6 @@ async function sendAllFiles(res) {
       let results = await db('SELECT * FROM products');
       // Add 'url' property for each file
       let withUrls = results.data.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`}));
-      console.log(withUrls, '*****&*&*&*')
       res.send(withUrls);
 
   } catch (err) {
@@ -46,15 +45,16 @@ router.get('/', async function(req, res,) {
   }
   });
 
-// GET PRODUCTS BASED OFF STORE ID
+// GET PRODUCTS BASED OFF SHOP ID
 // NOTE: Doesn't need protection b/c just to display products; can't edit
   router.get('/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
 // which is passed from front end fetch at...
-    let id = req.params.shop_id;
+    let shop_id = req.params.shop_id; // changed variable from "id" to "shop_id"
 
     // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
+    // tried passing shop_id directly instead of as number, also didn't work
     try {
-      let results = await db(`SELECT * FROM products WHERE shop_id = ${Number(id)}`); 
+      let results = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); 
       let products = results.data;  
       let withUrls = products.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`})); //Get has to change for the images to show  from the databases 
       res.send(withUrls);
@@ -66,17 +66,17 @@ router.get('/', async function(req, res,) {
   // ADD PRODUCT BASED OFF STORE ID
   // PROTECT: ensureShopOwner
   // option 1: pass shop id in req params
-  // option 2: rewrite guard to take shopId in req body, pass shop id in req body
-  router.post("/", ensureShopOwner, upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
-    console.log(req.body, '**************&*&(*()*')
-    let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
+  router.post("/:shop_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below. Why? we changed this to pass through req params instead
+    let { product_name, price, product_image, product_quantity, product_description } = req.body;
+    let { shop_id } = req.params.shop_id;
+    console.log("server - shop id:" + req.params.shop_id);
 
     try{
   
     let sql = `
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
-        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', 1)
-    ;`// added the strip id field- does it need to be added?
+        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id})
+    ;`// added the stripe id field- does it need to be added?
     
         await db(sql);  
         //let result = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // shop_id taken from req.body

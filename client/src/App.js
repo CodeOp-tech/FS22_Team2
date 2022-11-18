@@ -80,8 +80,6 @@ function App() {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
       Local.saveUserInfo(myResponse.data.token, myResponse.data.user, myResponse.data.shop);
-      console.log(myResponse.data.user);
-      console.log(myResponse.data.shop); 
       // setUser(Local.getUser);
       setUser(myResponse.data.user);
       // setShop(Local.getShop);
@@ -368,7 +366,9 @@ function App() {
                   />
                 }
               />
-              <Route path="/seller" element={<SellerDash/>}/> {/*remove after*/} 
+              <Route path="/seller" element={<SellerDash
+                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+              />}/> {/*remove after*/} 
 
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
@@ -378,7 +378,7 @@ function App() {
               <Route onClick={getPurchasedItemsByShop} path="shop_purchases" element={<SellerPurchaseView />} />
 
               <Route
-                path="/users/userId"
+                path="/users/:userId"
                 element={
                   <PrivateRoute>
                     <UserProfileView />

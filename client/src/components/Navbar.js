@@ -21,7 +21,7 @@ function Navbar(props) {
                             <NavLink className="nav-link" to="/shops">Online Store</NavLink>
                         </li>
                         
-                        {/* user pages: only visible to logged in users */}
+                        {/* USER PAGES: only visible to logged in users */}
                         {
                             props.user && (
                                 <li>
@@ -36,16 +36,8 @@ function Navbar(props) {
                                 </li>
                             )
                         */}
-                        {
-                            props.user && (
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
-                                </li>
-                            )
-                        }
 
-                        {/* seller pages: only visible to logged in users who have shops */}
-                        {/* NOTE FROM ZOE TO JESS: Changed "Shops: Purchase History" to "Sales History" */}
+                        {/* SELLER PAGES: only visible to logged in users who have shops */}
                         {
                             props.shop && (
                                 <li>
@@ -67,8 +59,11 @@ function Navbar(props) {
                 {
                     props.user
                         ?   
-                            (
+                        (
                                 <ul className="navbar-nav">
+                                     <li className="nav-item">
+                                        <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
+                                    </li>
                                     <li className="nav-item">
                                         {/* Log out user. Then go to home page. */}
                                         <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>

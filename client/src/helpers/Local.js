@@ -63,6 +63,7 @@ class Local {
         }
     
         let shop = JSON.parse(shopjson);
+        // tried Number(shop.shop_id) but still didn't work
         return shop.shop_id;
     }
 
