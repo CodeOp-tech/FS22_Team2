@@ -76,7 +76,7 @@ const Intro = () => {
         </div>
       </div>
 
-      {/* <div
+      <div
         className="blur"
         style={{
           background: "#EE715C",
@@ -94,7 +94,7 @@ const Intro = () => {
           height: "11rem",
           left: "-9rem",
         }}
-      ></div> */}
+      ></div>
     </div>
   );
 };

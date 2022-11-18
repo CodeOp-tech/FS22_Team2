@@ -4,6 +4,8 @@ import Podium from "../components/Podium";
 import PodiumData from "../components/PodiumData";
 import "../App.css";
 import Intro from "../components/Intro";
+import FeaturedBusiness from "../components/FeaturedBusiness";
+import Map from "../components/Map";
 
 
 function HomeView() {
@@ -15,12 +17,11 @@ function HomeView() {
       <br></br>
 
       <Podium winners={PodiumData} />
-
-      <br></br>
-
-      <h2> This Month You Can Win...</h2>
-
+      <hr></hr>
       <MySlider />
+
+      <FeaturedBusiness />
+      <Map />
     </div>
   );
 }
