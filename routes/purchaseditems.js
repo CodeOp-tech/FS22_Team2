@@ -90,24 +90,23 @@ router.get('/', async function(req, res,) {
 
     let { purchaseId, cartProducts } = req.body;
 
+    try {
     // Insert statement once for each item 
-    for (let i = 0; i < cartProducts.length; i++) {
+     for (let i = 0; i < cartProducts.length; i++) {
       let sql = `
         INSERT INTO purchased_items (purchase_quantity, purchase_points, purchase_id, product_id, shop_id)
         VALUES ('${Number(cartProducts[i].quantity)}', '${Number(cartProducts[i].totalPoints)}', '${Number(purchaseId)}', '${Number(cartProducts[i].id)}', ${Number(cartProducts[i].shop_id)})
     `;
-    
-      try {
-        await db(sql);  
-        let result = await db(`SELECT * FROM purchased_items WHERE purchase_id = ${Number(purchaseId)}`); // purchaseId taken from req.body
+        await db(sql);
+
+      } 
+      let result = await db(`SELECT * FROM purchased_items WHERE purchase_id = ${Number(purchaseId)}`); // purchaseId taken from req.body
+        // WHERE purchase_id = ${Number(purchaseId)}
         let purchased_items = result.data;
         res.status(201).send(purchased_items); // 201 status because indicates request has succeeded and lead to creation of resource
-    } catch (err) {
-        res.status(500).send({ error: err.message });
-    }
-    }
-  
-    
+    }  catch (err) {
+      res.status(500).send({ error: err.message });
+    } 
   });
 
   module.exports = router;

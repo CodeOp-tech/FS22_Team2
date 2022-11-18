@@ -73,7 +73,8 @@ router.get('/', async function(req, res,) {
     let sql = `
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
         VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', 1)
-    ;`// added the strip id field- does it need to be added?
+    ;`// URGENT NOTE: Need to pass shop_id
+    // added the strip id field- does it need to be added?
     
         await db(sql);  
         //let result = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // shop_id taken from req.body

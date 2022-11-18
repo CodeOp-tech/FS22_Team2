@@ -3,6 +3,7 @@ import "./SellerDash.css";
 import SellerList from "../components/SellerList";
 import SellerForm from "../components/SellerForm";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
+import Local from "../helpers/Local";
 
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
@@ -15,7 +16,7 @@ function SellerDash(props) {
   async function getProducts() {
 
     try {
-      let response = await fetch("/products/1");
+      let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
         let data = await response.json();
         setProductsData(data);
