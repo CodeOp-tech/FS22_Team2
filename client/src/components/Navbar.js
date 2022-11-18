@@ -6,7 +6,11 @@ function Navbar(props) {
     return (
         <nav className="Navbar navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: 'teal' }}>
             <div className="container-fluid">
-                <span className="navbar-brand font-weight-bold">MSB, Inc.</span>
+                <span className="navbar-brand font-weight-bold">
+                    <NavLink className="nav-link" to="/">
+                        MSB, Inc.
+                    </NavLink>
+                </span>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -15,22 +19,12 @@ function Navbar(props) {
                 {/* Left-aligned stuff */}
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
+                        {/* public pages: visible to anyone visiting page */}
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/">Home</NavLink>
+                            <NavLink className="nav-link" to="/shops">Online Store</NavLink>
                         </li>
-
-
-                         {/* Only show "Shop" if user is logged in */}
-                         {
-                            props.user && (
-                                <li>
-                                    <NavLink className="nav-link" to="/shops">All Shops</NavLink>
-                                </li>
-                            )
-                        }
                         
-                        {/* NOTE FROM JESS TO ZOE: Need to authorize only customers here */}
-                        {/* Only show "Customer Purchase History" if customer is logged in */}
+                        {/* user pages: only visible to logged in users */}
                         {
                             props.user && (
                                 <li>
@@ -38,45 +32,46 @@ function Navbar(props) {
                                 </li>
                             )
                         }
-
-                        {/* NOTE FROM JESS TO ZOE: Need to authorize only shops/sellers here
-                        Please feel free to modify title of "Shops: Purchase History" - just to differentiate for now */}
-                        {/* Only show "Buyer Purchase History" if buyer is logged in */}
+                        {/* 
+                            props.user && (
+                                <li className="nav-item">
+                                    ADD USER DASH HERE
+                                </li>
+                            )
+                        */}
                         {
                             props.user && (
-                                <li>
-                                    <NavLink className="nav-link" to="/shop_purchases">Shops: Purchase History</NavLink>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
                                 </li>
                             )
                         }
 
-                        <li>
-                            <NavLink className="nav-link" to="/shop">Shop</NavLink>
-                        </li>
-                        <li>
-                            <NavLink className="nav-link" to="/seller">Seller</NavLink>
-                        </li>
-
-                        {/* Only show "Members Only" if user is logged in */}
+                        {/* seller pages: only visible to logged in users who have shops */}
+                        {/* NOTE FROM ZOE TO JESS: Changed "Shops: Purchase History" to "Sales History" */}
                         {
-                            props.user && (
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/members-only">Members Only</NavLink>
+                            props.shop && (
+                                <li>
+                                    <NavLink className="nav-link" to="/seller">My Shop</NavLink>
+                                </li>
+                            )
+                        }
+                        {
+                            props.shop && (
+                                <li>
+                                    <NavLink className="nav-link" to="/shop_purchases">Sales History</NavLink>
                                 </li>
                             )
                         }
                     </ul>
                 </div>
 
-                {/* Right-aligned stuff, based on whether user is logged in */}
+                {/* Login/Logout: right-aligned, based on whether user is logged in */}
                 {
                     props.user
                         ?   
                             (
                                 <ul className="navbar-nav">
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" to={`/users/${props.user.id}`}>Profile ({props.user.username})</NavLink>
-                                    </li>
                                     <li className="nav-item">
                                         {/* Log out user. Then go to home page. */}
                                         <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>
@@ -88,6 +83,9 @@ function Navbar(props) {
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
                                         <NavLink className="nav-link" to="/login">Login</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="nav-link" to="/register">Register</NavLink>
                                     </li>
                                 </ul>
                             )

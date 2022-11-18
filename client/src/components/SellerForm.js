@@ -40,12 +40,6 @@ function SellerForm(props) {
     console.log('upload', e.target.files[0])
         setFiles(e.target.files[0]); //is the products refering to products.js routes file?
     }
-
-    // function handleSubmit (e) {
-    //   e.preventDefault();
-    //   let formData = new FormData();
-    //   formData.append
-    // }
     
       function handleChange (e){
         let {name, value} = e.target;
@@ -103,7 +97,7 @@ function SellerForm(props) {
          <Col>
         <Form.Group className='mb-3'>
         <Form.Label className='product-quantity'>
-            Qauntity
+            Quantity
             </Form.Label> 
             <Form.Control
              type='number'

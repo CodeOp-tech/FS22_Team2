@@ -2,14 +2,14 @@
 
 class Local {
     /****** USER INFO *****/
-    // save user's info to localStorage
+    // save user's info to localStorage (for login)
     static saveUserInfo(token, user, shop) {
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('shop', JSON.stringify(shop));
     }
 
-    // remove user's info from localStorage
+    // remove user's info from localStorage (for logout)
     static removeUserInfo() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
