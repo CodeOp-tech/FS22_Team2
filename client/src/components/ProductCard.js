@@ -57,10 +57,10 @@ let find = cartProducts.find(e => e.id === product.product_id);
   
   return (
     <Card>
-      <Card.Body onClick={showPopup}> {/* used to pad content inside a <Card> */}
+      <Card.Body> {/* used to pad content inside a <Card> */}
         <div className="image">
           <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
-          <div className="overlay">
+          <div onClick={showPopup} className="overlay">
             <div className="text">
               Click on image to see more product info
             </div>
