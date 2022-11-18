@@ -41,14 +41,15 @@ function SellerDash(props) {
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
-    getProduct();
-} else {
+    getProducts();
+    } else {
     console.log(`Server error: ${response.status} ${response.statusText}`);
+    }
+  } catch (err) {
+    console.log(`Server error: ${err.message}`);
+  }}
 
-  }
-
-
-async function deleteProduct(id) {
+  async function deleteProduct(id) {
     let options = {
     method: 'DELETE'
   
@@ -59,13 +60,13 @@ async function deleteProduct(id) {
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
-    getProduct(); //split second loads all products
-} else {
+    getProducts(); //split second loads all products
+  } else {
     console.log(`Server error: ${response.status} ${response.statusText}`);
   }
   } catch (err) {
     console.log(`Server error: ${err.message}`);
-}};
+  }};
 
 
   //   async function editProduct(product) {
