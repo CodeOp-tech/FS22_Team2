@@ -9,10 +9,10 @@ function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-    getProducts();
+    getProduct();
 }, []);
 
-async function getProducts() {
+async function getProduct() {
     try {
         let response = await fetch('/products/1');
         if (response.ok) {
@@ -40,6 +40,7 @@ async function getProducts() {
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
+    getProduct();
 } else {
     console.log(`Server error: ${response.status} ${response.statusText}`);
   }
@@ -47,24 +48,24 @@ async function getProducts() {
     console.log(`Server error: ${err.message}`);
  }};
 
-//   async function deleteProduct(product) {
-//     let options = {
-//     method: 'DELETE',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(product)
-//   };
+async function deleteProduct(id) {
+    let options = {
+    method: 'DELETE'
+  
+  };
 
-//   try {
-//     let response = await fetch('/products', options); 
-//     if (response.ok) {
-//     let result = await response.json();
-//     setProductData(result);
-// } else {
-//     console.log(`Server error: ${response.status} ${response.statusText}`);
-//   }
-//   } catch (err) {
-//     console.log(`Server error: ${err.message}`);
-// }};
+  try {
+    let response = await fetch(`/products/${id}`, options); 
+    if (response.ok) {
+    let result = await response.json();
+    setProductsData(result);
+    getProduct(); //split second loads all products
+} else {
+    console.log(`Server error: ${response.status} ${response.statusText}`);
+  }
+  } catch (err) {
+    console.log(`Server error: ${err.message}`);
+}};
 
 //   async function editProduct(product) {
 //     let options = {
@@ -89,8 +90,13 @@ async function getProducts() {
     <div>
       <Container>
       <Row>
-      <Col><SellerForm addProductCb={addProduct} /></Col>
-      <Col><SellerList productsData={productsData}/></Col>
+      <Col>
+      <SellerForm addProductCb={addProduct} />
+      </Col>
+      <Col>
+      <SellerList productsData={productsData}
+                  deleteProductCb={(id) => deleteProduct(id)}
+      /></Col>
       
       </Row>
       </Container>

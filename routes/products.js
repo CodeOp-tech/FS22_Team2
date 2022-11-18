@@ -106,7 +106,7 @@ router.get('/', async function(req, res,) {
   // EDIT PRODUCT BASED OFF PRODUCT ID (shop_id passed in req.body)
   // NOTE: Protected b/c need to make sure shop owner is the only one who can edit products
   // QUESTION: Is this enough? Do we need to do any kind of check to make sure user is also shop owner?
-  router.put("/:product_id/user_id", async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
+  router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
     let id  = req.params.product_id;
     let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
    
@@ -134,9 +134,7 @@ router.get('/', async function(req, res,) {
       if (product_description) {
         await db(`UPDATE products SET product_description='${product_description}' WHERE product_id=${id}`);
       }
-  
-      const results = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // shop_id taken from req.body
-  
+
       res.status(201).send(results.data); //According the MDN Web Docs, PUT request method creates a new resource/replaces a representation fo the target resource with the request paylod
     } catch (err) {
       res.status(500).send({ error: err.message });
@@ -144,20 +142,22 @@ router.get('/', async function(req, res,) {
   });
 
   // DELETE PRODUCT BASED OFF PRODUCT ID
-  router.delete("/:product_id/:shop_id", async (req, res) => { // NOTE: front-end fetch must pass product_id and shop_id (can be stored in Local.js?)
+  router.delete("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id and shop_id (can be stored in Local.js?)
     let id = req.params.product_id;
-    let shop_id = req.params.shop_id; // need shop_id to display only products in said shop, once delete is executed
+    // need shop_id to display only products in said shop, once delete is executed
 
     // Reference to ...
     try {
-        let result = await db(`SELECT * FROM products WHERE product_id = ${Number(id)}`); // WHERE id refers to the product_id
+        let result = await db(`SELECT * FROM products WHERE product_id = ${id}`); // WHERE id refers to the product_id
         if (result.data.length === 0) {
             res.status(404).send({ error: 'Data not found' });
         } else {
-            await db(`DELETE FROM products WHERE product_id = ${Number(id)}`);  
-            let result = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // display only items in said shop
-            let products = result.data;
-            res.send(products);  
+            await db(`DELETE FROM products WHERE product_id = ${id}`);  
+
+             sendAllFiles(res)
+            // let result = await db('SELECT * FROM products');
+            // let products = result.data;
+            // res.send(products);  
         } 
     } catch (err) {
         res.status(500).send({ error: err.message });
