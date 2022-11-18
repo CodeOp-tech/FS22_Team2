@@ -20,10 +20,10 @@ function ProductCard(props) {
     removeOneFromCartCb,
     deleteFromCartCb } = useContext(CartContext);
 
-    // useEffect(() => {
-    //   showPopup();
-    //   removePopup();
-    // }, [buttonPopup])
+    useEffect(() => {
+      showPopup();
+      removePopup();
+    }, [])
 
     function handleClick(id) { // id is received from onClick function below, product.product_id (product = props.product, see above)
       getProductQuantityCb(id);
@@ -44,10 +44,12 @@ function ProductCard(props) {
 
     function showPopup() {
       setButtonPopup(true);
+      console.log(buttonPopup);
     }
 
     function removePopup() {
       setButtonPopup(false);
+      console.log(buttonPopup);
     }
 
 
@@ -84,11 +86,11 @@ let find = cartProducts.find(e => e.id === product.product_id);
         :
         <Button variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
         }
-        
-        {/* Pass product via props to child Popup*/}
-        <PopUpView trigger={buttonPopup} setTriggerCb={removePopup} product={product}/> 
 
       </Card.Body>
+            
+      {/* Pass product via props to child Popup*/}
+      <PopUpView trigger={buttonPopup} setTriggerCb={removePopup} product={product}/> 
     </Card>
   );
 }
