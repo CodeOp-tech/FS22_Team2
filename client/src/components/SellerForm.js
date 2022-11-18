@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap';
 import './SellerForm.css'
 
+
 const EMPTY_FORM ={
     product_name:'',
     product_image:'',

@@ -5,6 +5,7 @@ import PodiumData from "../components/PodiumData";
 import "../App.css";
 import Intro from "../components/Intro";
 
+
 function HomeView() {
   return (
     <div>
