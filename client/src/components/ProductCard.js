@@ -1,16 +1,18 @@
 // Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Card, Button, Form, Row, Col } from "react-bootstrap";
 // NOTE: See React Bootstrap cards for more info: https://react-bootstrap.github.io/components/cards/
 import CartContext from "../CartContext";
+import ProductContext from "../ProductContext";
+import "./ProductCard.css";
 
 function ProductCard(props) {
-
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
 
+  const { getProductDataCb } = useContext(ProductContext);
+
   const { cartProducts,
-    getProductDataCb,
     getProductQuantityCb,
     addOneToCartCb,
     removeOneFromCartCb,
@@ -38,7 +40,14 @@ let find = cartProducts.find(e => e.id === product.product_id);
   return (
     <Card>
       <Card.Body> {/* used to pad content inside a <Card> */}
-        <Card.Img variant="top" src={product.url} />
+        <div className="image">
+          <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
+          <div className="overlay">
+            <div className="text">
+              Click on image to see more product info
+            </div>
+          </div>
+        </div>
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
         <Card.Text>${product.price}</Card.Text>
@@ -47,6 +56,7 @@ let find = cartProducts.find(e => e.id === product.product_id);
         { find ? 
         <>
         <Form as={Row}>
+          {/* find is declared above to identify exact product in cartProducts, and within cartProducts there is the quantity property*/}
           <Form.Label column="true" sm="6">In Cart: {find.quantity} </Form.Label>
           <Col sm="6">
             <Button sm="6" onClick={() => handleClick(product.product_id)} className="mx-2">+</Button>
