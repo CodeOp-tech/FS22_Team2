@@ -49,9 +49,7 @@ function SellerDash(props) {
     console.log(`Network error: ${err.message}`);
   }
 
-
-
-async function deleteProduct(id) {
+  async function deleteProduct(id) {
     let options = {
     method: 'DELETE'
   
@@ -63,12 +61,12 @@ async function deleteProduct(id) {
     let result = await response.json();
     setProductsData(result);
     getProducts(); //split second loads all products
-} else {
+  } else {
     console.log(`Server error: ${response.status} ${response.statusText}`);
   }
   } catch (err) {
     console.log(`Server error: ${err.message}`);
-}};
+  }};
 
 
   //   async function editProduct(product) {
