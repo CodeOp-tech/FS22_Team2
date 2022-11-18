@@ -1,6 +1,6 @@
 import React from "react";
 import "./PopUpView.css";
-import PopUpList from "../components/PopUpList";
+import PopUpList from "../components/PopupList.js";
 import ProductReview from "../components/ProductReview";
 
 function PopUpView(props) {

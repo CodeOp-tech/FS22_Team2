@@ -41,11 +41,14 @@ function SellerDash(props) {
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
-    getProduct();
-} else {
-    console.log(`Server error: ${response.status} ${response.statusText}`);
-
+    getProducts();
+    } else {
+      console.log(`Server error: ${response.status} ${response.statusText}`);
+    }
+  } catch (err) {
+    console.log(`Network error: ${err.message}`);
   }
+
 
 
 async function deleteProduct(id) {
@@ -59,7 +62,7 @@ async function deleteProduct(id) {
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
-    getProduct(); //split second loads all products
+    getProducts(); //split second loads all products
 } else {
     console.log(`Server error: ${response.status} ${response.statusText}`);
   }
@@ -105,6 +108,7 @@ async function deleteProduct(id) {
       </Container>
     </div>
   );
+}
 }
 
 export default SellerDash;
