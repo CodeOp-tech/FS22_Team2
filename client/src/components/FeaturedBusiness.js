@@ -9,8 +9,8 @@ const FeaturedBusiness = () => {
   return (
     <div className="FeaturedBusiness">
       <div className="aweBlock">
-        <h1 className="awesome">Awesome Shops This...</h1>
-        <p className="para">Check out these great shops ...</p>
+        <h1 className="awesome">Awesome Shops This Month...</h1>
+        <p className="para">Check out them out ...</p>
       </div>
       <div className="cards">
         <motion.div
