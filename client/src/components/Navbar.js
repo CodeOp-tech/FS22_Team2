@@ -22,6 +22,13 @@ function Navbar(props) {
     }
 
     async function handleClick() {
+        checkout();
+        // NOTE: ACTUAL WORKFLOW SHOULD BE ONLY UPON RECEIVING SUCCESS PAGE, addPurchasesCb() is called
+        addPurchasesCb();
+    }
+
+     // POST to checkout
+     const checkout = async() => {
         await fetch("http://localhost:5000/stripe/checkout", { 
             method: "POST",
             headers: {
@@ -35,27 +42,7 @@ function Navbar(props) {
                 window.location.assign(response.url);
             }
         }) 
-        // NOTE: ACTUAL WORKFLOW SHOULD BE ONLY UPON RECEIVING SUCCESS PAGE,
-        // addPurchasesCb() is called
-        addPurchasesCb();
     }
-
-     // POST to checkout
-    //  const checkout = async() => {
-    //     await fetch("http://localhost:5000/stripe/checkout", { 
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({ items: cartProducts })
-    //     }).then((response) => {
-    //         return response.json();
-    //     }).then((response) => {
-    //         if(response.url) {
-    //             window.location.assign(response.url);
-    //         }
-    //     }) 
-    // }
 
 // // use reduce method to get total amount of quantities to display in Cart button below
 const productsCount = cartProducts.reduce((sum, product) => sum + product.quantity, 0);
