@@ -1,14 +1,23 @@
 import React, {useState} from 'react'
 import './SellerList.css'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
+import {Card, Row, Col, Button} from 'react-bootstrap'
+
 
 
 function SellerList(props) {
-  return (
+// const [isEdit, setIsEdit] = useState(false)
+
+// function handleToggleEdit(){
+//     setIsEdit(!isEdit)
+
+
+
+
+return (
     <div className='sell-list'>
+      
       {props.productsData?.map (p => ( // why does this work with the ?
-      <Card key={p.id}
+      <Card key={p.product_id}
             style={{width: '15rem'}}>
             <Card.Img variant='top' src={p.url}/>
             <Card.Body>
@@ -18,8 +27,21 @@ function SellerList(props) {
             <Card.Text>
                 {p.product_description}
             </Card.Text>
-                <button className='delete-p'  type='button'>Delete</button>
-                <button className='edit-p'  type='button'>Edit</button>
+            <Row>
+                <Col>
+                  <Card.Text>
+                    £{p.price}
+                  </Card.Text>
+                </Col>
+                <Col>
+                  <Card.Text>
+                    Qty: {p.product_quantity}
+                  </Card.Text>
+                </Col>
+            </Row>
+            
+                <Button className='delete-p' onClick={(e) => props.deleteProductCb(p.product_id)} >Delete</Button>
+                <Button className='edit-p'>Edit</Button>
             </Card.Body>  
         </Card>
                    

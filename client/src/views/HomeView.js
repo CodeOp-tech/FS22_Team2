@@ -7,6 +7,7 @@ import Intro from "../components/Intro";
 import FeaturedBusiness from "../components/FeaturedBusiness";
 import Map from "../components/Map";
 
+
 function HomeView() {
   return (
     <div>
