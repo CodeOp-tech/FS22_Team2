@@ -263,19 +263,19 @@ function App() {
     let myresponse = await Api.addPurchases(`${totalCost}`, `${Local.getUserId()}`); //INSERT `${Local.getUserId()}`
     if (myresponse.ok) {
       setPurchases(myresponse.data);
-      console.log(myresponse.data);
+      // console.log(myresponse.data);
       let data = myresponse.data;
       let purchaseId = data[data.length - 1].purchase_id;
     // ADD ALL PRODUCTS (ie. purchased_items) PURCHASED INTO PURCHASED_ITEMS TABLES (DATABASE)
-      let myresponse2 = await Api.addPurchasedItems(purchaseId, cartProducts);
-    if (myresponse2.ok) {
-      setPurchasedItems(myresponse2.data)
-    } else {
-      setError(myresponse2.error);
+    let myresponse2 = await Api.addPurchasedItems(purchaseId, cartProducts);
+      if (myresponse2.ok) {
+        setPurchasedItems(myresponse2.data)
+      } else {
+        setError(myresponse2.error);
+      }
     }
   }
-  };
-
+  
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
   async function getPurchasedItemsByUser(user_id) {
     let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId()); // INSERT: Local.getUserId();
@@ -296,12 +296,13 @@ function App() {
     }
   };
 
+  // SEARCH FUNCTION WITHIN SHOPVIEW (Online Store) AND SINGLE SHOP VIEW ()
   function search(input) {
     let tempProducts = products.filter((p) => {
       return p.product_name.toLowerCase().includes(input.toLowerCase()); 
       // convert both product_name and input to lowercase so not case sensitive
     })
-    setSearched(tempProducts); // searched state set to ShopView via ProductContext
+    setSearched(tempProducts); // "searched" state set to ShopView via ProductContext
   }
 
   function searchShop(input) {
@@ -309,7 +310,7 @@ function App() {
       return p.product_name.toLowerCase().includes(input.toLowerCase()); 
       // convert both product_name and input to lowercase so not case sensitive
     })
-    setSearchedByShop(tempProducts); // searchedByShop state set to SingleShopView via ProductContext
+    setSearchedByShop(tempProducts); // "searchedByShop" state set to SingleShopView via ProductContext
   }
 
   /* ---Context Objects--- */

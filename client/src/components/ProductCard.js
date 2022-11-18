@@ -44,12 +44,10 @@ function ProductCard(props) {
 
     function showPopup() {
       setButtonPopup(true);
-      console.log(buttonPopup);
     }
 
     function removePopup() {
       setButtonPopup(false);
-      console.log(buttonPopup);
     }
 
 

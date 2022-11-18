@@ -3,7 +3,7 @@ import CartContext from "../CartContext";
 
 function Success() {
     // NOTE FROM JESS: Technically should only be called upon success page, 
-    // but currently not working so is being called via handleClick in NavbarShop
+    // but currently not working so is being called via handleClick in Navbar
     
     // const {addPurchasesCb } = useContext(CartContext);
 
