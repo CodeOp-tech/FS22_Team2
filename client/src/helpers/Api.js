@@ -125,8 +125,8 @@ class Api {
     }
 
     // ADD/POST purchased_items
-    static async addPurchasedItems(purchase_quantity, purchase_points, purchase_id, product_id, shop_id) {
-        let body = {purchase_quantity, purchase_points, purchase_id, product_id, shop_id };
+    static async addPurchasedItems(purchaseId, cartProducts) { // items is an array 
+        let body = {purchaseId, cartProducts };
 
         return await this._doFetch('/purchaseditems', 'POST', body);
     }
