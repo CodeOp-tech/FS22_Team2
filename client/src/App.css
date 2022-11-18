@@ -7,3 +7,12 @@
   margin: 0%;
   background-image: url("/Users/meganwalsh/Desktop/CodeOp_Activities/GROUPTWO/FS22_Team2/client/src/DC/MinBack.jpg");
 }
+.App table {
+  border-collapse: collapse;
+}
+
+.App td,
+.App th {
+  padding: 1px 5px;
+  vertical-align: top;
+}
