@@ -78,10 +78,10 @@ class Api {
     /******* SHOP FETCHES *******/
 
     // EDIT/PUT shop info
-    static async updateShop(shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz, shop_id, user_id) {
+    static async updateShop(shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz, shop_id) {
 
         let body = { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz }
-        return await this._doFetch(`/shops/edit/${shop_id}/ ${user_id}`, 'PUT', body);
+        return await this._doFetch(`/shops/edit/${shop_id}`, 'PUT', body);
     }
     
     // GET all shops
