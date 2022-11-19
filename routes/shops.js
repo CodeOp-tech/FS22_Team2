@@ -89,72 +89,67 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
 
 // PUT edit shop info
 // PROTECTED - user should only be able to enter own shop
-router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => { 
-    let { shopId, userId }  = req.params;
+router.put("/edit/:shop_id", ensureShopOwner, async (req, res) => { 
+    let { shop_id }  = req.params;
     let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz } = req.body;
-    let sqlUser = `SELECT * FROM users WHERE user_id = ${Number(userId)};`;
-    let sqlShop = `SELECT * FROM shops WHERE shop_id = ${Number(shopId)};`;
+    let sql = `SELECT * FROM shops WHERE shop_id = ${Number(shop_id)};`;
 
     try {
-        let userResult = await db(sqlUser);
-        let user = userResult.data[0];
-        delete user.password;
-        let shopResult= await db(sqlShop);
+        let shopResult= await db(sql);
         let shop = shopResult.data[0];
-      // if !user.shop_id =
-      if (user.shop_id === shop.shop_id && shop_name) {
+      if (shop.shop_name) {
         await db(
-          `UPDATE shops SET shop_name='${shop_name}' WHERE shop_id=${shopId}`
+          `UPDATE shops SET shop_name='${shop_name}' WHERE shop_id=${shop_id}`
         );
       }
   
-      if (user.shop_id === shop.shop_id && shop_address) {
-        await db(`UPDATE shops SET shop_address='${shop_address}' WHERE shop_id=${shopId}`);
+      if (shop.shop_address) {
+        await db(`UPDATE shops SET shop_address='${shop_address}' WHERE shop_id=${shop_id}`);
       }
   
-      if (user.shop_id === shop.shop_id && shop_description) {
+      if (shop.shop_description) {
         await db(
-          `UPDATE shops SET shop_description='${shop_description}' WHERE shop_id=${shopId}`
+          `UPDATE shops SET shop_description='${shop_description}' WHERE shop_id=${shop_id}`
         );
       }
   
-      if (user.shop_id === shop.shop_id && shop_image) {
-        await db(`UPDATE shops SET shop_image='${shop_image}' WHERE shop_id=${shopId}`);
+      if (shop.shop_image) {
+        await db(`UPDATE shops SET shop_image='${shop_image}' WHERE shop_id=${shop_id}`);
       }
 
-      if (user.shop_id === shop.shop_id && website) {
-        await db(`UPDATE shops SET website='${website}' WHERE shop_id=${shopId}`);
+      if (shop.website) {
+        await db(`UPDATE shops SET website='${website}' WHERE shop_id=${shop_id}`);
       }
   
-      if (user.shop_id === shop.shop_id && phone) {
-        await db(`UPDATE shops SET phone='${phone}' WHERE shop_id=${shopId}`);
+      if (shop.phone) {
+        await db(`UPDATE shops SET phone='${phone}' WHERE shop_id=${shop_id}`);
       }
 
-      if (user.shop_id === shop.shop_id && shop_email) {
-        await db(`UPDATE shops SET shop_email='${shop_email}' WHERE shop_id=${shopId}`);
+      if (shop.shop_email) {
+        await db(`UPDATE shops SET shop_email='${shop_email}' WHERE shop_id=${shop_id}`);
       }
 
-      if (user.shop_id === shop.shop_id && donate) {
-        await db(`UPDATE shops SET donate='${Number(donate)}' WHERE shop_id=${shopId}`);
+      if (shop.donate) {
+        await db(`UPDATE shops SET donate='${Number(donate)}' WHERE shop_id=${shop_id}`);
       }
 
-      if (user.shop_id === shop.shop_id && led_lights) {
-        await db(`UPDATE shops SET led_lights='${Number(led_lights)}' WHERE shop_id=${shopId}`);
+      if (shop.led_lights) {
+        await db(`UPDATE shops SET led_lights='${Number(led_lights)}' WHERE shop_id=${shop_id}`);
       }
 
-      if (user.shop_id === shop.shop_id && small_biz) {
-        await db(`UPDATE shops SET small_biz='${Number(small_biz)}' WHERE shop_id=${shopId}`);
+      if (shop.small_biz) {
+        await db(`UPDATE shops SET small_biz='${Number(small_biz)}' WHERE shop_id=${shop_id}`);
       }
 
-      if (user.shop_id === shop.shop_id && min_biz) {
-        await db(`UPDATE shops SET min_biz='${Number(min_biz)}' WHERE shop_id=${shopId}`);
+      if (shop.min_biz) {
+        await db(`UPDATE shops SET min_biz='${Number(min_biz)}' WHERE shop_id=${shop_id}`);
       }
 
-      if (user.shop_id === shop.shop_id && wo_biz) {
-        await db(`UPDATE shops SET wo_biz='${Number(wo_biz)}' WHERE shop_id=${shopId}`);
+      if (shop.wo_biz) {
+        await db(`UPDATE shops SET wo_biz='${Number(wo_biz)}' WHERE shop_id=${shop_id}`);
       }
 
-      const results = await db(`SELECT * FROM shops WHERE shop_id = ${Number(shopId)}`);
+      const results = await db(`SELECT * FROM shops WHERE shop_id = ${Number(shop_id)}`);
   
       res.status(201).send(results.data); 
     } catch (err) {
@@ -163,3 +158,79 @@ router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => {
   });
 
 module.exports = router;
+
+// ORIGINAL PUT ROUTE
+// PUT edit shop info
+// PROTECTED - user should only be able to enter own shop
+// router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => { 
+//   let { shopId, userId }  = req.params;
+//   let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz } = req.body;
+//   let sqlUser = `SELECT * FROM users WHERE user_id = ${Number(userId)};`;
+//   let sqlShop = `SELECT * FROM shops WHERE shop_id = ${Number(shopId)};`;
+
+//   try {
+//       let userResult = await db(sqlUser);
+//       let user = userResult.data[0];
+//       delete user.password;
+//       let shopResult= await db(sqlShop);
+//       let shop = shopResult.data[0];
+//     // if !user.shop_id =
+//     if (user.shop_id === shop.shop_id && shop_name) {
+//       await db(
+//         `UPDATE shops SET shop_name='${shop_name}' WHERE shop_id=${shopId}`
+//       );
+//     }
+
+//     if (user.shop_id === shop.shop_id && shop_address) {
+//       await db(`UPDATE shops SET shop_address='${shop_address}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && shop_description) {
+//       await db(
+//         `UPDATE shops SET shop_description='${shop_description}' WHERE shop_id=${shopId}`
+//       );
+//     }
+
+//     if (user.shop_id === shop.shop_id && shop_image) {
+//       await db(`UPDATE shops SET shop_image='${shop_image}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && website) {
+//       await db(`UPDATE shops SET website='${website}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && phone) {
+//       await db(`UPDATE shops SET phone='${phone}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && shop_email) {
+//       await db(`UPDATE shops SET shop_email='${shop_email}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && donate) {
+//       await db(`UPDATE shops SET donate='${Number(donate)}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && led_lights) {
+//       await db(`UPDATE shops SET led_lights='${Number(led_lights)}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && small_biz) {
+//       await db(`UPDATE shops SET small_biz='${Number(small_biz)}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && min_biz) {
+//       await db(`UPDATE shops SET min_biz='${Number(min_biz)}' WHERE shop_id=${shopId}`);
+//     }
+
+//     if (user.shop_id === shop.shop_id && wo_biz) {
+//       await db(`UPDATE shops SET wo_biz='${Number(wo_biz)}' WHERE shop_id=${shopId}`);
+//     }
+
+//     const results = await db(`SELECT * FROM shops WHERE shop_id = ${Number(shopId)}`);
+
+//     res.status(201).send(results.data); 
+//   } catch (err) {
+//     res.status(500).send({ error: err.message });
+//   }
+// });
