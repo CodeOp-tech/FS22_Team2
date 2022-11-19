@@ -50,11 +50,11 @@ function SellerForm(props) {
     // sets value of that field to 1 when checked or 0 if unchecked
     function handleChangeCheck (e) {
       if (e.target.checked) {
-       setShopData((data) => ({
+       setProductData((data) => ({
              ...data, [e.target.name]:1
          }));
        } else {
-         setShopData((data) => ({
+         setProductData((data) => ({
            ...data, [e.target.name]:0
        }));
        }
