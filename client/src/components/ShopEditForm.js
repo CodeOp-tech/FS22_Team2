@@ -50,19 +50,33 @@ function ShopEditForm(props) {
         setFiles(e.target.files[0]); //is the products refering to products.js routes file?
     }
     
-  function handleChange (e){
-    let {name, value} = e.target;
-    setProductData (data => ({...data, [name]: value}));
+    function handleChange (e){
+      let {name, value} = e.target;
+      setShopData (data => ({...data, [name]: value}));
   }
       
-
+  // sets value of that field to 1 when checked or 0 if unchecked
+  // QUESTION: works BUT console seems to always be 1 step behind; logs original state once, then updates after. Why? The change should be happening before the console log.
   function handleChangeCheck (e) {
      if (e.target.checked) {
-      setProductData((data) => ({
+      setShopData((data) => ({
             ...data, [e.target.name]:1
         }));
+      } else {
+        setShopData((data) => ({
+          ...data, [e.target.name]:0
+      }));
       }
   }
+
+//   function handleChangeCheck (e) {
+//     if (e.target.checked) {
+//         setHasShop(1);
+//     } else {
+//         setHasShop(0);
+//     }
+//     console.log(hasShop);
+// }
 
 
   return (
@@ -152,7 +166,7 @@ function ShopEditForm(props) {
              label = 'Donates our surplus stock (instead of throwing it away)'
              type='checkbox'
              name='donate'
-             value={productData.donate}
+             value={shopData.donate}
              onChange={handleChangeCheck}
              />
 
@@ -160,7 +174,7 @@ function ShopEditForm(props) {
              label='Uses LED lighting'
              type='checkbox'
              name='led-lights'
-             value={productData.led_lights}
+             value={shopData.led_lights}
              onChange={handleChangeCheck}
              />
         
@@ -168,7 +182,7 @@ function ShopEditForm(props) {
              label='Has 10 or fewer employees'
              type='checkbox'
              name='small-biz'
-             value={productData.small_biz}
+             value={shopData.small_biz}
              onChange={handleChangeCheck}
              />
 
@@ -176,7 +190,7 @@ function ShopEditForm(props) {
              label='Is owned by someone who is part of a racial or ethnic minority in our country'
              type='checkbox'
              name='min-biz'
-             value={productData.min_biz}
+             value={shopData.min_biz}
              onChange={handleChangeCheck}
              />
             
@@ -184,7 +198,7 @@ function ShopEditForm(props) {
              label='Is owned by a woman, trangender or nonbinary person'
              type='checkbox'
              name='wo-biz'
-             value={productData.wo_biz}
+             value={shopData.wo_biz}
              onChange={handleChangeCheck}
              />
 

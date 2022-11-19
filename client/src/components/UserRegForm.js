@@ -25,8 +25,7 @@ function UserRegForm(props) {
         }
     }
 
-    // if box is empty, clicking it will check the box: so set hasShop to 1 (aka true) when checked;
-    // if box is already checked, clicking it will uncheck it: so set hasShop to 0 (aka false); 
+    // if box is checked, hasShop = 1 (aka true). else unchecked = 0 (aka false)
     function handleChangeCheck (e) {
         if (e.target.checked) {
             setHasShop(1);

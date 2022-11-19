@@ -367,6 +367,7 @@ function App() {
                 }
               />
               <Route path="/seller" element={<SellerDash
+                shop={shop}
                 getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
               />}/> {/*remove after*/} 
 

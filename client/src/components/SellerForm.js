@@ -47,14 +47,18 @@ function SellerForm(props) {
         setProductData (data => ({...data, [name]: value}));
     }
       
-
-      function handleChangeCheck (e) {
-        let checkbox = e.target.checked;
-
-        setProductData((data) => ({
-            ...data, [e.target.name]:checkbox
-        }));
-      }
+    // sets value of that field to 1 when checked or 0 if unchecked
+    function handleChangeCheck (e) {
+      if (e.target.checked) {
+       setShopData((data) => ({
+             ...data, [e.target.name]:1
+         }));
+       } else {
+         setShopData((data) => ({
+           ...data, [e.target.name]:0
+       }));
+       }
+   }
 
 
   return (
