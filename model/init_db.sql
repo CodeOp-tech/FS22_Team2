@@ -36,8 +36,8 @@ CREATE TABLE shops (
 	led_lights BOOLEAN DEFAULT 0,
 	small_biz BOOLEAN DEFAULT 0,
 	min_biz BOOLEAN DEFAULT 0,
-	wo_biz BOOLEAN DEFAULT 0
-	PRIMARY KEY (shop_id),
+	wo_biz BOOLEAN DEFAULT 0,
+	PRIMARY KEY (shop_id)
 );
 
 INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz)

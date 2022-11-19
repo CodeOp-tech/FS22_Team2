@@ -87,7 +87,7 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
 // });
 
 
-// PUT edit shop info
+// PUT edit shop info - works in Postman!
 // PROTECTED - user should only be able to enter own shop
 router.put("/edit/:shop_id", ensureShopOwner, async (req, res) => { 
     let { shop_id }  = req.params;
@@ -97,55 +97,55 @@ router.put("/edit/:shop_id", ensureShopOwner, async (req, res) => {
     try {
         let shopResult= await db(sql);
         let shop = shopResult.data[0];
-      if (shop.shop_name) {
+      if (shop_name) {
         await db(
           `UPDATE shops SET shop_name='${shop_name}' WHERE shop_id=${shop_id}`
         );
       }
   
-      if (shop.shop_address) {
+      if (shop_address) {
         await db(`UPDATE shops SET shop_address='${shop_address}' WHERE shop_id=${shop_id}`);
       }
   
-      if (shop.shop_description) {
+      if (shop_description) {
         await db(
           `UPDATE shops SET shop_description='${shop_description}' WHERE shop_id=${shop_id}`
         );
       }
   
-      if (shop.shop_image) {
+      if (shop_image) {
         await db(`UPDATE shops SET shop_image='${shop_image}' WHERE shop_id=${shop_id}`);
       }
 
-      if (shop.website) {
+      if (website) {
         await db(`UPDATE shops SET website='${website}' WHERE shop_id=${shop_id}`);
       }
   
-      if (shop.phone) {
+      if (phone) {
         await db(`UPDATE shops SET phone='${phone}' WHERE shop_id=${shop_id}`);
       }
 
-      if (shop.shop_email) {
+      if (shop_email) {
         await db(`UPDATE shops SET shop_email='${shop_email}' WHERE shop_id=${shop_id}`);
       }
 
-      if (shop.donate) {
+      if (donate) {
         await db(`UPDATE shops SET donate='${Number(donate)}' WHERE shop_id=${shop_id}`);
       }
 
-      if (shop.led_lights) {
+      if (led_lights) {
         await db(`UPDATE shops SET led_lights='${Number(led_lights)}' WHERE shop_id=${shop_id}`);
       }
 
-      if (shop.small_biz) {
+      if (small_biz) {
         await db(`UPDATE shops SET small_biz='${Number(small_biz)}' WHERE shop_id=${shop_id}`);
       }
 
-      if (shop.min_biz) {
+      if (min_biz) {
         await db(`UPDATE shops SET min_biz='${Number(min_biz)}' WHERE shop_id=${shop_id}`);
       }
 
-      if (shop.wo_biz) {
+      if (wo_biz) {
         await db(`UPDATE shops SET wo_biz='${Number(wo_biz)}' WHERE shop_id=${shop_id}`);
       }
 
