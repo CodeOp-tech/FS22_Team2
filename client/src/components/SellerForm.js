@@ -35,14 +35,13 @@ function SellerForm(props) {
         formData.append('local', productData.local);
         formData.append('organic', productData.organic);
         props.addProductCb(formData);
-
+        console.log(formData);
         setProductData(EMPTY_FORM);
         setFiles(null);
         e.target.reset();
       }
 
   function handleFileChange(e) {
-    console.log('upload', e.target.files[0])
         setFiles(e.target.files[0]); //is the products refering to products.js routes file?
     }
     
@@ -62,7 +61,6 @@ function SellerForm(props) {
            ...data, [e.target.name]:0
        }));
        }
-       console.log(`${e.target.name}: ${e.target.value}`)
    }
 
 

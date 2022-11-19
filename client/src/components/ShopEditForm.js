@@ -39,7 +39,6 @@ function ShopEditForm(props) {
         console.log(formData)
         /***** CHANGE THIS TO PUT SHOP DATA *****/
         // props.addProductCb(formData);
-
         setShopData(EMPTY_FORM);
         setFiles(null);
         e.target.reset();
@@ -87,7 +86,7 @@ function ShopEditForm(props) {
             Product Name </Form.Label>
             <Form.Control
              type='text'
-             name='shop-name'
+             name='shop_name'
              value={shopData.shop_name}
              onChange={handleChange}
              />
@@ -100,7 +99,7 @@ function ShopEditForm(props) {
         </Form.Label>
             <Form.Control 
              type='textarea'
-             name='shop-description'
+             name='shop_description'
              value={shopData.shop_description}
              onChange={handleChange}
              />
@@ -112,8 +111,8 @@ function ShopEditForm(props) {
         </Form.Label>
             <Form.Control 
              type='textarea'
-             name='shop_description'
-             value={shopData.shop_description}
+             name='website'
+             value={shopData.website}
              onChange={handleChange}
              />
         </Form.Group>
@@ -140,7 +139,7 @@ function ShopEditForm(props) {
                 </Form.Label> 
                 <Form.Control
                 type='textarea'
-                name='shop-email'
+                name='shop_email'
                 value={shopData.shop_email}
                 onChange={handleChange}
                 />

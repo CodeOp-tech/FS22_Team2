@@ -33,7 +33,6 @@ function SellerDash(props) {
 
   // Add a new product to this shop
   async function addProduct(formData) {
-    console.log("shop id:" + Local.getShopId());
     let options = {
       method: 'POST',
       //headers: { 'Content-Type': 'application/json' }, //remove?
