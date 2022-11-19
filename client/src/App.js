@@ -62,6 +62,8 @@ function App() {
   //   getPurchasedItemsByShop();
   // }, [purchasedItemsByUser, purchasedItemsByShop]);
 
+  /********************* AUTH FUNCTIONS *********************/
+
   // register new user
   // NOTE: removed has_shop to test; add back in later
   async function doRegister(username, password, email, has_shop) {
@@ -106,6 +108,11 @@ function App() {
     //Navbar should send user to home page
   }
 
+  /********************* SHOP FUNCTIONS *********************/
+
+
+  /********************* PRODUCT FUNCTIONS *********************/
+
   // GET ALL PRODUCTS (regardless of store)
   async function getProducts() {
     try {
@@ -149,6 +156,8 @@ function App() {
     return productData;
   }
 
+  /********************* SHOPPING CART FUNCTIONS *********************/
+  
   // GET PRODUCT QUANTITY OF PRODUCTS ADDED TO SHOPPING CART
   function getProductQuantity(id) {
     // id (ie. product.product_id) passed from child ProductCard
@@ -255,6 +264,8 @@ function App() {
       })
     );
   }
+
+  /********************* PURCHASE FUNCTIONS *********************/
 
   // ADD PURCHASE (ie. receipt of a single purchase) INTO PURCHASES TABLES (DATABASE)
   async function addPurchases(purchase_sum, user_id) {
