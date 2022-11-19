@@ -56,10 +56,10 @@ CREATE TABLE `products` (
 	`stripe_product_id` varchar(255),
 	`shop_id` INT NOT NULL,
 	`recycled` BOOLEAN DEFAULT 0,
-  `no_fridge` BOOLEAN DEFAULT 0,
-  `fair_trade` BOOLEAN DEFAULT 0,
-  `local` BOOLEAN DEFAULT 0,
-  `organic` BOOLEAN DEFAULT 0,
+  	`no_fridge` BOOLEAN DEFAULT 0,
+  	`fair_trade` BOOLEAN DEFAULT 0,
+  	`local` BOOLEAN DEFAULT 0,
+  	`organic` BOOLEAN DEFAULT 0,
 	PRIMARY KEY (`product_id`)
 );
 
