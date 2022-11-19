@@ -9,11 +9,11 @@ const EMPTY_FORM ={
     price:'',
     product_description:'',
     product_quantity:'',
-    checklist1: '',
-    checklist2: '',
-    checklist3: '',
-    checklist4: '',
-    checklist5: ''
+    recycled: 0,
+    no_fridge: 0,
+    fair_trade: 0,
+    local: 0,
+    organic: 0
 }
 
 function SellerForm(props) {
@@ -29,7 +29,11 @@ function SellerForm(props) {
         formData.append('price', productData.price);
         formData.append('product_description', productData.product_description);
         formData.append('product_quantity', productData.product_quantity);
-        console.log(formData)
+        formData.append('recycled', productData.recycled);
+        formData.append('no_fridge', productData.no_fridge);
+        formData.append('fair_trade', productData.fair_trade);
+        formData.append('local', productData.local);
+        formData.append('organic', productData.organic);
         props.addProductCb(formData);
 
         setProductData(EMPTY_FORM);
@@ -58,6 +62,7 @@ function SellerForm(props) {
            ...data, [e.target.name]:0
        }));
        }
+       console.log(`${e.target.name}: ${e.target.value}`)
    }
 
 
@@ -126,50 +131,48 @@ function SellerForm(props) {
         <Form.Group className='mb-3'>
             This product is...
             <Form.Check
-             label = 'Recyclable'
+             label = 'Made from recycled materials'
              type='checkbox'
-             name='checklist1'
-             value={productData.checklist1}
+             name='recycled'
+             value={productData.recycled}
              onChange={handleChangeCheck}
              />
         
             <Form.Check
-             label='Made from recycled products'
+             label='Does not need to be refrigerated'
              type='checkbox'
-             name='checklist2'
-             value={productData.checklist2}
-             onChange={handleChangeCheck}
-             />
-        
-            <Form.Check
-             label='Locally Sourced'
-             type='checkbox'
-             name='checklist3'
-             value={productData.checklist3}
+             name='no_fridge'
+             value={productData.no_fridge}
              onChange={handleChangeCheck}
              />
              
             <Form.Check
-             label='Has no toxic materials'
+             label='Is fair trade'
              type='checkbox'
-             name='checklist4'
-             value={productData.checklist4}
+             name='fair_trade'
+             value={productData.fair_trade}
              onChange={handleChangeCheck}
              />
             
             <Form.Check
-             label='Fairtrade'
+             label='Is locally sourced'
              type='checkbox'
-             name='checklist5'
-             value={productData.checklist5}
+             name='local'
+             value={productData.local}
+             onChange={handleChangeCheck}
+             />
+
+            <Form.Check
+             label='Is organic'
+             type='checkbox'
+             name='organic'
+             value={productData.organic}
              onChange={handleChangeCheck}
              />
 
         </Form.Group>
         <Button type="submit">Submit</Button>
     </Form>
-
-
   )
 }
 
