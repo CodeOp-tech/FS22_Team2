@@ -4,7 +4,7 @@ const { ensureSameUser, ensureShopOwner } = require('../middleware/guards');
 const db = require('../model/helper.js')
 
 // GET all shops
-// NOT PROTECTED
+// NOT PROTECTED - not needed
 router.get('/', async function(req, res, next) {
     let sql = 'SELECT * FROM shops ORDER BY shop_id';
   

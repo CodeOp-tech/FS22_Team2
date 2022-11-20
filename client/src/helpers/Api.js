@@ -79,7 +79,6 @@ class Api {
 
     // EDIT/PUT shop info
     static async updateShop(shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz, shop_id) {
-
         let body = { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz }
         return await this._doFetch(`/shops/edit/${shop_id}`, 'PUT', body);
     }
@@ -117,7 +116,15 @@ class Api {
         return await this._doFetch(`/products/${product_id}`, 'PUT', body);
     }
 
-     // ADD/POST purchases 
+    // ADD/POST products 
+    static async addProducts(formData, shop_id) {
+        let body = {formData};
+       
+
+        return await this._doFetch(`/products/${shop_id}`, 'POST', body);
+    }
+    
+    // ADD/POST purchases 
      static async addPurchases(purchase_sum, user_id) {
         let body = {purchase_sum, user_id };
 

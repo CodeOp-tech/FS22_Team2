@@ -109,7 +109,10 @@ function App() {
   }
 
   /********************* SHOP FUNCTIONS *********************/
-
+  // PUT edit shop info
+  async function editShopInfo(shop_id) {
+    let myresponse = Api.updateShop()
+  }
 
   /********************* PRODUCT FUNCTIONS *********************/
 
@@ -157,7 +160,7 @@ function App() {
   }
 
   /********************* SHOPPING CART FUNCTIONS *********************/
-  
+
   // GET PRODUCT QUANTITY OF PRODUCTS ADDED TO SHOPPING CART
   function getProductQuantity(id) {
     // id (ie. product.product_id) passed from child ProductCard

@@ -19,30 +19,45 @@ const EMPTY_FORM ={
 
 function ShopEditForm(props) {
     const [shopData, setShopData] = useState(EMPTY_FORM);
+    /**** NEW ****/
+    // const [shopName, setShopName] = useState(null);
+    // const [shopAddress, setShopAddress] = useState(null);
+    // const [shopDescription, setShopDescription] = useState(null);
+    // // do we need img? doesn't exist in front end form    
+    // // const [shopImage, setShopImage] = useState(null);
+    // const [website, setWebsite] = useState(null);
+    // const [phone, setPhone] = useState(null);
+    // const [shopEmail, setShopEmail] = useState(null);
+    // const [donate, setDonate] = useState(null);
+    // const [ledLights, setLedLights] = useState(null);
+    // const [smallBiz, setSmallBiz] = useState(null);
+    // const [minBiz,setMinBiz] = useState(null);
+    // const [woBiz,setWoBiz] = useState(null)
     const [files, setFiles] = useState(null)
 
-      function handleSubmit (e) {
-        e.preventDefault();
-
-        let formData = new FormData();
-        formData.append('shop_name', shopData.shop_name);
-        formData.append('shop_description', shopData.shop_description);
-        formData.append('shop_image', files, files.shop_image);
-        formData.append('website', shopData.website);
-        formData.append('phone', shopData.phone);
-        formData.append('shop_email', shopData.shop_email);
-        formData.append('donate', shopData.donate);
-        formData.append('led_lights', shopData.led_lights);
-        formData.append('small_biz', shopData.small_biz);
-        formData.append('min_biz', shopData.min_biz);
-        formData.append('wo_biz', shopData.wo_biz);
-        console.log(formData)
-        /***** CHANGE THIS TO PUT SHOP DATA *****/
-        // props.addProductCb(formData);
-        setShopData(EMPTY_FORM);
-        setFiles(null);
-        e.target.reset();
-      }
+    function handleSubmit (e) {
+      e.preventDefault();
+      /******** ORIGINAL FORM *********/
+      let formData = new FormData();
+      formData.append('shop_name', shopData.shop_name);
+      formData.append('shop_description', shopData.shop_description);
+      formData.append('shop_image', files, files.shop_image);
+      formData.append('website', shopData.website);
+      formData.append('phone', shopData.phone);
+      formData.append('shop_email', shopData.shop_email);
+      // formData.append('donate', shopData.donate);
+      // formData.append('led_lights', shopData.led_lights);
+      // formData.append('small_biz', shopData.small_biz);
+      // formData.append('min_biz', shopData.min_biz);
+      // formData.append('wo_biz', shopData.wo_biz);
+      console.log(`shop form: ${formData}`)
+      console.log(`shop data: ${shopData}`)
+      /***** CHANGE THIS TO PUT SHOP DATA *****/
+      // props.addProductCb(formData);
+      // setShopData(EMPTY_FORM);
+      // setFiles(null);
+      // e.target.reset();
+    }
 
   function handleFileChange(e) {
     console.log('upload', e.target.files[0])
@@ -55,27 +70,16 @@ function ShopEditForm(props) {
   }
       
   // sets value of that field to 1 when checked or 0 if unchecked
-  // QUESTION: works BUT console seems to always be 1 step behind; logs original state once, then updates after. Why? The change should be happening before the console log.
-  function handleChangeCheck (e) {
-     if (e.target.checked) {
-      setShopData((data) => ({
-            ...data, [e.target.name]:1
-        }));
-      } else {
-        setShopData((data) => ({
-          ...data, [e.target.name]:0
+  // QUESTION: works for submit BUT clicking a checkbox adds a NEW key to state with that name and val 1 - WHY? how to fix?
+  if (e.target.checked) {
+    setShopData((data) => ({
+          ...data, [e.target.name]:1
       }));
-      }
-  }
-
-//   function handleChangeCheck (e) {
-//     if (e.target.checked) {
-//         setHasShop(1);
-//     } else {
-//         setHasShop(0);
-//     }
-//     console.log(hasShop);
-// }
+    } else {
+      setShopData((data) => ({
+        ...data, [e.target.name]:0
+    }));
+    }
 
 
   return (
@@ -83,7 +87,7 @@ function ShopEditForm(props) {
     <Form className='shop-form' onSubmit={handleSubmit}>
       <Form.Group className='mb-3'>
         <Form.Label className='shop-name'>
-            Product Name </Form.Label>
+            Shop Name </Form.Label>
             <Form.Control
              type='text'
              name='shop_name'

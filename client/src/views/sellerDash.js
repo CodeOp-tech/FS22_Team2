@@ -5,6 +5,7 @@ import SellerForm from "../components/SellerForm.js";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
 import Local from "../helpers/Local.js";
 import ShopEditForm from "../components/ShopEditForm";
+import Api from "../helpers/Api.js";
 
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
@@ -31,27 +32,50 @@ function SellerDash(props) {
   }
 
 
-  // Add a new product to this shop
   async function addProduct(formData) {
+    console.log(formData);
     let options = {
       method: 'POST',
       //headers: { 'Content-Type': 'application/json' }, //remove?
       body: formData // just formData?
     };
-    // added Local.getShopId()
+    
     try {
-      let response = await fetch(`/products/${Local.getShopId()}`, options); 
+      let response = await fetch('/products', options); 
       if (response.ok) {
         let result = await response.json();
         setProductsData(result);
         getProducts();
       } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
+      console.log(`Server error: ${response.status} ${response.statusText}`);
+    }
     } catch (err) {
       console.log(`Network error: ${err.message}`);
     }
   }
+  
+  /********* URGENT ZOE TESITNG THIS ROUTE, NOT WORKING YET *********/
+  // Add a new product to this shop
+  // async function addProduct(formData) {
+  //   let options = {
+  //     method: 'POST'
+  //   };
+  //   try {
+  //     //let response = await Api.addProducts(formData, `${Local.getShopId()}`);
+  //     //console.log(`SellerDash shop_id: ${Local.getShopId()}`);
+  //     let response = await fetch(`/products`, options); 
+  //     if (response.ok) {
+  //       console.log(response.json());
+  //       setProductsData(response.data);
+  //       getProducts();
+  //     } else {
+  //       console.log(`Server error: ${response.status} ${response.statusText}`);
+  //     }
+  //   } catch (err) {
+  //     console.log(`Network error: ${err.message}`);
+  //   }
+  // }
+  /********* END ZOE'S *********/
 
   // Delete a product by id
   async function deleteProduct(id) {
