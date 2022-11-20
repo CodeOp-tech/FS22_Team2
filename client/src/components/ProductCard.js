@@ -12,7 +12,7 @@ function ProductCard(props) {
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
   const [buttonPopup, setButtonPopup] = useState(false);
 
-  const { getProductDataCb } = useContext(ProductContext);
+  const { products, getProductDataCb } = useContext(ProductContext);
 
   const { cartProducts,
     getProductQuantityCb,
@@ -66,7 +66,8 @@ let find = cartProducts.find(e => e.id === product.product_id);
         </div>
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
-        <Card.Text>${product.price}</Card.Text>
+        <Card.Text>from <i>{product.shop_name}</i></Card.Text>
+        <Card.Text><b>${product.price}</b></Card.Text>
         <Card.Text>{product.product_description}</Card.Text>
         
         { find ? 
