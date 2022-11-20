@@ -74,7 +74,7 @@ router.get('/', async function(req, res,) {
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
         VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', 1)
     ;`// URGENT NOTE: Need to pass shop_id
-    // added the strip id field- does it need to be added?
+    // URGENT NOTE: Need to insert product enviro parameters
     
         await db(sql);  
         //let result = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // shop_id taken from req.body
@@ -107,7 +107,7 @@ router.get('/', async function(req, res,) {
   // EDIT PRODUCT BASED OFF PRODUCT ID (shop_id passed in req.body)
   // NOTE: Protected b/c need to make sure shop owner is the only one who can edit products
   // QUESTION: Is this enough? Do we need to do any kind of check to make sure user is also shop owner?
-  router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
+  router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass shop_id through body
     let id  = req.params.product_id;
     let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
    

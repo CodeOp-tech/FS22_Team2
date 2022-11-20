@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import CartContext from "../CartContext";
 import CartProductModal from "./CartProductModal";
+import { FiShoppingCart } from "react-icons/fi";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
@@ -108,7 +109,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
 
                
     
-         <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
+         <Button onClick={handleShow}><FiShoppingCart /> ({productsCount} items)</Button>
        
 
         {/* Modal is the pop-up that will appear upon clicking Cart button */}
