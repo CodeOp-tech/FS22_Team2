@@ -19,7 +19,10 @@ router.get('/:product_id', async function(req, res) {
     let id = req.params.product_id
 
     try {
-        let results = await db(`SELECT * FROM reviews WHERE product_id = ${Number(id)}`);
+        let results = await db(`SELECT reviews.*, users.username
+        FROM reviews
+        LEFT JOIN users on reviews.user_id = users.user_id
+        WHERE product_id = ${Number(id)}`);
         let reviews = results.data;
         res.send(reviews);
     } catch (err) {
