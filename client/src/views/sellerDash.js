@@ -16,6 +16,7 @@ function SellerDash(props) {
 
   // Get all product info for this shop by id and save to productsData state
   async function getProducts() {
+    console.log(`shop id: ${Local.getShopId()}`)
     try {
       // NOTE: in original working version, hard-coded to 1
       // NOTE: also tried converting to number, no dice
@@ -31,7 +32,7 @@ function SellerDash(props) {
     }
   }
 
-
+  // ZOE TESTING: ADDED SHOP_ID IN REQ PARAMS
   async function addProduct(formData) {
     console.log(formData);
     let options = {
@@ -41,7 +42,7 @@ function SellerDash(props) {
     };
     
     try {
-      let response = await fetch('/products', options); 
+      let response = await fetch(`/products/${Local.getShopId()}`, options); 
       if (response.ok) {
         let result = await response.json();
         setProductsData(result);

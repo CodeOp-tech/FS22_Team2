@@ -84,22 +84,20 @@ router.get('/', async function(req, res,) {
   }
   });
 
-  // ORIGINAL PRODUCT POST ROUTE: WORKS, BUT NOT TIED TO SHOP_ID
-  // shop_id hard-coded in values
   // ADD PRODUCT BASED OFF STORE ID
-  router.post("/", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
+  router.post("/:shop_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
     console.log(req.body, '**************&*&(*()*')
-    let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
+    let { shop_id } = req.params;
+    let { product_name, price, product_image, product_quantity, product_description } = req.body;
 
     try{
-  
     let sql = `
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
-        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', 1)
-    ;`// added the strip id field- does it need to be added?
+        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id})
+    ;`// added the stripe id field- does it need to be added?
     
         await db(sql);  
-        //let result = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // shop_id taken from req.body
+        let result = await db(`SELECT * FROM products WHERE shop_id = ${shop_id}`); // shop_id taken from req.params
         // let products = result.data;
         res.status(201) //.send(products); 
         sendAllFiles(res)// 201 status because indicates request has succeeded and lead to creation of resource
@@ -107,37 +105,6 @@ router.get('/', async function(req, res,) {
         res.status(500).send({ error: err.message });
     }
   });
-
-  /********* URGENT ZOE TESTING THIS ROUTE; DOESN'T WORK YET **********/
-
-  // // ADD PRODUCT BASED OFF STORE ID
-  // // PROTECT: ensureShopOwner
-  // // option 1: pass shop id in req params
-  // router.post("/1", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below. Why? we changed this to pass through req params instead
-  //   let { product_name, price, product_image, product_quantity, product_description } = req.body;
-  //   //let { shop_id } = req.params.shop_id;
-  //   console.log("server - shop id:" + req.params.shop_id);
-
-  //   try{
-  
-  //   let sql = `
-  //       INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
-  //       VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id})
-  //   ;`// added the stripe id field- does it need to be added?
-    
-  //       await db(sql);  
-  //       let result = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // shop_id taken from req.body
-  //       let products = result.data;
-  //       res.status(201) //.send(products); 
-  //       sendAllFiles(res)// 201 status because indicates request has succeeded and lead to creation of resource
-  //   } catch (err) {
-  //       res.status(500).send({ error: err.message });
-  //   }
-  // });
-
-  /********* END ZOE'S **********/
- 
-
 
   // router.post("/", async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below NOTE: changes in route-will this effect Jess?
   //   let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
