@@ -86,12 +86,14 @@ class Local {
 
     // save array of cart products
     static saveCartProducts(cartProducts) {
-        localStorage.setItem('cartProducts', cartProducts);
+        // need to stringify the cartProducts array
+        localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
     }
 
     // get array of cartProducts stored in Local Storage
     static getCartProducts() {
-        let cartProductsjson = localStorage.getItem('cartProducts');
+        // default empty array if getItem returns null because no cartProducts stored
+        let cartProductsjson = localStorage.getItem('cartProducts' || '[]');
         if (!cartProductsjson) {
             return '';
         }

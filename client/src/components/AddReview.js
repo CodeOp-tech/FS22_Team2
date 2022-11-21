@@ -27,7 +27,6 @@ function AddReview(props) {
     function handleSubmit(event) {
         event.preventDefault();
         addReviewCb(formData, product.product_id); // call on addReviewCb in parent App via Product Context
-        alert("Thank you for sharing your product review!");
         setFormData(EMPTY_FORM); // this not necessary, since hiding form after submission as per below
         props.hideAddReviewCb();
     }
@@ -38,7 +37,7 @@ function AddReview(props) {
             <p><b>Add Product Review here:</b></p>
             </div>
             <form onSubmit={handleSubmit}>
-            <div className="row">
+            <div className="stars">
                 <label>
                     Rate out of 5 stars:
                     <StarRating
@@ -47,6 +46,7 @@ function AddReview(props) {
                     />
                 </label>
                 </div>
+                <br></br>
 
             <div className="row">
                 <label>
@@ -61,11 +61,12 @@ function AddReview(props) {
                     />
                 </label>
             </div>
+            <br></br>
 
             <div className="row">
                 <label>
                     Review:
-                    <input
+                    <textarea
                     id="review"
                     name="review_body"
                     type="text"
@@ -75,8 +76,11 @@ function AddReview(props) {
                     />
                 </label>
             </div>
+            <br></br>
+
             <button type="submit">Add Product Review</button>
             </form>
+            <br></br>
 
         </div>
     )

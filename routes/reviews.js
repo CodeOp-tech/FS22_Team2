@@ -39,8 +39,9 @@ router.post('/', async function(req, res) {
 
     let sql= `
         INSERT INTO reviews (stars, review_title, review_body, product_id, user_id)
-        VALUES (${Number(stars)}, '${review_title}', '${review_body}', ${Number(product_id)}, ${Number(user_id)})
+        VALUES (${Number(stars)}, "${review_title}", "${review_body}", ${Number(product_id)}, ${Number(user_id)})
     `;
+    //NOTE ${review_title} and ${review_body} put into "" instead of '' because if ' is included in title or body (in front end), mySQL deciphers it as parameter ended
 
     try {
         await db(sql);

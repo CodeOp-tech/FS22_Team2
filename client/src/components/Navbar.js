@@ -24,7 +24,7 @@ function Navbar(props) {
     }
 
     async function handleClick() {
-        Local.saveCartProducts();
+        Local.saveCartProducts(cartProducts);
         checkout();
         // NOTE: ACTUAL WORKFLOW SHOULD BE ONLY UPON RECEIVING SUCCESS PAGE, addPurchasesCb() is called
         // addPurchasesCb();
