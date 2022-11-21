@@ -1,10 +1,27 @@
-.card img{
-    width: 200px;
-    height: 210px;
-}
+/* .card img{
+    border-radius: 0 0 50px 50px;
+} */
 
-.card{
-    display: inline-flex;
+.productCard{
     margin: 10px;
+    text-align: left;
+    border-radius: 30px;
+    border: none;
+    background-color: rgba(255, 189, 127, 0.584);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+} 
+
+.proText{
+    border-radius: 10px;
+    background-color: beige;
+    margin-top: 18px;
 }
 
+.probtn{
+   margin-inline-end: 10px;
+   width: 85px; 
+   height: 30px;
+   padding: 1px;
+   background-color: orange;
+   border: none;
+}

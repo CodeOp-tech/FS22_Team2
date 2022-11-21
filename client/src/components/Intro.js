@@ -26,7 +26,6 @@ const Intro = () => {
                 .deleteChars(5)
                 .typeString('y')
                 .pauseFor(5000)
-                .stop()
                 .start();
   }}
   />

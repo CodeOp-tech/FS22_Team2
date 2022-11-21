@@ -8,9 +8,10 @@ import FeaturedBusiness from "../components/FeaturedBusiness";
 import Map from "../components/Map";
 
 
+
 function HomeView() {
   return (
-    <div>
+    <div>  
       <h1>Home!</h1>
       <Intro />
       <h2>Congratulations To This Month's WINNERS!</h2>
@@ -22,6 +23,7 @@ function HomeView() {
 
       <FeaturedBusiness />
       <Map />
+   
     </div>
   );
 }

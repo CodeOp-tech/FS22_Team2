@@ -4,6 +4,7 @@ import SellerList from "../components/SellerList";
 import SellerForm from "../components/SellerForm";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
 
+
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
 
@@ -41,7 +42,7 @@ function SellerDash(props) {
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
-    getProducts();
+    getProducts(); //note to ask about the reload
     } else {
     console.log(`Server error: ${response.status} ${response.statusText}`);
     }
@@ -52,7 +53,6 @@ function SellerDash(props) {
   async function deleteProduct(id) {
     let options = {
     method: 'DELETE'
-  
   };
 
   try {
@@ -69,29 +69,29 @@ function SellerDash(props) {
   }};
 
 
-  //   async function editProduct(product) {
-  //     let options = {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(product)
-  // };
+    async function editProduct(id, formData) {
+      console.log('testing', formData, id)
+      let options = {
+      method: 'PUT',
+      // headers: { 'Content-Type': 'application/json' },
+      body: formData
+  };
 
-  // try {
-  //     let response = await fetch('/products', options);
-  //     if (response.ok) {
-  //     let result = await response.json();
-  //     setProductData(result);
-  // } else {
-  //     console.log(`Server error: ${response.status} ${response.statusText}`);
-  // }
-  // } catch (err) {
-  //     console.log(`Server error: ${err.message}`);
-  // }};
+  try {
+      let response = await fetch(`/products/${id}`, options);
+      if (response.ok) {
+      let result = await response.json();
+      setProductsData(result);
+  } else {
+      console.log(`Server error: ${response.status} ${response.statusText}`);
+  }
+  } catch (err) {
+      console.log(`Server error: ${err.message}`);
+  }};
 
   return (
     <div>
       <Container>
-
       <Row>
       <Col>
       <SellerForm addProductCb={addProduct} />
@@ -99,11 +99,13 @@ function SellerDash(props) {
       <Col>
       <SellerList productsData={productsData}
                   deleteProductCb={(id) => deleteProduct(id)}
-      /></Col>
+                  editProductCb={(id, formData) =>editProduct(id, formData)}//id sent to the sellerDash (parent of sellerlist)
+      /></Col> 
       
       </Row>
-
-      </Container>
+    
+      </Container>  
+    
     </div>
   );
 }

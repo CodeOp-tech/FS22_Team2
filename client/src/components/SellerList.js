@@ -1,66 +1,101 @@
-import React, {useState} from 'react'
+import React, {useState,} from 'react'
 import './SellerList.css'
-import {Card, Row, Col, Button} from 'react-bootstrap'
-
+import { motion } from 'framer-motion'
+import EdiText from 'react-editext'
+import { Card, Col, Row, Button, ButtonToolbar } from 'react-bootstrap';
+import EditProduct from './EditProduct';
 
 
 function SellerList(props) {
 // const [isEdit, setIsEdit] = useState(false)
+const [show, setShow] = useState(false) //state to show Modal
+const [editProductItem, setEditProductItem] = useState(null)
 
-// function handleToggleEdit(){
-//     setIsEdit(!isEdit)
+const handleClose = () => setShow(false); //to close Modal
 
+function handleShow(id) {
+  let product = props.productsData.find(p => p.product_id === id)
+  console.log('edit product data', product)
+  setEditProductItem(product)
+  setShow(true);
+ } //to show Modal
 
-
+ function handleEditSubmit(id, formData){
+ setShow(false);
+ props.editProductCb(id, formData)
+ }
 
 return (
     <div className='sell-list'>
-      
-      {props.productsData?.map (p => ( // why does this work with the ?
-      <Card key={p.product_id}
-            style={{width: '15rem'}}>
-            <Card.Img variant='top' src={p.url}/>
-            <Card.Body>
-             <Card.Title>
-                {p.product_name}
+      {/* <ul className='pro-items'>
+      {props.productsData?.map (p => ( 
+      <li key={p.product_id}>
+            <img className='pro-pic' src={p.url}/>
+              <EdiText
+                type='text'
+                value={p.product_name}
+                />
+              <EdiText
+                  type='textarea' 
+                  value={p.product_description}
+                />
+              <EdiText
+                  type='number'
+                  value={p.price}
+                />
+              <EdiText
+                  type='number'
+                  value={p.product_quantity}
+                />
+             
+                <button className='delete-p' onClick={(e) => props.deleteProductCb(p.product_id)} >Delete</button>
+                <button className='edit-p'>Edit</button>
+        </li>
+        ))}
+    </ul> */}
+          
+            {props.productsData?.map (p => ( 
+        <Card className='productCard' key={p.product_id}
+            style={{width:'35rem'}}>
+              <Row>
+              <Col>
+              <Card.Img variant='bottom' src={p.url} style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '180px'}}/>
+              <Button className='probtn' onClick={(e) => props.deleteProductCb(p.product_id)} >Delete</Button>
+              <Button className='probtn'onClick={(e) => handleShow(p.product_id)}>Edit</Button>
+              </Col>
+              <Col>
+             <Card.Title className='proTitle' style={{fontWeight:'bold', padding:'4px', textTransform:'capitalize' }}>
+              {p.product_name}
             </Card.Title>
-            <Card.Text>
+            <Card.Text className='proText' style={{padding:'10px', }}>
                 {p.product_description}
-            </Card.Text>
-            <Row>
-                <Col>
-                  <Card.Text>
-                    £{p.price}
-                  </Card.Text>
-                </Col>
-                <Col>
-                  <Card.Text>
-                    Qty: {p.product_quantity}
-                  </Card.Text>
-                </Col>
-            </Row>
-            
-                <Button className='delete-p' onClick={(e) => props.deleteProductCb(p.product_id)} >Delete</Button>
-                <Button className='edit-p'>Edit</Button>
-            </Card.Body>  
+            </Card.Text > 
+            <Row> 
+              <Col> 
+              <Card.Text className='proText'  style={{padding:'5px', }}>
+                  £{p.price}
+                </Card.Text>
+              </Col>      
+              <Col>
+                <Card.Text className='proText' style={{padding:'5px', }}>
+                  Qty: {p.product_quantity}
+                </Card.Text>
+              </Col>                
+            </Row>  
+              
+          </Col></Row>
         </Card>
                    
-        ))}
-      {/* <Card>
-        <Card.Body>
-            <Card.Img variant='top'  src='https://cdn.shopify.com/s/files/1/0277/6262/2567/products/medium-chubby-hoop-earrings-earrings-missoma-18ct-gold-plated-817200_600x.jpg?v=1638046361'/>
-            <Card.Title>
-                Product Name
-            </Card.Title>
-            <Card.Text>
-                Product Description
-            </Card.Text>
-                <Button className='delete-p'  type='button'>Delete</Button>
-                <Button className='edit-p'  type='button'>Edit</Button>
-            </Card.Body>  
-        </Card> */}
-
-        
+        ))} 
+        {show && (
+        <EditProduct     show={show}
+                         onHide={handleClose}
+                         editProductItem={editProductItem}
+                         editProductCb={(id, formData)=>handleEditSubmit(id, formData)} 
+                        //  product_id={p.product_id}
+                        //  product_name={p.product_name}
+                />
+        )}
     </div>
   )
 }

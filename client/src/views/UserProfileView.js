@@ -43,6 +43,7 @@ function UserProfileView(props) {
         Email: {user.userEmail}
       </div>
       <Map />
+      
     </div>
   );
 }
