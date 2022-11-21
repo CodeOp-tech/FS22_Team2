@@ -31,8 +31,8 @@ router.get('/:product_id', async function(req, res) {
 });
 
 // ADD REVIEW TO REVIEWS DATABASE
-router.post('/:product_id', async function(req, res) {
-    let id = req.params.product_id
+router.post('/', async function(req, res) {
+    // let id = req.params.product_id
     let { stars, review_title, review_body, product_id, user_id } = req.body;
 
     let sql= `

@@ -28,7 +28,8 @@ function AddReview(props) {
         event.preventDefault();
         addReviewCb(formData, product.product_id); // call on addReviewCb in parent App via Product Context
         alert("Thank you for sharing your product review!");
-        setFormData(EMPTY_FORM);
+        setFormData(EMPTY_FORM); // this not necessary, since hiding form after submission as per below
+        props.hideAddReviewCb();
     }
 
     return (
@@ -42,7 +43,7 @@ function AddReview(props) {
                     Rate out of 5 stars:
                     <StarRating
                     name="stars"
-                    starClickCb={handleStarClick}
+                    starClickCb={handleStarClick} // starClickCb is passed to child StarRating
                     />
                 </label>
                 </div>
