@@ -85,9 +85,9 @@ router.get('/', async function(req, res,) {
   });
 
   // ADD PRODUCT BASED OFF STORE ID
-  // PROTECTED: user should only be able to edit their own shop info
-  // NOTE: works in front end & communicates w/back: i.e. if you submit the form on the website, it adds the product to the live page and to the database (found via Postman). BUT cannot test in Postman, throws error - something to do with file upload?
-  router.post("/:shop_id", ensureShopOwner, upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
+  // SHOULD BE PROTECTED: user should only be able to edit their own shop info
+  // QUESTION: when guarded with ensureShopOwner, throws 401 unauthorized error even though shop_id passing correctly, and in local storage correctly. Why??ß
+  router.post("/:shop_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
     console.log(req.body, '**************&*&(*()*')
     let { shop_id } = req.params;
     let { product_name, price, product_image, product_quantity, product_description, recycled, no_fridge, fair_trade, local, organic } = req.body;

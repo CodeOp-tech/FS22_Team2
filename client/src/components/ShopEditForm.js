@@ -19,7 +19,7 @@ const EMPTY_FORM ={
 }
 
 function ShopEditForm(props) {
-    const [shopData, setShopData] = useState(EMPTY_FORM);
+    const [shopData, setShopData] = useState(props.shop);
     const [files, setFiles] = useState(null);
     /**** NEW ****/
     // const [shopName, setShopName] = useState(null);
@@ -52,11 +52,10 @@ function ShopEditForm(props) {
       formData.append('small_biz', shopData.small_biz);
       formData.append('min_biz', shopData.min_biz);
       formData.append('wo_biz', shopData.wo_biz);
-      console.log(`shop form: ${formData}`)
-      console.log(`shop data: ${shopData}`)
-      /***** CHANGE THIS TO PUT SHOP DATA *****/
-      // props.addProductCb(formData);
-      // setShopData(EMPTY_FORM);
+      console.log("FORMDATA", formData)
+      console.log("SHOPDATA", shopData)
+      props.editShopCb(shopData, Local.getShopId());
+      console.log('Ran editShop function')
       // setFiles(null);
       // e.target.reset();
     }
@@ -186,7 +185,7 @@ function ShopEditForm(props) {
         </Form.Group>
 
         <Form.Group className='mb-3'>
-            My shop...
+            This shop...
             <Form.Check
              label = 'Donates our surplus stock (instead of throwing it away)'
              type='checkbox'

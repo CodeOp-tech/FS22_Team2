@@ -91,7 +91,7 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
 // PROTECTED - user should only be able to enter own shop
 router.put("/edit/:shop_id", ensureShopOwner, async (req, res) => { 
     let { shop_id }  = req.params;
-    let { shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz } = req.body;
+    let { shopData: {shop_name, shop_description, shop_image, shop_address,  website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz} } = req.body;
     let sql = `SELECT * FROM shops WHERE shop_id = ${Number(shop_id)};`;
 
     try {

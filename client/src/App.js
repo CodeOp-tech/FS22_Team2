@@ -110,8 +110,14 @@ function App() {
 
   /********************* SHOP FUNCTIONS *********************/
   // PUT edit shop info
-  async function editShopInfo(shop_id) {
-    let myresponse = Api.updateShop()
+  async function editShop(shopData, shop_id) {
+    // update shop @ local shop_id w/shopData info
+    let myresponse = await Api.updateShop(shopData, shop_id);
+    if (myresponse.ok) {
+      setShop(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
   }
 
   /********************* PRODUCT FUNCTIONS *********************/
@@ -383,6 +389,7 @@ function App() {
               <Route path="/seller" element={<SellerDash
                 shop={shop}
                 getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
               />}/> {/*remove after*/} 
 
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}

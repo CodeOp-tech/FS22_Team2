@@ -16,10 +16,7 @@ function SellerDash(props) {
 
   // Get all product info for this shop by id and save to productsData state
   async function getProducts() {
-    console.log(`shop id: ${Local.getShopId()}`)
     try {
-      // NOTE: in original working version, hard-coded to 1
-      // NOTE: also tried converting to number, no dice
       let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
         let data = await response.json();
@@ -32,9 +29,10 @@ function SellerDash(props) {
     }
   }
 
-  // ZOE TESTING: ADDED SHOP_ID IN REQ PARAMS
+  // Add product to shop
   async function addProduct(formData) {
     console.log(formData);
+    console.log(Local.getShopId());
     let options = {
       method: 'POST',
       //headers: { 'Content-Type': 'application/json' }, //remove?
@@ -54,29 +52,6 @@ function SellerDash(props) {
       console.log(`Network error: ${err.message}`);
     }
   }
-  
-  /********* URGENT ZOE TESITNG THIS ROUTE, NOT WORKING YET *********/
-  // Add a new product to this shop
-  // async function addProduct(formData) {
-  //   let options = {
-  //     method: 'POST'
-  //   };
-  //   try {
-  //     //let response = await Api.addProducts(formData, `${Local.getShopId()}`);
-  //     //console.log(`SellerDash shop_id: ${Local.getShopId()}`);
-  //     let response = await fetch(`/products`, options); 
-  //     if (response.ok) {
-  //       console.log(response.json());
-  //       setProductsData(response.data);
-  //       getProducts();
-  //     } else {
-  //       console.log(`Server error: ${response.status} ${response.statusText}`);
-  //     }
-  //   } catch (err) {
-  //     console.log(`Network error: ${err.message}`);
-  //   }
-  // }
-  /********* END ZOE'S *********/
 
   // Delete a product by id
   async function deleteProduct(id) {
@@ -123,6 +98,7 @@ function SellerDash(props) {
       <Row>
         <ShopEditForm 
           shop = {props.shop}
+          editShopCb={props.editShopCb}
         />
       </Row>
 
