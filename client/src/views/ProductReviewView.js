@@ -15,7 +15,7 @@ function ProductReviewView(props) {
 
     return (
         <div className="container popup-review">
-            <h3>Product Reviews</h3>
+            <h3>Customer Reviews</h3>
             {showAddReview && <AddReview product={product} hideAddReviewCb={hideAddReview}/>}
 
             <ReviewList />

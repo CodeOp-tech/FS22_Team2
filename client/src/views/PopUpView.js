@@ -13,6 +13,7 @@ function PopUpView(props) {
   return props.trigger ? (
     <div className="container popup">
       <div className="popup-inner">
+      
         <button className="close-btn" onClick={removePopup}>
           X
         </button>

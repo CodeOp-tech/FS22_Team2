@@ -2,6 +2,7 @@ import React, {useState, useContext} from "react";
 import { FaStar } from "react-icons/fa";
 import StarRating from "./StarRating";
 import ProductContext from '../ProductContext';
+import "./AddReview.css"
 
 const EMPTY_FORM = {
     stars: 0,
@@ -32,53 +33,70 @@ function AddReview(props) {
     }
 
     return (
-        <div className="AddReview container">
+        <div className="container">
             <div className="row">
             <p><b>Add Product Review here:</b></p>
             </div>
             <form onSubmit={handleSubmit}>
             <div className="stars">
-                <label>
+                <label className="row">
+                    <div className="col-sm-3">
                     Rate out of 5 stars:
+                    </div>
+
+                    <div className="col-sm-9"> 
                     <StarRating
                     name="stars"
                     starClickCb={handleStarClick} // starClickCb is passed to child StarRating
                     />
+                    </div>
                 </label>
                 </div>
                 <br></br>
 
-            <div className="row">
-                <label>
+            <div className="reviewTitle">
+                <label className="row">
+                    <div className="col-sm-3">
                     Title of Review:
+                    </div>
+
+                    <div className="col-sm-9">
                     <input
                     id="title"
                     name="review_title"
                     type="text"
                     value={formData.review_title}
+                    placeholder="type review title here..."
                     onChange={handleChange}
                     required
                     />
+                    </div>
                 </label>
             </div>
             <br></br>
 
-            <div className="row">
-                <label>
+            <div className="reviewText">
+                <label className="row">
+                    <div className="col-sm-3">
                     Review:
+                    </div>
+
+                    <div className="col-sm-9">
                     <textarea
                     id="review"
                     name="review_body"
                     type="text"
                     value={formData.review_body}
+                    placeholder="type review here..."
                     onChange={handleChange}
                     required
                     />
+                    </div>
                 </label>
             </div>
             <br></br>
 
-            <button type="submit">Add Product Review</button>
+            <button className="addReview" type="submit">Add Product Review</button>
             </form>
             <br></br>
 

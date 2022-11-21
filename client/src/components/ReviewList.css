@@ -4,9 +4,14 @@
     border-color: black;
     border-radius: 1em;
     padding-top: 10px;
-    margin: 10px;
+    margin: 20px;
     width: 850px;
+    margin-left: 0;
 }
 .ReviewList li {
     list-style-type: none;
+}
+
+.ReviewAggregate {
+    margin-left: 10px;
 }

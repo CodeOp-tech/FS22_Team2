@@ -1,13 +1,114 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import ProductContext from '../ProductContext';
 import { FaStar } from "react-icons/fa";
 import "./ReviewList.css";
 
 function ReviewList() {
     const { reviews } = useContext(ProductContext);
+    const [star5, setStar5] = useState(null);
+    const [star4, setStar4] = useState(null);
+    const [star3, setStar3] = useState(null);
+    const [star2, setStar2] = useState(null);
+    const [star1, setStar1] = useState(null);
+
+    useEffect(() => {
+        getStars();
+    }, [reviews]) // Note: must have reviews here, if not star state remains constant
+
+    function getStars() {
+        let star5 = 0;
+        let star4 = 0;
+        let star3 = 0;
+        let star2 = 0;
+        let star1 = 0;
+
+        for (let i = 0; i < reviews.length; i++) {
+            if (reviews[i].stars === 5) {
+                star5++;
+            } if (reviews[i].stars === 4) {
+                star4++;
+            } if (reviews[i].stars === 3) {
+                star3++;
+            } if (reviews[i].stars === 2) {
+                star2++;
+            } if (reviews[i].stars === 1) {
+                star1++;
+            }
+        }
+        console.log(star5, star4, star3, star2, star1);
+        setStar5(star5); 
+        setStar4(star4);
+        setStar3(star3);
+        setStar2(star2);
+        setStar1(star1);
+    }
 
     return (
         <div className='ReviewList'>
+            <div className='ReviewAggregate'>
+            Total Ratings: {reviews.length}
+            <div className='FiveStars'>
+                {[...Array(5)].map((star, i) => (
+                    <FaStar
+                    className='star'
+                    color="#ffc107" // yellow star
+                    size={30}
+                    key={i}
+                    />
+                    ))} 
+                    : {star5 && ((star5 / reviews.length) * 100).toFixed(2)}%
+            </div>
+
+            <div className='FourStars'>
+                {[...Array(4)].map((star, i) => (
+                    <FaStar
+                    className='star'
+                    color="#ffc107" // yellow star
+                    size={30}
+                    key={i}
+                    />
+                    ))} 
+                    : {star4 && ((star4 / reviews.length) * 100).toFixed(2)}%
+            </div>
+
+            <div className='ThreeStars'>
+                {[...Array(3)].map((star, i) => (
+                    <FaStar
+                    className='star'
+                    color="#ffc107" // yellow star
+                    size={30}
+                    key={i}
+                    />
+                    ))} 
+                    : {star3 && ((star3 / reviews.length) * 100).toFixed(2)}%
+            </div>
+
+            <div className='TwoStars'>
+                {[...Array(2)].map((star, i) => (
+                    <FaStar
+                    className='star'
+                    color="#ffc107" // yellow star
+                    size={30}
+                    key={i}
+                    />
+                    ))} 
+                    : {star2 && ((star2 / reviews.length) * 100).toFixed(2)}%
+            </div>
+
+            <div className='OneStar'>
+                {[...Array(1)].map((star, i) => (
+                    <FaStar
+                    className='star'
+                    color="#ffc107" // yellow star
+                    size={30}
+                    key={i}
+                    />
+                    ))} 
+                    : {star1 && ((star1 / reviews.length) * 100).toFixed(2)}%
+            </div>
+            </div>
+
+
             <div>
                 {
                     reviews.map(review => (
