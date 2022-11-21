@@ -3,7 +3,7 @@ var router = express.Router();
 const db = require("../model/helper");
 
 // GET ALL PURCHASES REGARDLESS OF USERS
-router.get('/', async function(req, res,) { 
+router.get('/', async function(req, res) { 
 
     try {
       let results = await db(`SELECT * FROM purchases`); 
@@ -15,7 +15,7 @@ router.get('/', async function(req, res,) {
   });
 
 // GET PURCHASES BASED OFF USER ID
-  router.get('/:user_id', async function(req, res,) { // NOTE: front-end fetch must pass user_id (can be stored in Local.js?)
+  router.get('/:user_id', async function(req, res) { // NOTE: front-end fetch must pass user_id (can be stored in Local.js?)
 // which is passed from front end fetch at...
     let id = req.params.user_id;
 
@@ -40,8 +40,8 @@ router.get('/', async function(req, res,) {
   
     try {
         await db(sql);  
-        let result = await db(`SELECT * FROM purchases WHERE user_id = ${Number(user_id)}`); // user_id taken from req.body
-        let purchases = result.data;
+        let results = await db(`SELECT * FROM purchases WHERE user_id = ${Number(user_id)}`); // user_id taken from req.body
+        let purchases = results.data;
         res.status(201).send(purchases); // 201 status because indicates request has succeeded and lead to creation of resource
     } catch (err) {
         res.status(500).send({ error: err.message });

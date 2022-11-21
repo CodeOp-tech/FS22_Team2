@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS shops;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS purchases;
 DROP TABLE IF EXISTS purchased_items;
+DROP TABLE IF EXISTS reviews;
 
 
 CREATE TABLE users (
@@ -103,6 +104,23 @@ VALUES
 (10, 2, 2, 2, 2),
 (1, 2, 3, 3, 2);
 
+CREATE TABLE `reviews` (
+	`review_id` INT NOT NULL AUTO_INCREMENT,
+	`review_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`stars` INT,
+	`review_title` varchar(255) NOT NULL,
+	`review_body` varchar(255),
+	`product_id` INT NOT NULL,
+	`user_id` INT NOT NULL,
+	PRIMARY KEY (`review_id`)
+);
+
+INSERT INTO reviews (stars, review_title, review_body, product_id, user_id)
+VALUES
+(4, 'This was great', 'Seriously...', 1, 1),
+(5, 'Best ever', 'Damn', 2, 2),
+(4, 'Wow, changed my life', 'Wowie', 3, 2);
+
 ALTER TABLE `users` ADD CONSTRAINT `users_fk0` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
 
 ALTER TABLE `products` ADD CONSTRAINT `products_fk0` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
@@ -114,6 +132,10 @@ ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk0` FOREIGN KEY (
 ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk1` FOREIGN KEY (`product_id`) REFERENCES `products`(`product_id`);
 
 ALTER TABLE `purchased_items` ADD CONSTRAINT `purchased_items_fk2` FOREIGN KEY (`shop_id`) REFERENCES `shops`(`shop_id`);
+
+ALTER TABLE `reviews` ADD CONSTRAINT `reviews_fk0` FOREIGN KEY (`product_id`) REFERENCES `products`(`product_id`);
+
+ALTER TABLE `reviews` ADD CONSTRAINT `reviews_fk1` FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`);
 
 SET FOREIGN_KEY_CHECKS=1;
 

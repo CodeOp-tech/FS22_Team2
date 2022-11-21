@@ -42,6 +42,7 @@ function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // useState 14
   const [searched, setSearched] = useState([]); // useState 15
   const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
+  const [reviews, setReviews] = useState([]) // useState 17
 
   const navigate = useNavigate();
 
@@ -313,6 +314,15 @@ function App() {
     setSearchedByShop(tempProducts); // "searchedByShop" state set to SingleShopView via ProductContext
   }
 
+  async function getProductReviews(product_id) {
+    let myresponse = await Api.getProductReviews(product_id);
+      if (myresponse.ok) {
+        setReviews(myresponse.data);
+      } else {
+        setError(myresponse.error);
+      }
+    };
+
   /* ---Context Objects--- */
 
   const contextObjCart = {
@@ -335,6 +345,8 @@ function App() {
     searched,
     searchedByShop,
     productsByShop,
+    reviews,
+    getProductReviewsCb: getProductReviews,
     getProductDataCb: getProductData,
     searchCb: search,
     searchShopCb: searchShop
@@ -356,6 +368,7 @@ function App() {
                 element={
                   <ShopView
                     products={products}
+                    reviews={reviews}
                   />
                 }
               />

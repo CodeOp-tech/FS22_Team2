@@ -12,7 +12,7 @@ function ProductCard(props) {
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
   const [buttonPopup, setButtonPopup] = useState(false);
 
-  const { products, getProductDataCb } = useContext(ProductContext);
+  const { products, getProductDataCb, getProductReviewsCb } = useContext(ProductContext);
 
   const { cartProducts,
     getProductQuantityCb,
@@ -42,8 +42,9 @@ function ProductCard(props) {
       console.log(cartProducts);
     }
 
-    function showPopup() {
+    function showPopup(id) {
       setButtonPopup(true);
+      getProductReviewsCb(id);
     }
 
     function removePopup() {
@@ -58,7 +59,7 @@ let find = cartProducts.find(e => e.id === product.product_id);
       <Card.Body> {/* used to pad content inside a <Card> */}
         <div className="image">
           <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
-          <div onClick={showPopup} className="overlay">
+          <div onClick={() => showPopup(product.product_id)} className="overlay">
             <div className="text">
               Click on image to see more product info
             </div>
