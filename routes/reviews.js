@@ -31,7 +31,8 @@ router.get('/:product_id', async function(req, res) {
 });
 
 // ADD REVIEW TO REVIEWS DATABASE
-router.post('/', async function(req, res) {
+router.post('/:product_id', async function(req, res) {
+    let id = req.params.product_id
     let { stars, review_title, review_body, product_id, user_id } = req.body;
 
     let sql= `
@@ -41,7 +42,7 @@ router.post('/', async function(req, res) {
 
     try {
         await db(sql);
-        let results = await db(`SELECT * FROM reviews WHERE product_id = ${Number(product_id)}`); // product_id taken from req.body
+        let results = await db(`SELECT * FROM reviews WHERE product_id = ${Number(id)}`); // product_id taken from req.body
         let reviews = results.data;
         res.status(201).send(reviews);
     } catch (err) {

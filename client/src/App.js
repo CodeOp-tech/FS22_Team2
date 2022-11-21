@@ -323,6 +323,15 @@ function App() {
       }
     };
 
+    async function addReview(newReview, product_id, user_id) {
+      let myresponse = await Api.addReview(newReview, Number(product_id), Local.getUserId());
+        if (myresponse.ok) {
+          setReviews(myresponse.data);
+        } else {
+          setError(myresponse.error);
+        }
+      };
+
   /* ---Context Objects--- */
 
   const contextObjCart = {
@@ -346,6 +355,7 @@ function App() {
     searchedByShop,
     productsByShop,
     reviews,
+    addReviewCb: addReview,
     getProductReviewsCb: getProductReviews,
     getProductDataCb: getProductData,
     searchCb: search,

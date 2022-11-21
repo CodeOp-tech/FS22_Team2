@@ -10,7 +10,7 @@ function StarRating(props) {
 
   function handleClick(ratingValue) {
     setRating(ratingValue); // set rating state
-    props.starClickCb(props.name, ratingValue); // URGENT NOTE: THIS MUST CHANGE
+    props.starClickCb(props.name, ratingValue); // StarRating child calls on starClickCb function in parent AddReview
   }
 
   return (

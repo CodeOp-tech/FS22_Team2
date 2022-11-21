@@ -159,10 +159,10 @@ class Api {
     }
 
     // ADD/POST reviews
-    static async addReview(stars, review_title, review_body, product_id, user_id) {
-        let body = { stars, review_title, review_body, product_id, user_id };
+    static async addReview(newReview, product_id, user_id) {
+        let body = {newReview, product_id, user_id };        
 
-        return await this._doFetch('reviews', 'POST', body);
+        return await this._doFetch(`/reviews/${product_id}`, 'POST', body);
     }
 
 }
