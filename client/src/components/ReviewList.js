@@ -45,9 +45,10 @@ function ReviewList() {
 
     return (
         <div className='ReviewList'>
-            <div className='ReviewAggregate'>
+            <div className='ReviewAggregate container'>
             Total Ratings: {reviews.length}
-            <div className='FiveStars'>
+            <div className='FiveStars row'>
+                <div className='col-sm-3'>
                 {[...Array(5)].map((star, i) => (
                     <FaStar
                     className='star'
@@ -56,10 +57,15 @@ function ReviewList() {
                     key={i}
                     />
                     ))} 
+                </div>
+
+                <div className='col-sm-9'>
                     : {star5 && ((star5 / reviews.length) * 100).toFixed(2)}%
+                </div>
             </div>
 
-            <div className='FourStars'>
+            <div className='FourStars row'>
+                <div className='col-sm-3'>
                 {[...Array(4)].map((star, i) => (
                     <FaStar
                     className='star'
@@ -68,10 +74,15 @@ function ReviewList() {
                     key={i}
                     />
                     ))} 
+                </div>
+
+                <div className='col-sm-9'>
                     : {star4 && ((star4 / reviews.length) * 100).toFixed(2)}%
+                </div>
             </div>
 
-            <div className='ThreeStars'>
+            <div className='ThreeStars row'>
+                <div className='col-sm-3'>
                 {[...Array(3)].map((star, i) => (
                     <FaStar
                     className='star'
@@ -80,10 +91,15 @@ function ReviewList() {
                     key={i}
                     />
                     ))} 
+                </div>
+
+                <div className='col-sm-9'>
                     : {star3 && ((star3 / reviews.length) * 100).toFixed(2)}%
+                </div>
             </div>
 
-            <div className='TwoStars'>
+            <div className='TwoStars row'>
+                <div className='col-sm-3'>
                 {[...Array(2)].map((star, i) => (
                     <FaStar
                     className='star'
@@ -92,10 +108,15 @@ function ReviewList() {
                     key={i}
                     />
                     ))} 
+                </div>
+
+                <div className='col-sm-9'>
                     : {star2 && ((star2 / reviews.length) * 100).toFixed(2)}%
+                </div>
             </div>
 
-            <div className='OneStar'>
+            <div className='OneStar row'>
+                <div className='col-sm-3'>
                 {[...Array(1)].map((star, i) => (
                     <FaStar
                     className='star'
@@ -104,10 +125,14 @@ function ReviewList() {
                     key={i}
                     />
                     ))} 
+                </div>
+
+                <div className='col-sm-9'>
                     : {star1 && ((star1 / reviews.length) * 100).toFixed(2)}%
-            </div>
+                </div>
             </div>
 
+            </div> 
 
             <div>
                 {
