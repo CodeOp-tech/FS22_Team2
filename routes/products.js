@@ -85,15 +85,17 @@ router.get('/', async function(req, res,) {
   });
 
   // ADD PRODUCT BASED OFF STORE ID
-  router.post("/:shop_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
+  // PROTECTED: user should only be able to edit their own shop info
+  // NOTE: works in front end & communicates w/back: i.e. if you submit the form on the website, it adds the product to the live page and to the database (found via Postman). BUT cannot test in Postman, throws error - something to do with file upload?
+  router.post("/:shop_id", ensureShopOwner, upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
     console.log(req.body, '**************&*&(*()*')
     let { shop_id } = req.params;
-    let { product_name, price, product_image, product_quantity, product_description } = req.body;
+    let { product_name, price, product_image, product_quantity, product_description, recycled, no_fridge, fair_trade, local, organic } = req.body;
 
     try{
     let sql = `
-        INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
-        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id})
+        INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id, recycled, no_fridge, fair_trade, local, organic)
+        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id}, ${recycled}, ${no_fridge}, ${fair_trade}, ${local}, ${organic})
     ;`// added the stripe id field- does it need to be added?
     
         await db(sql);  
