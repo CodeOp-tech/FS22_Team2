@@ -45,11 +45,11 @@ function ShopEditForm(props) {
       formData.append('website', shopData.website);
       formData.append('phone', shopData.phone);
       formData.append('shop_email', shopData.shop_email);
-      // formData.append('donate', shopData.donate);
-      // formData.append('led_lights', shopData.led_lights);
-      // formData.append('small_biz', shopData.small_biz);
-      // formData.append('min_biz', shopData.min_biz);
-      // formData.append('wo_biz', shopData.wo_biz);
+      formData.append('donate', shopData.donate);
+      formData.append('led_lights', shopData.led_lights);
+      formData.append('small_biz', shopData.small_biz);
+      formData.append('min_biz', shopData.min_biz);
+      formData.append('wo_biz', shopData.wo_biz);
       console.log(`shop form: ${formData}`)
       console.log(`shop data: ${shopData}`)
       /***** CHANGE THIS TO PUT SHOP DATA *****/
@@ -71,15 +71,17 @@ function ShopEditForm(props) {
       
   // sets value of that field to 1 when checked or 0 if unchecked
   // QUESTION: works for submit BUT clicking a checkbox adds a NEW key to state with that name and val 1 - WHY? how to fix?
-  if (e.target.checked) {
-    setShopData((data) => ({
-          ...data, [e.target.name]:1
-      }));
+  function handleChangeCheck(e) {
+    if (e.target.checked) {
+      setShopData((data) => ({
+            ...data, [e.target.name]:1
+        }));
     } else {
       setShopData((data) => ({
         ...data, [e.target.name]:0
-    }));
+      }));
     }
+  }
 
 
   return (
