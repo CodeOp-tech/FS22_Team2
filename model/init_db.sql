@@ -22,37 +22,36 @@ VALUES
 ('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'user2@msb.inc', 0, 1),
 ('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 2);
 
--- removed NOT NULL constraint to create empty shop
 CREATE TABLE shops (
 	shop_id INT NOT NULL AUTO_INCREMENT,
 	shop_name varchar(255),
-	shop_address varchar(255),
+	shop_address varchar(255) NOT NULL,
 	shop_description varchar(255),
 	shop_image varchar(255),
 	website varchar(255),
 	phone varchar(255),
 	shop_email varchar(255),
-	shop_points INT,
-	PRIMARY KEY (shop_id),
 	donate BOOLEAN DEFAULT 0,
 	led_lights BOOLEAN DEFAULT 0,
 	small_biz BOOLEAN DEFAULT 0,
 	min_biz BOOLEAN DEFAULT 0,
-	wo_biz BOOLEAN DEFAULT 0
+	wo_biz BOOLEAN DEFAULT 0,
+	latitude DECIMAL(9,5) NOT NULL,
+	longitude DECIMAL(9,5) NOT NULL,
+	
+	PRIMARY KEY (shop_id)
 );
 
-
--- //Adding long and lat
-
-INSERT INTO `shops` (shop_name, shop_address, lat, long, shop_description, shop_image, website, phone, shop_email, shop_points)
+INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz, latitude, longitude)
 VALUES
-('Laser', 'Carrer del Dr. Dou, 2, 08001 Barcelona',41.38228037671287, 2.169379281881727, 'Shop One is the Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopone.com', '12345678', 'shopone@one.com', 100),
-('Humana', 'C/ de Mallorca, 592, 08026 Barcelona', 41.41072516726371, 2.184991522307468,'Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0);
-('Syra Cafe', 'Carrer de Londres, 100, 08036 Barcelona', 41.394116117800166, 2.1515476372922566,'Shop Three is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopthree.com', '87654322', 'shopthree@one.com', 0);
+('Laser', 'Carrer del Dr. Dou, 2, 08001 Barcelona', 'Shop One is the Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopone.com', '12345678', 'shopone@one.com', 0, 0, 0, 0, 0, 41.38228037671287, 2.1693529361821065),
+('Humana', 'C/ de Mallorca, 592, 08026 Barcelona','Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0, 0, 0, 0, 0, 41.41072516726371, 2.184927150041393),
+('Syra Cafe', 'Carrer de Londres, 100, 08036 Barcelona','Shop Three is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopthree.com', '87654322', 'shopthree@one.com', 0, 0, 0, 0, 0, 41.394116117800166, 2.1515154467882596);
 
 CREATE TABLE `products` (
 	`product_id` INT NOT NULL AUTO_INCREMENT,
 	`product_name` varchar(255) NOT NULL,
+	-- `shop_address` varchar(255) NOT NULL,
 	`price` FLOAT NOT NULL,
 	`product_image` varchar(255) NOT NULL,
 	`product_quantity` INT NOT NULL,

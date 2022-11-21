@@ -54,7 +54,11 @@ function MarkerMap(props) {
       )}
 
       {props.shops.map((p) => (
-        <Marker key={p.shop_name} position={[p.lat, p.long]} icon={greenMarker}>
+        <Marker
+          key={p.shop_name}
+          position={[p.latitude, p.longitude]}
+          icon={greenMarker}
+        >
           <Popup>{breakAddr(p.shop_name)}</Popup>
           {/* //maybe add a button here to link to shop page! */}
         </Marker>
