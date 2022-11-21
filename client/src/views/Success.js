@@ -2,14 +2,13 @@ import { useEffect, useContext } from "react";
 import CartContext from "../CartContext";
 
 function Success() {
-    // NOTE FROM JESS: Technically should only be called upon success page, 
-    // but currently not working so is being called via handleClick in Navbar
-    
-    // const {addPurchasesCb } = useContext(CartContext);
+    const { addPurchasesCb } = useContext(CartContext);
+    // Jess Note: Upon successfully loading success page, 
+    // addPurchasesCb is called upon to insert purchases and purchased_items into database
 
-    // useEffect(() => {
-    //     addPurchasesCb();
-    // }, [])
+    useEffect(() => {
+        addPurchasesCb();
+    }, [])
 
     return(
         <h1>Thank you for your purchase!</h1>

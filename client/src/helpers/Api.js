@@ -149,9 +149,9 @@ class Api {
     /******* REVIEWS FETCHES *******/
 
     // GET all reviews
-    static async getReviews() {
-        return await this._doFetch(`/reviews`);
-    }
+    // static async getReviews() {
+    //     return await this._doFetch(`/reviews`);
+    // }
 
     // GET reviews by product
     static async getProductReviews(product_id) {
@@ -162,7 +162,7 @@ class Api {
     static async addReview(newReview, product_id, user_id) {
         let body = {newReview, product_id, user_id };        
 
-        return await this._doFetch(`/reviews/${product_id}`, 'POST', body);
+        return await this._doFetch(`/reviews`, 'POST', body);
     }
 
 }

@@ -4,6 +4,7 @@ import { NavLink, Link } from "react-router-dom";
 import CartContext from "../CartContext";
 import CartProductModal from "./CartProductModal";
 import { FiShoppingCart } from "react-icons/fi";
+import Local from "../helpers/Local";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
@@ -23,9 +24,10 @@ function Navbar(props) {
     }
 
     async function handleClick() {
+        Local.saveCartProducts();
         checkout();
         // NOTE: ACTUAL WORKFLOW SHOULD BE ONLY UPON RECEIVING SUCCESS PAGE, addPurchasesCb() is called
-        addPurchasesCb();
+        // addPurchasesCb();
     }
 
      // POST to checkout
@@ -40,7 +42,8 @@ function Navbar(props) {
             return response.json();
         }).then((response) => {
             if(response.url) {
-                window.location.assign(response.url);
+                console.log(response.url);
+                window.location.assign(response.url);   
             }
         }) 
     }

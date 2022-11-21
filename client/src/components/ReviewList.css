@@ -1,0 +1,12 @@
+.ReviewBox {
+    box-sizing: border-box;
+    border: 0.2px solid;
+    border-color: black;
+    border-radius: 1em;
+    padding-top: 10px;
+    margin: 10px;
+    width: 850px;
+}
+.ReviewList li {
+    list-style-type: none;
+}

@@ -35,7 +35,7 @@ router.get('/', async function(req, res) {
   
     let sql = `
         INSERT INTO purchases ( purchase_sum, user_id)
-        VALUES ( ${purchase_sum}, ${Number(user_id)})
+        VALUES ( ${Number(purchase_sum)}, ${Number(user_id)})
     `;
   
     try {

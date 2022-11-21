@@ -246,6 +246,7 @@ function App() {
     });
     let fixed = totalCost.toFixed(2); //toFixed(2) rounds number of decimals to two
     setTotalCost(fixed);
+    Local.saveTotal(fixed);
   }
 
   // DELETE FROM SHOPPING CART
@@ -261,14 +262,14 @@ function App() {
 
   // ADD PURCHASE (ie. receipt of a single purchase) INTO PURCHASES TABLES (DATABASE)
   async function addPurchases(purchase_sum, user_id) {
-    let myresponse = await Api.addPurchases(`${totalCost}`, `${Local.getUserId()}`); //INSERT `${Local.getUserId()}`
+    let myresponse = await Api.addPurchases(Local.getTotal(), Local.getUserId()); // call upon Local for stored total amount and userId
     if (myresponse.ok) {
       setPurchases(myresponse.data);
       // console.log(myresponse.data);
       let data = myresponse.data;
       let purchaseId = data[data.length - 1].purchase_id;
     // ADD ALL PRODUCTS (ie. purchased_items) PURCHASED INTO PURCHASED_ITEMS TABLES (DATABASE)
-    let myresponse2 = await Api.addPurchasedItems(purchaseId, cartProducts);
+    let myresponse2 = await Api.addPurchasedItems(purchaseId, Local.getCartProducts());
       if (myresponse2.ok) {
         setPurchasedItems(myresponse2.data)
       } else {
