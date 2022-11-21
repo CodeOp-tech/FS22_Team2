@@ -35,9 +35,8 @@ function SellerForm(props) {
         formData.append('local', productData.local);
         formData.append('organic', productData.organic);
         // logs [object formData], but data gets uploaded correctly
-        console.log(`product form: ${formData}`);
+        // console.log(`product form: ${formData}`);
         props.addProductCb(formData);
-        //console.log(`SellerForm shop_id: ${Local.getShopId()}`);
         setProductData(EMPTY_FORM);
         setFiles(null);
         e.target.reset();

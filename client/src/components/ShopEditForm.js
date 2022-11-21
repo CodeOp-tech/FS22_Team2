@@ -19,7 +19,8 @@ const EMPTY_FORM ={
 }
 
 function ShopEditForm(props) {
-    const [shopData, setShopData] = useState(Local.getShop());
+    const [shopData, setShopData] = useState(EMPTY_FORM);
+    const [files, setFiles] = useState(null);
     /**** NEW ****/
     // const [shopName, setShopName] = useState(null);
     // const [shopAddress, setShopAddress] = useState(null);
@@ -33,8 +34,7 @@ function ShopEditForm(props) {
     // const [ledLights, setLedLights] = useState(null);
     // const [smallBiz, setSmallBiz] = useState(null);
     // const [minBiz,setMinBiz] = useState(null);
-    // const [woBiz,setWoBiz] = useState(null)
-    const [files, setFiles] = useState(null)
+    // const [woBiz,setWoBiz] = useState(null);
 
     function handleSubmit (e) {
       e.preventDefault();
@@ -72,18 +72,18 @@ function ShopEditForm(props) {
   }
       
   // sets value of that field to 1 when checked or 0 if unchecked
-  // QUESTION: works for submit BUT clicking a checkbox adds a NEW key to state with that name and val 1 - WHY? how to fix?
-  function handleChangeCheck(e) {
+  function handleChangeCheck (e) {
     if (e.target.checked) {
-      setShopData((data) => ({
-            ...data, [e.target.name]:1
-        }));
-    } else {
-      setShopData((data) => ({
-        ...data, [e.target.name]:0
-      }));
-    }
-  }
+     setShopData((data) => ({
+           ...data, [e.target.name]:1
+       }));
+     } else {
+       setShopData((data) => ({
+         ...data, [e.target.name]:0
+     }));
+     }
+ }
+
 
 
   return (
@@ -198,7 +198,7 @@ function ShopEditForm(props) {
             <Form.Check
              label='Uses LED lighting'
              type='checkbox'
-             name='led-lights'
+             name='led_lights'
              value={shopData.led_lights}
              onChange={handleChangeCheck}
              />
@@ -206,7 +206,7 @@ function ShopEditForm(props) {
             <Form.Check
              label='Has 10 or fewer employees'
              type='checkbox'
-             name='small-biz'
+             name='small_biz'
              value={shopData.small_biz}
              onChange={handleChangeCheck}
              />
@@ -214,7 +214,7 @@ function ShopEditForm(props) {
             <Form.Check
              label='Is owned by someone who is part of a racial or ethnic minority in our country'
              type='checkbox'
-             name='min-biz'
+             name='min_biz'
              value={shopData.min_biz}
              onChange={handleChangeCheck}
              />
@@ -222,7 +222,7 @@ function ShopEditForm(props) {
             <Form.Check
              label='Is owned by a woman, trangender or nonbinary person'
              type='checkbox'
-             name='wo-biz'
+             name='wo_biz'
              value={shopData.wo_biz}
              onChange={handleChangeCheck}
              />
