@@ -41,10 +41,14 @@ CREATE TABLE shops (
 	wo_biz BOOLEAN DEFAULT 0
 );
 
-INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
+
+-- //Adding long and lat
+
+INSERT INTO `shops` (shop_name, shop_address, lat, long, shop_description, shop_image, website, phone, shop_email, shop_points)
 VALUES
-('Laser', 'Carrer del Dr. Dou, 2, 08001 Barcelona', 'Shop One is the Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopone.com', '12345678', 'shopone@one.com', 100),
-('Humana', 'C/ de Mallorca, 592, 08026 Barcelona', 'Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0);
+('Laser', 'Carrer del Dr. Dou, 2, 08001 Barcelona',41.38228037671287, 2.169379281881727, 'Shop One is the Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopone.com', '12345678', 'shopone@one.com', 100),
+('Humana', 'C/ de Mallorca, 592, 08026 Barcelona', 41.41072516726371, 2.184991522307468,'Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0);
+('Syra Cafe', 'Carrer de Londres, 100, 08036 Barcelona', 41.394116117800166, 2.1515476372922566,'Shop Three is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopthree.com', '87654322', 'shopthree@one.com', 0);
 
 CREATE TABLE `products` (
 	`product_id` INT NOT NULL AUTO_INCREMENT,

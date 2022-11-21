@@ -4,7 +4,10 @@
 .MySlider {
   margin-top: 90px;
 }
-img {
+.MySlider img {
   border-radius: 30%;
   margin: 0 auto;
+}
+.SliderPics img {
+  border-radius: 30%;
 }

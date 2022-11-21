@@ -25,12 +25,14 @@ A 'place' is an obj like this:
 function HomeView(props) {
   const [places, setPlace] = useState([]);
   //maps below: app stuff
-  const [home, setHome] = useState(null); // center of map //useState 17
+  const [home, setHome] = useState([41.390205, 2.154007]); // center of map //useState 17
   const [currView, setCurrView] = useState("homeV"); //useState 18
+  const [shops, setShops] = useState([]);
 
   //map app
   useEffect(() => {
     getAndSetHome();
+    getAndSetShops();
   }, []);
 
   //maps
@@ -45,13 +47,13 @@ function HomeView(props) {
       if (myresponse.data.latLng) {
         // Create new 'place' obj
         let d = myresponse.data;
-        let newPlace = {
+        let newShop = {
           latLng: d.latLng,
           input_address: addr,
           formatted_address: d.formatted_address,
         };
         // Add it to 'places' state
-        setPlace((places) => [...places, newPlace]);
+        setShops((shops) => [...shops, newShop]);
       } else {
         console.log("addMarkerForAddress(): no results found");
       }
@@ -60,9 +62,22 @@ function HomeView(props) {
     }
   }
 
+  useEffect(() => {
+    fetch("/shops")
+      .then((res) => res.json())
+      .then((json) => {
+        setShops(json);
+      })
+      .catch((error) => {});
+  }, []);
+
+  async function getAndSetShops() {
+    // let latLng = await getShops(); // returns [lat, lng]
+    //need fetch to get shops
+  }
+
   return (
     <div>
-      <h1>Home!</h1>
       <Intro />
       <h2>Congratulations To This Month's WINNERS!</h2>
       <br></br>
@@ -75,29 +90,27 @@ function HomeView(props) {
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
-            <h3>1. Set Home</h3>
-            <p>
-              The map will be centered and the "home" (green) marker will be
-              determined by one of these:
-            </p>
-            <ol>
+            <h3>Create Your Shopping List </h3>
+            <p>Enter the products you need and plan your route</p>
+            {/* <ol>
               <li>
                 A <code>home</code> query parameter like:{" "}
                 <code>http://localhost:3000?home=oslo</code>
               </li>
               <li>Allow the browser to determine your current location</li>
               <li>Use Plaça Catalunya in Barcelona as a last resort</li>
-            </ol>
+            </ol> */}
 
-            <h3 className="mt-4">2. Add Markers</h3>
+            <h3 className="mt-4"> Add Markers</h3>
             <p>Enter an address to add a blue marker on the map</p>
-            <AddressForm addMarkerCb={(addr) => addMarkerForAddress(addr)} />
+            <AddressForm
+              addMarkerCb={(addr) => addMarkerForAddress(addr)}
+              shops={shops}
+            />
           </div>
 
           <div className="col">
-            {props.home && (
-              <MarkerMap places={places} home={props.home} zoom={13} />
-            )}
+            {home && <MarkerMap shops={shops} home={home} zoom={13} />}
           </div>
         </div>
 

@@ -1,7 +1,8 @@
-import React from "react";
+import { React, useState, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { breakAddr } from "../helpers/utils";
-import "../App.css";
+
+//import dummylocations from "./dummylocations";
 
 // Global Leaflet variable; only necessary for the green marker.
 // Everything else is provided by React Leaflet
@@ -24,9 +25,11 @@ function MarkerMap(props) {
   return (
     <MapContainer
       className="MarkerMap"
-      center={(41.390205, 2.154007)}
-      // zoom={props.zoom}
-      zoom={12}
+      // center={[41.390205, 2.154007]}
+      center={props.home}
+      // center={(41.390205, 2.154007)}
+      zoom={props.zoom}
+      // zoom={12}
       style={{ height: "500px" }} // you MUST specify map height, else it will be 0!
     >
       {/* Create the tile layer that shows the map */}
@@ -37,16 +40,26 @@ function MarkerMap(props) {
 
       {/* Draw the green "YOU ARE HERE" marker */}
 
-      <Marker position={(41.390205, 2.154007)} icon={greenMarker}>
+      {/* <Marker position={[41.390205, 2.154007]} icon={greenMarker}>
         <Popup>YOU ARE HERE</Popup>
-      </Marker>
+      </Marker> */}
 
       {/* Draw a blue marker for each of the places passed as prop */}
-      {props.places.map((p) => (
-        <Marker key={p.input_address} position={p.latLng}>
-          <Popup>{breakAddr(p.formatted_address)}</Popup>
+      {/* {props.places.map((p) => (
+        <Marker key={p.input_address} position={p.latLng}> */}
+      {props.home && (
+        <Marker position={props.home} icon={greenMarker}>
+          <Popup>YOU ARE HERE</Popup>
+        </Marker>
+      )}
+
+      {props.shops.map((p) => (
+        <Marker key={p.shop_name} position={[p.lat, p.long]} icon={greenMarker}>
+          <Popup>{breakAddr(p.shop_name)}</Popup>
+          {/* //maybe add a button here to link to shop page! */}
         </Marker>
       ))}
+      {/* <h1>{this.props.stadium.name}</h1> */}
     </MapContainer>
   );
 }

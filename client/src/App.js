@@ -401,7 +401,7 @@ function App() {
                 element={<SellerPurchaseView />}
               />
               <Route
-                path="/users/userId"
+                path="/users/:userId"
                 element={
                   <PrivateRoute>
                     <UserProfileView />
