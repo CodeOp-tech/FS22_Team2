@@ -1,3 +1,6 @@
+.ReviewList {
+    margin-bottom: 2em;
+}
 .ReviewBox {
     box-sizing: border-box;
     border: 0.2px solid;
@@ -15,3 +18,4 @@
 .ReviewAggregate {
     margin-left: 10px;
 }
+

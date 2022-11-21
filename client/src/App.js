@@ -316,6 +316,7 @@ function App() {
   }
 
   async function getProductReviews(product_id) {
+    // product_id passed from showPopup(id) function in ProductCard child
     let myresponse = await Api.getProductReviews(product_id);
       if (myresponse.ok) {
         setReviews(myresponse.data);
@@ -326,6 +327,7 @@ function App() {
 
     async function addReview(newReview, product_id, user_id) {
       let myresponse = await Api.addReview(newReview, Number(product_id), Local.getUserId());
+      // newReview (formData), product_id passed from handleSubmit() function in AddReview child
         if (myresponse.ok) {
           setReviews(myresponse.data);
         } else {

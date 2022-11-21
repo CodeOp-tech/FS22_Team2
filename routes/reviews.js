@@ -16,6 +16,7 @@ router.get('/', async function (req, res) {
 
 // GET PRODUCT REVIEWS
 router.get('/:product_id', async function(req, res) {
+    // which is called from front-end fetch at App, getProductReviews()
     let id = req.params.product_id
 
     try {
@@ -33,7 +34,7 @@ router.get('/:product_id', async function(req, res) {
 
 // ADD REVIEW TO REVIEWS DATABASE
 router.post('/', async function(req, res) {
-    // let id = req.params.product_id
+    // which is called from front-end fetch at App, addReview()
     let { newReview: {stars, review_title, review_body}, product_id, user_id } = req.body;
     // destructuring newReview object above
 

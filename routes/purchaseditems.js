@@ -41,8 +41,8 @@ router.get('/', async function(req, res,) {
   });
 
 // GET PURCHASED_ITEMS BASED OFF USER ID (USER PURCHASE HISTORY)
-  router.get('/:user_id', async function(req, res,) { // NOTE: front-end fetch must pass user_id (can be stored in Local.js?)
-// which is passed from front end fetch at...
+  router.get('/:user_id', async function(req, res,) { // NOTE: front-end fetch must pass user_id 
+// which is called from front end fetch at App, through getPurchasedItemsByUser()
     let id = req.params.user_id;
 
     // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
@@ -63,8 +63,8 @@ router.get('/', async function(req, res,) {
   });
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
-  router.get('/shops/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
-    // which is passed from front end fetch at...
+  router.get('/shops/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id 
+    // which is called from front end fetch at App, through getPurchasedItemsByShop()
         let id = req.params.shop_id;
     
         // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
@@ -85,8 +85,7 @@ router.get('/', async function(req, res,) {
       });
 
   // ADD PURCHASE TO GENERAL PURCHASE DATABASE BUT RETURN ONLY PURCHASES ASSOCIATED WITH USER
-  router.post("/", async (req, res) => { // NOTE: front-end fetch must pass purchase_id, product_id and shop_id through req.body below
-    // let id = req.params.user_id;
+  router.post("/", async (req, res) => { // NOTE: front-end fetch must pass purchase_id
 
     let { purchaseId, cartProducts } = req.body;
 

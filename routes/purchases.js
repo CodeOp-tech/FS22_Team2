@@ -15,8 +15,8 @@ router.get('/', async function(req, res) {
   });
 
 // GET PURCHASES BASED OFF USER ID
-  router.get('/:user_id', async function(req, res) { // NOTE: front-end fetch must pass user_id (can be stored in Local.js?)
-// which is passed from front end fetch at...
+// NOTE FROM JESS: This route built, but not called (not necessary, we only call purchaseditems table)
+  router.get('/:user_id', async function(req, res) { // NOTE: front-end fetch must pass user_id 
     let id = req.params.user_id;
 
     // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
@@ -32,6 +32,7 @@ router.get('/', async function(req, res) {
   // ADD PURCHASE TO GENERAL PURCHASE DATABASE BUT RETURN ONLY PURCHASES ASSOCIATED WITH USER
   router.post("/", async (req, res) => { // NOTE: front-end fetch must pass user_id through req.body below
     let { purchase_sum, user_id } = req.body;
+    // which is called from front-end fetch at App, through addPurchases
   
     let sql = `
         INSERT INTO purchases ( purchase_sum, user_id)

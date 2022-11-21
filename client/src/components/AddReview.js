@@ -27,7 +27,7 @@ function AddReview(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        addReviewCb(formData, product.product_id); // call on addReviewCb in parent App via Product Context
+        addReviewCb(formData, product.product_id); // call on addReview function in parent App via addReviewCb passed in Product Context
         setFormData(EMPTY_FORM); // this not necessary, since hiding form after submission as per below
         props.hideAddReviewCb();
     }

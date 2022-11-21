@@ -42,9 +42,9 @@ function ProductCard(props) {
       console.log(cartProducts);
     }
 
-    function showPopup(id) {
+    function showPopup(id) { // product_id from (props.product.product_id) passed to getProductReviewsCb function below
       setButtonPopup(true);
-      getProductReviewsCb(id);
+      getProductReviewsCb(id); // call getProductReviews function in App
     }
 
     function removePopup() {
@@ -61,7 +61,7 @@ let find = cartProducts.find(e => e.id === product.product_id);
           <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
           <div onClick={() => showPopup(product.product_id)} className="overlay">
             <div className="text">
-              Click on image to see more product info
+              Click for more product info & product reviews
             </div>
           </div>
         </div>
