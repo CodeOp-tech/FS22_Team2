@@ -5,6 +5,7 @@ import SellerForm from "../components/SellerForm";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
 import Local from "../helpers/Local";
 
+
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
 
@@ -13,6 +14,7 @@ function SellerDash(props) {
   }, []);
 
   async function getProducts() {
+
     try {
       let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
@@ -26,8 +28,8 @@ function SellerDash(props) {
     }
   }
 
-  async function addProduct(formData) {
-    console.log(formData);
+  async function addProduct(editProductData) {
+    // console.log(formData);
     let options = {
       method: "POST",
       //headers: { 'Content-Type': 'application/json' }, //remove?
@@ -37,15 +39,15 @@ function SellerDash(props) {
 
     method: 'POST',
     //headers: { 'Content-Type': 'application/json' }, //remove?
-    body: formData // just formData?
+    body: editProductData // just formData?
   };
     
   try {
-    let response = await fetch('/products', options); 
+    let response = await fetch(`/products/${Local.getShopId()}`, options); 
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
-    getProducts();
+    getProducts(); //note to ask about the reload
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
     }
@@ -56,9 +58,9 @@ function SellerDash(props) {
 
   async function deleteProduct(id) {
     let options = {
+
       method: "DELETE",
     };
-
 
   try {
     let response = await fetch(`/products/${id}`, options); 
@@ -75,40 +77,48 @@ function SellerDash(props) {
 
 
 
-  //   async function editProduct(product) {
-  //     let options = {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(product)
-  // };
+    async function editProduct(id, formData) {
+      let options = {
+      method: 'PUT',
+      // headers: { 'Content-Type': 'application/json' },
+      body: formData
+      // headers: { 'Content-Type': 'application/json' },
+      // body: JSON.stringify(formData)
+  };
+      console.log(formData)
+  try {
+      let response = await fetch(`/products/${id}`, options);
+      if (response.ok) {
+      let result = await response.json();
+      setProductsData(result);
+  } else {
+      console.log(`Server error: ${response.status} ${response.statusText}`);
+  }
+  } catch (err) {
+      console.log(`Server error: ${err.message}`);
+  }};
 
-  // try {
-  //     let response = await fetch('/products', options);
-  //     if (response.ok) {
-  //     let result = await response.json();
-  //     setProductData(result);
-  // } else {
-  //     console.log(`Server error: ${response.status} ${response.statusText}`);
-  // }
-  // } catch (err) {
-  //     console.log(`Server error: ${err.message}`);
-  // }};
 
   return (
     <div>
       <Container>
-        <Row>
-          <Col>
-            <SellerForm addProductCb={addProduct} />
-          </Col>
-          <Col>
-            <SellerList
-              productsData={productsData}
-              deleteProductCb={(id) => deleteProduct(id)}
-            />
-          </Col>
-        </Row>
-      </Container>
+
+      <Row>
+      <Col>
+      <SellerForm addProductCb={addProduct} />
+      </Col>
+      <Col>
+      <SellerList productsData={productsData}
+                  deleteProductCb={(id) => deleteProduct(id)}
+                  editProductCb={(id, formData) =>editProduct(id, formData)}//id sent to the sellerDash (parent of sellerlist)
+      /></Col> 
+
+      
+      </Row>
+    
+      </Container>  
+    
+
     </div>
   );
 }

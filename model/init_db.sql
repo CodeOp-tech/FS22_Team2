@@ -73,7 +73,7 @@ CREATE TABLE `products` (
   `organic` BOOLEAN DEFAULT 0,
   `total_product_points` INT,
 	PRIMARY KEY (`product_id`)
-);
+); 
 
 
 INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic, total_product_points)

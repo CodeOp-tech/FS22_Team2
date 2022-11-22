@@ -13,7 +13,7 @@ export default function MySlider() {
   return (
     <div>
       <div
-        classname="MySlider"
+        className="MySlider"
         style={{
           margin: "30px",
           marginTop: "200px",

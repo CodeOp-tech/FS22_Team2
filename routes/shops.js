@@ -90,6 +90,7 @@ router.get("/:userId", ensureSameUser, async function (req, res, next) {
 
 // PUT edit shop info
 // PROTECTED - user should only be able to enter own shop
+
 router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => {
   let { shopId, userId } = req.params;
   let {
@@ -193,9 +194,12 @@ router.put("/edit/:shopId/:userId", ensureShopOwner, async (req, res) => {
     );
 
     res.status(201).send(results.data);
+
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
 });
 
+
 module.exports = router;
+

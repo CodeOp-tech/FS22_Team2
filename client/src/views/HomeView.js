@@ -86,8 +86,13 @@ function HomeView(props) {
     setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
   }
 
+
+
+function HomeView() {
+
   return (
     <div>
+
       <Intro />
       <h2>Congratulations To This Month's WINNERS!</h2>
       <br></br>
@@ -97,6 +102,10 @@ function HomeView(props) {
       <MySlider />
 
       <FeaturedBusiness />
+
+      <Map />
+   
+
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
@@ -126,6 +135,7 @@ function HomeView(props) {
 
         {/* <MarkerTable places={places} /> */}
       </div>
+
     </div>
   );
 }

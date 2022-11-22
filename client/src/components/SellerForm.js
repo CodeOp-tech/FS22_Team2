@@ -9,11 +9,11 @@ const EMPTY_FORM ={
     price:'',
     product_description:'',
     product_quantity:'',
-    checklist1: '',
-    checklist2: '',
-    checklist3: '',
-    checklist4: '',
-    checklist5: ''
+    recycled: '',
+    no_fridge: '',
+    fair_trade: '',
+    local: '',
+    organic: ''
 }
 
 function SellerForm(props) {
@@ -122,42 +122,42 @@ function SellerForm(props) {
         <Form.Group className='mb-3'>
             This product is...
             <Form.Check
-             label = 'Recyclable'
+             label = 'Made from recycled materials'
              type='checkbox'
-             name='checklist1'
-             value={productData.checklist1}
+             name='recycled'
+             value={productData.recycled}
              onChange={handleChangeCheck}
              />
         
             <Form.Check
-             label='Made from recycled products'
+             label='Does not require refrigeration '
              type='checkbox'
-             name='checklist2'
-             value={productData.checklist2}
+             name='no_fridge'
+             value={productData.no_fridge}
              onChange={handleChangeCheck}
              />
         
             <Form.Check
-             label='Locally Sourced'
+             label='Fairtrade'
              type='checkbox'
-             name='checklist3'
-             value={productData.checklist3}
+             name='fair_trade'
+             value={productData.fair_trade}
              onChange={handleChangeCheck}
              />
              
             <Form.Check
-             label='Has no toxic materials'
+             label='Locally Sourced'
              type='checkbox'
-             name='checklist4'
-             value={productData.checklist4}
+             name='local'
+             value={productData.local}
              onChange={handleChangeCheck}
              />
             
             <Form.Check
-             label='Fairtrade'
+             label='Organic'
              type='checkbox'
-             name='checklist5'
-             value={productData.checklist5}
+             name='organic'
+             value={productData.organic}
              onChange={handleChangeCheck}
              />
 
