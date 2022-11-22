@@ -8,8 +8,8 @@ import Local from "../helpers/Local";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
-
 function Navbar(props) {
+
     const { cartProducts, getTotalCostCb, totalCost, addPurchasesCb } = useContext(CartContext);
 
     const [show, setShow] = useState(false); // initially not show modal
@@ -51,6 +51,7 @@ function Navbar(props) {
 // // use reduce method to get total amount of quantities to display in Cart button below
 const productsCount = cartProducts.reduce((sum, product) => sum + product.quantity, 0);
 
+
     return (
         <nav className="Navbar navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: 'teal' }}>
             <div className="container-fluid">
@@ -76,13 +77,6 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                                 </li>
                             )
                         }
-                        {/* 
-                            props.user && (
-                                <li className="nav-item">
-                                    ADD USER DASH HERE
-                                </li>
-                            )
-                        */}
 
                         {
                             props.user && (
@@ -178,7 +172,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
             </div>
         </nav>
     );
+
 }
 
 export default Navbar;
-

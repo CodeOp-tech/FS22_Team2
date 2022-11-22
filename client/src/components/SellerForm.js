@@ -138,7 +138,7 @@ function SellerForm(props) {
              />
         
             <Form.Check
-             label='Does not need to be refrigerated'
+             label='Does not require refrigeration'
              type='checkbox'
              name='no_fridge'
              value={productData.no_fridge}

@@ -42,7 +42,9 @@
   top: -5%;
   width: 600px;
   height: auto;
-  margin-left: 250px;
+  margin-left: 400px;
+  background-color: whitesmoke;
+  border-radius: 30px;
 }
 /* .blur {
   position: absolute;
