@@ -8,6 +8,7 @@ function Success() {
 
     useEffect(() => {
         addPurchasesCb();
+        console.log("Success in useEffect addPurchasesCb");
     }, [])
 
     return(

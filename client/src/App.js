@@ -49,8 +49,6 @@ function App() {
   useEffect(() => {
     getProducts();
     getProductsByShop();
-    getPurchasedItemsByUser();
-    getPurchasedItemsByShop();
   }, []);
 
   useEffect(() => {
@@ -58,10 +56,10 @@ function App() {
     setSearchedByShop(productsByShop); // this must be done, if not individual Shop page renders empty (must set the page with shop's products)
   }, [products, productsByShop]); // whenever products or productsByShop change
 
-  // useEffect(() => {
-  //   getPurchasedItemsByUser();
-  //   getPurchasedItemsByShop();
-  // }, [purchasedItemsByUser, purchasedItemsByShop]);
+  useEffect(() => {
+    getPurchasedItemsByUser(); 
+    getPurchasedItemsByShop();
+  }, [purchases, purchasedItems]); // when purchases & purchasedItems are updated (see addPurchases function), getPurchasedItemsbyUser/Shop is called
 
   // register new user
   // NOTE: removed has_shop to test; add back in later
@@ -401,8 +399,11 @@ function App() {
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
               
-              <Route onClick={getPurchasedItemsByUser} path="customer_purchases" element={<BuyerPurchaseView />} />
-              <Route onClick={getPurchasedItemsByShop} path="shop_purchases" element={<SellerPurchaseView />} />
+              <Route path="customer_purchases" element={<BuyerPurchaseView />} />
+              <Route path="shop_purchases" element={<SellerPurchaseView />} />
+
+              {/* onClick={getPurchasedItemsByUser}
+              onClick={getPurchasedItemsByShop} */}
 
               <Route
                 path="/users/:userId"

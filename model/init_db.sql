@@ -24,6 +24,7 @@ VALUES
 ('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 2),
 ('user4_buyer', '$2a$12$rTpFBHzeSn8FA7R.zcCjXuDQuXii95g1B44tCuIsSYresWMe7r5rO','user4@msb.inc', 0, null);
 -- removed NOT NULL constraint to create empty shop
+
 CREATE TABLE shops (
 	shop_id INT NOT NULL AUTO_INCREMENT,
 	shop_name varchar(255),
@@ -44,8 +45,8 @@ CREATE TABLE shops (
 
 INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, shop_points)
 VALUES
-('Laser', 'Carrer del Dr. Dou, 2, 08001 Barcelona', 'Shop One is the Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopone.com', '12345678', 'shopone@one.com', 100),
-('Humana', 'C/ de Mallorca, 592, 08026 Barcelona', 'Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0);
+('Laser', 'Carrer del Dr. Dou, 2, 08001 Barcelona', 'Laser: For all your fashion needs', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://laser.com', '12345678', 'laser@one.com', 100),
+('Humana', 'C/ de Mallorca, 592, 08026 Barcelona', 'Saving the earth, one pre-loved item at a time', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://humana.com', '87654321', 'humana@two.com', 0);
 
 CREATE TABLE `products` (
 	`product_id` INT NOT NULL AUTO_INCREMENT,
