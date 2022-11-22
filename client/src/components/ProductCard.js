@@ -12,9 +12,10 @@ function ProductCard(props) {
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
   const [buttonPopup, setButtonPopup] = useState(false);
 
-  const { getProductDataCb } = useContext(ProductContext);
+  const { products, getProductDataCb, getProductReviewsCb } = useContext(ProductContext);
 
-  const { cartProducts,
+  const { user,
+    cartProducts,
     getProductQuantityCb,
     addOneToCartCb,
     removeOneFromCartCb,
@@ -42,14 +43,13 @@ function ProductCard(props) {
       console.log(cartProducts);
     }
 
-    function showPopup() {
+    function showPopup(id) { // product_id from (props.product.product_id) passed to getProductReviewsCb function below
       setButtonPopup(true);
-      console.log(buttonPopup);
+      getProductReviewsCb(id); // call getProductReviews function in App
     }
 
     function removePopup() {
       setButtonPopup(false);
-      console.log(buttonPopup);
     }
 
 
@@ -60,17 +60,19 @@ let find = cartProducts.find(e => e.id === product.product_id);
       <Card.Body> {/* used to pad content inside a <Card> */}
         <div className="image">
           <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
-          <div onClick={showPopup} className="overlay">
+          <div onClick={() => showPopup(product.product_id)} className="overlay">
             <div className="text">
-              Click on image to see more product info
+              Click for more product info & product reviews
             </div>
           </div>
         </div>
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
-        <Card.Text>${product.price}</Card.Text>
+        <Card.Text>from <i>{product.shop_name}</i></Card.Text>
+        <Card.Text><i>{product.total_product_points} point(s) rewarded</i></Card.Text>
+        <Card.Text><b>${product.price}</b></Card.Text>
         <Card.Text>{product.product_description}</Card.Text>
-        
+              
         { find ? 
         <>
         <Form as={Row}>
@@ -83,10 +85,10 @@ let find = cartProducts.find(e => e.id === product.product_id);
         </Form>
         <Button variant="danger" onClick={() => handleClickDelete(product.product_id)} className="mx-2">Remove from cart</Button>
         </>
-        :
+        : 
         <Button variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
         }
-
+      
       </Card.Body>
             
       {/* Pass product via props to child Popup*/}

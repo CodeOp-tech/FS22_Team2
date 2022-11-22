@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Row, Col } from "react-bootstrap";
-import NavbarShop from '../components/NavbarShop';
 import ProductCard from "../components/ProductCard";
 import Search from "../components/Search";
 import ProductContext from "../ProductContext";
@@ -13,7 +12,6 @@ function ShopView(props) {
 
   return (
     <>
-    <NavbarShop></NavbarShop>
       <h1>Welcome to the store!</h1> 
       <Search />
       <Row xs={1} md={3} className="g-4">

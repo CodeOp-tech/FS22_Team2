@@ -34,6 +34,7 @@ router.get('/', async function(req, res,) {
     try {
       let results = await db(`SELECT * FROM purchased_items`); 
       let purchased_items = results.data;  
+      // let purchased_items = joinToJson(results);
       res.send(purchased_items);
   } catch (err) {
       res.status(500).send({ error: err.message });
@@ -41,8 +42,8 @@ router.get('/', async function(req, res,) {
   });
 
 // GET PURCHASED_ITEMS BASED OFF USER ID (USER PURCHASE HISTORY)
-  router.get('/:user_id', async function(req, res,) { // NOTE: front-end fetch must pass user_id (can be stored in Local.js?)
-// which is passed from front end fetch at...
+  router.get('/:user_id', async function(req, res,) { // NOTE: front-end fetch must pass user_id 
+// which is called from front end fetch at App, through getPurchasedItemsByUser()
     let id = req.params.user_id;
 
     // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
@@ -63,8 +64,8 @@ router.get('/', async function(req, res,) {
   });
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
-  router.get('/shops/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
-    // which is passed from front end fetch at...
+  router.get('/shops/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id 
+    // which is called from front end fetch at App, through getPurchasedItemsByShop()
         let id = req.params.shop_id;
     
         // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
@@ -85,29 +86,27 @@ router.get('/', async function(req, res,) {
       });
 
   // ADD PURCHASE TO GENERAL PURCHASE DATABASE BUT RETURN ONLY PURCHASES ASSOCIATED WITH USER
-  router.post("/", async (req, res) => { // NOTE: front-end fetch must pass purchase_id, product_id and shop_id through req.body below
-    // let id = req.params.user_id;
+  router.post("/", async (req, res) => { // NOTE: front-end fetch must pass purchase_id
 
     let { purchaseId, cartProducts } = req.body;
 
+    try {
     // Insert statement once for each item 
-    for (let i = 0; i < cartProducts.length; i++) {
+     for (let i = 0; i < cartProducts.length; i++) {
       let sql = `
         INSERT INTO purchased_items (purchase_quantity, purchase_points, purchase_id, product_id, shop_id)
         VALUES ('${Number(cartProducts[i].quantity)}', '${Number(cartProducts[i].totalPoints)}', '${Number(purchaseId)}', '${Number(cartProducts[i].id)}', ${Number(cartProducts[i].shop_id)})
     `;
-    
-      try {
-        await db(sql);  
-        let result = await db(`SELECT * FROM purchased_items WHERE purchase_id = ${Number(purchaseId)}`); // purchaseId taken from req.body
+        await db(sql);
+
+      } 
+      let result = await db(`SELECT * FROM purchased_items WHERE purchase_id = ${Number(purchaseId)}`); // purchaseId taken from req.body
+        // WHERE purchase_id = ${Number(purchaseId)}
         let purchased_items = result.data;
         res.status(201).send(purchased_items); // 201 status because indicates request has succeeded and lead to creation of resource
-    } catch (err) {
-        res.status(500).send({ error: err.message });
-    }
-    }
-  
-    
+    }  catch (err) {
+      res.status(500).send({ error: err.message });
+    } 
   });
 
   module.exports = router;

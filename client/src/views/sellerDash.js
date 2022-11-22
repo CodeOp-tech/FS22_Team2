@@ -3,9 +3,9 @@ import "./SellerDash.css";
 import SellerList from "../components/SellerList.js";
 import SellerForm from "../components/SellerForm.js";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
-import Local from "../helpers/Local.js";
 import ShopEditForm from "../components/ShopEditForm";
 import Api from "../helpers/Api.js";
+import Local from "../helpers/Local";
 
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);

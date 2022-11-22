@@ -42,14 +42,13 @@ function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // useState 14
   const [searched, setSearched] = useState([]); // useState 15
   const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
+  const [reviews, setReviews] = useState([]) // useState 17
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getProducts();
     getProductsByShop();
-    getPurchasedItemsByUser();
-    getPurchasedItemsByShop();
   }, []);
 
   useEffect(() => {
@@ -57,10 +56,10 @@ function App() {
     setSearchedByShop(productsByShop); // this must be done, if not individual Shop page renders empty (must set the page with shop's products)
   }, [products, productsByShop]); // whenever products or productsByShop change
 
-  // useEffect(() => {
-  //   getPurchasedItemsByUser();
-  //   getPurchasedItemsByShop();
-  // }, [purchasedItemsByUser, purchasedItemsByShop]);
+  useEffect(() => {
+    getPurchasedItemsByUser(); 
+    getPurchasedItemsByShop();
+  }, [purchases, purchasedItems]); // when purchases & purchasedItems are updated (see addPurchases function), getPurchasedItemsbyUser/Shop is called
 
   /********************* AUTH FUNCTIONS *********************/
 
@@ -261,6 +260,7 @@ function App() {
     });
     let fixed = totalCost.toFixed(2); //toFixed(2) rounds number of decimals to two
     setTotalCost(fixed);
+    Local.saveTotal(fixed);
   }
 
   // DELETE FROM SHOPPING CART
@@ -278,22 +278,22 @@ function App() {
 
   // ADD PURCHASE (ie. receipt of a single purchase) INTO PURCHASES TABLES (DATABASE)
   async function addPurchases(purchase_sum, user_id) {
-    let myresponse = await Api.addPurchases(`${totalCost}`, `${Local.getUserId()}`); //INSERT `${Local.getUserId()}`
+    let myresponse = await Api.addPurchases(Local.getTotal(), Local.getUserId()); // call upon Local for stored total amount and userId
     if (myresponse.ok) {
       setPurchases(myresponse.data);
-      console.log(myresponse.data);
+      // console.log(myresponse.data);
       let data = myresponse.data;
       let purchaseId = data[data.length - 1].purchase_id;
     // ADD ALL PRODUCTS (ie. purchased_items) PURCHASED INTO PURCHASED_ITEMS TABLES (DATABASE)
-      let myresponse2 = await Api.addPurchasedItems(purchaseId, cartProducts);
-    if (myresponse2.ok) {
-      setPurchasedItems(myresponse2.data)
-    } else {
-      setError(myresponse2.error);
+    let myresponse2 = await Api.addPurchasedItems(purchaseId, Local.getCartProducts());
+      if (myresponse2.ok) {
+        setPurchasedItems(myresponse2.data)
+      } else {
+        setError(myresponse2.error);
+      }
     }
   }
-  };
-
+  
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
   async function getPurchasedItemsByUser(user_id) {
     let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId()); // INSERT: Local.getUserId();
@@ -314,25 +314,98 @@ function App() {
     }
   };
 
+  // SEARCH FUNCTION WITHIN SHOPVIEW (Online Store)
   function search(input) {
     let tempProducts = products.filter((p) => {
       return p.product_name.toLowerCase().includes(input.toLowerCase()); 
       // convert both product_name and input to lowercase so not case sensitive
     })
-    setSearched(tempProducts); // searched state set to ShopView via ProductContext
+    setSearched(tempProducts); // "searched" state set to ShopView via ProductContext
   }
 
+   // SEARCH FUNCTION WITHIN SINGLE SHOP VIEW ()
   function searchShop(input) {
     let tempProducts = productsByShop.filter((p) => {
       return p.product_name.toLowerCase().includes(input.toLowerCase()); 
       // convert both product_name and input to lowercase so not case sensitive
     })
-    setSearchedByShop(tempProducts); // searchedByShop state set to SingleShopView via ProductContext
+    setSearchedByShop(tempProducts); // "searchedByShop" state set to SingleShopView via ProductContext
   }
+
+  // Referred to https://www.educative.io/answers/how-to-sort-an-array-of-objects-in-javascript for a more generic sort function
+  function dynamicsort(property, order) {
+    let sort_order = 1;
+    if (order === "desc") {
+      sort_order = -1;
+    }
+    return function (a, b) {
+      // a should come before b in the sorted order
+      if (a[property] < b[property]) {
+        return -1 * sort_order;
+        // a should come after b in the sorted order
+      } else if (a[property] > b[property]) {
+        return 1 * sort_order;
+        // a and b are the same
+      } else {
+        return 0 * sort_order;
+      }
+    };
+  }
+
+  function showTotalPoints() {
+    let copySearched = [...searched];
+    let shopsFilter = copySearched.sort(dynamicsort("total_product_points", "desc"));
+    setSearched(shopsFilter);
+  }
+
+  function showLowToHighPrice() {
+    let copySearched = [...searched];
+    let priceFilter = copySearched.sort(dynamicsort("price"));
+    setSearched(priceFilter);
+  }
+
+  function showHighToLowPrice() {
+    let copySearched = [...searched];
+    let priceFilter = copySearched.sort(dynamicsort("price", "desc"));
+    setSearched(priceFilter);
+  }
+
+  function showShopsAtoZ() {
+    let copySearched = [...searched];
+    let shopsFilter = copySearched.sort(dynamicsort("shop_name"));
+    setSearched(shopsFilter);
+  }
+
+  function showShopsAtoZ() {
+    let copySearched = [...searched];
+    let shopsFilter = copySearched.sort(dynamicsort("shop_name"));
+    setSearched(shopsFilter);
+  }
+
+  async function getProductReviews(product_id) {
+    // product_id passed from showPopup(id) function in ProductCard child
+    let myresponse = await Api.getProductReviews(product_id);
+      if (myresponse.ok) {
+        setReviews(myresponse.data);
+      } else {
+        setError(myresponse.error);
+      }
+    };
+
+    async function addReview(newReview, product_id, user_id) {
+      let myresponse = await Api.addReview(newReview, Number(product_id), Local.getUserId());
+      // newReview (formData), product_id passed from handleSubmit() function in AddReview child
+        if (myresponse.ok) {
+          setReviews(myresponse.data);
+        } else {
+          setError(myresponse.error);
+        }
+      };
 
   /* ---Context Objects--- */
 
   const contextObjCart = {
+    user,
     cartProducts,
     purchasedItemsByUser,
     purchasedItemsByShop,
@@ -352,6 +425,13 @@ function App() {
     searched,
     searchedByShop,
     productsByShop,
+    reviews,
+    showTotalPointsCb: showTotalPoints,
+    showHighToLowPriceCb: showHighToLowPrice,
+    showLowToHighPriceCb: showLowToHighPrice,
+    showShopsAtoZCb: showShopsAtoZ,
+    addReviewCb: addReview,
+    getProductReviewsCb: getProductReviews,
     getProductDataCb: getProductData,
     searchCb: search,
     searchShopCb: searchShop
@@ -373,6 +453,7 @@ function App() {
                 element={
                   <ShopView
                     products={products}
+                    reviews={reviews}
                   />
                 }
               />
@@ -396,8 +477,11 @@ function App() {
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
               
-              <Route onClick={getPurchasedItemsByUser} path="customer_purchases" element={<BuyerPurchaseView />} />
-              <Route onClick={getPurchasedItemsByShop} path="shop_purchases" element={<SellerPurchaseView />} />
+              <Route path="customer_purchases" element={<BuyerPurchaseView />} />
+              <Route path="shop_purchases" element={<SellerPurchaseView />} />
+
+              {/* onClick={getPurchasedItemsByUser}
+              onClick={getPurchasedItemsByShop} */}
 
               <Route
                 path="/users/:userId"
