@@ -296,7 +296,7 @@ function App() {
     }
   };
 
-  // SEARCH FUNCTION WITHIN SHOPVIEW (Online Store) AND SINGLE SHOP VIEW ()
+  // SEARCH FUNCTION WITHIN SHOPVIEW (Online Store)
   function search(input) {
     let tempProducts = products.filter((p) => {
       return p.product_name.toLowerCase().includes(input.toLowerCase()); 
@@ -305,12 +305,63 @@ function App() {
     setSearched(tempProducts); // "searched" state set to ShopView via ProductContext
   }
 
+   // SEARCH FUNCTION WITHIN SINGLE SHOP VIEW ()
   function searchShop(input) {
     let tempProducts = productsByShop.filter((p) => {
       return p.product_name.toLowerCase().includes(input.toLowerCase()); 
       // convert both product_name and input to lowercase so not case sensitive
     })
     setSearchedByShop(tempProducts); // "searchedByShop" state set to SingleShopView via ProductContext
+  }
+
+  // Referred to https://www.educative.io/answers/how-to-sort-an-array-of-objects-in-javascript for a more generic sort function
+  function dynamicsort(property, order) {
+    let sort_order = 1;
+    if (order === "desc") {
+      sort_order = -1;
+    }
+    return function (a, b) {
+      // a should come before b in the sorted order
+      if (a[property] < b[property]) {
+        return -1 * sort_order;
+        // a should come after b in the sorted order
+      } else if (a[property] > b[property]) {
+        return 1 * sort_order;
+        // a and b are the same
+      } else {
+        return 0 * sort_order;
+      }
+    };
+  }
+
+  function showTotalPoints() {
+    let copySearched = [...searched];
+    let shopsFilter = copySearched.sort(dynamicsort("total_product_points", "desc"));
+    setSearched(shopsFilter);
+  }
+
+  function showLowToHighPrice() {
+    let copySearched = [...searched];
+    let priceFilter = copySearched.sort(dynamicsort("price"));
+    setSearched(priceFilter);
+  }
+
+  function showHighToLowPrice() {
+    let copySearched = [...searched];
+    let priceFilter = copySearched.sort(dynamicsort("price", "desc"));
+    setSearched(priceFilter);
+  }
+
+  function showShopsAtoZ() {
+    let copySearched = [...searched];
+    let shopsFilter = copySearched.sort(dynamicsort("shop_name"));
+    setSearched(shopsFilter);
+  }
+
+  function showShopsAtoZ() {
+    let copySearched = [...searched];
+    let shopsFilter = copySearched.sort(dynamicsort("shop_name"));
+    setSearched(shopsFilter);
   }
 
   async function getProductReviews(product_id) {
@@ -336,6 +387,7 @@ function App() {
   /* ---Context Objects--- */
 
   const contextObjCart = {
+    user,
     cartProducts,
     purchasedItemsByUser,
     purchasedItemsByShop,
@@ -356,6 +408,10 @@ function App() {
     searchedByShop,
     productsByShop,
     reviews,
+    showTotalPointsCb: showTotalPoints,
+    showHighToLowPriceCb: showHighToLowPrice,
+    showLowToHighPriceCb: showLowToHighPrice,
+    showShopsAtoZCb: showShopsAtoZ,
     addReviewCb: addReview,
     getProductReviewsCb: getProductReviews,
     getProductDataCb: getProductData,

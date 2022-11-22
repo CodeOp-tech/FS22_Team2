@@ -34,6 +34,7 @@ router.get('/', async function(req, res,) {
     try {
       let results = await db(`SELECT * FROM purchased_items`); 
       let purchased_items = results.data;  
+      // let purchased_items = joinToJson(results);
       res.send(purchased_items);
   } catch (err) {
       res.status(500).send({ error: err.message });

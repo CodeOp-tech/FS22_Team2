@@ -10,19 +10,24 @@ import NavbarShop from "../components/NavbarShop";
 
 function ShopView(props) {
   const { searched } = useContext(ProductContext);
+  const [filtered, setFiltered] = useState([]);
 
-  function showPrice() {
-    
-  }
+  
 
   // TO-DO NOTE: Need to be able to pass shop_id somehow to parent App (for now, hardcoded in App)
 
   return (
-    <>
-    {/* <NavbarShop></NavbarShop> */}
+    <div className="ShopView container">
       <h1>Welcome to the store!</h1>
-      <Search />
-      <Sort showPriceCb={showPrice}/>
+      <div className="row">
+        <div className="col-sm-2">
+          <Search />
+        </div>
+        <div className="col-sm-2">
+          <Sort />
+        </div>
+      </div>
+      
       <Row xs={1} md={3} className="g-4">
         {" "}
         {/* On an extra small screen, only show 1 column but on medium screen show 3 columns */}
@@ -32,7 +37,7 @@ function ShopView(props) {
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   );
 }
 

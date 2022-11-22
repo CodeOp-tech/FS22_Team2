@@ -14,7 +14,8 @@ function ProductCard(props) {
 
   const { products, getProductDataCb, getProductReviewsCb } = useContext(ProductContext);
 
-  const { cartProducts,
+  const { user,
+    cartProducts,
     getProductQuantityCb,
     addOneToCartCb,
     removeOneFromCartCb,
@@ -68,9 +69,10 @@ let find = cartProducts.find(e => e.id === product.product_id);
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
         <Card.Text>from <i>{product.shop_name}</i></Card.Text>
+        <Card.Text><i>{product.total_product_points} point(s) rewarded</i></Card.Text>
         <Card.Text><b>${product.price}</b></Card.Text>
         <Card.Text>{product.product_description}</Card.Text>
-        
+              
         { find ? 
         <>
         <Form as={Row}>
@@ -83,10 +85,10 @@ let find = cartProducts.find(e => e.id === product.product_id);
         </Form>
         <Button variant="danger" onClick={() => handleClickDelete(product.product_id)} className="mx-2">Remove from cart</Button>
         </>
-        :
+        : 
         <Button variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
         }
-
+      
       </Card.Body>
             
       {/* Pass product via props to child Popup*/}

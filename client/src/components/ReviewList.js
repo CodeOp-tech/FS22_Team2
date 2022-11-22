@@ -35,7 +35,6 @@ function ReviewList() {
                 star1++;
             }
         }
-        console.log(star5, star4, star3, star2, star1);
         setStar5(star5); 
         setStar4(star4);
         setStar3(star3);
