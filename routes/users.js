@@ -23,9 +23,9 @@ router.get('/', async function(req, res, next) {
 
 // GET one user
 // PROTECTED: user can only see their own profile
-router.get('/:userId', ensureSameUser, async function(req, res, next) {
-  let { userId } = req.params;
-  let sql = `SELECT * FROM users WHERE user_id = ${Number(userId)};`
+router.get('/:user_id', ensureSameUser, async function(req, res, next) {
+  let { user_id } = req.params;
+  let sql = `SELECT * FROM users WHERE user_id = ${Number(user_id)};`
 
   try {
     let results = await db(sql);
@@ -57,18 +57,22 @@ router.get('/points/:user_id', async function(req, res, next) {
       LEFT JOIN purchased_items ON purchases.purchase_id = purchased_items.purchase_id
       WHERE users.user_id = ${user_id}
   `
-
+  // need to figure out how to access value in sumData
   try {
     let sumResults = await db(sqlSum); 
     let sumData = sumResults.data[0];
+    // let sumVal = sumData[SUM(purchased_items.purchase_points)];
     
+    // let { key : value } = sumData;
+    // let sumVal = sumData.key;
+
     // if (sumData) {
     //   await db(
-    //     `UPDATE users SET user_points='${sumData}' WHERE user_id=${user_id}`
+    //     `UPDATE users SET user_points='${sumData.SUM(purchased_items.purchase_points)}' WHERE user_id=${user_id}`
     //   );
     // }
     // const results = await db(`SELECT * FROM users WHERE user_id = ${Number(user_id)}`);
-    res.send(sumData); 
+    res.send(sumVal); 
 } catch(err) { 
     res.status(500).send({ error: err.message })
 }

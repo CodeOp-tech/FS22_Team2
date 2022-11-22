@@ -1,55 +1,57 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const { ensureSameUser, ensureShopOwner } = require('../middleware/guards');
-const db = require('../model/helper.js')
+const { ensureSameUser, ensureShopOwner } = require("../middleware/guards");
+const db = require("../model/helper.js");
 
 // GET all shops
-// NOT PROTECTED - not needed
-router.get('/', async function(req, res, next) {
-    let sql = 'SELECT * FROM shops ORDER BY shop_id';
-  
-    try {
-      let results = await db(sql);
-      let shops = results.data;
-      res.send(shops);
-    } catch (err) {
-      res.status(500).send({ error: err.message });
-    }
-  });
+// doesn't need protection
+router.get("/", async function (req, res, next) {
+  let sql = `SELECT shops.* , products.product_name 
+      FROM shops
+            LEFT JOIN products ON shops.shop_id = products.shop_id `;
+
+  try {
+    let results = await db(sql);
+    let shops = results.data;
+    res.send(shops);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
 
 // GET shop by shop_id
 // NOT PROTECTED - for public profile page
-router.get('/profile/:shop_id', async function(req, res, next) {
-    let { shop_id } = req.params;
-    let sql = `SELECT * FROM shops WHERE shop_id = ${Number(shop_id)};`
-  
-    try {
-      let results = await db(sql);
-      let shop = results.data[0];
-      res.send(shop);
-    } catch (err) {
-      res.status(500).send({ error: err.message })
-    }
-  });
+router.get("/profile/:shop_id", async function (req, res, next) {
+  let { shop_id } = req.params;
+  let sql = `SELECT * FROM shops WHERE shop_id = ${Number(shop_id)};`;
+
+  try {
+    let results = await db(sql);
+    let shop = results.data[0];
+    res.send(shop);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
 
 // GET a user's shop info
 // PROTECTED - for editing profile page
-router.get('/:userId', ensureSameUser, async function(req, res, next) {
-    let { userId } = req.params;
-    let sql = `SELECT users.*, shops.*
+router.get("/:user_id", ensureSameUser, async function (req, res, next) {
+  let { user_id } = req.params;
+  let sql = `SELECT users.*, shops.*
       FROM users
       LEFT JOIN shops on users.shop_id = shops.shop_id
-      WHERE user_id = ${Number(userId)}`
-  
-    try {
-      let results = await db(sql);
-      let user = results.data[0];
-      delete user.password;
-      res.send(user);
-    } catch (err) {
-      res.status(500).send({ error: err.message })
-    }
-  });
+      WHERE user_id = ${Number(user_id)}`;
+
+  try {
+    let results = await db(sql);
+    let user = results.data[0];
+    delete user.password;
+    res.send(user);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
 
 // POST create new shop - NOT USED because post only happens on user registration for now
 // // PROTECTED - user should only be able to create their own shop
@@ -86,9 +88,8 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
 //       }
 // });
 
-
 // PUT edit shop info
-// PROTECTED - user should only be able to edit own shop
+// PROTECTED - user should only be able to enter own shop
 router.put("/edit/:shop_id", ensureShopOwner, async (req, res) => { 
     let { shop_id }  = req.params;
     let { shopData: {shop_name, shop_description, shop_image, shop_address,  website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz} } = req.body;
@@ -155,7 +156,7 @@ router.put("/edit/:shop_id", ensureShopOwner, async (req, res) => {
     } catch (err) {
       res.status(500).send({ error: err.message });
     }
-  });
+});
 
 module.exports = router;
 

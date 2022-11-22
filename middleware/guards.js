@@ -39,7 +39,7 @@ function ensureShopOwner(req, res, next) {
         let payload = jwt.verify(token, SECRET_KEY);
         // if token is ok, check that shopId matches req params
         // NOTE: do not need to check user_id, because payload shop_id in is already tied to user_id through token/login process
-        if (Number(payload.shopId) === Number(req.params.shop_id)) {
+        if (payload.shopId === req.params.shop_id) {
             // if okay, will proceed; else will throw error
             next();
         } else {
