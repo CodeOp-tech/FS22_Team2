@@ -25,6 +25,9 @@ import BuyerPurchaseView from "./views/BuyerPurchaseView";
 import SellerPurchaseView from "./views/SellerPurchaseView";
 import SellerDash from "./views/SellerDash";
 
+//map stuff!
+import { getHome } from "./helpers/geoLocation";
+
 function App() {
   const [products, setProducts] = useState([]); // useState 1 (products fetched from database upon page render)
   const [cartProducts, setCartProducts] = useState([]); // useState 2 (populates only upon adding to cart)
@@ -42,7 +45,13 @@ function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // useState 14
   const [searched, setSearched] = useState([]); // useState 15
   const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
-  const [reviews, setReviews] = useState([]) // useState 17
+
+  //maps below:
+  // const [home, setHome] = useState(null); // center of map //useState 17
+  // const [currView, setCurrView] = useState("homeV"); //useState 18
+
+  const [reviews, setReviews] = useState([]) // useState 19
+
 
   const navigate = useNavigate();
 
@@ -64,10 +73,15 @@ function App() {
   // register new user
   // NOTE: removed has_shop to test; add back in later
   async function doRegister(username, password, email, has_shop) {
-    let myResponse = await Api.registerUser(username, password, email, has_shop);
+    let myResponse = await Api.registerUser(
+      username,
+      password,
+      email,
+      has_shop
+    );
     if (myResponse.ok) {
       // This will direct user to the SellerDash page on login, if they have a shop. Else will take them to UserDash.
-      doLogin(username, password)
+      doLogin(username, password);
     } else {
       setRegErrorMessage("Registration failed");
     }
@@ -78,9 +92,13 @@ function App() {
   async function doLogin(username, password) {
     let myResponse = await Api.loginUser(username, password);
     if (myResponse.ok) {
-      Local.saveUserInfo(myResponse.data.token, myResponse.data.user, myResponse.data.shop);
+      Local.saveUserInfo(
+        myResponse.data.token,
+        myResponse.data.user,
+        myResponse.data.shop
+      );
       console.log(myResponse.data.user);
-      console.log(myResponse.data.shop); 
+      console.log(myResponse.data.shop);
       // setUser(Local.getUser);
       setUser(myResponse.data.user);
       // setShop(Local.getShop);
@@ -91,8 +109,8 @@ function App() {
       // QUESTION: doesn't work, goes to seller page for sellers but stays on login page for buyers
       if (myResponse.data.user.shop_id) {
         navigate("/seller");
-      } else  {
-      navigate("/");
+      } else {
+        navigate("/");
       }
     } else {
       setLoginErrorMessage("Login failed");
@@ -110,7 +128,7 @@ function App() {
   // GET ALL PRODUCTS (regardless of store)
   async function getProducts() {
     try {
-      let response = await fetch(`/products`); 
+      let response = await fetch(`/products`);
       if (response.ok) {
         let result = await response.json();
         setProducts(result);
@@ -173,14 +191,15 @@ function App() {
     // so that we can add the name and price field to the cartProducts objects
     const product = getProductData(id);
     console.log(product);
-  
+
     // NOTE: Update total quantity available for product
     setProducts(
-      products.map(
-        (product) => 
+      products.map((product) =>
         product.product_id === id
-        ? {...product, product_quantity: product.product_quantity - 1}
-        : product))
+          ? { ...product, product_quantity: product.product_quantity - 1 }
+          : product
+      )
+    );
 
     if (quantity === 0) {
       // product is not in cart
@@ -196,10 +215,12 @@ function App() {
             name: product.product_name,
             price: product.price,
             shop_id: product.shop_id,
+
             productPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)),
             // totalPoints created separate from productPoints, to store total points from productPoints multiplied by quantity of product in shopping cart 
             totalPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)) * thisQuantity,
             stripe_id: product.stripe_product_id
+
           },
         ]
       );
@@ -209,7 +230,11 @@ function App() {
         cartProducts.map(
           (product) =>
             product.id === id
-              ? { ...product, quantity: product.quantity + 1, totalPoints: product.productPoints * (product.quantity + 1)} // if statement is true, take the entire product object and add one to quantity, add points proportionally
+              ? {
+                  ...product,
+                  quantity: product.quantity + 1,
+                  totalPoints: product.productPoints * (product.quantity + 1),
+                } // if statement is true, take the entire product object and add one to quantity, add points proportionally
               : product // if statement is false, return product object
         )
       );
@@ -228,7 +253,11 @@ function App() {
         cartProducts.map(
           (product) =>
             product.id === id
-              ? { ...product, quantity: product.quantity - 1, totalPoints: product.productPoints * (product.quantity - 1) } // if statement is true, take the entire product object and minus one from quantity
+              ? {
+                  ...product,
+                  quantity: product.quantity - 1,
+                  totalPoints: product.productPoints * (product.quantity - 1),
+                } // if statement is true, take the entire product object and minus one from quantity
               : product // if statement is false, return product object
         )
       );
@@ -260,31 +289,39 @@ function App() {
 
   // ADD PURCHASE (ie. receipt of a single purchase) INTO PURCHASES TABLES (DATABASE)
   async function addPurchases(purchase_sum, user_id) {
+
     let myresponse = await Api.addPurchases(Local.getTotal(), Local.getUserId()); // call upon Local for stored total amount and userId
+
     if (myresponse.ok) {
       setPurchases(myresponse.data);
       // console.log(myresponse.data);
       let data = myresponse.data;
       let purchaseId = data[data.length - 1].purchase_id;
+
     // ADD ALL PRODUCTS (ie. purchased_items) PURCHASED INTO PURCHASED_ITEMS TABLES (DATABASE)
     let myresponse2 = await Api.addPurchasedItems(purchaseId, Local.getCartProducts());
       if (myresponse2.ok) {
         setPurchasedItems(myresponse2.data)
+
       } else {
         setError(myresponse2.error);
       }
     }
   }
+
+
+
   
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
+
   async function getPurchasedItemsByUser(user_id) {
     let myresponse = await Api.getPurchasedItemsByUser(Local.getUserId()); // INSERT: Local.getUserId();
     if (myresponse.ok) {
-      setPurchasedItemsByUser(myresponse.data)
+      setPurchasedItemsByUser(myresponse.data);
     } else {
       setError(myresponse.error);
     }
-  };
+  }
 
   // GET ALL PURCHASED ITEMS (ie. all customer purchases at said shop) TO DISPLAY TO SHOP
   async function getPurchasedItemsByShop(shop_id) {
@@ -294,22 +331,26 @@ function App() {
     } else {
       setError(myresponse.error);
     }
-  };
+  }
 
   // SEARCH FUNCTION WITHIN SHOPVIEW (Online Store)
   function search(input) {
     let tempProducts = products.filter((p) => {
-      return p.product_name.toLowerCase().includes(input.toLowerCase()); 
+      return p.product_name.toLowerCase().includes(input.toLowerCase());
       // convert both product_name and input to lowercase so not case sensitive
+
+   
     })
     setSearched(tempProducts); // "searched" state set to ShopView via ProductContext
+
   }
 
    // SEARCH FUNCTION WITHIN SINGLE SHOP VIEW ()
   function searchShop(input) {
     let tempProducts = productsByShop.filter((p) => {
-      return p.product_name.toLowerCase().includes(input.toLowerCase()); 
+      return p.product_name.toLowerCase().includes(input.toLowerCase());
       // convert both product_name and input to lowercase so not case sensitive
+
     })
     setSearchedByShop(tempProducts); // "searchedByShop" state set to SingleShopView via ProductContext
   }
@@ -332,6 +373,7 @@ function App() {
         return 0 * sort_order;
       }
     };
+
   }
 
   function showTotalPoints() {
@@ -398,7 +440,7 @@ function App() {
     removeOneFromCartCb: removeOneFromCart,
     deleteFromCartCb: deleteFromCart,
     getTotalCostCb: getTotalCost,
-    getPurchasedItemsByUserCb: getPurchasedItemsByUser
+    getPurchasedItemsByUserCb: getPurchasedItemsByUser,
   };
 
   const contextObjProduct = {
@@ -416,7 +458,7 @@ function App() {
     getProductReviewsCb: getProductReviews,
     getProductDataCb: getProductData,
     searchCb: search,
-    searchShopCb: searchShop
+    searchShopCb: searchShop,
   };
 
   return (
@@ -428,8 +470,8 @@ function App() {
 
             <Routes>
               <Route path="/" element={<HomeView />} />
-
               {/* NOTE: This route shows all products of all shops */}
+
               <Route
                 path="shops"
                 element={
@@ -440,20 +482,18 @@ function App() {
                 }
               />
 
+
               {/* NOTE: This route shows products of a single selected shop */}
               <Route
                 path="shop"
-                element={
-                  <SingleShopView
-                    products={productsByShop}
-                  />
-                }
+                element={<SingleShopView products={productsByShop} />}
               />
-              <Route path="/seller" element={<SellerDash/>}/> {/*remove after*/} 
-
+              <Route path="/seller" element={<SellerDash />} />{" "}
+              {/*remove after*/}
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
+
               
               <Route path="customer_purchases" element={<BuyerPurchaseView />} />
               <Route path="shop_purchases" element={<SellerPurchaseView />} />
@@ -462,6 +502,7 @@ function App() {
               onClick={getPurchasedItemsByShop} */}
 
               <Route
+
                 path="/users/:userId"
                 element={
                   <PrivateRoute>
@@ -469,7 +510,6 @@ function App() {
                   </PrivateRoute>
                 }
               />
-
               <Route
                 path="/login"
                 element={
@@ -479,23 +519,22 @@ function App() {
                   />
                 }
               />
-              
               <Route
-              path="/register"
-              element={
-                <RegistrationView
-                  registerCb={(username, password, email, has_shop) => doRegister(username, password, email, has_shop)}
-                  regError={regErrorMessage}
-                />
-              }
-            />
-
+                path="/register"
+                element={
+                  <RegistrationView
+                    registerCb={(username, password, email, has_shop) =>
+                      doRegister(username, password, email, has_shop)
+                    }
+                    regError={regErrorMessage}
+                  />
+                }
+              />
               <Route
                 path="*"
                 element={<ErrorView code="404" text="Page not found" />}
               />
             </Routes>
-
           </CartContext.Provider>
         </ProductContext.Provider>
       </Container>

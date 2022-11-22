@@ -14,34 +14,41 @@ function ProductCard(props) {
 
   const { products, getProductDataCb, getProductReviewsCb } = useContext(ProductContext);
 
+
   const { user,
+
     cartProducts,
     getProductQuantityCb,
     addOneToCartCb,
     removeOneFromCartCb,
-    deleteFromCartCb } = useContext(CartContext);
+    deleteFromCartCb,
+  } = useContext(CartContext);
 
-    useEffect(() => {
-      showPopup();
-      removePopup();
-    }, [])
+  useEffect(() => {
+    showPopup();
+    removePopup();
+  }, []);
 
-    function handleClick(id) { // id is received from onClick function below, product.product_id (product = props.product, see above)
-      getProductQuantityCb(id);
-      addOneToCartCb(id); 
-      console.log(cartProducts);
-      getProductDataCb(id); // getProductDataCb called, to provide access to product properties to display product name, price & description below
-    }
+  function handleClick(id) {
+    // id is received from onClick function below, product.product_id (product = props.product, see above)
+    getProductQuantityCb(id);
+    addOneToCartCb(id);
+    console.log(cartProducts);
+    getProductDataCb(id); // getProductDataCb called, to provide access to product properties to display product name, price & description below
+  }
 
-    function handleClickRemove(id) { // id is received from onClick function below, product.product_id (product = props.product, see above)
-      removeOneFromCartCb(id);
-      console.log(cartProducts);
-    }
+  function handleClickRemove(id) {
+    // id is received from onClick function below, product.product_id (product = props.product, see above)
+    removeOneFromCartCb(id);
+    console.log(cartProducts);
+  }
 
-    function handleClickDelete(id) { // id is received from onClick function below, product.product_id (product = props.product, see above)
-      deleteFromCartCb(id);
-      console.log(cartProducts);
-    }
+  function handleClickDelete(id) {
+    // id is received from onClick function below, product.product_id (product = props.product, see above)
+    deleteFromCartCb(id);
+    console.log(cartProducts);
+  }
+
 
     function showPopup(id) { // product_id from (props.product.product_id) passed to getProductReviewsCb function below
       setButtonPopup(true);
@@ -53,10 +60,11 @@ function ProductCard(props) {
     }
 
 
-let find = cartProducts.find(e => e.id === product.product_id);
-  
+  let find = cartProducts.find((e) => e.id === product.product_id);
+
   return (
     <Card>
+
       <Card.Body> {/* used to pad content inside a <Card> */}
         <div className="image">
           <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
@@ -64,6 +72,7 @@ let find = cartProducts.find(e => e.id === product.product_id);
             <div className="text">
               Click for more product info & product reviews
             </div>
+
           </div>
         </div>
         <Card.Title>{product.product_name}</Card.Title>{" "}
@@ -72,7 +81,7 @@ let find = cartProducts.find(e => e.id === product.product_id);
         <Card.Text><i>{product.total_product_points} point(s) rewarded</i></Card.Text>
         <Card.Text><b>${product.price}</b></Card.Text>
         <Card.Text>{product.product_description}</Card.Text>
-              
+
         { find ? 
         <>
         <Form as={Row}>
@@ -89,10 +98,15 @@ let find = cartProducts.find(e => e.id === product.product_id);
         <Button variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
         }
       
+
       </Card.Body>
-            
+
       {/* Pass product via props to child Popup*/}
-      <PopUpView trigger={buttonPopup} setTriggerCb={removePopup} product={product}/> 
+      <PopUpView
+        trigger={buttonPopup}
+        setTriggerCb={removePopup}
+        product={product}
+      />
     </Card>
   );
 }

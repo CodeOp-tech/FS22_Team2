@@ -8,8 +8,8 @@ import Local from "../helpers/Local";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
-
 function Navbar(props) {
+
     const { cartProducts, getTotalCostCb, totalCost, addPurchasesCb } = useContext(CartContext);
 
     const [show, setShow] = useState(false); // initially not show modal
@@ -51,38 +51,33 @@ function Navbar(props) {
 // // use reduce method to get total amount of quantities to display in Cart button below
 const productsCount = cartProducts.reduce((sum, product) => sum + product.quantity, 0);
 
-    return (
-        <nav className="Navbar navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: 'teal' }}>
-            <div className="container-fluid">
-                <span className="navbar-brand font-weight-bold">
-                    <NavLink className="nav-link" to="/">
-                        MSB, Inc.
-                    </NavLink>
-                </span>
 
-                {/* Left-aligned stuff */}
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        {/* public pages: visible to anyone visiting page */}
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/shops">Online Store</NavLink>
-                        </li>
-                        
-                        {/* user pages: only visible to logged in users */}
-                        {
-                            props.user && (
-                                <li>
-                                    <NavLink className="nav-link" to="/customer_purchases">Purchase History</NavLink>
-                                </li>
-                            )
-                        }
-                        {/* 
+        {/* Left-aligned stuff */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            {/* public pages: visible to anyone visiting page */}
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/shops">
+                Online Store
+              </NavLink>
+            </li>
+
+            {/* user pages: only visible to logged in users */}
+            {props.user && (
+              <li>
+                <NavLink className="nav-link" to="/customer_purchases">
+                  Purchase History
+                </NavLink>
+              </li>
+            )}
+            {/* 
                             props.user && (
                                 <li className="nav-item">
                                     ADD USER DASH HERE
                                 </li>
                             )
                         */}
+
                         {
                             props.user && (
                                 <li className="nav-item">
@@ -91,24 +86,26 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                             )
                         }
 
-                        {/* seller pages: only visible to logged in users who have shops */}
-                        {/* NOTE FROM ZOE TO JESS: Changed "Shops: Purchase History" to "Sales History" */}
-                        {
-                            props.shop && (
-                                <li>
-                                    <NavLink className="nav-link" to="/seller">My Shop</NavLink>
-                                </li>
-                            )
-                        }
-                        {
-                            props.shop && (
-                                <li>
-                                    <NavLink className="nav-link" to="/shop_purchases">Sales History</NavLink>
-                                </li>
-                            )
-                        }
-                    </ul>
-                </div>
+
+            {/* seller pages: only visible to logged in users who have shops */}
+            {/* NOTE FROM ZOE TO JESS: Changed "Shops: Purchase History" to "Sales History" */}
+            {props.shop && (
+              <li>
+                <NavLink className="nav-link" to="/seller">
+                  My Shop
+                </NavLink>
+              </li>
+            )}
+            {props.shop && (
+              <li>
+                <NavLink className="nav-link" to="/shop_purchases">
+                  Sales History
+                </NavLink>
+              </li>
+            )}
+          </ul>
+        </div>
+
 
                
     
@@ -175,7 +172,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
             </div>
         </nav>
     );
+
 }
 
 export default Navbar;
-

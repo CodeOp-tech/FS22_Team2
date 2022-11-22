@@ -9,12 +9,10 @@ function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-
     getProducts();
   }, []);
 
   async function getProducts() {
-
     try {
       let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
@@ -31,6 +29,11 @@ function SellerDash(props) {
   async function addProduct(formData) {
     console.log(formData);
     let options = {
+      method: "POST",
+      //headers: { 'Content-Type': 'application/json' }, //remove?
+      body: formData, // just formData?
+    };
+
 
     method: 'POST',
     //headers: { 'Content-Type': 'application/json' }, //remove?
@@ -50,11 +53,12 @@ function SellerDash(props) {
     console.log(`Network error: ${err.message}`);
   }
 
+
   async function deleteProduct(id) {
     let options = {
-    method: 'DELETE'
-  
-  };
+      method: "DELETE",
+    };
+
 
   try {
     let response = await fetch(`/products/${id}`, options); 
@@ -68,6 +72,7 @@ function SellerDash(props) {
   } catch (err) {
     console.log(`Server error: ${err.message}`);
   }};
+
 
 
   //   async function editProduct(product) {
@@ -92,18 +97,17 @@ function SellerDash(props) {
   return (
     <div>
       <Container>
-
-      <Row>
-      <Col>
-      <SellerForm addProductCb={addProduct} />
-      </Col>
-      <Col>
-      <SellerList productsData={productsData}
-                  deleteProductCb={(id) => deleteProduct(id)}
-      /></Col>
-      
-      </Row>
-
+        <Row>
+          <Col>
+            <SellerForm addProductCb={addProduct} />
+          </Col>
+          <Col>
+            <SellerList
+              productsData={productsData}
+              deleteProductCb={(id) => deleteProduct(id)}
+            />
+          </Col>
+        </Row>
       </Container>
     </div>
   );
