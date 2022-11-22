@@ -65,7 +65,6 @@ router.get('/points/:user_id', async function(req, res, next) {
     
     // let { key : value } = sumData;
     // let sumVal = sumData.key;
-
     // if (sumData) {
     //   await db(
     //     `UPDATE users SET user_points='${sumData.SUM(purchased_items.purchase_points)}' WHERE user_id=${user_id}`

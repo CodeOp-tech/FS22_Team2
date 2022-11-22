@@ -87,7 +87,7 @@ router.get('/', async function(req, res,) {
   // ADD PRODUCT BASED OFF STORE ID
   // PROTECTED: user should only be able to edit their own shop info
   // NOTE: front-end fetch must pass shop_id through req.body below 
-  router.post("/:shop_id", ensureShopOwner, upload.single ('productimg'), async (req, res) => { 
+  router.post("/:shop_id", ensureShopOwner, upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
     let { shop_id } = req.params;
     let { product_name, price, product_image, product_quantity, product_description, recycled, no_fridge, fair_trade, local, organic } = req.body;
 
@@ -95,11 +95,12 @@ router.get('/', async function(req, res,) {
     let sql = `
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id, recycled, no_fridge, fair_trade, local, organic)
         VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id}, ${recycled}, ${no_fridge}, ${fair_trade}, ${local}, ${organic})
-    ;`
+    ;`// added the stripe id field- does it need to be added?
     
         await db(sql);  
         let result = await db(`SELECT * FROM products WHERE shop_id = ${shop_id}`); // shop_id taken from req.params
-        res.status(201)
+        // let products = result.data;
+        res.status(201) //.send(products); 
         sendAllFiles(res)// 201 status because indicates request has succeeded and lead to creation of resource
     } catch (err) {
         res.status(500).send({ error: err.message });

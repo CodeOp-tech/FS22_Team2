@@ -16,6 +16,7 @@ function ensureUserLoggedIn(req, res, next) {
 // Make sure user is accessing their own profile page 
 function ensureSameUser(req, res, next) {
     let token = _getToken(req);
+    console.log("token",token);
     try {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
@@ -34,12 +35,13 @@ function ensureSameUser(req, res, next) {
 // Make sure user is accessing their own shop
 function ensureShopOwner(req, res, next) {
     let token = _getToken(req);
+    console.log(token);
     try {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
         // if token is ok, check that shopId matches req params
-        // NOTE: do not need to check user_id, because payload shop_id in is already tied to user_id through token/login process
-        if (payload.shopId === req.params.shop_id) {
+
+        if (payload.shopId === Number(req.params.shop_id)) {
             // if okay, will proceed; else will throw error
             next();
         } else {
@@ -53,6 +55,7 @@ function ensureShopOwner(req, res, next) {
 // get JWT token if found, else return ''
 function _getToken(req) {
     // Return '' if header not found
+
     if ( !('authorization' in req.headers) ) {
         return '';
     }

@@ -35,8 +35,13 @@ function SellerDash(props) {
     // console.log(formData);
     let options = {
       method: "POST",
-      //headers: { 'Content-Type': 'application/json' }, //remove?
+      headers: {}, //remove?
       body: editProductData, // just formData?
+    }
+    // add token to headers if it exists in localStorage
+    let token = Local.getToken();
+    if(token) {
+        options.headers['Authorization'] = `Bearer ${token}`;
     }
     
     try {
