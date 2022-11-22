@@ -46,7 +46,9 @@ INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, websit
 VALUES
 ('Laser', 'Carrer del Dr. Dou, 2, 08001 Barcelona', 'Shop One is the Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopone.com', '12345678', 'shopone@one.com', 0, 0, 0, 0, 0, 41.38228037671287, 2.1693529361821065),
 ('Humana', 'C/ de Mallorca, 592, 08026 Barcelona','Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0, 0, 0, 0, 0, 41.41072516726371, 2.184927150041393),
-('Syra Cafe', 'Carrer de Londres, 100, 08036 Barcelona','Shop Three is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopthree.com', '87654322', 'shopthree@one.com', 0, 0, 0, 0, 0, 41.394116117800166, 2.1515154467882596);
+('Syra Cafe', 'Carrer de Londres, 100, 08036 Barcelona','Shop Three is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopthree.com', '87654322', 'shopthree@one.com', 0, 0, 0, 0, 0, 41.394116117800166, 2.1515154467882596),
+('Ametller', 'C. del Comte Borrell, 71, 08015 Barcelona', 'Shop Four is groceries', 'https://img.freepik.com/free-photo/fresh-fruit-stalls-san-miguel-market_53876-146829.jpg?size=626&ext=jpg&ga=GA1.2.1076301059.1668595321&semt=sph', 'https://shop.four.com','87654323','shopfour@one.com', 0, 0, 0, 0, 0, 41.396292556086514, 2.1660198146854333);
+
 
 CREATE TABLE `products` (
 	`product_id` INT NOT NULL AUTO_INCREMENT,

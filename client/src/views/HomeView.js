@@ -12,6 +12,7 @@ import AddressForm from "../components/AddressForm";
 import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
+import SearchMaps from "../components/SearchMaps";
 
 /*
 A 'place' is an obj like this:
@@ -26,8 +27,9 @@ function HomeView(props) {
   const [places, setPlace] = useState([]);
   //maps below: app stuff
   const [home, setHome] = useState([41.390205, 2.154007]); // center of map //useState 17
-  const [currView, setCurrView] = useState("homeV"); //useState 18
+  //const [currView, setCurrView] = useState("homeV"); //useState 18
   const [shops, setShops] = useState([]);
+  const [listShops, setListShops] = useState([]);
 
   //map app
   useEffect(() => {
@@ -72,8 +74,16 @@ function HomeView(props) {
   }, []);
 
   async function getAndSetShops() {
-    // let latLng = await getShops(); // returns [lat, lng]
-    //need fetch to get shops
+    //    let latLng = await getShops(); // returns [lat, lng]
+    //   //need fetch to get shops
+    //    setShops(latLng);
+  }
+  function searchMapCb(input) {
+    let listShops = shops.filter((p) => {
+      return p.product_name.toLowerCase().includes(input.toLowerCase());
+      // convert both product_name and input to lowercase so not case sensitive
+    });
+    setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
   }
 
   return (
@@ -114,7 +124,7 @@ function HomeView(props) {
           </div>
         </div>
 
-        <MarkerTable places={places} />
+        {/* <MarkerTable places={places} /> */}
       </div>
     </div>
   );
