@@ -97,9 +97,6 @@ function UserProfileView(props) {
             <h3>Create Your Shopping List </h3>
             <p>Enter the products you need and plan your route</p>
 
-            <div className="inputForMap">
-              <input type="text" placeholder="Search For ..." />
-            </div>
             <SearchMaps />
             {/* <ol>
               <li>

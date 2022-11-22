@@ -9,7 +9,7 @@ function SearchMaps(props) {
   function handleChange(event) {
     setInput(event.target.value);
     searchMapCb(event.target.value);
-    searchShopCb(event.target.value);
+    // searchShopCb(event.target.value);
   }
 
   return (
