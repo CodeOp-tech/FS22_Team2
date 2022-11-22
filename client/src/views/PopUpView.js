@@ -3,6 +3,7 @@ import "./PopUpView.css";
 import PopUpList from "../components/PopUpList";
 import ProductReviewView from "./ProductReviewView";
 
+
 function PopUpView(props) {
   const product = props.product; // received from parent ProductCard
 

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const path = require('path');
 const db = require("../model/helper");
-const { ensureSameUser } = require('../middleware/guards');
+const { ensureSameUser, ensureShopOwner } = require('../middleware/guards');
 const multer = require('multer')
 const fs = require('fs/promises');
 
@@ -66,7 +66,10 @@ router.get('/', async function(req, res,) {
   });
 
   // ADD PRODUCT BASED OFF STORE ID
-  router.post("/", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
+  // PROTECT: ensureShopOwner
+  // option 1: pass shop id in req params
+  // option 2: rewrite guard to take shopId in req body, pass shop id in req body
+  router.post("/", ensureShopOwner, upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
     console.log(req.body, '**************&*&(*()*')
     let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
 
@@ -107,7 +110,7 @@ router.get('/', async function(req, res,) {
   // });
 
   // EDIT PRODUCT BASED OFF PRODUCT ID (shop_id passed in req.body)
-  // NOTE: Protected b/c need to make sure shop owner is the only one who can edit products
+  // PROTECT: ensureShopOwner
   // QUESTION: Is this enough? Do we need to do any kind of check to make sure user is also shop owner?
   router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass shop_id through body
     let id  = req.params.product_id;
@@ -145,6 +148,7 @@ router.get('/', async function(req, res,) {
   });
 
   // DELETE PRODUCT BASED OFF PRODUCT ID
+  // PROTECT: ensureShopOwner
   router.delete("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id and shop_id (can be stored in Local.js?)
     let id = req.params.product_id;
     // need shop_id to display only products in said shop, once delete is executed

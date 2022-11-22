@@ -1,5 +1,5 @@
 import React from "react";
-import "./PopUpList.css";
+import "./PopupList.css";
 
 function PopUpList(props) {
     const product = props.product; // received from parent PopUpView

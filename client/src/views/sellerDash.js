@@ -44,11 +44,11 @@ function SellerDash(props) {
     setProductsData(result);
     getProducts();
     } else {
-    console.log(`Server error: ${response.status} ${response.statusText}`);
+      console.log(`Server error: ${response.status} ${response.statusText}`);
     }
   } catch (err) {
-    console.log(`Server error: ${err.message}`);
-  }}
+    console.log(`Network error: ${err.message}`);
+  }
 
   async function deleteProduct(id) {
     let options = {
@@ -107,6 +107,7 @@ function SellerDash(props) {
       </Container>
     </div>
   );
+}
 }
 
 export default SellerDash;
