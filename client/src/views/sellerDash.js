@@ -3,6 +3,7 @@ import "./SellerDash.css";
 import SellerList from "../components/SellerList";
 import SellerForm from "../components/SellerForm";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
+import Local from "../helpers/Local";
 
 
 function SellerDash(props) {
@@ -14,9 +15,9 @@ function SellerDash(props) {
   }, []);
 
   async function getProducts() {
-
+    
     try {
-      let response = await fetch("/products/1");
+      let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
         let data = await response.json();
         setProductsData(data);
@@ -28,17 +29,17 @@ function SellerDash(props) {
     }
   }
 
-  async function addProduct(formData) {
-    console.log(formData);
+  async function addProduct(editProductData) {
+    // console.log(formData);
     let options = {
 
     method: 'POST',
     //headers: { 'Content-Type': 'application/json' }, //remove?
-    body: formData // just formData?
+    body: editProductData // just formData?
   };
     
   try {
-    let response = await fetch('/products', options); 
+    let response = await fetch(`/products/${Local.getShopId()}`, options); 
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
@@ -70,13 +71,14 @@ function SellerDash(props) {
 
 
     async function editProduct(id, formData) {
-      console.log('testing', formData, id)
       let options = {
       method: 'PUT',
       // headers: { 'Content-Type': 'application/json' },
       body: formData
+      // headers: { 'Content-Type': 'application/json' },
+      // body: JSON.stringify(formData)
   };
-
+      console.log(formData)
   try {
       let response = await fetch(`/products/${id}`, options);
       if (response.ok) {
@@ -101,6 +103,7 @@ function SellerDash(props) {
                   deleteProductCb={(id) => deleteProduct(id)}
                   editProductCb={(id, formData) =>editProduct(id, formData)}//id sent to the sellerDash (parent of sellerlist)
       /></Col> 
+
       
       </Row>
     

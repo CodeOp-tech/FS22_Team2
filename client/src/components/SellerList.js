@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import EdiText from 'react-editext'
 import { Card, Col, Row, Button, ButtonToolbar } from 'react-bootstrap';
 import EditProduct from './EditProduct';
+import Local from '../helpers/Local';
 
 
 function SellerList(props) {

@@ -1,43 +1,41 @@
 import React, {useState} from 'react'
 import { Form, Col, Row, Button, Modal } from 'react-bootstrap';
 import './SellerForm.css'
+import Local from '../helpers/Local';
 
-// const EMPTY_FORM ={
-//         product_name:'',
-//         product_image:'',
-//         price:'',
-//         product_description:'',
-//         product_quantity:'',
-//         recycled: '',
-//         no_fridge: '',
-//         fair_trade: '',
-//         local: '',
-//         organic: ''
-//     }
+
 
 function EditProduct(props) {
     const [editProductData, setEditProductData] = useState(props.editProductItem);
     const [editFile, setEditFile] = useState(null)
     
     function handleEditSubmit (e) {
-        e.preventDefault();
+      e.preventDefault();
     
-        let formData = new FormData();
+      let formData = new FormData();
         formData.append('product_name', editProductData.product_name);
-        formData.append('productimg', editFile, editFile.name);
+        // formData.append('productimg', editFile, editFile.name)
         formData.append('price', editProductData.price);
         formData.append('product_description', editProductData.product_description);
         formData.append('product_quantity', editProductData.product_quantity);
+        formData.append('shop_id', editProductData.shop_id);
+      
+        console.log('this is a test', editProductData, formData, editProductData.product_id);
+        console.log('check formData', formData)
+        // if(setEditFile){
+        //   ;
+        // }else{
+        //   setEditFile() // needs an if statement to check if the file exists 
+        // }
 
-        console.log('this is a test', formData, editProductData.product_id)
-
-        props.editProductCb(editProductData.product_id, formData);
+        props.editProductCb( editProductData.product_id, formData );
+        // props.editProductCb( editProductData.product_id, editProductData );
 
     }
     
       function handleEditFileChange(e) {
         console.log('upload', e.target.files[0])
-            setEditFile(e.target.files[0]); //is the products refering to products.js routes file?
+            setEditFile(e.target.files[0]); 
         }
         
           function handleEditChange (e){
@@ -53,6 +51,17 @@ function EditProduct(props) {
                 ...data, [e.target.name]:checkbox
             }));
           }
+          // function handleEditChangeCheck(e) {
+          //   if (e.target.checked) {
+          //     setEditProductData((data) => ({
+          //           ...data, [e.target.name]:1
+          //       }));
+          //   } else {
+          //     setEditProductData((data) => ({
+          //       ...data, [e.target.name]:0
+          //     }));
+          //   }
+          // }
 
     // if(!editProductData){
     //   return <h2>loading</h2>
@@ -124,7 +133,7 @@ function EditProduct(props) {
         </Form.Group>
         </Col>
         </Row>
-        <Form.Group className='mb-3'>
+        {/* <Form.Group className='mb-3'>
         <Form.Label className='product-image'>
             Image</Form.Label>
             <Form.Control
@@ -132,7 +141,7 @@ function EditProduct(props) {
              name='product_image'
              onChange={handleEditFileChange}
              />
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group className='mb-3'>
             This product is...
             <Form.Check
@@ -176,13 +185,11 @@ function EditProduct(props) {
              />
 
         </Form.Group>
-        
+        <Button type="submit" >Update</Button>
     </Form>
 
       </Modal.Body>
       <Modal.Footer>
-        <Button type="submit" onClick={props.editProductCb}>Update</Button>
-        <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
      </div>
