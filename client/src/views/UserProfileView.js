@@ -12,8 +12,8 @@ import SearchMaps from "../components/SearchMaps";
 function UserProfileView(props) {
   // const [places, setPlace] = useState([]);
   //maps below: app stuff
-  const [home, setHome] = useState([41.390205, 2.154007]); // center of map //useState 17
-  const [currView, setCurrView] = useState("homeV"); //useState 18
+  const [home, setHome] = useState([41.390205, 2.154007]); // center of map
+  const [currView, setCurrView] = useState("homeV");
   const [shops, setShops] = useState([]);
   //user stuff:
   const [user, setUser] = useState(null);

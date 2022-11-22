@@ -6,9 +6,12 @@ const db = require("../model/helper.js");
 // GET all shops
 // NOT PROTECTED
 router.get("/", async function (req, res, next) {
-  let sql = `SELECT shops.* , products.product_name 
-      FROM shops
-            LEFT JOIN products ON shops.shop_id = products.shop_id `;
+  let sql = `SELECT DISTINCT shops.* WHERE products.product_name IN ( "scarf", "sponge")`;
+  // FROM shops
+  //      LEFT JOIN products ON shops.shop_id = products.shop_id `;
+  //WHERE products.product_name IN ( "scarf", "sponge")
+
+  //  fetch from client (this is the filter) Get /shops?product=scarf,sponge
 
   try {
     let results = await db(sql);

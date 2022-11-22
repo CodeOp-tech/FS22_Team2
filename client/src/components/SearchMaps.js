@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import ProductContext from "../ProductContext";
+//import ProductContext from "../ProductContext";
 
 function SearchMaps(props) {
   const [input, setInput] = useState("");

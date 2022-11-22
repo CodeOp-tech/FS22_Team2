@@ -12,7 +12,6 @@ import AddressForm from "../components/AddressForm";
 import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
-import SearchMaps from "../components/SearchMaps";
 
 /*
 A 'place' is an obj like this:
@@ -78,13 +77,20 @@ function HomeView(props) {
     //   //need fetch to get shops
     //    setShops(latLng);
   }
-  function searchMapCb(input) {
-    let listShops = shops.filter((p) => {
-      return p.product_name.toLowerCase().includes(input.toLowerCase());
-      // convert both product_name and input to lowercase so not case sensitive
-    });
-    setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
-  }
+
+  // function searchMapCb(input) {
+  //   let listShops = shops.filter((p) => {
+  //     return p.product_name.toLowerCase().includes(input.toLowerCase());
+  //     // convert both product_name and input to lowercase so not case sensitive
+  //   });
+  //   setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
+  // }
+
+  useEffect(() => {
+    fetch("/shops?product=");
+  });
+
+  //Get /shops?product=scarf,sponge
 
   return (
     <div>
