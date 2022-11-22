@@ -87,16 +87,16 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
 // });
 
 
-// PUT edit shop info - works in Postman!
+// PUT edit shop info
 // PROTECTED - user should only be able to enter own shop
 router.put("/edit/:shop_id", ensureShopOwner, async (req, res) => { 
     let { shop_id }  = req.params;
     let { shopData: {shop_name, shop_description, shop_image, shop_address,  website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz} } = req.body;
-    let sql = `SELECT * FROM shops WHERE shop_id = ${Number(shop_id)};`;
+    // let sql = `SELECT * FROM shops WHERE shop_id = ${Number(shop_id)};`;
 
     try {
-        let shopResult= await db(sql);
-        let shop = shopResult.data[0];
+        // let shopResult= await db(sql);
+        // let shop = shopResult.data[0];
       if (shop_name) {
         await db(
           `UPDATE shops SET shop_name='${shop_name}' WHERE shop_id=${shop_id}`

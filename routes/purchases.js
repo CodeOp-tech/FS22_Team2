@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
+const { ensureSameUser, ensureShopOwner } = require('../middleware/guards');
 
 // GET ALL PURCHASES REGARDLESS OF USERS
 router.get('/', async function(req, res,) { 
@@ -15,7 +16,9 @@ router.get('/', async function(req, res,) {
   });
 
 // GET PURCHASES BASED OFF USER ID
-  router.get('/:user_id', async function(req, res,) { // NOTE: front-end fetch must pass user_id (can be stored in Local.js?)
+// TRIED TO PROTECT, RETURNED UNAUTHORIZED - REVISIT
+  router.get('/:user_id', ensureSameUser, async function(req, res,) { 
+    // NOTE: front-end fetch must pass user_id (can be stored in Local.js?)
 // which is passed from front end fetch at...
     let id = req.params.user_id;
 

@@ -20,7 +20,7 @@ function ensureSameUser(req, res, next) {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
         // if token is ok, check that user id matches
-        if (payload.userId === Number(req.params.userId)) {
+        if (payload.userId === Number(req.params.user_id)) {
         // if okay, will proceed; else will throw error
             next();
         } else {

@@ -85,8 +85,7 @@ router.get('/', async function(req, res,) {
   });
 
   // ADD PRODUCT BASED OFF STORE ID
-  // SHOULD BE PROTECTED: user should only be able to edit their own shop info
-  // QUESTION: when guarded with ensureShopOwner, throws 401 unauthorized error even though shop_id passing correctly, and in local storage correctly. Why??ß
+  // PROTECTED: user should only be able to edit their own shop info
   router.post("/:shop_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
     console.log(req.body, '**************&*&(*()*')
     let { shop_id } = req.params;
@@ -128,7 +127,6 @@ router.get('/', async function(req, res,) {
 
   // EDIT PRODUCT BASED OFF PRODUCT ID (shop_id passed in req.body)
   // PROTECT: ensureShopOwner
-  // QUESTION: Is this enough? Do we need to do any kind of check to make sure user is also shop owner?
   router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
     let id  = req.params.product_id;
     let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
