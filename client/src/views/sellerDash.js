@@ -58,13 +58,13 @@ function SellerDash(props) {
       }
   }
 
-  async function deleteProduct(id) {
+  async function deleteProduct(shop_id, product_id) {
     let options = {
       method: "DELETE",
     };
 
   try {
-    let response = await fetch(`/products/${id}`, options); 
+    let response = await fetch(`/products/${shop_id}/${product_id}`, options); 
     if (response.ok) {
       let result = await response.json();
       setProductsData(result);
