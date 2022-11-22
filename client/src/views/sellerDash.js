@@ -3,6 +3,7 @@ import "./SellerDash.css";
 import SellerList from "../components/SellerList";
 import SellerForm from "../components/SellerForm";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
+import Local from "../helpers/Local";
 
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
@@ -13,7 +14,7 @@ function SellerDash(props) {
 
   async function getProducts() {
     try {
-      let response = await fetch("/products/1");
+      let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
         let data = await response.json();
         setProductsData(data);
@@ -33,37 +34,46 @@ function SellerDash(props) {
       body: formData, // just formData?
     };
 
-    try {
-      let response = await fetch("/products", options);
-      if (response.ok) {
-        let result = await response.json();
-        setProductsData(result);
-        getProducts();
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Server error: ${err.message}`);
+
+    method: 'POST',
+    //headers: { 'Content-Type': 'application/json' }, //remove?
+    body: formData // just formData?
+  };
+    
+  try {
+    let response = await fetch('/products', options); 
+    if (response.ok) {
+    let result = await response.json();
+    setProductsData(result);
+    getProducts();
+    } else {
+      console.log(`Server error: ${response.status} ${response.statusText}`);
     }
+  } catch (err) {
+    console.log(`Network error: ${err.message}`);
   }
+
+
   async function deleteProduct(id) {
     let options = {
       method: "DELETE",
     };
 
-    try {
-      let response = await fetch(`/products/${id}`, options);
-      if (response.ok) {
-        let result = await response.json();
-        setProductsData(result);
-        getProducts(); //split second loads all products
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Server error: ${err.message}`);
-    }
+
+  try {
+    let response = await fetch(`/products/${id}`, options); 
+    if (response.ok) {
+    let result = await response.json();
+    setProductsData(result);
+    getProducts(); //split second loads all products
+  } else {
+    console.log(`Server error: ${response.status} ${response.statusText}`);
   }
+  } catch (err) {
+    console.log(`Server error: ${err.message}`);
+  }};
+
+
 
   //   async function editProduct(product) {
   //     let options = {
@@ -101,6 +111,7 @@ function SellerDash(props) {
       </Container>
     </div>
   );
+}
 }
 
 export default SellerDash;

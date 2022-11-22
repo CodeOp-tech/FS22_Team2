@@ -2,21 +2,32 @@
 
 import React, { useState, useContext } from "react";
 import { Row, Col } from "react-bootstrap";
-import NavbarShop from '../components/NavbarShop';
 import ProductCard from "../components/ProductCard";
 import Search from "../components/Search";
+import Sort from "../components/Sort";
 import ProductContext from "../ProductContext";
+import NavbarShop from "../components/NavbarShop";
 
 function ShopView(props) {
   const { searched } = useContext(ProductContext);
+  const [filtered, setFiltered] = useState([]);
+
+  
 
   // TO-DO NOTE: Need to be able to pass shop_id somehow to parent App (for now, hardcoded in App)
 
   return (
-    <>
-    <NavbarShop></NavbarShop>
+    <div className="ShopView container">
       <h1>Welcome to the store!</h1>
-      <Search />
+      <div className="row">
+        <div className="col-sm-2">
+          <Search />
+        </div>
+        <div className="col-sm-2">
+          <Sort />
+        </div>
+      </div>
+      
       <Row xs={1} md={3} className="g-4">
         {" "}
         {/* On an extra small screen, only show 1 column but on medium screen show 3 columns */}
@@ -26,7 +37,7 @@ function ShopView(props) {
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   );
 }
 

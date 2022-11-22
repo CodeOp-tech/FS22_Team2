@@ -78,6 +78,7 @@ function UserRegForm(props) {
                             className="form-control"
                             value={password}
                             onChange={handleChange}
+                            
                         />
                     </Form.Group>
 

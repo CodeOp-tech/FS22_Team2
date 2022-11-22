@@ -5,6 +5,7 @@
   overflow: hidden;
   background-color: #f0efed;
   margin: 0%;
+
   /* background-image: url("/Users/meganwalsh/Desktop/CodeOp_Activities/GROUPTWO/FS22_Team2/client/src/DC/MinBack.jpg");
 } */
 }
@@ -24,4 +25,6 @@
 } */
 .SliderPics img {
   border-radius: 30%;
+
+  
 }

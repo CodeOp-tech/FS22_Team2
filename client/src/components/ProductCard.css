@@ -1,5 +1,6 @@
 .image {
     position: relative;
+    cursor: pointer;
 }
 
 .image .img {
