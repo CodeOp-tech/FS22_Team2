@@ -91,6 +91,8 @@ function UserProfileView(props) {
         Email: {user.userEmail}
       </div>
 
+      <Map />
+      
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
@@ -122,6 +124,7 @@ function UserProfileView(props) {
 
         {/* <MarkerTable places={places} /> */}
       </div>
+
     </div>
   );
 }

@@ -1,0 +1,21 @@
+.ReviewList {
+    margin-bottom: 2em;
+}
+.ReviewBox {
+    box-sizing: border-box;
+    border: 0.2px solid;
+    border-color: black;
+    border-radius: 1em;
+    padding-top: 10px;
+    margin: 20px;
+    width: 850px;
+    margin-left: 0;
+}
+.ReviewList li {
+    list-style-type: none;
+}
+
+.ReviewAggregate {
+    margin-left: 10px;
+}
+

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./SellerDash.css";
-import SellerList from "../components/SellerList";
-import SellerForm from "../components/SellerForm";
+import SellerList from "../components/SellerList.js";
+import SellerForm from "../components/SellerForm.js";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
+import ShopEditForm from "../components/ShopEditForm";
+import Api from "../helpers/Api.js";
+import Local from "../helpers/Local";
+
 
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
@@ -11,9 +15,10 @@ function SellerDash(props) {
     getProducts();
   }, []);
 
+  // Get all product info for this shop by id and save to productsData state
   async function getProducts() {
     try {
-      let response = await fetch("/products/1");
+      let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
         let data = await response.json();
         setProductsData(data);
@@ -25,82 +30,102 @@ function SellerDash(props) {
     }
   }
 
-  async function addProduct(formData) {
-    console.log(formData);
+  async function addProduct(editProductData) {
+    // console.log(formData);
     let options = {
       method: "POST",
       //headers: { 'Content-Type': 'application/json' }, //remove?
       body: formData, // just formData?
     };
 
-    try {
-      let response = await fetch("/products", options);
-      if (response.ok) {
-        let result = await response.json();
-        setProductsData(result);
-        getProducts();
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
+
+    method: 'POST',
+    //headers: { 'Content-Type': 'application/json' }, //remove?
+    body: editProductData // just formData?
+  };
+    
+  try {
+    let response = await fetch(`/products/${Local.getShopId()}`, options); 
+    if (response.ok) {
+    let result = await response.json();
+    setProductsData(result);
+    getProducts(); //note to ask about the reload
+    } else {
+      console.log(`Server error: ${response.status} ${response.statusText}`);
+    }
     } catch (err) {
-      console.log(`Server error: ${err.message}`);
+      console.log(`Network error: ${err.message}`);
     }
   }
+
   async function deleteProduct(id) {
     let options = {
       method: "DELETE",
     };
 
-    try {
+  try {
+    let response = await fetch(`/products/${id}`, options); 
+    if (response.ok) {
+      let result = await response.json();
+      setProductsData(result);
+      getProducts(); //split second loads all products
+    } else {
+      console.log(`Server error: ${response.status} ${response.statusText}`);
+    }
+  } catch (err) {
+    console.log(`Server error: ${err.message}`);
+  }};
+
+    async function editProduct(id, formData) {
+      let options = {
+      method: 'PUT',
+      // headers: { 'Content-Type': 'application/json' },
+      body: formData
+      // headers: { 'Content-Type': 'application/json' },
+      // body: JSON.stringify(formData)
+  };
+      console.log(formData)
+  try {
       let response = await fetch(`/products/${id}`, options);
       if (response.ok) {
-        let result = await response.json();
-        setProductsData(result);
-        getProducts(); //split second loads all products
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Server error: ${err.message}`);
-    }
+      let result = await response.json();
+      setProductsData(result);
+  } else {
+      console.log(`Server error: ${response.status} ${response.statusText}`);
   }
-
-  //   async function editProduct(product) {
-  //     let options = {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(product)
-  // };
-
-  // try {
-  //     let response = await fetch('/products', options);
-  //     if (response.ok) {
-  //     let result = await response.json();
-  //     setProductData(result);
-  // } else {
-  //     console.log(`Server error: ${response.status} ${response.statusText}`);
-  // }
-  // } catch (err) {
-  //     console.log(`Server error: ${err.message}`);
-  // }};
+  } catch (err) {
+      console.log(`Server error: ${err.message}`);
+  }};
 
   return (
     <div>
       <Container>
-        <Row>
-          <Col>
-            <SellerForm addProductCb={addProduct} />
-          </Col>
-          <Col>
-            <SellerList
-              productsData={productsData}
-              deleteProductCb={(id) => deleteProduct(id)}
-            />
-          </Col>
-        </Row>
-      </Container>
+
+      <Row>
+        <ShopEditForm 
+          shop = {props.shop}
+          editShopCb={props.editShopCb}
+        />
+      </Row>
+
+      <Row>
+      <Col>
+      <SellerForm addProductCb={addProduct} />
+      </Col>
+      <Col>
+      <SellerList productsData={productsData}
+                  deleteProductCb={(id) => deleteProduct(id)}
+                  editProductCb={(id, formData) =>editProduct(id, formData)}//id sent to the sellerDash (parent of sellerlist)
+      /></Col> 
+      
+      </Row>
+    
+      </Container>  
+    
+
     </div>
   );
 }
+
 
 export default SellerDash;
