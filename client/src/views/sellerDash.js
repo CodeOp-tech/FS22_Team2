@@ -76,7 +76,7 @@ function SellerDash(props) {
     console.log(`Server error: ${err.message}`);
   }};
 
-    async function editProduct(id, formData) {
+    async function editProduct(shop_id, product_id, formData) {
       let options = {
       method: 'PUT',
       // headers: { 'Content-Type': 'application/json' },
@@ -86,7 +86,7 @@ function SellerDash(props) {
   };
       console.log(formData)
   try {
-      let response = await fetch(`/products/${id}`, options);
+      let response = await fetch(`/products/${shop_id}/${product_id}`, options);
       if (response.ok) {
       let result = await response.json();
       setProductsData(result);

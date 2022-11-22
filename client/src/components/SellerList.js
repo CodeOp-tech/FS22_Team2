@@ -21,9 +21,9 @@ function handleShow(id) {
   setShow(true);
  } //to show Modal
 
- function handleEditSubmit(id, formData){
+ function handleEditSubmit(shop_id, product_id, formData){
  setShow(false);
- props.editProductCb(id, formData)
+ props.editProductCb(shop_id, product_id, formData)
  }
 
 return (
@@ -93,7 +93,7 @@ return (
         <EditProduct     show={show}
                          onHide={handleClose}
                          editProductItem={editProductItem}
-                         editProductCb={(id, formData)=>handleEditSubmit(id, formData)} 
+                         editProductCb={(shop_id, product_id, formData)=>handleEditSubmit(shop_id, product_id, formData)} 
                         //  product_id={p.product_id}
                         //  product_name={p.product_name}
                 />

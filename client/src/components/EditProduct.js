@@ -28,7 +28,7 @@ function EditProduct(props) {
         //   setEditFile() // needs an if statement to check if the file exists 
         // }
 
-        props.editProductCb( editProductData.product_id, formData );
+        props.editProductCb( Local.getShopId(), editProductData.product_id, formData );
         // props.editProductCb( editProductData.product_id, editProductData );
 
     }

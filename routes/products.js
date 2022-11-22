@@ -127,35 +127,37 @@ router.get('/', async function(req, res,) {
 
   // EDIT PRODUCT BASED OFF PRODUCT ID (shop_id passed in req.body)
   // PROTECT: ensureShopOwner
-  router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
-    let id  = req.params.product_id;
-    let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
+   // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
+  router.put("/:shop_id/:product_id", ensureShopOwner, async (req, res) => {
+    let { product_id }  = req.params;
+    let { shop_id }  = req.params;
+    let { product_name, price, product_image, product_quantity, product_description } = req.body;
    
     try {
       if (product_name) {
         await db(
-          `UPDATE products SET product_name='${product_name}' WHERE product_id=${id}` // id = product_id
+          `UPDATE products SET product_name='${product_name}' WHERE product_id=${product_id}` // id = product_id
         );
       }
   
       if (price) {
-        await db(`UPDATE products SET price='${price}' WHERE product_id=${id}`);
+        await db(`UPDATE products SET price='${price}' WHERE product_id=${product_id}`);
       }
   
       if (product_image) {
         await db(
-          `UPDATE products SET product_image='${product_image}' WHERE product_id=${id}`
+          `UPDATE products SET product_image='${product_image}' WHERE product_id=${product_id}`
         );
       }
   
       if (product_quantity) {
-        await db(`UPDATE products SET product_quantity='${product_quantity}' WHERE product_id=${id}`);
+        await db(`UPDATE products SET product_quantity='${product_quantity}' WHERE product_id=${product_id}`);
       }
 
       if (product_description) {
-        await db(`UPDATE products SET product_description='${product_description}' WHERE product_id=${id}`);
+        await db(`UPDATE products SET product_description='${product_description}' WHERE product_id=${product_id}`);
       }
-
+      let results = await db(`SELECT * FROM products WHERE product_id = ${product_id}`);
       res.status(201).send(results.data); //According the MDN Web Docs, PUT request method creates a new resource/replaces a representation fo the target resource with the request paylod
     } catch (err) {
       res.status(500).send({ error: err.message });

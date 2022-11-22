@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
+const { ensureSameUser, ensureShopOwner } = require("../middleware/guards");
 
 // NOTE FROM JESS: JSON Helper function NOT USED SO FAR because need each as separate objects to map in Purchase View
 /*****Join to JSON Helper function*****/
@@ -41,10 +42,8 @@ router.get('/', async function(req, res,) {
   });
 
 // GET PURCHASED_ITEMS BASED OFF USER ID (USER PURCHASE HISTORY)
-  router.get('/:user_id', async function(req, res,) { // NOTE: front-end fetch must pass user_id (can be stored in Local.js?)
-// which is passed from front end fetch at...
+  router.get('/:user_id', ensureSameUser, async function(req, res,) { 
     let id = req.params.user_id;
-
     // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
     // NOTE: 
     try {
@@ -64,7 +63,7 @@ router.get('/', async function(req, res,) {
   });
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
-  router.get('/shops/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
+  router.get('/shops/:shop_id', ensureShopOwner, async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
     // which is passed from front end fetch at...
         let id = req.params.shop_id;
     
