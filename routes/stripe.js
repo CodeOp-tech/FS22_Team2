@@ -44,6 +44,8 @@ router.post('/checkout', async function(req, res,) {
         cancel_url: "http://localhost:3000/cancel" // if checkout fails
     })
 
+    console.log("***SESSION**********", session);
+
     // now have access to URL for user to checkout
     res.send(JSON.stringify({ // send object to front end, with one property
         url: session.url // allows us to show user session that Stripe created for them

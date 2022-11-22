@@ -21,7 +21,9 @@ const upload = multer({ storage });
 
 async function sendAllFiles(res) {
   try {
-      let results = await db('SELECT * FROM products');
+      let results = await db(`SELECT products.*, shops.shop_name
+      FROM products
+      LEFT JOIN shops on products.shop_id = shops.shop_id`);
       // Add 'url' property for each file
       let withUrls = results.data.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`}));
       console.log(withUrls, '*****&*&*&*')
@@ -77,7 +79,7 @@ router.get('/', async function(req, res,) {
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id)
         VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', 1)
     ;`// URGENT NOTE: Need to pass shop_id
-    // added the strip id field- does it need to be added?
+    // URGENT NOTE: Need to insert product enviro parameters
     
         await db(sql);  
         //let result = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // shop_id taken from req.body
@@ -110,7 +112,7 @@ router.get('/', async function(req, res,) {
   // EDIT PRODUCT BASED OFF PRODUCT ID (shop_id passed in req.body)
   // PROTECT: ensureShopOwner
   // QUESTION: Is this enough? Do we need to do any kind of check to make sure user is also shop owner?
-  router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
+  router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass shop_id through body
     let id  = req.params.product_id;
     let { product_name, price, product_image, product_quantity, product_description, shop_id } = req.body;
    

@@ -14,6 +14,7 @@ var productsRouter = require("./routes/products");
 var stripeRouter = require("./routes/stripe");
 var purchasesRouter = require("./routes/purchases");
 var purchaseditemsRouter = require("./routes/purchaseditems");
+var reviewsRouter = require("./routes/reviews");
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use("/products", productsRouter);
 app.use("/stripe", stripeRouter);
 app.use("/purchases", purchasesRouter);
 app.use("/purchaseditems", purchaseditemsRouter);
+app.use("/reviews", reviewsRouter)
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
