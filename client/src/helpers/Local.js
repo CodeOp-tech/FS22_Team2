@@ -1,4 +1,5 @@
 // localStorage implementation
+// every browser has, and where all cookies/storage are saved (Application -> Local Storage)
 
 class Local {
     /****** USER INFO *****/
@@ -66,7 +67,40 @@ class Local {
         return shop.shop_id;
     }
 
+    /****** CART *****/
+    // get total amount in cart, save total
+    static saveTotal(amount) {
+        localStorage.setItem('amount', amount);
+    }
 
+    // get total that is stored in Local Storage
+    static getTotal() {
+        let totalAmountjson = localStorage.getItem('amount');
+        if (!totalAmountjson) {
+            return '';
+        }
+
+        let totalAmount = JSON.parse(totalAmountjson);
+        return totalAmount; // since only one parameter (and not an object being stored)
+    }
+
+    // save array of cart products
+    static saveCartProducts(cartProducts) {
+        // need to stringify the cartProducts array
+        localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+    }
+
+    // get array of cartProducts stored in Local Storage
+    static getCartProducts() {
+        // default empty array if getItem returns null because no cartProducts stored
+        let cartProductsjson = localStorage.getItem('cartProducts' || '[]');
+        if (!cartProductsjson) {
+            return '';
+        }
+
+        let cartProducts = JSON.parse(cartProductsjson);
+        return cartProducts; // since only one parameter (and not an object being stored)
+    }
 }
 
 export default Local;

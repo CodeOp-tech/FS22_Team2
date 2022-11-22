@@ -1,11 +1,11 @@
 // Video tutorial from: https://www.youtube.com/watch?v=_8M-YVY76O8&ab_channel=TraversyMedia
-// NOTE: CartProductModal is a child/lives within the NavbarShop component
+// NOTE: CartProductModal is a child/lives within the Navbar component
 
 import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import CartContext from "../CartContext";
 
-function CartProductModal(props) { // props received from parent NavbarShop
+function CartProductModal(props) { // props received from parent Navbar
 
     // NOTE: Only deleteFromCartCb needed in this context
     const { deleteFromCartCb } = useContext(CartContext);

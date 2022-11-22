@@ -26,7 +26,7 @@ function BuyerPurchaseView() {
                 purchasedItemsByUser.map((p, idx) => (
                      <tr key={p.id}>
                         <th scope="row">{idx + 1}</th>
-                        <td>{(p.purchase_date)}</td>
+                        <td>{p.purchase_date.slice(0,10)} {p.purchase_date.slice(11,19)}</td>
                         <td>{p.shop_name}</td>
                         <td>{p.product_name}</td>
                         <td>{p.price.toFixed(2)}</td>
