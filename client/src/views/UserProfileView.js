@@ -90,8 +90,6 @@ function UserProfileView(props) {
         <br />
         Email: {user.userEmail}
       </div>
-
-      <Map />
       
       <div className="Demo1View">
         <div className="row mb-5">

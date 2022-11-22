@@ -25,15 +25,8 @@ function PopUpView(props) {
             <div className="row">
             <ProductReviewView className="popup-productreview" product={product} /> {/* Pass child ProductRevew product as a prop*/}
             </div>
-
-        </div>
-
-        <div className="row">
-          <ProductReview className="popup-productreview" product={product} />{" "}
-          {/* Pass child ProductRevew product as a prop*/}
         </div>
       </div>
-    </div>
   ) : (
     ""
   );

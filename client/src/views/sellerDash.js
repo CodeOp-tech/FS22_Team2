@@ -30,32 +30,27 @@ function SellerDash(props) {
     }
   }
 
+  // URGENT: Zoe commented out temporarily b/c threw error: SyntaxError: /Users/Zoe/Desktop/CodeOp/codeop-activities/Group-Project/FS22_Team2/client/src/views/SellerDash.js: Unexpected reserved word 'await'. (43:19)
   async function addProduct(editProductData) {
     // console.log(formData);
     let options = {
       method: "POST",
       //headers: { 'Content-Type': 'application/json' }, //remove?
-      body: formData, // just formData?
-    };
-
-
-    method: 'POST',
-    //headers: { 'Content-Type': 'application/json' }, //remove?
-    body: editProductData // just formData?
-  };
+      body: editProductData, // just formData?
+    }
     
-  try {
-    let response = await fetch(`/products/${Local.getShopId()}`, options); 
-    if (response.ok) {
-    let result = await response.json();
-    setProductsData(result);
-    getProducts(); //note to ask about the reload
-    } else {
-      console.log(`Server error: ${response.status} ${response.statusText}`);
-    }
+    try {
+      let response = await fetch(`/products/${Local.getShopId()}`, options); 
+      if (response.ok) {
+      let result = await response.json();
+      setProductsData(result);
+      getProducts(); //note to ask about the reload
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
     } catch (err) {
-      console.log(`Network error: ${err.message}`);
-    }
+        console.log(`Network error: ${err.message}`);
+      }
   }
 
   async function deleteProduct(id) {
