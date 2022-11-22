@@ -146,6 +146,24 @@ class Api {
         return await this._doFetch(`/purchaseditems/shops/${shop_id}`);
     }
 
+    /******* REVIEWS FETCHES *******/
+
+    // GET all reviews
+    // static async getReviews() {
+    //     return await this._doFetch(`/reviews`);
+    // }
+
+    // GET reviews by product
+    static async getProductReviews(product_id) {
+        return await this._doFetch(`/reviews/${product_id}`);
+    }
+
+    // ADD/POST reviews
+    static async addReview(newReview, product_id, user_id) {
+        let body = {newReview, product_id, user_id };        
+
+        return await this._doFetch(`/reviews`, 'POST', body);
+    }
 
 }
 

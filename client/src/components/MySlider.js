@@ -59,21 +59,21 @@ export default function MySlider() {
             },
           ]}
         >
-          <div>
+          <div className="SliderPics">
             <img
               src={bottle}
               alt=""
               style={{ width: " 60", height: "40vh", padding: "20px" }}
             />
           </div>
-          <div>
+          <div className="SliderPics">
             <img
               src={box}
               alt=""
               style={{ width: " 60", height: "40vh", padding: "20px" }}
             />
           </div>
-          <div>
+          <div className="SliderPics">
             <img
               src={cam}
               alt=""
@@ -81,7 +81,7 @@ export default function MySlider() {
             />
           </div>
 
-          <div>
+          <div className="SliderPics">
             <img
               src={toast}
               alt=""

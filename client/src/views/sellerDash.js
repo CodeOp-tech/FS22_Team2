@@ -10,12 +10,11 @@ function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-
     getProducts();
   }, []);
 
   async function getProducts() {
-    
+
     try {
       let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
@@ -32,6 +31,11 @@ function SellerDash(props) {
   async function addProduct(editProductData) {
     // console.log(formData);
     let options = {
+      method: "POST",
+      //headers: { 'Content-Type': 'application/json' }, //remove?
+      body: formData, // just formData?
+    };
+
 
     method: 'POST',
     //headers: { 'Content-Type': 'application/json' }, //remove?
@@ -45,16 +49,18 @@ function SellerDash(props) {
     setProductsData(result);
     getProducts(); //note to ask about the reload
     } else {
-    console.log(`Server error: ${response.status} ${response.statusText}`);
+      console.log(`Server error: ${response.status} ${response.statusText}`);
     }
   } catch (err) {
-    console.log(`Server error: ${err.message}`);
-  }}
+    console.log(`Network error: ${err.message}`);
+  }
+
 
   async function deleteProduct(id) {
     let options = {
-    method: 'DELETE'
-  };
+
+      method: "DELETE",
+    };
 
   try {
     let response = await fetch(`/products/${id}`, options); 
@@ -68,6 +74,7 @@ function SellerDash(props) {
   } catch (err) {
     console.log(`Server error: ${err.message}`);
   }};
+
 
 
     async function editProduct(id, formData) {
@@ -91,9 +98,11 @@ function SellerDash(props) {
       console.log(`Server error: ${err.message}`);
   }};
 
+
   return (
     <div>
       <Container>
+
       <Row>
       <Col>
       <SellerForm addProductCb={addProduct} />
@@ -109,8 +118,10 @@ function SellerDash(props) {
     
       </Container>  
     
+
     </div>
   );
+}
 }
 
 export default SellerDash;

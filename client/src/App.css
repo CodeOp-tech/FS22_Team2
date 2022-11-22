@@ -5,6 +5,31 @@
   overflow: hidden;
   background-color: #f0efed;
   margin: 0%;
-  background-image: url("C:\Users\Mi Casa\Desktop\CodeOp\FS22_Team2\client\src\DC\MinBack.jpg"); 
+
+
   background-color: beige;
+
+
+  /* background-image: url("/Users/meganwalsh/Desktop/CodeOp_Activities/GROUPTWO/FS22_Team2/client/src/DC/MinBack.jpg");
+} */
+}
+
+.App table {
+  border-collapse: collapse;
+}
+
+.App td,
+.App th {
+  padding: 1px 5px;
+  vertical-align: top;
+}
+/* MySlider img {
+  border-radius: 30%;
+  margin: 0 auto;
+} */
+.SliderPics img {
+  border-radius: 30%;
+
+  
+
 }
