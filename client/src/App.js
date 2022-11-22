@@ -70,6 +70,8 @@ function App() {
     getPurchasedItemsByShop();
   }, [purchases, purchasedItems]); // when purchases & purchasedItems are updated (see addPurchases function), getPurchasedItemsbyUser/Shop is called
 
+  /********************* AUTH FUNCTIONS *********************/
+
   // register new user
   // NOTE: removed has_shop to test; add back in later
   async function doRegister(username, password, email, has_shop) {
@@ -125,6 +127,20 @@ function App() {
     //Navbar should send user to home page
   }
 
+  /********************* SHOP FUNCTIONS *********************/
+  // PUT edit shop info
+  async function editShop(shopData, shop_id) {
+    // update shop @ local shop_id w/shopData info
+    let myresponse = await Api.updateShop(shopData, shop_id);
+    if (myresponse.ok) {
+      setShop(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  }
+
+  /********************* PRODUCT FUNCTIONS *********************/
+
   // GET ALL PRODUCTS (regardless of store)
   async function getProducts() {
     try {
@@ -167,6 +183,8 @@ function App() {
     // must return productData in order for it to be used in addOneToCart function
     return productData;
   }
+
+  /********************* SHOPPING CART FUNCTIONS *********************/
 
   // GET PRODUCT QUANTITY OF PRODUCTS ADDED TO SHOPPING CART
   function getProductQuantity(id) {
@@ -286,6 +304,8 @@ function App() {
       })
     );
   }
+
+  /********************* PURCHASE FUNCTIONS *********************/
 
   // ADD PURCHASE (ie. receipt of a single purchase) INTO PURCHASES TABLES (DATABASE)
   async function addPurchases(purchase_sum, user_id) {
@@ -488,8 +508,13 @@ function App() {
                 path="shop"
                 element={<SingleShopView products={productsByShop} />}
               />
-              <Route path="/seller" element={<SellerDash />} />{" "}
-              {/*remove after*/}
+
+              <Route path="/seller" element={<SellerDash
+                shop={shop}
+                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
+              />}/> {/*remove after*/} 
+
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />

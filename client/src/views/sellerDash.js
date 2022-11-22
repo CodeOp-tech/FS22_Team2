@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./SellerDash.css";
-import SellerList from "../components/SellerList";
-import SellerForm from "../components/SellerForm";
+import SellerList from "../components/SellerList.js";
+import SellerForm from "../components/SellerForm.js";
 import { Container, Col, Row, Card, Button } from "react-bootstrap";
+import ShopEditForm from "../components/ShopEditForm";
+import Api from "../helpers/Api.js";
 import Local from "../helpers/Local";
 
 
@@ -13,8 +15,8 @@ function SellerDash(props) {
     getProducts();
   }, []);
 
+  // Get all product info for this shop by id and save to productsData state
   async function getProducts() {
-
     try {
       let response = await fetch(`/products/${Local.getShopId()}`);
       if (response.ok) {
@@ -51,31 +53,28 @@ function SellerDash(props) {
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
     }
-  } catch (err) {
-    console.log(`Network error: ${err.message}`);
+    } catch (err) {
+      console.log(`Network error: ${err.message}`);
+    }
   }
-
 
   async function deleteProduct(id) {
     let options = {
-
       method: "DELETE",
     };
 
   try {
     let response = await fetch(`/products/${id}`, options); 
     if (response.ok) {
-    let result = await response.json();
-    setProductsData(result);
-    getProducts(); //split second loads all products
-  } else {
-    console.log(`Server error: ${response.status} ${response.statusText}`);
-  }
+      let result = await response.json();
+      setProductsData(result);
+      getProducts(); //split second loads all products
+    } else {
+      console.log(`Server error: ${response.status} ${response.statusText}`);
+    }
   } catch (err) {
     console.log(`Server error: ${err.message}`);
   }};
-
-
 
     async function editProduct(id, formData) {
       let options = {
@@ -98,10 +97,16 @@ function SellerDash(props) {
       console.log(`Server error: ${err.message}`);
   }};
 
-
   return (
     <div>
       <Container>
+
+      <Row>
+        <ShopEditForm 
+          shop = {props.shop}
+          editShopCb={props.editShopCb}
+        />
+      </Row>
 
       <Row>
       <Col>
@@ -112,7 +117,6 @@ function SellerDash(props) {
                   deleteProductCb={(id) => deleteProduct(id)}
                   editProductCb={(id, formData) =>editProduct(id, formData)}//id sent to the sellerDash (parent of sellerlist)
       /></Col> 
-
       
       </Row>
     
@@ -122,6 +126,6 @@ function SellerDash(props) {
     </div>
   );
 }
-}
+
 
 export default SellerDash;

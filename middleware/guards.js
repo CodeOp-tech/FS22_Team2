@@ -20,7 +20,7 @@ function ensureSameUser(req, res, next) {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
         // if token is ok, check that user id matches
-        if (payload.userId === Number(req.params.userId)) {
+        if (payload.userId === Number(req.params.user_id)) {
         // if okay, will proceed; else will throw error
             next();
         } else {
@@ -37,9 +37,9 @@ function ensureShopOwner(req, res, next) {
     try {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
-        // if token is ok, check that userId & shopId match
-        // QUESTION: is user identity already verified by matched token? If so, why do we need to check userId on ensureSameUser?
-        if (payload.userId === Number(req.params.userId) && payload.shopId === Number(req.body.shop_id)) {
+        // if token is ok, check that shopId matches req params
+        // NOTE: do not need to check user_id, because payload shop_id in is already tied to user_id through token/login process
+        if (Number(payload.shopId) === Number(req.params.shop_id)) {
             // if okay, will proceed; else will throw error
             next();
         } else {

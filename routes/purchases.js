@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
+const { ensureSameUser, ensureShopOwner } = require('../middleware/guards');
 
 // GET ALL PURCHASES REGARDLESS OF USERS
 router.get('/', async function(req, res) { 
@@ -16,10 +17,8 @@ router.get('/', async function(req, res) {
 
 // GET PURCHASES BASED OFF USER ID
 // NOTE FROM JESS: This route built, but not called (not necessary, we only call purchaseditems table)
-  router.get('/:user_id', async function(req, res) { // NOTE: front-end fetch must pass user_id 
+  router.get('/:user_id', ensureSameUser, async function(req, res,) { 
     let id = req.params.user_id;
-
-    // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
     try {
       let results = await db(`SELECT * FROM purchases WHERE user_id = ${Number(id)}`); 
       let purchases = results.data;  

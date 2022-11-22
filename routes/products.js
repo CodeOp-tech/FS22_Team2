@@ -26,13 +26,33 @@ async function sendAllFiles(res) {
       LEFT JOIN shops on products.shop_id = shops.shop_id`);
       // Add 'url' property for each file
       let withUrls = results.data.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`}));
-      
       res.send(withUrls);
 
   } catch (err) {
       res.status(500).send({ error: err.message });
   }
 }
+
+
+ //TEST POST
+ //router.post("/:shop_id", async (req, res) => {
+  // let { product_name, product_image, price, product_description, product_quantity, recycled, no_fridge, fair_trade, local, organic } = req.body; 
+  // console.log("here", req.body);
+  // let shop_id = req.params.shop_id;
+  // let sql = `
+  //       INSERT INTO products (product_name,  price, product_description, product_quantity, recycled, no_fridge, fair_trade, local, organic)
+  //       VALUES ('${product_name}', '${price}', '${product_description}', '${product_quantity}', '${recycled}', '${no_fridge}', '${fair_trade}', '${local}', '${organic}' ${Number(shop_id)})
+  //   `;
+  
+  //   try {
+  //       await db(sql);  
+  //       let result = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); // shop_id taken from req.body
+  //       let products = result.data;
+  //       res.status(201).send(products); // 201 status because indicates request has succeeded and lead to creation of resource
+  //   } catch (err) {
+  //       res.status(500).send({ error: err.message });
+  //   }
+  //});
 
 // GET ALL PRODUCTS REGARDLESS OF STORE
 router.get('/', async function(req, res,) { 
@@ -48,15 +68,16 @@ router.get('/', async function(req, res,) {
   }
   });
 
-// GET PRODUCTS BASED OFF STORE ID
-// NOTE: Doesn't need protection b/c just to display products; can't edit
+// GET PRODUCTS BASED OFF SHOP ID - works in Postman
+// NOT PROTECTED: Doesn't need b/c just to display products; can't edit
   router.get('/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
 // which is passed from front end fetch at...
-    let id = req.params.shop_id;
+    let shop_id = req.params.shop_id; // changed variable from "id" to "shop_id"
 
     // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
+    // tried passing shop_id directly instead of as number, also didn't work
     try {
-      let results = await db(`SELECT * FROM products WHERE shop_id = ${Number(id)}`); 
+      let results = await db(`SELECT * FROM products WHERE shop_id = ${Number(shop_id)}`); 
       let products = results.data;  
       let withUrls = products.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`})); //Get has to change for the images to show  from the databases 
       res.send(withUrls);
@@ -68,22 +89,17 @@ router.get('/', async function(req, res,) {
 
   // ADD PRODUCT BASED OFF STORE ID
   // PROTECTED: user should only be able to edit their own shop info
+  // URGENT NOTE: Need to pass shop_id so we can protect
   router.post("/:shop_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
-    // console.log(req.body, '**************&*&(*()*')
     let { shop_id } = req.params;
     let { product_name, price, product_image, product_quantity, product_description, recycled, no_fridge, fair_trade, local, organic } = req.body;
 
     try{
     let sql = `
         INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id, recycled, no_fridge, fair_trade, local, organic)
-
-        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id})
+        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id}, ${recycled}, ${no_fridge}, ${fair_trade}, ${local}, ${organic})
     ;`
-
-    // URGENT NOTE: Need to pass shop_id
-    // URGENT NOTE: Need to insert product enviro parameters
-
-  
+    
         await db(sql);  
         let result = await db(`SELECT * FROM products WHERE shop_id = ${shop_id}`); // shop_id taken from req.params
         // let products = result.data;

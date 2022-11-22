@@ -9,11 +9,11 @@ const EMPTY_FORM ={
     price:'',
     product_description:'',
     product_quantity:'',
-    recycled: '',
-    no_fridge: '',
-    fair_trade: '',
-    local: '',
-    organic: ''
+    recycled: 0,
+    no_fridge: 0,
+    fair_trade: 0,
+    local: 0,
+    organic: 0
 }
 
 function SellerForm(props) {
@@ -29,16 +29,20 @@ function SellerForm(props) {
         formData.append('price', productData.price);
         formData.append('product_description', productData.product_description);
         formData.append('product_quantity', productData.product_quantity);
-        console.log(formData)
+        formData.append('recycled', productData.recycled);
+        formData.append('no_fridge', productData.no_fridge);
+        formData.append('fair_trade', productData.fair_trade);
+        formData.append('local', productData.local);
+        formData.append('organic', productData.organic);
+        // logs [object formData], but data gets uploaded correctly
+        // console.log(`product form: ${formData}`);
         props.addProductCb(formData);
-
         setProductData(EMPTY_FORM);
         setFiles(null);
         e.target.reset();
       }
 
   function handleFileChange(e) {
-    console.log('upload', e.target.files[0])
         setFiles(e.target.files[0]); //is the products refering to products.js routes file?
     }
     
@@ -47,14 +51,18 @@ function SellerForm(props) {
         setProductData (data => ({...data, [name]: value}));
     }
       
-
-      function handleChangeCheck (e) {
-        let checkbox = e.target.checked;
-
-        setProductData((data) => ({
-            ...data, [e.target.name]:checkbox
-        }));
-      }
+    // sets value of that field to 1 when checked or 0 if unchecked
+    function handleChangeCheck (e) {
+      if (e.target.checked) {
+       setProductData((data) => ({
+             ...data, [e.target.name]:1
+         }));
+       } else {
+         setProductData((data) => ({
+           ...data, [e.target.name]:0
+       }));
+       }
+   }
 
 
   return (
@@ -130,31 +138,31 @@ function SellerForm(props) {
              />
         
             <Form.Check
-             label='Does not require refrigeration '
+             label='Does not require refrigeration'
              type='checkbox'
              name='no_fridge'
              value={productData.no_fridge}
              onChange={handleChangeCheck}
              />
-        
+             
             <Form.Check
-             label='Fairtrade'
+             label='Is fair trade'
              type='checkbox'
              name='fair_trade'
              value={productData.fair_trade}
              onChange={handleChangeCheck}
              />
-             
+            
             <Form.Check
-             label='Locally Sourced'
+             label='Is locally sourced'
              type='checkbox'
              name='local'
              value={productData.local}
              onChange={handleChangeCheck}
              />
-            
+
             <Form.Check
-             label='Organic'
+             label='Is organic'
              type='checkbox'
              name='organic'
              value={productData.organic}
@@ -164,9 +172,7 @@ function SellerForm(props) {
         </Form.Group>
         <Button type="submit">Submit</Button>
     </Form>
-
-
   )
 }
 
-export default SellerForm
+export default SellerForm;

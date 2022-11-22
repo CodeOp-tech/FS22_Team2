@@ -1,4 +1,4 @@
-import React, {useState,} from 'react'
+import React, {useState, useEffect} from 'react'
 import './SellerList.css'
 import { motion } from 'framer-motion'
 import EdiText from 'react-editext'
@@ -67,6 +67,7 @@ return (
               <Col>
              <Card.Title className='proTitle' style={{fontWeight:'bold', padding:'4px', textTransform:'capitalize' }}>
               {p.product_name}
+
             </Card.Title>
             <Card.Text className='proText' style={{padding:'10px', }}>
                 {p.product_description}
@@ -101,4 +102,4 @@ return (
   )
 }
 
-export default SellerList
+export default SellerList;

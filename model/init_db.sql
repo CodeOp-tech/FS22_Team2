@@ -23,7 +23,6 @@ VALUES
 ('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'user2@msb.inc', 0, 1),
 ('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 2),
 ('user4_buyer', '$2a$12$rTpFBHzeSn8FA7R.zcCjXuDQuXii95g1B44tCuIsSYresWMe7r5rO','user4@msb.inc', 0, null);
--- removed NOT NULL constraint to create empty shop
 
 
 CREATE TABLE shops (
@@ -53,7 +52,6 @@ VALUES
 ('Humana', 'C/ de Mallorca, 592, 08026 Barcelona','Shop Two is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shoptwo.com', '87654321', 'shoptwo@one.com', 0, 0, 0, 0, 0, 41.41072516726371, 2.184927150041393),
 ('Syra Cafe', 'Carrer de Londres, 100, 08036 Barcelona','Shop Three is still Number One', 'https://img.freepik.com/premium-vector/shop-market-store-front-exterior-facade-illustration-sity-space-background_175838-852.jpg?w=2000', 'https://shopthree.com', '87654322', 'shopthree@one.com', 0, 0, 0, 0, 0, 41.394116117800166, 2.1515154467882596),
 ('Ametller', 'C. del Comte Borrell, 71, 08015 Barcelona', 'Shop Four is groceries', 'https://img.freepik.com/free-photo/fresh-fruit-stalls-san-miguel-market_53876-146829.jpg?size=626&ext=jpg&ga=GA1.2.1076301059.1668595321&semt=sph', 'https://shop.four.com','87654323','shopfour@one.com', 0, 0, 0, 0, 0, 41.396292556086514, 2.1660198146854333);
-
 
 
 CREATE TABLE `products` (
