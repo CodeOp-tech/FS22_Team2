@@ -43,37 +43,32 @@ router.get('/:userId', ensureSameUser, async function(req, res, next) {
 router.get('/points/:user_id', async function(req, res, next) {
   let { user_id } = req.params;
   // access the purchase points via user > purchases > purchased_items 
-  // original sqlGet select: SELECT users.*, purchases.user_id, purchases.purchase_id, purchased_items.purchase_id, purchased_items.purchase_points
-  let sqlGet = `
-    SELECT users.*, purchases.user_id, purchases.purchase_id, purchased_items.purchase_id, purchased_items.purchase_points
+  // original sqlGet let sqlGet = `
+//     SELECT users.*, purchases.user_id, purchases.purchase_id, purchased_items.purchase_id, purchased_items.purchase_points
+//     FROM users
+//     LEFT JOIN purchases ON users.user_id = purchases.user_id 
+//     LEFT JOIN purchased_items ON purchases.purchase_id = purchased_items.purchase_id
+//     WHERE users.user_id = ${Number(user_id)}
+// `
+  let sqlSum = `
+    SELECT SUM(purchased_items.purchase_points)
       FROM users
       LEFT JOIN purchases ON users.user_id = purchases.user_id 
       LEFT JOIN purchased_items ON purchases.purchase_id = purchased_items.purchase_id
-      WHERE users.user_id = ${Number(user_id)}
+      WHERE users.user_id = ${user_id}
   `
-  // sum all purchase points
-  let sqlSum = `SELECT SUM(total) WHERE users.user_id = ${Number(user_id)}
-  `
-  // add summed purchase_points to user_points
-  let sqlPut = `UPDATE users SET users.user_points={}
-  WHERE users.user_id = ${Number(user_id)}
-  `
-  // EXAMPLE PUT
-  // if (shop_name) {
-  //   await db(
-  //     `UPDATE shops SET shop_name='${shop_name}' WHERE shop_id=${shop_id}`
-  //   );
-  // }
 
   try {
-    let getResults = await db(sqlGet); 
-    let getData = getResults.data[0];
-    delete getData.password;
-    
-    let sumResults = await db(`SELECT SUM(${getData.purchase_points})`);
+    let sumResults = await db(sqlSum); 
     let sumData = sumResults.data[0];
     
-    res.send(getData); 
+    // if (sumData) {
+    //   await db(
+    //     `UPDATE users SET user_points='${sumData}' WHERE user_id=${user_id}`
+    //   );
+    // }
+    // const results = await db(`SELECT * FROM users WHERE user_id = ${Number(user_id)}`);
+    res.send(sumData); 
 } catch(err) { 
     res.status(500).send({ error: err.message })
 }
