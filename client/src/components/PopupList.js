@@ -1,16 +1,8 @@
 import React from "react";
-import "./PopupList.css";
+import "./PopUpList.css";
 
 function PopUpList(props) {
   const product = props.product; // received from parent PopUpView
-
-  return (
-    <div className="container popuplist">
-      <div className="row">
-        <div className="col-sm-4">
-          <img className="popup-img" src={product.url} />
-        </div>
-
 
     return (
         <div className="container popuplist">
@@ -32,10 +24,8 @@ function PopUpList(props) {
                     </ul>
                 </div>
             </div>
-
         </div>
-      </div>
-    </div>
+     
   );
 }
 

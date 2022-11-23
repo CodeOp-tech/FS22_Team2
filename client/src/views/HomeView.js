@@ -14,6 +14,7 @@ import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
 
+
 /*
 A 'place' is an obj like this:
 {
@@ -87,9 +88,6 @@ function HomeView(props) {
   }
 
 
-
-function HomeView() {
-
   return (
     <div>
 
@@ -102,10 +100,6 @@ function HomeView() {
       <MySlider />
 
       <FeaturedBusiness />
-
-      <Map />
-   
-
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">

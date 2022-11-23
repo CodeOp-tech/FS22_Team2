@@ -68,11 +68,6 @@ router.get('/', async function(req, res,) {
   }
 });
 
-// GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
-router.get("/shops/:shop_id", async function (req, res) {
-  // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
-  // which is passed from front end fetch at...
-  let id = req.params.shop_id;
 
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)

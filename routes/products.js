@@ -92,12 +92,14 @@ router.get('/', async function(req, res,) {
   // URGENT NOTE: Need to pass shop_id so we can protect
   router.post("/:shop_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 
     let { shop_id } = req.params;
-    let { product_name, price, product_image, product_quantity, product_description, recycled, no_fridge, fair_trade, local, organic } = req.body;
+    let { product_name, price, product_image, product_quantity, product_description, recycled, no_fridge, fair_trade, local, organic} = req.body;
 
     try{
+
+
     let sql = `
-        INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id, recycled, no_fridge, fair_trade, local, organic)
-        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id}, ${recycled}, ${no_fridge}, ${fair_trade}, ${local}, ${organic})
+        INSERT INTO products (product_name, price, product_image, product_quantity, product_description, shop_id, recycled, no_fridge, fair_trade, local, organic )
+        VALUES ('${product_name}', ${Number(price)}, '${req.file.originalname}', ${Number(product_quantity)}, '${product_description}', ${shop_id}, ${recycled}, ${no_fridge}, ${fair_trade}, ${local}, ${organic} )
     ;`
     
         await db(sql);  
@@ -117,55 +119,76 @@ router.get('/', async function(req, res,) {
 
   //router.put("/:product_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
 
-  router.put("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass shop_id through body
+  router.put("/:product_id", upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through body
 
     let id  = req.params.product_id;
     console.log('**********find me**********', id, req.body)
-    let { product_name, price, product_image, product_quantity, product_description, shop_id, recycled, no_fridge, fair_trade, local, organic } = req.body;
+    let { product_name, price, product_quantity, product_description, shop_id, recycled, no_fridge, fair_trade, local, organic } = req.body;
     console.log('**********find me again**********', id, req.body)
 
     try {
     
       if (product_name) {
         await db(
-          `UPDATE products SET product_name='${product_name}' WHERE product_id=${Number(id)}` // id = product_id
+          `UPDATE products SET product_name='${product_name}' WHERE product_id=${id}` // id = product_id
         );
       }
   
       if (price) {
-        await db(`UPDATE products SET price='${price}' WHERE product_id=${Number(id)}`);
+        await db(`UPDATE products SET price='${price}' WHERE product_id=${id}`);
       }
   
-      if (product_image) {
-        await db(
-          `UPDATE products SET product_image='${req.file.originalname}' WHERE product_id=${Number(id)}`
-        );
-      }
+      // if (product_image) {
+      //   await db(
+      //     `UPDATE products SET product_image='${req.file.originalname}' WHERE product_id=${Number(id)}`
+      //   );
+      // }
   
       if (product_quantity) {
-        await db(`UPDATE products SET product_quantity='${product_quantity}' WHERE product_id=${Number(id)}`);
+        await db(`UPDATE products SET product_quantity='${product_quantity}' WHERE product_id=${id}`);
       }
 
       if (product_description) {
-        await db(`UPDATE products SET product_description='${product_description}' WHERE product_id=${Number(id)}`);
+        await db(`UPDATE products SET product_description='${product_description}' WHERE product_id=${id}`);
+      }
+
+      if (recycled) {
+        await db(`UPDATE products SET product_description='${recycled}' WHERE product_id=${id}`);
+      }
+
+      if (no_fridge) {
+        await db(`UPDATE products SET product_description='${no_fridge}' WHERE product_id=${id}`);
+      }
+
+      if (fair_trade) {
+        await db(`UPDATE products SET product_description='${fair_trade}' WHERE product_id=${id}`);
+      }
+
+      if (local) {
+        await db(`UPDATE products SET product_description='${local}' WHERE product_id=${id}`);
+      }
+
+      if (organic) {
+        await db(`UPDATE products SET product_description='${organic}' WHERE product_id=${id}`);
       }
       
       const results = await db(`SELECT * FROM products WHERE shop_id = ${shop_id}`)
       let withUrls = results.data.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`}));
+      
       res.send(withUrls);
       //According the MDN Web Docs, PUT request method creates a new resource/replaces a representation fo the target resource with the request paylod
     } catch (err) {
+
       res.status(500).send({ error: err.message });
     }
   });
 
   // DELETE PRODUCT BASED OFF PRODUCT ID
   // PROTECT: ensureShopOwner
-  router.delete("/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id and shop_id (can be stored in Local.js?)
+  router.delete("/:shop_id/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id and shop_id (can be stored in Local.js?) //ADDED THE SHOP ID
     let id = req.params.product_id;
-    // need shop_id to display only products in said shop, once delete is executed
-
-    // Reference to ...
+    let shopid = req.params.shop_id;
+  
     try {
         let result = await db(`SELECT * FROM products WHERE product_id = ${id}`); // WHERE id refers to the product_id
         if (result.data.length === 0) {
@@ -173,7 +196,12 @@ router.get('/', async function(req, res,) {
         } else {
             await db(`DELETE FROM products WHERE product_id = ${id}`);  
 
-             sendAllFiles(res)
+            let results = await db(`SELECT * FROM products WHERE shop_id = ${Number(shopid)}`); 
+            let products = results.data;  
+            let withUrls = products.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`})); //Get has to change for the images to show  from the databases 
+            res.send(withUrls); // need lines 200 - 204 to execute delete without all products showing (sending only products for that specific shop)
+
+            //  sendAllFiles(res)
             // let result = await db('SELECT * FROM products');
             // let products = result.data;
             // res.send(products);  

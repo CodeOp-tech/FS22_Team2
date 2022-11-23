@@ -23,9 +23,9 @@ router.get('/', async function(req, res, next) {
 
 // GET one user
 // PROTECTED: user can only see their own profile
-router.get('/:userId', ensureSameUser, async function(req, res, next) {
-  let { userId } = req.params;
-  let sql = `SELECT * FROM users WHERE user_id = ${Number(userId)};`
+router.get('/:user_id', ensureSameUser, async function(req, res, next) {
+  let { user_id } = req.params;
+  let sql = `SELECT * FROM users WHERE user_id = ${Number(user_id)};`
 
   try {
     let results = await db(sql);

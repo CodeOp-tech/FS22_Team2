@@ -6,10 +6,12 @@ import { Container, Col, Row, Card, Button } from "react-bootstrap";
 import ShopEditForm from "../components/ShopEditForm";
 import Api from "../helpers/Api.js";
 import Local from "../helpers/Local";
+import Accordion from 'react-bootstrap/Accordion'
 
 
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
+
 
   useEffect(() => {
     getProducts();
@@ -30,26 +32,24 @@ function SellerDash(props) {
     }
   }
 
-  async function addProduct(editProductData) {
+  async function addProduct(formData) {
     // console.log(formData);
     let options = {
       method: "POST",
       //headers: { 'Content-Type': 'application/json' }, //remove?
-      body: formData, // just formData?
+      body:  formData
     };
 
-
-    method: 'POST',
-    //headers: { 'Content-Type': 'application/json' }, //remove?
-    body: editProductData // just formData?
-  };
+    
     
   try {
     let response = await fetch(`/products/${Local.getShopId()}`, options); 
     if (response.ok) {
     let result = await response.json();
     setProductsData(result);
-    getProducts(); //note to ask about the reload
+    getProducts();
+    props.showAllProducts(); // fetches all the products without reload on the online store
+     //note to ask about the reload
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
     }
@@ -64,11 +64,12 @@ function SellerDash(props) {
     };
 
   try {
-    let response = await fetch(`/products/${id}`, options); 
+    let response = await fetch(`/products/${Local.getShopId()}/${id}`, options); 
     if (response.ok) {
       let result = await response.json();
       setProductsData(result);
-      getProducts(); //split second loads all products
+      getProducts()
+      props.showAllProducts(); //split second loads all products
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
     }
@@ -76,15 +77,16 @@ function SellerDash(props) {
     console.log(`Server error: ${err.message}`);
   }};
 
-    async function editProduct(id, formData) {
+async function editProduct(id, formData) {
       let options = {
       method: 'PUT',
       // headers: { 'Content-Type': 'application/json' },
-      body: formData
+      body:  formData
+      //editProductData
       // headers: { 'Content-Type': 'application/json' },
       // body: JSON.stringify(formData)
   };
-      console.log(formData)
+      // console.log(formData)
   try {
       let response = await fetch(`/products/${id}`, options);
       if (response.ok) {
@@ -98,19 +100,28 @@ function SellerDash(props) {
   }};
 
   return (
-    <div>
-      <Container>
-
+    
+   
+<Accordion defaultActiveKey="0" >
+  <Container>
+      <Accordion.Item eventKey="0">
+        <Accordion.Header className='editShop-accHead'>Edit You Shop Profile</Accordion.Header>
+        <Accordion.Body className='editShop-acc'>
       <Row>
         <ShopEditForm 
           shop = {props.shop}
           editShopCb={props.editShopCb}
         />
       </Row>
-
+      </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="1">
+        <Accordion.Header>Shop Products</Accordion.Header>
+        <Accordion.Body>
       <Row>
       <Col>
-      <SellerForm addProductCb={addProduct} />
+      <SellerForm addProductCb={addProduct}
+                  showProducts={props.showAllProducts} /> //Getting from the App
       </Col>
       <Col>
       <SellerList productsData={productsData}
@@ -120,10 +131,14 @@ function SellerDash(props) {
       
       </Row>
     
-      </Container>  
+        
+      </Accordion.Body>
+      </Accordion.Item>
+    </Container>
+    </Accordion>
     
 
-    </div>
+  
   );
 }
 

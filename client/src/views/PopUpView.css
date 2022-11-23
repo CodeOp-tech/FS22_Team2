@@ -34,4 +34,14 @@
     cursor: pointer;
 }
 
+.popup-list {
+    list-style-type: none;
+    text-align: left;
+}
+
+.popup-img {
+    margin-top: 10px;
+    width: 300px;
+}
+
 
