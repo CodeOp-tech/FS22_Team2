@@ -85,7 +85,7 @@ function ProductCard(props) {
         </div>
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
-        <Card.Text><a onClick={() => navigateShop(product.shop_id)}>from <i>{product && product.shop_name || shopProfile && shopProfile.shop_name}</i></a></Card.Text>
+        <Card.Text><a onClick={() => navigateShop(product.shop_id)}>from <i className="shopname">{product && product.shop_name || shopProfile && shopProfile.shop_name}</i></a></Card.Text>
         <Card.Text><i>{product.total_product_points} point(s) rewarded</i></Card.Text>
         <Card.Text><b>${product.price}</b></Card.Text>
         {/* <Card.Text>{product.product_description}</Card.Text> */}
