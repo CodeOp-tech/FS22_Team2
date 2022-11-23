@@ -16,7 +16,6 @@ const handleClose = () => setShow(false); //to close Modal
 
 function handleShow(id) {
   let product = props.productsData.find(p => p.product_id === id)
-  console.log('edit product data', product)
   setEditProductItem(product)
   setShow(true);
  } //to show Modal
@@ -61,6 +60,7 @@ return (
               <Row>
               <Col>
               <Card.Img variant='bottom' src={p.url} style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '180px'}}/>
+              {/* QUESTION: product_id passing as undefined - why? */}
               <Button className='probtn' onClick={(e) => props.deleteProductCb(p.shop_id, p.product_id)} >Delete</Button>
               <Button className='probtn'onClick={(e) => handleShow(p.product_id)}>Edit</Button>
               </Col>

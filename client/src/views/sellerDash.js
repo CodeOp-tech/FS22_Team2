@@ -62,7 +62,8 @@ function SellerDash(props) {
     let options = {
       method: "DELETE",
     };
-
+    console.log("shop id", shop_id)
+    console.log("product id", product_id)
   try {
     let response = await fetch(`/products/${shop_id}/${product_id}`, options); 
     if (response.ok) {
