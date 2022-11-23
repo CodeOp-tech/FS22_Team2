@@ -332,8 +332,7 @@ function App() {
     // UPDATE USER PURCHASE POINTS
     let myresponse3 = await Api.addUserPoints(Local.getUserId());
     if (myresponse3.ok) {
-      let myresponse4 = await Api.getUser();
-      setUser(myresponse4.data);
+      setUser(myresponse3.data);
       console.log("user:", user);
     } else {
       setError(myresponse3.error);
@@ -539,7 +538,9 @@ function App() {
                 path="/users/:userId"
                 element={
                   <PrivateRoute>
-                    <UserProfileView />
+                    <UserProfileView 
+                      user={user}
+                    />
                   </PrivateRoute>
                 }
               />

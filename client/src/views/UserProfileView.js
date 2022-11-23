@@ -17,7 +17,6 @@ function UserProfileView(props) {
   const [currView, setCurrView] = useState("homeV"); //useState 18
   const [shops, setShops] = useState([]);
   //user stuff:
-  const [user, setUser] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   let { userId } = useParams();
 
@@ -32,26 +31,13 @@ function UserProfileView(props) {
 
   useEffect(() => {
     getAndSetHome();
-    fetchProfile();
   }, []);
-
-  async function fetchProfile() {
-    let myresponse = await Api.getUser(userId);
-    if (myresponse.ok) {
-      setUser(myresponse.data);
-      setErrorMsg("");
-    } else {
-      setUser(null);
-      let msg = `Error ${myresponse.status}: ${myresponse.error}`;
-      setErrorMsg(msg);
-    }
-  }
 
   if (errorMsg) {
     return <h2 style={{ color: "red" }}>{errorMsg}</h2>;
   }
 
-  if (!user) {
+  if (!props.user) {
     return <h2>Loading...</h2>;
   }
   async function getAndSetHome() {
@@ -84,9 +70,9 @@ function UserProfileView(props) {
   return (
     <div>
       <div className="UserProfileView">
-        <h1>Hey there, {user.username}!</h1>
+        <h1>Hey there, {props.user.username}!</h1>
         <br />
-        <h2> You have <b>{user.user_points}</b> points!
+        <h2> You have <b>{props.user.user_points}</b> points!
         <br />
         <button type="submit" className="btn btn-primary">Redeem</button>
         </h2>
