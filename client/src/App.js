@@ -46,14 +46,7 @@ function App() {
   const [searched, setSearched] = useState([]); // useState 15
   const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
   const [shopProfile, setShopProfile] = useState([]);
-  
-
-  //maps below:
-  // const [home, setHome] = useState(null); // center of map //useState 17
-  // const [currView, setCurrView] = useState("homeV"); //useState 18
-
   const [reviews, setReviews] = useState([]) // useState 19
-
 
   const navigate = useNavigate();
 
@@ -77,7 +70,11 @@ function App() {
   useEffect(() => {
     getTotalCost(); 
   }, [cartProducts]); // whenever cartProducts are added/removed, total cost must be updated
-  
+
+  useEffect(() => {
+    getProductReviews();
+  }, [reviews])
+
   /********************* AUTH FUNCTIONS *********************/
 
   // register new user
