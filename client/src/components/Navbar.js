@@ -81,7 +81,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         {
                             props.user && (
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
+                                    <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>User Dash</NavLink>
                                 </li>
                             )
                         }
@@ -148,9 +148,6 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         ?   
                         (
                                 <ul className="navbar-nav">
-                                     <li className="nav-item">
-                                        <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
-                                    </li>
                                     <li className="nav-item">
                                         {/* Log out user. Then go to home page. */}
                                         <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>

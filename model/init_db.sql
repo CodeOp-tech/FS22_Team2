@@ -19,11 +19,10 @@ CREATE TABLE users (
 
 INSERT INTO users (username, password, email, user_points, shop_id)
 VALUES 
-('user1_buyer', '$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W', 'user1@msb.inc', 0, null),
-('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'user2@msb.inc', 0, 1),
+('user1_buyer', '$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W', 'user1@msb.inc', 6, null),
+('user2_seller', '$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6', 'user2@msb.inc', 2, 1),
 ('user3_seller', '$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy', 'user3@msb.inc', 0, 2),
 ('user4_buyer', '$2a$12$rTpFBHzeSn8FA7R.zcCjXuDQuXii95g1B44tCuIsSYresWMe7r5rO','user4@msb.inc', 0, null);
-
 
 CREATE TABLE shops (
 	shop_id INT NOT NULL AUTO_INCREMENT,
@@ -65,22 +64,22 @@ CREATE TABLE `products` (
 	`stripe_product_id` varchar(255),
 	`shop_id` INT NOT NULL,
 	`recycled` BOOLEAN DEFAULT 0,
-    `no_fridge` BOOLEAN DEFAULT 0,
-    `fair_trade` BOOLEAN DEFAULT 0,
-    `local` BOOLEAN DEFAULT 0,
-    `organic` BOOLEAN DEFAULT 0,
-    `total_product_points` INT,
+  `no_fridge` BOOLEAN DEFAULT 0,
+  `fair_trade` BOOLEAN DEFAULT 0,
+  `local` BOOLEAN DEFAULT 0,
+  `organic` BOOLEAN DEFAULT 0,
+
 	PRIMARY KEY (`product_id`)
 ); 
 
 
-INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic, total_product_points)
+INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic )
 VALUES
-('Coffee', 5.99, 'coffee.jpg', 20, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 1, 1, 0, 1, 1, 1, 4),
-('Sunglasses', 10.99, 'Sunglasses.jpeg', 10, 'Defend yourself from all that shade you be getting wearing these babies', 'price_1M49GDBIwndE5957XZPxGANH', 2, 0, 1, 0, 0, 0, 1),
-('Camera', 59.99, 'Camera.jpeg', 50, 'The best camera around', 'price_1M49HEBIwndE59571OqKQqvk', 2, 0, 1, 0, 0, 0, 1),
-('Scarf', 30.99, 'Scarf.jpeg', 100, 'Scarf to keep you warm', 'price_1M44dEBIwndE5957Cait0D15', 1, 1, 1, 1, 1, 1, 5),
-('Luxury Belt', 500.99, 'LVbelt.jpeg', 50, 'LV belt, if you have money coming out of your ears', 'price_1M44eiBIwndE5957FrOiJum7', 1, 0, 1, 0, 0, 0, 1);
+('Coffee', 5.99, 'coffee.jpg', 20, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 1, 1, 0, 1, 1, 1),
+('Sunglasses', 10.99, 'Sunglasses.jpeg', 10, 'Defend yourself from all that shade you be getting wearing these babies', 'price_1M49GDBIwndE5957XZPxGANH', 2, 0, 1, 0, 0, 0),
+('Camera', 59.99, 'Camera.jpeg', 50, 'The best camera around', 'price_1M49HEBIwndE59571OqKQqvk', 2, 0, 1, 0, 0, 0),
+('Scarf', 30.99, 'Scarf.jpeg', 100, 'Scarf to keep you warm', 'price_1M44dEBIwndE5957Cait0D15', 1, 1, 1, 1, 1, 1),
+('Luxury Belt', 500.99, 'LVbelt.jpeg', 50, 'LV belt, if you have money coming out of your ears', 'price_1M44eiBIwndE5957FrOiJum7', 1, 0, 1, 0, 0, 0);
 
 
 CREATE TABLE `purchases` (

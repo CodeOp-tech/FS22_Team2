@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from 'react'
 import './SellerList.css'
 import { Card, Col, Row, Button, ButtonToolbar } from 'react-bootstrap';
@@ -12,40 +13,45 @@ const [editProductItem, setEditProductItem] = useState(null)
 
 const handleClose = () => setShow(false); //to close Modal
 
+
 function handleShow(id) {
   let product = props.productsData.find(p => p.product_id === id)
-  console.log('edit product data', product)
   setEditProductItem(product)
   setShow(true);
  } //to show Modal
 
- function handleEditSubmit(id, formData){
+ function handleEditSubmit(shop_id, product_id, formData){
  setShow(false);
- props.editProductCb(id, formData)
+ props.editProductCb(shop_id, product_id, formData)
  }
  
 
 
+
 return (
     <div className='sell-list'>
-
-          
             {props.productsData?.map (p => ( 
         <Card className='productCard' key={p.product_id}
             style={{width:'auto'}}>
+
               <Row>
-              <Col>
-              <Card.Img variant='bottom' src={p.url} style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '180px'}}/>
-              <Button className='probtn' onClick={(e) => props.deleteProductCb(p.product_id)} >Delete</Button>
+                <Col>
+                  <Card.Img 
+                    variant='bottom' 
+                    src={p.url} 
+                    style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '180px'}}/>
+              <Button 
+                className='probtn' 
+                 onClick={(e) => props.deleteProductCb(p.shop_id, p.product_id)} >Delete</Button>
               <Button className='probtn'onClick={(e) => handleShow(p.product_id)}>Edit</Button>
               </Col>
               <Col>
              <Card.Title className='proTitle' style={{fontWeight:'bold', padding:'4px', textTransform:'capitalize' }}>
               {p.product_name}
-
-            </Card.Title>
-            <Card.Text className='proText' style={{padding:'10px', }}>
+              </Card.Title>
+              <Card.Text className="proText" style={{ padding: "10px" }}>
                 {p.product_description}
+
             </Card.Text > 
             <Card.Text className='proText' style={{padding:'10px', }}>
                 {p.recycled + p.no_fridge + p.fair_trade + p.local + p.organic} 
@@ -65,6 +71,7 @@ return (
             </Row>  
               
           </Col></Row>
+
         </Card>
                    
         ))} 
@@ -72,13 +79,13 @@ return (
         <EditProduct     show={show}
                          onHide={handleClose}
                          editProductItem={editProductItem}
-                         editProductCb={(id, formData)=>handleEditSubmit(id, formData)} 
+                         editProductCb={(shop_id, product_id, formData)=>handleEditSubmit(shop_id, product_id, formData)} 
                         //  product_id={p.product_id}
                         //  product_name={p.product_name}
                 />
         )}
     </div>
-  )
+  );
 }
 
 export default SellerList;

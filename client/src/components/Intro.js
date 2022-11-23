@@ -20,13 +20,13 @@ const Intro = () => {
             }}
             onInit={(typewriter) => {
               typewriter
-                
-                .typeString('Mambo!')
+                // ZOE NOTE: Changed words to more public-friendly, now M words type very slowly on second round - tried messing with other params, gave up
+                .typeString('My')
                 .pauseFor(2500)
                 .changeDelay(1000)
-                .deleteChars(5)
-                .typeString('y')
-                .pauseFor(5000)
+                .deleteChars(1)
+                .typeString('arketplace')
+                .pauseFor(2000)
                 .start();
   }}
   />
@@ -40,11 +40,11 @@ const Intro = () => {
               onInit={(typewriter) => {
                 typewriter
                   .pauseFor(1000)
-                  .typeString("Snake!")
+                  .typeString("Shopping")
                   .pauseFor(2600)
                   // .changeDelay(800)
-                  .deleteChars(5)
-                  .typeString("hopping")
+                  .deleteChars(7)
+                  .typeString("ustainability")
                   .pauseFor(4000)
                   .start();
               }}
@@ -58,17 +58,19 @@ const Intro = () => {
               onInit={(typewriter) => {
                 typewriter
                   .pauseFor(2000)
-                  .typeString("Blood!")
+                  .typeString("Buddy")
                   .pauseFor(2500)
-                  .deleteChars(5)
-                  .typeString("uddy!")
+                  .deleteChars(4)
+                  .typeString("ooster")
                   .pauseFor(3000)
                   .start();
               }}
             />
-            {/* M.S.B!{" "} */}
           </span>
-          <span>About us... </span>
+
+          <span>
+              Want to shop local, have fun and make a difference? MSB helps shoppers find local small businesses that sell what you need, and earn points and prizes for shopping more sustainably. We also help businesses get free promotion to their local customer base. Join today!
+          </span>
         </div>
       </div>
 

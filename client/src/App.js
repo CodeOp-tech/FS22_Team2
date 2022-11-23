@@ -45,13 +45,13 @@ function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // useState 14
   const [searched, setSearched] = useState([]); // useState 15
   const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
+  const [shops, setShops] = useState([]); //useState 17
 
   //maps below:
   // const [home, setHome] = useState(null); // center of map //useState 17
   // const [currView, setCurrView] = useState("homeV"); //useState 18
 
-  const [reviews, setReviews] = useState([]) // useState 19
-
+  const [reviews, setReviews] = useState([]); // useState 19
 
   const navigate = useNavigate();
 
@@ -66,10 +66,19 @@ function App() {
   }, [products, productsByShop]); // whenever products or productsByShop change
 
   useEffect(() => {
-    getPurchasedItemsByUser(); 
+    getPurchasedItemsByUser();
     getPurchasedItemsByShop();
   }, [purchases, purchasedItems]); // when purchases & purchasedItems are updated (see addPurchases function), getPurchasedItemsbyUser/Shop is called
 
+  useEffect(() => {
+    fetch("/shops")
+      .then((res) => res.json())
+      .then((json) => {
+        setShops(json);
+      })
+      .catch((error) => {});
+  }, []);
+  //maps
   /********************* AUTH FUNCTIONS *********************/
 
   // register new user
@@ -234,11 +243,21 @@ function App() {
             price: product.price,
             shop_id: product.shop_id,
 
-            productPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)),
-            // totalPoints created separate from productPoints, to store total points from productPoints multiplied by quantity of product in shopping cart 
-            totalPoints: (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)) * thisQuantity,
-            stripe_id: product.stripe_product_id
-
+            productPoints:
+              Number(product.recycled) +
+              Number(product.no_fridge) +
+              Number(product.fair_trade) +
+              Number(product.local) +
+              Number(product.organic),
+            // totalPoints created separate from productPoints, to store total points from productPoints multiplied by quantity of product in shopping cart
+            totalPoints:
+              (Number(product.recycled) +
+                Number(product.no_fridge) +
+                Number(product.fair_trade) +
+                Number(product.local) +
+                Number(product.organic)) *
+              thisQuantity,
+            stripe_id: product.stripe_product_id,
           },
         ]
       );
@@ -309,8 +328,10 @@ function App() {
 
   // ADD PURCHASE (ie. receipt of a single purchase) INTO PURCHASES TABLES (DATABASE)
   async function addPurchases(purchase_sum, user_id) {
-
-    let myresponse = await Api.addPurchases(Local.getTotal(), Local.getUserId()); // call upon Local for stored total amount and userId
+    let myresponse = await Api.addPurchases(
+      Local.getTotal(),
+      Local.getUserId()
+    ); // call upon Local for stored total amount and userId
 
     if (myresponse.ok) {
       setPurchases(myresponse.data);
@@ -318,20 +339,29 @@ function App() {
       let data = myresponse.data;
       let purchaseId = data[data.length - 1].purchase_id;
 
-    // ADD ALL PRODUCTS (ie. purchased_items) PURCHASED INTO PURCHASED_ITEMS TABLES (DATABASE)
-    let myresponse2 = await Api.addPurchasedItems(purchaseId, Local.getCartProducts());
+      // ADD ALL PRODUCTS (ie. purchased_items) PURCHASED INTO PURCHASED_ITEMS TABLES (DATABASE)
+      let myresponse2 = await Api.addPurchasedItems(
+        purchaseId,
+        Local.getCartProducts()
+      );
       if (myresponse2.ok) {
-        setPurchasedItems(myresponse2.data)
-
+        setPurchasedItems(myresponse2.data);
       } else {
         setError(myresponse2.error);
       }
     }
+
+    // UPDATE USER PURCHASE POINTS
+    let myresponse3 = await Api.addUserPoints(Local.getUserId());
+    if (myresponse3.ok) {
+      setUser(myresponse3.data);
+      console.log("user:", user);
+    } else {
+      setError(myresponse3.error);
+    }
+  } 
   }
 
-
-
-  
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
 
   async function getPurchasedItemsByUser(user_id) {
@@ -358,20 +388,16 @@ function App() {
     let tempProducts = products.filter((p) => {
       return p.product_name.toLowerCase().includes(input.toLowerCase());
       // convert both product_name and input to lowercase so not case sensitive
-
-   
-    })
+    });
     setSearched(tempProducts); // "searched" state set to ShopView via ProductContext
-
   }
 
-   // SEARCH FUNCTION WITHIN SINGLE SHOP VIEW ()
+  // SEARCH FUNCTION WITHIN SINGLE SHOP VIEW ()
   function searchShop(input) {
     let tempProducts = productsByShop.filter((p) => {
       return p.product_name.toLowerCase().includes(input.toLowerCase());
       // convert both product_name and input to lowercase so not case sensitive
-
-    })
+    });
     setSearchedByShop(tempProducts); // "searchedByShop" state set to SingleShopView via ProductContext
   }
 
@@ -393,12 +419,13 @@ function App() {
         return 0 * sort_order;
       }
     };
-
   }
 
   function showTotalPoints() {
     let copySearched = [...searched];
-    let shopsFilter = copySearched.sort(dynamicsort("total_product_points", "desc"));
+    let shopsFilter = copySearched.sort(
+      dynamicsort("total_product_points", "desc")
+    );
     setSearched(shopsFilter);
   }
 
@@ -429,22 +456,26 @@ function App() {
   async function getProductReviews(product_id) {
     // product_id passed from showPopup(id) function in ProductCard child
     let myresponse = await Api.getProductReviews(product_id);
-      if (myresponse.ok) {
-        setReviews(myresponse.data);
-      } else {
-        setError(myresponse.error);
-      }
-    };
+    if (myresponse.ok) {
+      setReviews(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  }
 
-    async function addReview(newReview, product_id, user_id) {
-      let myresponse = await Api.addReview(newReview, Number(product_id), Local.getUserId());
-      // newReview (formData), product_id passed from handleSubmit() function in AddReview child
-        if (myresponse.ok) {
-          setReviews(myresponse.data);
-        } else {
-          setError(myresponse.error);
-        }
-      };
+  async function addReview(newReview, product_id, user_id) {
+    let myresponse = await Api.addReview(
+      newReview,
+      Number(product_id),
+      Local.getUserId()
+    );
+    // newReview (formData), product_id passed from handleSubmit() function in AddReview child
+    if (myresponse.ok) {
+      setReviews(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  }
 
   /* ---Context Objects--- */
 
@@ -489,50 +520,47 @@ function App() {
             <Navbar user={user} shop={shop} logoutCb={doLogout} />
 
             <Routes>
-              <Route path="/" element={<HomeView />} />
+              <Route path="/" element={<HomeView shops={shops} />} />
               {/* NOTE: This route shows all products of all shops */}
-
               <Route
                 path="shops"
-                element={
-                  <ShopView
-                    products={products}
-                    reviews={reviews}
-                  />
-                }
+                element={<ShopView products={products} reviews={reviews} />}
               />
-
-
               {/* NOTE: This route shows products of a single selected shop */}
               <Route
                 path="shop"
                 element={<SingleShopView products={productsByShop} />}
               />
 
-              <Route path="/seller" element={<SellerDash
-                showAllProducts={getProducts}
-                shop={shop}
-                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
-                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
+
+              <Route path="/seller" 
+              element={
+                <SellerDash
+                  showAllProducts={getProducts}
+                    shop={shop}
+                      getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+                        editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
               />}/> {/*remove after*/} 
+
 
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
-
-              
-              <Route path="customer_purchases" element={<BuyerPurchaseView />} />
+              <Route
+                path="customer_purchases"
+                element={<BuyerPurchaseView />}
+              />
               <Route path="shop_purchases" element={<SellerPurchaseView />} />
-
               {/* onClick={getPurchasedItemsByUser}
               onClick={getPurchasedItemsByShop} */}
-
               <Route
-
                 path="/users/:userId"
                 element={
                   <PrivateRoute>
-                    <UserProfileView />
+                    <UserProfileView 
+                    user={user}
+                    shops={shops} 
+                   />
                   </PrivateRoute>
                 }
               />

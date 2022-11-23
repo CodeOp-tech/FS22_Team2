@@ -28,7 +28,7 @@ function EditProduct(props) {
         console.log('check formData', formData)
 
 
-        props.editProductCb( editProductData.product_id, formData );
+        props.editProductCb( Local.getShopId(), editProductData.product_id, formData );
         // props.editProductCb( editProductData.product_id, editProductData );
 
     }

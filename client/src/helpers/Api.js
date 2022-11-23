@@ -1,4 +1,4 @@
-import Local from './Local.js';
+import Local from "./Local.js";
 
 class Api {
     //_doFetch method - internal use only, to user in other functions
@@ -12,7 +12,7 @@ class Api {
         // add token to headers if it exists in localStorage
         let token = Local.getToken();
         if(token) {
-            options.headers['Authorization'] = `Bearer ${token}`;
+            options.headers['authorization'] = `Bearer ${token}`;
         }
 
         // add body if it is supplied
@@ -72,9 +72,14 @@ class Api {
         return await this._doFetch(`/users/${user_id}`);
     }
     
-    // GET general private content (members-only access pages, etc.)
-    static async getContent(url) {
-        return await this._doFetch(url);
+    // GET general private content (members-only access pages, etc.) - NOT USED
+    // static async getContent(url) {
+    //     return await this._doFetch(url);
+    // }
+
+    // PUT add user_points
+    static async addUserPoints(user_id) {
+        return await this._doFetch(`/users/points/${user_id}`, 'PUT');
     }
 
     /******* SHOP FETCHES *******/
@@ -171,7 +176,6 @@ class Api {
 
         return await this._doFetch(`/reviews`, 'POST', body);
     }
-
 }
 
 export default Api;
