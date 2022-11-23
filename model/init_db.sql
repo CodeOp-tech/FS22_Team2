@@ -68,6 +68,7 @@ CREATE TABLE `products` (
   `fair_trade` BOOLEAN DEFAULT 0,
   `local` BOOLEAN DEFAULT 0,
   `organic` BOOLEAN DEFAULT 0,
+
 	PRIMARY KEY (`product_id`)
 ); 
 

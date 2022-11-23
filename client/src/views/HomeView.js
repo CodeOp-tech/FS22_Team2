@@ -13,6 +13,7 @@ import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
 
+
 /*
 A 'place' is an obj like this:
 {
@@ -41,6 +42,7 @@ function HomeView(props) {
     let latLng = await getHome(); // returns [lat, lng]
     setHome(latLng);
   }
+
 
   // async function addMarkerForAddress(addr) {
   //   // Send a request to OpenCage to geocode 'addr'
@@ -96,6 +98,7 @@ function HomeView(props) {
   // }
 
   //Get /shops?product=scarf,sponge
+
 
   return (
     <div>

@@ -531,21 +531,18 @@ function App() {
                 path="shop"
                 element={<SingleShopView products={productsByShop} />}
               />
-              <Route
-                path="/seller"
-                element={
-                  <SellerDash
+
+
+              <Route path="/seller" 
+              element={
+                <SellerDash
+                  showAllProducts={getProducts}
                     shop={shop}
-                    getProductsByShopCb={(shop_id) =>
-                      getProductsByShop(shop_id)
-                    }
-                    editShopCb={(formData, shop_id) =>
-                      editShop(formData, shop_id)
-                    }
-                  />
-                }
-              />{" "}
-              {/*remove after*/}
+                      getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+                        editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
+              />}/> {/*remove after*/} 
+
+
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />

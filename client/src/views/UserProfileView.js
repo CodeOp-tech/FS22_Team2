@@ -118,6 +118,7 @@ function UserProfileView(props) {
         </h2>
         <br />
       </div>
+
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
@@ -151,6 +152,7 @@ function UserProfileView(props) {
           <div className="col">
             {home && <MarkerMap shops={shops} home={home} zoom={13} />}
           </div>
+          
         </div>
 
         {/* <MarkerTable places={places} /> */}

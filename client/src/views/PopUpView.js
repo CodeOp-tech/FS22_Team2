@@ -1,8 +1,8 @@
 import React from "react";
 import "./PopUpView.css";
-
 import PopUpList from "../components/PopUpList";
 import ProductReviewView from "./ProductReviewView";
+
 
 function PopUpView(props) {
   const product = props.product; // received from parent ProductCard
@@ -18,6 +18,7 @@ function PopUpView(props) {
           X
         </button>
 
+
         <div className="row">
           <ProductReviewView
             className="popup-productreview"
@@ -26,6 +27,7 @@ function PopUpView(props) {
           {/* Pass child ProductRevew product as a prop*/}
         </div>
       </div>
+
   ) : (
     ""
   );

@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import "./SellerList.css";
-import { motion } from "framer-motion";
-//import EdiText from 'react-editext'
-import { Card, Col, Row, Button, ButtonToolbar } from "react-bootstrap";
-import EditProduct from "./EditProduct";
-import Local from "../helpers/Local";
+
+import React, {useState, useEffect} from 'react'
+import './SellerList.css'
+import { Card, Col, Row, Button, ButtonToolbar } from 'react-bootstrap';
+import EditProduct from './EditProduct';
+import Local from '../helpers/Local';
+
 
 function SellerList(props) {
-  // const [isEdit, setIsEdit] = useState(false)
-  const [show, setShow] = useState(false); //state to show Modal
-  const [editProductItem, setEditProductItem] = useState(null);
+const [show, setShow] = useState(false) //state to show Modal
+const [editProductItem, setEditProductItem] = useState(null)
 
-  const handleClose = () => setShow(false); //to close Modal
+
+const handleClose = () => setShow(false); //to close Modal
+
 
 function handleShow(id) {
   let product = props.productsData.find(p => p.product_id === id)
@@ -23,41 +24,16 @@ function handleShow(id) {
  setShow(false);
  props.editProductCb(shop_id, product_id, formData)
  }
+ 
 
-  return (
-    <div className="sell-list">
-      {/* <ul className='pro-items'>
-      {props.productsData?.map (p => ( 
-      <li key={p.product_id}>
-            <img className='pro-pic' src={p.url}/>
-              <EdiText
-                type='text'
-                value={p.product_name}
-                />
-              <EdiText
-                  type='textarea' 
-                  value={p.product_description}
-                />
-              <EdiText
-                  type='number'
-                  value={p.price}
-                />
-              <EdiText
-                  type='number'
-                  value={p.product_quantity}
-                />
-             
-                <button className='delete-p' onClick={(e) => props.deleteProductCb(p.product_id)} >Delete</button>
-                <button className='edit-p'>Edit</button>
-        </li>
-        ))}
-    </ul> */}
-          
+
+
+return (
+    <div className='sell-list'>
             {props.productsData?.map (p => ( 
-        <Card 
-            className='productCard' 
-            key={p.product_id}
-            style={{width:'35rem'}}>
+        <Card className='productCard' key={p.product_id}
+            style={{width:'auto'}}>
+
               <Row>
                 <Col>
                   <Card.Img 
@@ -75,21 +51,27 @@ function handleShow(id) {
               </Card.Title>
               <Card.Text className="proText" style={{ padding: "10px" }}>
                 {p.product_description}
-              </Card.Text>
-              <Row>
-                <Col>
-                  <Card.Text className="proText" style={{ padding: "5px" }}>
-                    £{p.price}
-                  </Card.Text>
-                </Col>
-                <Col>
-                  <Card.Text className="proText" style={{ padding: "5px" }}>
-                    Qty: {p.product_quantity}
-                  </Card.Text>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+
+            </Card.Text > 
+            <Card.Text className='proText' style={{padding:'10px', }}>
+                {p.recycled + p.no_fridge + p.fair_trade + p.local + p.organic} 
+            </Card.Text >
+            
+            <Row> 
+              <Col> 
+              <Card.Text className='proText'  style={{padding:'5px', }}>
+                  £{p.price}
+                </Card.Text>
+              </Col>      
+              <Col>
+                <Card.Text className='proText' style={{padding:'5px', }}>
+                  Qty: {p.product_quantity}
+                </Card.Text>
+              </Col>                
+            </Row>  
+              
+          </Col></Row>
+
         </Card>
                    
         ))} 

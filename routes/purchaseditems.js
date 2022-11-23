@@ -61,7 +61,9 @@ router.get('/', async function(req, res,) {
   } catch (err) {
       res.status(500).send({ error: err.message });
   }
+
   });
+
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
   // removed ensureShopOwner guard b/c was throwing header error
