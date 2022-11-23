@@ -130,12 +130,6 @@ function App() {
     //Navbar should send user to home page
   }
 
-  // EXAMPLE:
-  // search/shopping list componenet (USERVIEW/SEARCH COMPONENT)
-  // field coffee, boat, desk
-  // = productstring (WHEREVER THE getShops function is)
-  // pass it to getShops function (pass this to our backend)
-
   /********************* SHOP FUNCTIONS *********************/
  
   // PUT edit shop info
@@ -439,12 +433,6 @@ function App() {
     setSearched(shopsFilter);
   }
 
-  function showShopsAtoZ() {
-    let copySearched = [...searched];
-    let shopsFilter = copySearched.sort(dynamicsort("shop_name"));
-    setSearched(shopsFilter);
-  }
-
   /********************* REVIEWS FUNCTIONS *********************/
 
   async function getProductReviews(product_id) {
@@ -526,7 +514,6 @@ function App() {
                 }
               />
 
-
               {/* NOTE: This route shows products of a single selected shop */}
               <Route
                 path="shop"
@@ -542,16 +529,11 @@ function App() {
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
-
               
               <Route path="customer_purchases" element={<BuyerPurchaseView />} />
               <Route path="shop_purchases" element={<SellerPurchaseView />} />
 
-              {/* onClick={getPurchasedItemsByUser}
-              onClick={getPurchasedItemsByShop} */}
-
               <Route
-
                 path="/users/:userId"
                 element={
                   <PrivateRoute>

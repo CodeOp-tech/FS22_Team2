@@ -10,11 +10,6 @@ import NavbarShop from "../components/NavbarShop";
 
 function ShopView(props) {
   const { searched } = useContext(ProductContext);
-  const [filtered, setFiltered] = useState([]);
-
-  
-
-  // TO-DO NOTE: Need to be able to pass shop_id somehow to parent App (for now, hardcoded in App)
 
   return (
     <div className="ShopView container">

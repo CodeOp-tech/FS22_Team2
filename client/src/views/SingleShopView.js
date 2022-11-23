@@ -16,14 +16,13 @@ function ShopView(props) {
       <img src={shopProfile.shop_image}></img>
       <h3>{shopProfile.shop_description}</h3>
       <p>Address: {shopProfile.shop_address}</p>
+      <p>Website: {shopProfile.website}</p>
       <p>Email: {shopProfile.shop_email}</p>
       <p>Donate: {shopProfile.donate}</p>
       <p>LED lights: {shopProfile.led_lights}</p>
       <p>Min biz: {shopProfile.min_biz}</p>
       <p>Small biz: {shopProfile.small_biz}</p>
       <p>Women-only biz: {shopProfile.wo_biz}</p>
-
-      <Search />
 
       <Row xs={1} md={3} className="g-4">
         {" "}

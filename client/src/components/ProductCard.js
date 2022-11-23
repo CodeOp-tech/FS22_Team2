@@ -87,7 +87,7 @@ function ProductCard(props) {
         <Card.Text><a onClick={() => navigateShop(product.shop_id)}>from <i className="shopname">{product && product.shop_name || shopProfile && shopProfile.shop_name}</i></a></Card.Text>
         <Card.Text><i>{product.total_product_points} point(s) rewarded</i></Card.Text>
         <Card.Text><b>${product.price}</b></Card.Text>
-        {/* <Card.Text>{product.product_description}</Card.Text> */}
+        <Card.Text>{product.product_description}</Card.Text>
 
         { find ? 
         <>
