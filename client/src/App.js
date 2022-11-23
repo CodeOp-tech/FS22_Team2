@@ -332,7 +332,9 @@ function App() {
     // UPDATE USER PURCHASE POINTS
     let myresponse3 = await Api.addUserPoints(Local.getUserId());
     if (myresponse3.ok) {
-      setUserPoints(myresponse3.data)
+      let myresponse4 = await Api.getUser();
+      setUser(myresponse4.data);
+      console.log("user:", user);
     } else {
       setError(myresponse3.error);
     }

@@ -38,18 +38,8 @@ router.get('/:user_id', ensureSameUser, async function(req, res, next) {
 });
 
 // PUT add user points from purchase
-// PROTECT: ensureSameUser
-// is it appropriate to use INNER JOIN here instead of LEFT JOIN? B/c we want to only return users who have purchases
 router.put('/points/:user_id', async function(req, res, next) {
   let { user_id } = req.params;
-  // access the purchase points via user > purchases > purchased_items 
-  // original sqlGet let sqlGet = `
-//     SELECT users.*, purchases.user_id, purchases.purchase_id, purchased_items.purchase_id, purchased_items.purchase_points
-//     FROM users
-//     LEFT JOIN purchases ON users.user_id = purchases.user_id 
-//     LEFT JOIN purchased_items ON purchases.purchase_id = purchased_items.purchase_id
-//     WHERE users.user_id = ${Number(user_id)}
-// `
   let sqlSum = `
     SELECT SUM(purchased_items.purchase_points) AS purchasePointsSum
       FROM users

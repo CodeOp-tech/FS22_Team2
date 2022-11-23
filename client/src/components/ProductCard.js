@@ -14,6 +14,8 @@ function ProductCard(props) {
 
   const { products, getProductDataCb, getProductReviewsCb } = useContext(ProductContext);
 
+  let totalProductPoints = (product.recycled + product.no_fridge + product.fair_trade + product.organic + product.local);
+
 
   const { user,
 
@@ -78,7 +80,7 @@ function ProductCard(props) {
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
         <Card.Text>from <i>{product.shop_name}</i></Card.Text>
-        <Card.Text><i>{product.total_product_points} point(s) rewarded</i></Card.Text>
+        <Card.Text><i>{totalProductPoints} point(s) rewarded</i></Card.Text>
         <Card.Text><b>${product.price}</b></Card.Text>
         <Card.Text>{product.product_description}</Card.Text>
 

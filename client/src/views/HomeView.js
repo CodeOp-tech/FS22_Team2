@@ -90,8 +90,12 @@ function HomeView(props) {
     <div>
 
       <Intro />
-      <h2>Congratulations To This Month's WINNERS!</h2>
-      <br></br>
+      <h2>
+        New winners every month!
+      </h2>
+      <span>
+        Earn points and redeem prizes for shopping sustainably! Check out our top sustainable shoppers.
+      </span>
 
       <Podium winners={PodiumData} />
       <hr></hr>

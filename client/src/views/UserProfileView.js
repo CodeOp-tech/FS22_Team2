@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Api from "../helpers/Api";
+import Local from "../helpers/Local";
 //map stuff:
 import { getHome } from "../helpers/geoLocation";
 import AddressForm from "../components/AddressForm";
@@ -83,12 +84,13 @@ function UserProfileView(props) {
   return (
     <div>
       <div className="UserProfileView">
-        <h1>User Profile View</h1>
-        ID: {user.userId}
+        <h1>Hey there, {user.username}!</h1>
         <br />
-        Username: {user.username}
+        <h2> You have <b>{user.user_points}</b> points!
         <br />
-        Email: {user.userEmail}
+        <button type="submit" className="btn btn-primary">Redeem</button>
+        </h2>
+        <br />
       </div>
       
       <div className="Demo1View">

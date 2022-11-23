@@ -39,16 +39,21 @@ class Local {
         return user.user_id;
     }
 
-        // get current user's points
-        static getUserPoints() {
-            let userjson = localStorage.getItem('user');
-            if (!userjson) {
-                return '';
-            }
-    
-            let user = JSON.parse(userjson);
-            return user.user_points;
+    // get current user's points
+    static getUserPoints() {
+        let userjson = localStorage.getItem('user');
+        if (!userjson) {
+            return '';
         }
+
+        let user = JSON.parse(userjson);
+        return user.user_points;
+    }
+
+    // reset user data
+    static updateUser(user) {
+        localStorage.setItem('user', JSON.stringify(user));
+    }
 
     static getUsername() {
         let userjson = localStorage.getItem('user');
