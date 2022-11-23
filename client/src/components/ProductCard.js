@@ -18,7 +18,6 @@ function ProductCard(props) {
 
 
   const { user,
-
     cartProducts,
     getProductQuantityCb,
     addOneToCartCb,
@@ -103,7 +102,7 @@ function ProductCard(props) {
         <Button variant="danger" onClick={() => handleClickDelete(product.product_id)} className="mx-2">Remove from cart</Button>
         </>
         : 
-        <Button variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
+        <Button disabled={!user} variant="primary" onClick={() => handleClick(product.product_id)}>Add To Cart</Button>
         }
       
 

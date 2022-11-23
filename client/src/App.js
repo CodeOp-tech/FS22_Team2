@@ -71,10 +71,6 @@ function App() {
     getTotalCost(); 
   }, [cartProducts]); // whenever cartProducts are added/removed, total cost must be updated
 
-  useEffect(() => {
-    getProductReviews();
-  }, [reviews])
-
   /********************* AUTH FUNCTIONS *********************/
 
   // register new user
@@ -356,9 +352,6 @@ function App() {
     }
   }
 
-
-
-  
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
 
   async function getPurchasedItemsByUser(user_id) {
@@ -380,13 +373,13 @@ function App() {
     }
   }
 
+  /********************* SEARCH & SORT FUNCTIONS *********************/
+
   // SEARCH FUNCTION WITHIN SHOPVIEW (Online Store)
   function search(input) {
     let tempProducts = products.filter((p) => {
       return p.product_name.toLowerCase().includes(input.toLowerCase());
       // convert both product_name and input to lowercase so not case sensitive
-
-   
     })
     setSearched(tempProducts); // "searched" state set to ShopView via ProductContext
 
@@ -451,6 +444,8 @@ function App() {
     let shopsFilter = copySearched.sort(dynamicsort("shop_name"));
     setSearched(shopsFilter);
   }
+
+  /********************* REVIEWS FUNCTIONS *********************/
 
   async function getProductReviews(product_id) {
     // product_id passed from showPopup(id) function in ProductCard child

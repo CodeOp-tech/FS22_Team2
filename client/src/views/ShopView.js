@@ -18,7 +18,8 @@ function ShopView(props) {
 
   return (
     <div className="ShopView container">
-      <h1>Welcome to the store!</h1>
+      <h1>Welcome to My Shopping Buddy</h1>
+      <p>Please login/register to begin shopping!</p>
       <div className="row">
         <div className="col-sm-2">
           <Search />
