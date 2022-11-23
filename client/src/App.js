@@ -74,6 +74,10 @@ function App() {
     getPurchasedItemsByShop();
   }, [purchases, purchasedItems]); // when purchases & purchasedItems are updated (see addPurchases function), getPurchasedItemsbyUser/Shop is called
 
+  useEffect(() => {
+    getTotalCost(); 
+  }, [cartProducts]); // whenever cartProducts are added/removed, total cost must be updated
+  
   /********************* AUTH FUNCTIONS *********************/
 
   // register new user
