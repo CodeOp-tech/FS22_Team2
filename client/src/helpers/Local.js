@@ -28,7 +28,7 @@ class Local {
         return userjson ? JSON.parse(userjson) : null;
     }
 
-    // get current user Id
+    // get current user's id
     static getUserId() {
         let userjson = localStorage.getItem('user');
         if (!userjson) {
@@ -38,6 +38,17 @@ class Local {
         let user = JSON.parse(userjson);
         return user.user_id;
     }
+
+        // get current user's points
+        static getUserPoints() {
+            let userjson = localStorage.getItem('user');
+            if (!userjson) {
+                return '';
+            }
+    
+            let user = JSON.parse(userjson);
+            return user.user_points;
+        }
 
     static getUsername() {
         let userjson = localStorage.getItem('user');

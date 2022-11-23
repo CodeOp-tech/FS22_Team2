@@ -45,6 +45,7 @@ function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // useState 14
   const [searched, setSearched] = useState([]); // useState 15
   const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
+  const [userPoints, setUserPoints] = useState(Local.getUserPoints()); // useState 17
 
   //maps below:
   // const [home, setHome] = useState(null); // center of map //useState 17
@@ -327,10 +328,15 @@ function App() {
         setError(myresponse2.error);
       }
     }
-  }
 
-
-
+    // UPDATE USER PURCHASE POINTS
+    let myresponse3 = await Api.addUserPoints(Local.getUserId());
+    if (myresponse3.ok) {
+      setUserPoints(myresponse3.data)
+    } else {
+      setError(myresponse3.error);
+    }
+  } 
   
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
 

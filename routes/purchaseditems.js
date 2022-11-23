@@ -42,6 +42,7 @@ router.get('/', async function(req, res,) {
   });
 
 // GET PURCHASED_ITEMS BASED OFF USER ID (USER PURCHASE HISTORY)
+// tried removing ensureSameUser guard b/c was throwing header error, no difference
   router.get('/:user_id', ensureSameUser, async function(req, res,) { 
     let id = req.params.user_id;
     // NOTE: get method doesn't have a body, so id must be passed in link (req.params)
@@ -63,6 +64,7 @@ router.get('/', async function(req, res,) {
   });
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
+  // tried removing ensureShopOwner guard b/c was throwing header error, no difference
   router.get('/shops/:shop_id', ensureShopOwner, async function(req, res,) { // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
     // which is passed from front end fetch at...
         let id = req.params.shop_id;
