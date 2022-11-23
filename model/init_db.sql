@@ -59,7 +59,7 @@ VALUES
                 social progress. Promote the circular economy.', 'https://welovesecondhand.files.wordpress.com/2021/06/humana-moda-secondhand-vintage-segunda-mano-barcelona-general-alvarez-de-castro.jpg?w=676', 'https://humana.com', '87654321', 'humana@humana.com', 0, 0, 1, 0, 1, 41.41072516726371, 2.184927150041393),
 ('Syra Cafe', 'Carrer de Londres, 100, 08036 Barcelona','Coffee: ...because you know you need it', 'https://cdn.shopify.com/s/files/1/0299/2046/0884/files/gracia.png?v=1653134456', 'https://syracafe.com', '87654322', 'syra@syra.com', 1, 1, 1, 1, 1, 41.394116117800166, 2.1515154467882596),
 ('Ametller', 'C. del Comte Borrell, 71, 08015 Barcelona', 'For all your grocery needs', 'https://img.freepik.com/free-photo/fresh-fruit-stalls-san-miguel-market_53876-146829.jpg?size=626&ext=jpg&ga=GA1.2.1076301059.1668595321&semt=sph', 'https://amettler.com','87654323','ametller@ametller.com', 0, 1, 0, 1, 0, 41.396292556086514, 2.1660198146854333),
-('Fancy', 'Passeig del Migdia, 08038 Barcelona', 'We only do luxe', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.insider-trends.com%2Ftop-50-luxury-stores%2F&psig=AOvVaw2-AY_jd2zwY29f71Yy-9ft&ust=1669318101674000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCJDcstiExfsCFQAAAAAdAAAAABAD', 'https://fancy.com','43215678','fancy@fancy.com', 0, 0, 0, 0, 0, 41.365401, 2.166184);
+('Fancy', 'Passeig del Migdia, 08038 Barcelona', 'We only do luxe', 'http://cms.luxurysociety.com/media/original_images/_3239_miumiunewbondstreet_2-1_original_SQKVTDC.jpg', 'https://fancy.com','43215678','fancy@fancy.com', 0, 0, 0, 0, 0, 41.365401, 2.166184);
 
 
 CREATE TABLE `products` (
@@ -111,10 +111,10 @@ CREATE TABLE `purchases` (
 
 INSERT INTO purchases ( purchase_sum, user_id)
 VALUES
-(61.10, 7), -- Zoe7 buys one Laser Cap, one Laser shirt and Amattler oranges
+(61.10, 7), -- Zoe7 buys one Laser Cap, one Laser shirt and Amatller oranges
 (115.00, 8), -- Megan8 buys 10 Laser socks 
 (11.97, 9), -- Kejal9 buys 1 Syra Coffee 2 apples 
-(519.19, 10), -- Jess10 buys 1 Laser short, 1 Humana hoodies, 2 bunches of Amattler oranges, 1 Fancy camera
+(519.19, 10), -- Jess10 buys 1 Laser short, 1 Humana hoodies, 2 bunches of Amatller oranges, 1 Fancy camera
 (22.90, 1), -- Laser1 buys 1 Laser Cap
 (22.90, 2); -- Humana2 buys 1 Laser Cap
 
@@ -132,13 +132,13 @@ INSERT INTO purchased_items (purchase_quantity, purchase_points, purchase_id, pr
 VALUES
 (1, 5, 1, 1, 1), -- Zoe7 buys one Laser Cap 
 (1, 3, 1, 2, 1), -- Zoe7 buys one Laser Shirt 
-(1, 2, 1, 14, 4), -- Zoe7 buys one bunch of Amattler oranges
+(1, 2, 1, 14, 4), -- Zoe7 buys one bunch of Amatller oranges
 (10, 10, 2, 3, 1), -- Megan8 buys 10 Laser socks 
 (1, 3, 3, 10, 3), -- Kejal9 buys 1 Syra Coffee 
-(2, 6, 3, 10, 4), -- Kejal9 buys 2 apples 
+(2, 6, 3, 12, 4), -- Kejal9 buys 2 apples 
 (1, 3, 4, 5, 1), -- Jess10 buys 1 Laser short 
 (1, 2, 4, 7, 2), -- Jess10 buys 1 Humana hoodie set 
-(2, 4, 4, 14, 4), -- Jess10 buys 2 bunches of Amattler oranges 
+(2, 4, 4, 14, 4), -- Jess10 buys 2 bunches of Amatller oranges 
 (1, 1, 4, 15, 5), -- Jess10 buys 1 Fancy Camera 
 (1, 5, 5, 1, 1), -- Laser1 buys 1 Laser Cap 
 (1, 5, 6, 1, 1); -- Humana2 buys 1 Laser Cap 
