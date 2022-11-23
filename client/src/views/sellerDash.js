@@ -41,7 +41,7 @@ function SellerDash(props) {
     // add token to headers if it exists in localStorage
     let token = Local.getToken();
     if(token) {
-        options.headers['Authorization'] = `Bearer ${token}`;
+        options.headers['authorization'] = `Bearer ${token}`;
     }
     
     try {
@@ -62,8 +62,7 @@ function SellerDash(props) {
     let options = {
       method: "DELETE",
     };
-    console.log("shop id", shop_id)
-    console.log("product id", product_id)
+
   try {
     let response = await fetch(`/products/${shop_id}/${product_id}`, options); 
     if (response.ok) {
@@ -115,7 +114,7 @@ function SellerDash(props) {
       </Col>
       <Col>
       <SellerList productsData={productsData}
-                  deleteProductCb={(id) => deleteProduct(id)}
+                  deleteProductCb={(shop_id, product_id) => deleteProduct(shop_id, product_id)}
                   editProductCb={(id, formData) =>editProduct(id, formData)}//id sent to the sellerDash (parent of sellerlist)
       /></Col> 
       

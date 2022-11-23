@@ -165,8 +165,8 @@ router.get('/', async function(req, res,) {
   });
 
   // DELETE PRODUCT BASED OFF PRODUCT ID
-  // PROTECT: ensureShopOwner
-  router.delete("/:shop_id/:product_id", ensureShopOwner, async (req, res) => { // NOTE: front-end fetch must pass product_id and shop_id (can be stored in Local.js?)
+  // Later: PROTECT: ensureShopOwner
+  router.delete("/:shop_id/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id and shop_id (can be stored in Local.js?)
     let id = req.params.product_id;
     // need shop_id to display only products in said shop, once delete is executed
 
