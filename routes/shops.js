@@ -80,12 +80,12 @@ router.get("/profile/:shop_id", async function (req, res, next) {
 
 // GET a user's shop info
 // PROTECTED - for editing profile page
-router.get("/:userId", ensureSameUser, async function (req, res, next) {
-  let { userId } = req.params;
+router.get("/:user_id", ensureSameUser, async function (req, res, next) {
+  let { user_id } = req.params;
   let sql = `SELECT users.*, shops.*
       FROM users
       LEFT JOIN shops on users.shop_id = shops.shop_id
-      WHERE user_id = ${Number(userId)}`;
+      WHERE user_id = ${Number(user_id)}`;
 
   try {
     let results = await db(sql);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Api from "../helpers/Api";
+import Local from "../helpers/Local";
 //map stuff:
 import { getHome } from "../helpers/geoLocation";
 import AddressForm from "../components/AddressForm";
@@ -15,7 +16,6 @@ function UserProfileView(props) {
   const [currView, setCurrView] = useState("homeV");
   const [shops, setShops] = useState([]);
   //user stuff:
-  const [user, setUser] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [allShops, setAllShops] = useState("");
   const [error, setError] = useState("");
@@ -45,7 +45,6 @@ function UserProfileView(props) {
 
   useEffect(() => {
     getAndSetHome();
-    fetchProfile();
   }, []);
 
   useEffect(() => {
@@ -66,23 +65,11 @@ function UserProfileView(props) {
     }
   }
 
-  async function fetchProfile() {
-    let myresponse = await Api.getUser(userId);
-    if (myresponse.ok) {
-      setUser(myresponse.data);
-      setErrorMsg("");
-    } else {
-      setUser(null);
-      let msg = `Error ${myresponse.status}: ${myresponse.error}`;
-      setErrorMsg(msg);
-    }
-  }
-
   if (errorMsg) {
     return <h2 style={{ color: "red" }}>{errorMsg}</h2>;
   }
 
-  if (!user) {
+  if (!props.user) {
     return <h2>Loading...</h2>;
   }
   async function getAndSetHome() {
@@ -123,16 +110,14 @@ function UserProfileView(props) {
   return (
     <div>
       <div className="UserProfileView">
-        <h1>User Profile View</h1>
-        ID: {user.userId}
+        <h1>Hey there, {props.user.username}!</h1>
         <br />
-        Username: {user.username}
+        <h2> You have <b>{props.user.user_points}</b> points!
         <br />
-        Email: {user.userEmail}
+        <button type="submit" className="btn btn-primary">Redeem</button>
+        </h2>
+        <br />
       </div>
-
-      {/* <Map /> */}
-
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">

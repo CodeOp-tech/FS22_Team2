@@ -350,6 +350,16 @@ function App() {
         setError(myresponse2.error);
       }
     }
+
+    // UPDATE USER PURCHASE POINTS
+    let myresponse3 = await Api.addUserPoints(Local.getUserId());
+    if (myresponse3.ok) {
+      setUser(myresponse3.data);
+      console.log("user:", user);
+    } else {
+      setError(myresponse3.error);
+    }
+  } 
   }
 
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
@@ -550,7 +560,10 @@ function App() {
                 path="/users/:userId"
                 element={
                   <PrivateRoute>
-                    <UserProfileView shops={shops} />
+                    <UserProfileView 
+                    user={user}
+                    shops={shops} 
+                   />
                   </PrivateRoute>
                 }
               />

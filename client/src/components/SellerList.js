@@ -13,17 +13,16 @@ function SellerList(props) {
 
   const handleClose = () => setShow(false); //to close Modal
 
-  function handleShow(id) {
-    let product = props.productsData.find((p) => p.product_id === id);
-    console.log("edit product data", product);
-    setEditProductItem(product);
-    setShow(true);
-  } //to show Modal
+function handleShow(id) {
+  let product = props.productsData.find(p => p.product_id === id)
+  setEditProductItem(product)
+  setShow(true);
+ } //to show Modal
 
-  function handleEditSubmit(id, formData) {
-    setShow(false);
-    props.editProductCb(id, formData);
-  }
+ function handleEditSubmit(shop_id, product_id, formData){
+ setShow(false);
+ props.editProductCb(shop_id, product_id, formData)
+ }
 
   return (
     <div className="sell-list">
@@ -53,48 +52,26 @@ function SellerList(props) {
         </li>
         ))}
     </ul> */}
-
-      {props.productsData?.map((p) => (
-        <Card
-          className="productCard"
-          key={p.product_id}
-          style={{ width: "35rem" }}
-        >
-          <Row>
-            <Col>
-              <Card.Img
-                variant="bottom"
-                src={p.url}
-                style={{
-                  objectFit: "cover",
-                  height: "150px",
-                  marginBottom: "10px",
-                  width: "180px",
-                }}
-              />
-              <Button
-                className="probtn"
-                onClick={(e) => props.deleteProductCb(p.product_id)}
-              >
-                Delete
-              </Button>
-              <Button
-                className="probtn"
-                onClick={(e) => handleShow(p.product_id)}
-              >
-                Edit
-              </Button>
-            </Col>
-            <Col>
-              <Card.Title
-                className="proTitle"
-                style={{
-                  fontWeight: "bold",
-                  padding: "4px",
-                  textTransform: "capitalize",
-                }}
-              >
-                {p.product_name}
+          
+            {props.productsData?.map (p => ( 
+        <Card 
+            className='productCard' 
+            key={p.product_id}
+            style={{width:'35rem'}}>
+              <Row>
+                <Col>
+                  <Card.Img 
+                    variant='bottom' 
+                    src={p.url} 
+                    style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '180px'}}/>
+              <Button 
+                className='probtn' 
+                 onClick={(e) => props.deleteProductCb(p.shop_id, p.product_id)} >Delete</Button>
+              <Button className='probtn'onClick={(e) => handleShow(p.product_id)}>Edit</Button>
+              </Col>
+              <Col>
+             <Card.Title className='proTitle' style={{fontWeight:'bold', padding:'4px', textTransform:'capitalize' }}>
+              {p.product_name}
               </Card.Title>
               <Card.Text className="proText" style={{ padding: "10px" }}>
                 {p.product_description}
@@ -114,17 +91,17 @@ function SellerList(props) {
             </Col>
           </Row>
         </Card>
-      ))}
-      {show && (
-        <EditProduct
-          show={show}
-          onHide={handleClose}
-          editProductItem={editProductItem}
-          editProductCb={(id, formData) => handleEditSubmit(id, formData)}
-          //  product_id={p.product_id}
-          //  product_name={p.product_name}
-        />
-      )}
+                   
+        ))} 
+        {show && (
+        <EditProduct     show={show}
+                         onHide={handleClose}
+                         editProductItem={editProductItem}
+                         editProductCb={(shop_id, product_id, formData)=>handleEditSubmit(shop_id, product_id, formData)} 
+                        //  product_id={p.product_id}
+                        //  product_name={p.product_name}
+                />
+        )}
     </div>
   );
 }
