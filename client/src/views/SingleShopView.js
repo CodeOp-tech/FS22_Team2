@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
 import Search from "../components/Search";
 import ProductContext from "../ProductContext";
+import Sort from "../components/Sort";
 
 
 function ShopView(props) {
@@ -23,6 +24,7 @@ function ShopView(props) {
       <p>Women-only biz: {shopProfile.wo_biz}</p>
 
       <Search />
+
       <Row xs={1} md={3} className="g-4">
         {" "}
         {/* On an extra small screen, only show 1 column but on medium screen show 3 columns */}

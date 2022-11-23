@@ -17,7 +17,7 @@ function Search(props) {
             <form>
                 <input 
                 type="text"
-                placeholder = "type here to search..."
+                placeholder = "type here to search for product..."
                 value={input}
                 onChange={handleChange}
                 />
