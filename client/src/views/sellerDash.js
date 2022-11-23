@@ -7,7 +7,6 @@ import ShopEditForm from "../components/ShopEditForm";
 import Api from "../helpers/Api.js";
 import Local from "../helpers/Local";
 
-
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
 
@@ -35,24 +34,23 @@ function SellerDash(props) {
     let options = {
       method: "POST",
       //headers: { 'Content-Type': 'application/json' }, //remove?
-      body: formData, // just formData?
+      body: editProductData,
     };
 
+    //   method: 'POST',
+    //   //headers: { 'Content-Type': 'application/json' }, //remove?
+    //   body: editProductData // just formData?
+    // };
 
-    method: 'POST',
-    //headers: { 'Content-Type': 'application/json' }, //remove?
-    body: editProductData // just formData?
-  };
-    
-  try {
-    let response = await fetch(`/products/${Local.getShopId()}`, options); 
-    if (response.ok) {
-    let result = await response.json();
-    setProductsData(result);
-    getProducts(); //note to ask about the reload
-    } else {
-      console.log(`Server error: ${response.status} ${response.statusText}`);
-    }
+    try {
+      let response = await fetch(`/products/${Local.getShopId()}`, options);
+      if (response.ok) {
+        let result = await response.json();
+        setProductsData(result);
+        getProducts(); //note to ask about the reload
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
     } catch (err) {
       console.log(`Network error: ${err.message}`);
     }
@@ -63,69 +61,64 @@ function SellerDash(props) {
       method: "DELETE",
     };
 
-  try {
-    let response = await fetch(`/products/${id}`, options); 
-    if (response.ok) {
-      let result = await response.json();
-      setProductsData(result);
-      getProducts(); //split second loads all products
-    } else {
-      console.log(`Server error: ${response.status} ${response.statusText}`);
-    }
-  } catch (err) {
-    console.log(`Server error: ${err.message}`);
-  }};
-
-    async function editProduct(id, formData) {
-      let options = {
-      method: 'PUT',
-      // headers: { 'Content-Type': 'application/json' },
-      body: formData
-      // headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify(formData)
-  };
-      console.log(formData)
-  try {
+    try {
       let response = await fetch(`/products/${id}`, options);
       if (response.ok) {
-      let result = await response.json();
-      setProductsData(result);
-  } else {
-      console.log(`Server error: ${response.status} ${response.statusText}`);
-  }
-  } catch (err) {
+        let result = await response.json();
+        setProductsData(result);
+        getProducts(); //split second loads all products
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
+    } catch (err) {
       console.log(`Server error: ${err.message}`);
-  }};
+    }
+  }
+
+  async function editProduct(id, formData) {
+    let options = {
+      method: "PUT",
+      // headers: { 'Content-Type': 'application/json' },
+      body: formData,
+      // headers: { 'Content-Type': 'application/json' },
+      // body: JSON.stringify(formData)
+    };
+    console.log(formData);
+    try {
+      let response = await fetch(`/products/${id}`, options);
+      if (response.ok) {
+        let result = await response.json();
+        setProductsData(result);
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
+    } catch (err) {
+      console.log(`Server error: ${err.message}`);
+    }
+  }
 
   return (
     <div>
       <Container>
+        <Row>
+          <ShopEditForm shop={props.shop} editShopCb={props.editShopCb} />
+        </Row>
 
-      <Row>
-        <ShopEditForm 
-          shop = {props.shop}
-          editShopCb={props.editShopCb}
-        />
-      </Row>
-
-      <Row>
-      <Col>
-      <SellerForm addProductCb={addProduct} />
-      </Col>
-      <Col>
-      <SellerList productsData={productsData}
-                  deleteProductCb={(id) => deleteProduct(id)}
-                  editProductCb={(id, formData) =>editProduct(id, formData)}//id sent to the sellerDash (parent of sellerlist)
-      /></Col> 
-      
-      </Row>
-    
-      </Container>  
-    
-
+        <Row>
+          <Col>
+            <SellerForm addProductCb={addProduct} />
+          </Col>
+          <Col>
+            <SellerList
+              productsData={productsData}
+              deleteProductCb={(id) => deleteProduct(id)}
+              editProductCb={(id, formData) => editProduct(id, formData)} //id sent to the sellerDash (parent of sellerlist)
+            />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
-
 
 export default SellerDash;

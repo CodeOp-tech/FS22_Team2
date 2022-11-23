@@ -10,15 +10,43 @@ import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
 
 function UserProfileView(props) {
-  // const [places, setPlace] = useState([]);
   //maps below: app stuff
-  const [home, setHome] = useState([41.390205, 2.154007]); // center of map //useState 17
-  const [currView, setCurrView] = useState("homeV"); //useState 18
+  const [home, setHome] = useState([41.390205, 2.154007]); // center of map
+  const [currView, setCurrView] = useState("homeV");
   const [shops, setShops] = useState([]);
   //user stuff:
   const [user, setUser] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [allShops, setAllShops] = useState("");
+  const [error, setError] = useState("");
+
   let { userId } = useParams();
+
+  // const filterProducts = ({ searchResult, setSearchResult }) => {
+  //   const [keyword, setKeyword] = useState("");
+  // };
+
+  // const handleChange = (event) => {
+  //   const { value } = event.target;
+  //   setKeyword(event.target.value);
+  // };
+
+  // useEffect(() => {
+  //   fetch("/shops")
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       setShops(json);
+  //     })
+  //     .catch((error) => {});
+  // }, []);
+  useEffect(() => {
+    getSelectedShops();
+  }, []);
+
+  useEffect(() => {
+    getAndSetHome();
+    fetchProfile();
+  }, []);
 
   useEffect(() => {
     fetch("/shops")
@@ -29,10 +57,14 @@ function UserProfileView(props) {
       .catch((error) => {});
   }, []);
 
-  useEffect(() => {
-    getAndSetHome();
-    fetchProfile();
-  }, []);
+  async function getSelectedShops(productString) {
+    let myresponse = await Api.getAllShops(productString);
+    if (myresponse.ok) {
+      setAllShops(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  }
 
   async function fetchProfile() {
     let myresponse = await Api.getUser(userId);
@@ -57,28 +89,36 @@ function UserProfileView(props) {
     let latLng = await getHome(); // returns [lat, lng]
     setHome(latLng);
   }
-
-  async function addMarkerForAddress(addr) {
-    // Send a request to OpenCage to geocode 'addr'
-    let myresponse = await geocode(addr);
+  async function getSelectedShops(input) {
+    console.log(input);
+    let myresponse = await Api.getSearchShops(input);
     if (myresponse.ok) {
-      if (myresponse.data.latLng) {
-        // Create new 'place' obj
-        let d = myresponse.data;
-        let newShop = {
-          latLng: d.latLng,
-          input_address: addr,
-          formatted_address: d.formatted_address,
-        };
-        // Add it to 'places' state
-        setShops((shops) => [...shops, newShop]);
-      } else {
-        console.log("addMarkerForAddress(): no results found");
-      }
+      setShops(myresponse.data);
     } else {
-      console.log("addMarkerForAddress(): response.error:", myresponse.error);
+      setError(myresponse.error);
     }
   }
+  // async function addMarkerForAddress(addr) {
+  //   // Send a request to OpenCage to geocode 'addr'
+  //   let myresponse = await geocode(addr);
+  //   if (myresponse.ok) {
+  //     if (myresponse.data.latLng) {
+  //       // Create new 'place' obj
+  //       let d = myresponse.data;
+  //       let newShop = {
+  //         latLng: d.latLng,
+  //         input_address: addr,
+  //         formatted_address: d.formatted_address,
+  //       };
+  //       // Add it to 'places' state
+  //       setShops((shops) => [...shops, newShop]);
+  //     } else {
+  //       console.log("addMarkerForAddress(): no results found");
+  //     }
+  //   } else {
+  //     console.log("addMarkerForAddress(): response.error:", myresponse.error);
+  //   }
+  // }
 
   return (
     <div>
@@ -91,15 +131,21 @@ function UserProfileView(props) {
         Email: {user.userEmail}
       </div>
 
-      <Map />
-      
+      {/* <Map /> */}
+
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
             <h3>Create Your Shopping List </h3>
             <p>Enter the products you need and plan your route</p>
 
-            <SearchMaps />
+            <SearchMaps getSelectedShopsCb={getSelectedShops} />
+            {/* {searchResult.map((product) => (
+                <div>{searchResult }</div>
+              ))}
+              filterProducts
+              handleChange /> */}
+
             {/* <ol>
               <li>
                 A <code>home</code> query parameter like:{" "}
@@ -111,10 +157,10 @@ function UserProfileView(props) {
 
             <h3 className="mt-4"> Add Markers</h3>
             <p>Enter an address to add a blue marker on the map</p>
-            <AddressForm
+            {/* <AddressForm
               addMarkerCb={(addr) => addMarkerForAddress(addr)}
               shops={shops}
-            />
+            /> */}
           </div>
 
           <div className="col">
@@ -124,7 +170,6 @@ function UserProfileView(props) {
 
         {/* <MarkerTable places={places} /> */}
       </div>
-
     </div>
   );
 }
