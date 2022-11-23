@@ -35,15 +35,9 @@ function SellerDash(props) {
     let options = {
       method: "POST",
       //headers: { 'Content-Type': 'application/json' }, //remove?
-      body: formData, // just formData?
+      body: editProductData, // just formData?
     };
 
-
-    method: 'POST',
-    //headers: { 'Content-Type': 'application/json' }, //remove?
-    body: editProductData // just formData?
-  };
-    
   try {
     let response = await fetch(`/products/${Local.getShopId()}`, options); 
     if (response.ok) {

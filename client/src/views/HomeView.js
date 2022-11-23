@@ -86,10 +86,6 @@ function HomeView(props) {
     setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
   }
 
-
-
-function HomeView() {
-
   return (
     <div>
 
@@ -102,10 +98,6 @@ function HomeView() {
       <MySlider />
 
       <FeaturedBusiness />
-
-      <Map />
-   
-
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">

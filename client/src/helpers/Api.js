@@ -86,8 +86,8 @@ class Api {
     }
     
     // GET all shops
-    static async getAllShops() {
-        return await this._doFetch('/shops');
+    static async getAllShops(productstring) {
+        return await this._doFetch(`/shops/products_name=${productstring}`);
     }
     
     // GET shop by shop_id

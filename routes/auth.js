@@ -22,8 +22,8 @@ router.post ('/register', async (req,res) => {
         
         // add new shop to db w/fields preset to null
         let sqlPostShop = `
-            INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz)
-            VALUES (${null}, ${null}, ${null}, ${null}, ${null}, ${null}, ${null}, 0, 0, 0, 0, 0);
+            INSERT INTO shops (shop_name, shop_address, shop_description, shop_image, website, phone, shop_email, donate, led_lights, small_biz, min_biz, wo_biz, latitude, longitude)
+            VALUES ('', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0.0, 0.0);
             SELECT LAST_INSERT_ID()
         `
         // POST new user

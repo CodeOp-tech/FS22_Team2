@@ -1,6 +1,7 @@
 import { React, useState, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { breakAddr } from "../helpers/utils";
+import {Link} from "react-router-dom";
 
 //import dummylocations from "./dummylocations";
 
@@ -21,6 +22,11 @@ function MarkerMap(props) {
     nameAnchor: [1, -34],
     shadowSize: [41, 41],
   });
+
+//   function handleClick(id) {
+//   props.setShopCb(id); // in UserProfileView 
+//   console.log("What up?")
+// }
 
   return (
     <MapContainer
@@ -58,7 +64,7 @@ function MarkerMap(props) {
           key={p.shop_name}
           position={[p.latitude, p.longitude]}
           icon={greenMarker}
-        >
+          >
           <Popup>{breakAddr(p.shop_name)}</Popup>
           {/* //maybe add a button here to link to shop page! */}
         </Marker>
@@ -69,3 +75,4 @@ function MarkerMap(props) {
 }
 
 export default MarkerMap;
+

@@ -76,7 +76,7 @@ CREATE TABLE `products` (
 
 INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic, total_product_points)
 VALUES
-('Coffee', 5.99, 'coffee.jpg', 20, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 1, 1, 0, 1, 1, 1, 4),
+('Coffee', 5.99, 'coffee.jpg', 20, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 3, 1, 0, 1, 1, 1, 4),
 ('Sunglasses', 10.99, 'Sunglasses.jpeg', 10, 'Defend yourself from all that shade you be getting wearing these babies', 'price_1M49GDBIwndE5957XZPxGANH', 2, 0, 1, 0, 0, 0, 1),
 ('Camera', 59.99, 'Camera.jpeg', 50, 'The best camera around', 'price_1M49HEBIwndE59571OqKQqvk', 2, 0, 1, 0, 0, 0, 1),
 ('Scarf', 30.99, 'Scarf.jpeg', 100, 'Scarf to keep you warm', 'price_1M44dEBIwndE5957Cait0D15', 1, 1, 1, 1, 1, 1, 5),

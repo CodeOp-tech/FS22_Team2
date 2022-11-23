@@ -1,9 +1,7 @@
 import React from "react";
 import "./PopUpView.css";
-
 import PopUpList from "../components/PopUpList";
 import ProductReviewView from "./ProductReviewView";
-
 
 
 function PopUpView(props) {
@@ -20,19 +18,15 @@ function PopUpView(props) {
         <button className="close-btn" onClick={removePopup}>
           X
         </button>
-
+        
+            <div className="row">
+            <PopUpList className="popup-list" product={product} /> {/* Pass child PopupList product as a prop*/}
+            </div>
 
             <div className="row">
             <ProductReviewView className="popup-productreview" product={product} /> {/* Pass child ProductRevew product as a prop*/}
             </div>
-
         </div>
-
-        <div className="row">
-          <ProductReview className="popup-productreview" product={product} />{" "}
-          {/* Pass child ProductRevew product as a prop*/}
-        </div>
-      </div>
     </div>
   ) : (
     ""

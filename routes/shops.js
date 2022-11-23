@@ -3,12 +3,32 @@ var router = express.Router();
 const { ensureSameUser, ensureShopOwner } = require("../middleware/guards");
 const db = require("../model/helper.js");
 
+
+/**
+ * Helpers
+ **/
+
+//  function makeWhereFromFilters(productstring) {
+//   let filters = [];
+//   filters.push(productstring);
+  
+//   // productstring = coffee,scarf,
+//   // split on commas,
+//   // wrap it in quotes
+//   // join again with , 
+  
+
+//   // Return all filters joined by AND
+//   return filters.join(' AND ');
+// }
+
 // GET all shops
 // doesn't need protection
 router.get("/", async function (req, res, next) {
-  let sql = `SELECT shops.* , products.product_name 
-      FROM shops
-            LEFT JOIN products ON shops.shop_id = products.shop_id `;
+  let sql = `SELECT * FROM shops`;
+  // let sql = `SELECT DISTINCT shops.*
+  // WHERE products.product_name IN ('coffee', 'scarf, 'belt')
+  //     FROM shops `;
 
   try {
     let results = await db(sql);

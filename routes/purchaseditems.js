@@ -30,7 +30,7 @@ function joinToJson(results) {
 
 // GET ALL PURCHASED_ITEMS REGARDLESS OF USERS / SHOPS
 
-router.get('/', async function(req, res,) { 
+router.get('/', async function(req, res) { 
 
     try {
       let results = await db(`SELECT * FROM purchased_items`); 
@@ -45,7 +45,7 @@ router.get('/', async function(req, res,) {
 
 // GET PURCHASED_ITEMS BASED OFF USER ID (USER PURCHASE HISTORY)
 
-  router.get('/:user_id', async function(req, res,) { // NOTE: front-end fetch must pass user_id 
+  router.get('/:user_id', async function(req, res) { // NOTE: front-end fetch must pass user_id 
 // which is called from front end fetch at App, through getPurchasedItemsByUser()
     let id = req.params.user_id;
 
@@ -67,13 +67,6 @@ router.get('/', async function(req, res,) {
     res.status(500).send({ error: err.message });
   }
 });
-
-// GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
-router.get("/shops/:shop_id", async function (req, res) {
-  // NOTE: front-end fetch must pass shop_id (can be stored in Local.js?)
-  // which is passed from front end fetch at...
-  let id = req.params.shop_id;
-
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
   router.get('/shops/:shop_id', async function(req, res,) { // NOTE: front-end fetch must pass shop_id 

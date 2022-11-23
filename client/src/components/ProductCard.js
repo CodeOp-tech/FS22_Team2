@@ -7,12 +7,14 @@ import CartContext from "../CartContext";
 import ProductContext from "../ProductContext";
 import "./ProductCard.css";
 import PopUpView from "../views/PopUpView";
+import { useNavigate } from "react-router-dom"; // BrowserRouter = the overarching router
 
 function ProductCard(props) {
   const product = props.product; // props.product is the product we are selling, received from parent ShopView (which received it's props.products from parent App)
   const [buttonPopup, setButtonPopup] = useState(false);
+  const navigate = useNavigate();
 
-  const { products, getProductDataCb, getProductReviewsCb } = useContext(ProductContext);
+  const { getProductDataCb, getProductReviewsCb, getProductsByShopCb, getShopProfileCb, shopProfile } = useContext(ProductContext);
 
 
   const { user,
@@ -59,6 +61,12 @@ function ProductCard(props) {
       setButtonPopup(false);
     }
 
+    function navigateShop(shop_id) {
+      getProductsByShopCb(shop_id);
+      getShopProfileCb(shop_id);
+      navigate('/shop')
+    }
+
 
   let find = cartProducts.find((e) => e.id === product.product_id);
 
@@ -77,10 +85,10 @@ function ProductCard(props) {
         </div>
         <Card.Title>{product.product_name}</Card.Title>{" "}
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
-        <Card.Text>from <i>{product.shop_name}</i></Card.Text>
+        <Card.Text><a onClick={() => navigateShop(product.shop_id)}>from <i>{product && product.shop_name || shopProfile && shopProfile.shop_name}</i></a></Card.Text>
         <Card.Text><i>{product.total_product_points} point(s) rewarded</i></Card.Text>
         <Card.Text><b>${product.price}</b></Card.Text>
-        <Card.Text>{product.product_description}</Card.Text>
+        {/* <Card.Text>{product.product_description}</Card.Text> */}
 
         { find ? 
         <>
@@ -107,6 +115,8 @@ function ProductCard(props) {
         setTriggerCb={removePopup}
         product={product}
       />
+
+     
     </Card>
   );
 }

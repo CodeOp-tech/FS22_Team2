@@ -6,13 +6,22 @@ import ProductContext from "../ProductContext";
 
 
 function ShopView(props) {
-  const { searchedByShop } = useContext(ProductContext);
-
-    // URGENT TO-DO NOTE: Include shop name in h1
+  const { searchedByShop, shopProfile } = useContext(ProductContext);
 
   return (
     <>
-      <h1>Welcome to the store!</h1> 
+      <h1>Welcome to {shopProfile.shop_name}</h1> 
+
+      <img src={shopProfile.shop_image}></img>
+      <h3>{shopProfile.shop_description}</h3>
+      <p>Address: {shopProfile.shop_address}</p>
+      <p>Email: {shopProfile.shop_email}</p>
+      <p>Donate: {shopProfile.donate}</p>
+      <p>LED lights: {shopProfile.led_lights}</p>
+      <p>Min biz: {shopProfile.min_biz}</p>
+      <p>Small biz: {shopProfile.small_biz}</p>
+      <p>Women-only biz: {shopProfile.wo_biz}</p>
+
       <Search />
       <Row xs={1} md={3} className="g-4">
         {" "}

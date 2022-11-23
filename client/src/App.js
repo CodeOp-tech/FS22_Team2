@@ -45,6 +45,8 @@ function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // useState 14
   const [searched, setSearched] = useState([]); // useState 15
   const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
+  const [shopProfile, setShopProfile] = useState([]);
+  
 
   //maps below:
   // const [home, setHome] = useState(null); // center of map //useState 17
@@ -58,6 +60,8 @@ function App() {
   useEffect(() => {
     getProducts();
     getProductsByShop();
+    getPurchasedItemsByUser(); 
+    getPurchasedItemsByShop();
   }, []);
 
   useEffect(() => {
@@ -106,10 +110,12 @@ function App() {
       // setShop(Local.getShop);
       setShop(myResponse.data.shop);
       setLoginErrorMessage("");
+      getPurchasedItemsByUser(); 
       // If user has a shop, send them to SellerDash page on login. If not, send them to UserDash
       // console logging "shop" returns null even though shop is saved in localstorage
       // QUESTION: doesn't work, goes to seller page for sellers but stays on login page for buyers
       if (myResponse.data.user.shop_id) {
+        getPurchasedItemsByShop();
         navigate("/seller");
       } else {
         navigate("/");
@@ -127,7 +133,26 @@ function App() {
     //Navbar should send user to home page
   }
 
+  // EXAMPLE:
+  // search/shopping list componenet (USERVIEW/SEARCH COMPONENT)
+  // field coffee, boat, desk
+  // = productstring (WHEREVER THE getShops function is)
+  // pass it to getShops function (pass this to our backend)
+
   /********************* SHOP FUNCTIONS *********************/
+ 
+  // PUT edit shop info
+  async function getShopProfile(shop_id) {
+    // update shop @ local shop_id w/shopData info
+    let myresponse = await Api.getShopProfile(shop_id);
+    if (myresponse.ok) {
+      setShopProfile(myresponse.data);
+      console.log(myresponse.data);
+    } else {
+      setError(myresponse.error);
+    }
+  }
+  
   // PUT edit shop info
   async function editShop(shopData, shop_id) {
     // update shop @ local shop_id w/shopData info
@@ -159,9 +184,10 @@ function App() {
   // TO-DO NOTE: NEEDS TO BE UPDATED WITH ACTUAL SHOP_ID PASSED BY FUNCTION
   async function getProductsByShop(shop_id) {
     // shop_id should be passed from child
-    let myresponse = await Api.getProductsByShop(1); // URGENT NOTE: To update: currently hardcoded
+    let myresponse = await Api.getProductsByShop(shop_id); // URGENT NOTE: To update: currently hardcoded
     if (myresponse.ok) {
       setProductsByShop(myresponse.data);
+      console.log(productsByShop)
     } else {
       setError(myresponse.error);
     }
@@ -393,7 +419,6 @@ function App() {
         return 0 * sort_order;
       }
     };
-
   }
 
   function showTotalPoints() {
@@ -470,11 +495,14 @@ function App() {
     searchedByShop,
     productsByShop,
     reviews,
+    shopProfile,
+    getShopProfileCb: getShopProfile,
     showTotalPointsCb: showTotalPoints,
     showHighToLowPriceCb: showHighToLowPrice,
     showLowToHighPriceCb: showLowToHighPrice,
     showShopsAtoZCb: showShopsAtoZ,
     addReviewCb: addReview,
+    getProductsByShopCb: getProductsByShop,
     getProductReviewsCb: getProductReviews,
     getProductDataCb: getProductData,
     searchCb: search,
