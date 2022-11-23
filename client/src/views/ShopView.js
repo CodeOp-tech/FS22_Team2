@@ -6,15 +6,19 @@ import ProductCard from "../components/ProductCard";
 import Search from "../components/Search";
 import Sort from "../components/Sort";
 import ProductContext from "../ProductContext";
-import NavbarShop from "../components/NavbarShop";
+import CartContext from "../CartContext";
 
 function ShopView(props) {
   const { searched } = useContext(ProductContext);
+  const { user } = useContext(CartContext);
 
   return (
     <div className="ShopView container">
       <h1>Welcome to My Shopping Buddy</h1>
-      <p>Please login/register to begin shopping!</p>
+      { !user ? 
+      <h4>Please login/register to begin shopping!</h4>
+      : ""
+      }
       <div className="row">
         <div className="col-sm-2">
           <Search />
