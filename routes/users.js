@@ -40,7 +40,7 @@ router.get('/:user_id', ensureSameUser, async function(req, res, next) {
 // PUT add user points from purchase
 // PROTECT: ensureSameUser
 // is it appropriate to use INNER JOIN here instead of LEFT JOIN? B/c we want to only return users who have purchases
-router.get('/points/:user_id', async function(req, res, next) {
+router.put('/points/:user_id', async function(req, res, next) {
   let { user_id } = req.params;
   // access the purchase points via user > purchases > purchased_items 
   // original sqlGet let sqlGet = `
@@ -51,7 +51,7 @@ router.get('/points/:user_id', async function(req, res, next) {
 //     WHERE users.user_id = ${Number(user_id)}
 // `
   let sqlSum = `
-    SELECT SUM(purchased_items.purchase_points)
+    SELECT SUM(purchased_items.purchase_points) AS purchasePointsSum
       FROM users
       LEFT JOIN purchases ON users.user_id = purchases.user_id 
       LEFT JOIN purchased_items ON purchases.purchase_id = purchased_items.purchase_id
@@ -61,17 +61,16 @@ router.get('/points/:user_id', async function(req, res, next) {
   try {
     let sumResults = await db(sqlSum); 
     let sumData = sumResults.data[0];
-    // let sumVal = sumData[SUM(purchased_items.purchase_points)];
+    let sumVal = sumData.purchasePointsSum;
     
-    // let { key : value } = sumData;
-    // let sumVal = sumData.key;
-    // if (sumData) {
-    //   await db(
-    //     `UPDATE users SET user_points='${sumData.SUM(purchased_items.purchase_points)}' WHERE user_id=${user_id}`
-    //   );
-    // }
-    // const results = await db(`SELECT * FROM users WHERE user_id = ${Number(user_id)}`);
-    res.send(sumVal); 
+    if (sumVal) {
+      await db(
+        `UPDATE users SET user_points='${sumVal}' WHERE user_id=${user_id}`
+      );
+    }
+    const results = await db(`SELECT * FROM users WHERE user_id = ${Number(user_id)}`);
+    let updatedUser = results.data[0]
+    res.send(updatedUser); 
 } catch(err) { 
     res.status(500).send({ error: err.message })
 }
