@@ -7,7 +7,6 @@ import ShopEditForm from "../components/ShopEditForm";
 import Api from "../helpers/Api.js";
 import Local from "../helpers/Local";
 
-
 function SellerDash(props) {
   const [productsData, setProductsData] = useState([]);
 
@@ -30,13 +29,13 @@ function SellerDash(props) {
     }
   }
 
-  // URGENT: Zoe commented out temporarily b/c threw error: SyntaxError: /Users/Zoe/Desktop/CodeOp/codeop-activities/Group-Project/FS22_Team2/client/src/views/SellerDash.js: Unexpected reserved word 'await'. (43:19)
+  
   async function addProduct(editProductData) {
     // console.log(formData);
     let options = {
       method: "POST",
       headers: {}, //remove?
-      body: editProductData, // just formData?
+      body: editProductData
     }
     // add token to headers if it exists in localStorage
     let token = Local.getToken();
@@ -63,6 +62,7 @@ function SellerDash(props) {
       method: "DELETE",
     };
 
+
   try {
     let response = await fetch(`/products/${shop_id}/${product_id}`, options); 
     if (response.ok) {
@@ -72,35 +72,31 @@ function SellerDash(props) {
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
     }
-  } catch (err) {
-    console.log(`Server error: ${err.message}`);
-  }};
+  }
+
 
     async function editProduct(shop_id, product_id, formData) {
       let options = {
       method: 'PUT',
       // headers: { 'Content-Type': 'application/json' },
-      body: formData
-      // headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify(formData)
+      body: formData,
   };
-      console.log(formData)
   try {
       let response = await fetch(`/products/${shop_id}/${product_id}`, options);
       if (response.ok) {
-      let result = await response.json();
-      setProductsData(result);
-  } else {
-      console.log(`Server error: ${response.status} ${response.statusText}`);
-  }
-  } catch (err) {
+        let result = await response.json();
+        setProductsData(result);
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
+    } catch (err) {
       console.log(`Server error: ${err.message}`);
-  }};
+    }
+  }
 
   return (
     <div>
       <Container>
-
       <Row>
         <ShopEditForm 
           shop = {props.shop}
@@ -118,14 +114,10 @@ function SellerDash(props) {
                   editProductCb={(id, formData) =>editProduct(id, formData)}//id sent to the sellerDash (parent of sellerlist)
       /></Col> 
       
-      </Row>
-    
+      </Row>    
       </Container>  
-    
-
     </div>
   );
 }
-
 
 export default SellerDash;

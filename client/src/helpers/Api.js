@@ -1,4 +1,4 @@
-import Local from './Local.js';
+import Local from "./Local.js";
 
 class Api {
     //_doFetch method - internal use only, to user in other functions
@@ -176,7 +176,6 @@ class Api {
 
         return await this._doFetch(`/reviews`, 'POST', body);
     }
-
 }
 
 export default Api;

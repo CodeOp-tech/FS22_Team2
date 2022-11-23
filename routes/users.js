@@ -1,25 +1,24 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const { ensureSameUser } = require('../middleware/guards');
-const db = require('../model/helper.js')
+const { ensureSameUser } = require("../middleware/guards");
+const db = require("../model/helper.js");
 
 // GET all users
 // NOT PROTECTED: get username and points for leaderboard, remove al other info. If we add other info to db, remember to delete later
-router.get('/', async function(req, res, next) {
-  let sql = 'SELECT * FROM users ORDER BY username';
+router.get("/", async function (req, res, next) {
+  let sql = "SELECT * FROM users ORDER BY username";
 
   try {
     let results = await db(sql);
     let users = results.data;
-    users.forEach(u => delete u.password);
-    users.forEach(u => delete u.email);
-    users.forEach(u => delete u.shop_id);
+    users.forEach((u) => delete u.password);
+    users.forEach((u) => delete u.email);
+    users.forEach((u) => delete u.shop_id);
     res.send(users);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
 });
-
 
 // GET one user
 // PROTECTED: user can only see their own profile
@@ -33,7 +32,7 @@ router.get('/:user_id', ensureSameUser, async function(req, res, next) {
     delete user.password;
     res.send(user);
   } catch (err) {
-    res.status(500).send({ error: err.message })
+    res.status(500).send({ error: err.message });
   }
 });
 
@@ -66,6 +65,10 @@ router.put('/points/:user_id', async function(req, res, next) {
 }
 });
 
-
+    res.send(getData);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
 
 module.exports = router;

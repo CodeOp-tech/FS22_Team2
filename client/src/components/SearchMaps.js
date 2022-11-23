@@ -1,23 +1,26 @@
-import React, { useState, useContext } from "react";
-import ProductContext from "../ProductContext";
+import React, { useState, useEffect, useContext } from "react";
+//import ProductContext from "../ProductContext";
+import Api from "../helpers/Api";
 
 function SearchMaps(props) {
+  const [error, setError] = useState("");
   const [input, setInput] = useState("");
 
-  const { searchMapCb, searchShopCb } = useContext(ProductContext);
-
-  function handleChange(event) {
+  const handleChange = (event) => {
     setInput(event.target.value);
-    searchMapCb(event.target.value);
-    // searchShopCb(event.target.value);
-  }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.getSelectedShopsCb(input.split(" ").join(","));
+  };
 
   return (
-    <div className="search">
-      <form>
+    <div className="searchMap">
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="type here to search..."
+          placeholder="Search for a product..."
           value={input}
           onChange={handleChange}
         />
