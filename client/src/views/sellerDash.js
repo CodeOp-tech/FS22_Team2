@@ -35,13 +35,17 @@ function SellerDash(props) {
     // console.log(formData);
     let options = {
       method: "POST",
+      headers:{},
       body:  formData
     };
     let token = Local.getToken();
+    console.log('*****find token*****',token)
     if(token) {
         options.headers['authorization'] = `Bearer ${token}`;
-    } // add token to headers if it exists in localStorage
+    } 
+    console.log(options)// add token to headers if it exists in localStorage
   try {
+    console.log('****Find Shop id*****', Local.getShopId())
     let response = await fetch(`/products/${Local.getShopId()}`, options); 
       if (response.ok) {
     let result = await response.json();

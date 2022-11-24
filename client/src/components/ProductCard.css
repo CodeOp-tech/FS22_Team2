@@ -3,10 +3,14 @@
     cursor: pointer;
 }
 
-.image .img {
+.pro-card-img{
     display: block;
-    width: 100%;
+    max-width: 460px;
+    max-height: 300px;
+    border-radius: none;
+    object-fit: cover;
 }
+
 
 .image .overlay {
     position: absolute;
@@ -22,14 +26,50 @@
     justify-content: center;
     opacity: 0;
     transition: opacity 0.25s;
+    
 }
 
 .image .overlay:hover {
     opacity: 1;
+    border-radius: 40px;
 }
 
 .shopname {
-    color: blue;
+    color: rgb(13, 13, 36);
     text-decoration: underline;
     cursor: pointer;
 }
+
+
+
+.onlineSCard{
+    border: none;
+    border-radius: 30px;
+    height: 42rem;
+    background: rgba(146, 218, 200, 0.47);
+    text-align: center;
+}
+
+.shopTitle{
+   
+    /* font-family: 'Tajawal', sans-serif; */
+    font-weight: bolder;
+    font-style: oblique;
+    border-radius: 10px;
+    max-height: 30px;
+    padding: 3px;
+    margin: 20px;
+    background-color: rgba(244, 255, 206, 0.783);
+    
+}
+
+.shopText{
+    font-weight: bolder;
+    font-style: oblique;
+    border-radius: 10px;
+    padding: 3px;
+    border-width: 30px;
+    background-color: rgba(244, 255, 206, 0.783);
+   
+}
+
