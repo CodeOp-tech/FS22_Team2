@@ -78,7 +78,6 @@ function App() {
         setShops(json);
       })
       .catch((error) => {});
-  }, []);
 
   /********************* AUTH FUNCTIONS *********************/
 
@@ -368,7 +367,6 @@ function App() {
       }
     }
 
-
     // UPDATE USER PURCHASE POINTS
     let myresponse3 = await Api.addUserPoints(Local.getUserId());
     if (myresponse3.ok) {
@@ -378,7 +376,7 @@ function App() {
       setError(myresponse3.error);
     }
   } 
-  }
+  
 
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
 
@@ -552,18 +550,6 @@ function App() {
                 element={<SingleShopView products={productsByShop} />}
               />
 
-<<<<<<< HEAD
-              <Route path="/seller" element={<SellerDash
-                shop={shop}
-                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
-                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
-||||||| 8768a62
-              <Route path="/seller" element={<SellerDash
-                showAllProducts={getProducts}
-                shop={shop}
-                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
-                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
-=======
 
               <Route path="/seller" 
               element={
@@ -572,7 +558,6 @@ function App() {
                     shop={shop}
                       getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
                         editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
->>>>>>> main
               />}/> {/*remove after*/} 
 
 
