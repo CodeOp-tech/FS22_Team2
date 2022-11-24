@@ -212,8 +212,8 @@ router.put("/edit/:shop_id", ensureShopOwner, async (req, res) => {
     const results = await db(
       `SELECT * FROM shops WHERE shop_id = ${Number(shop_id)}`
     );
-
-    res.status(201).send(results.data);
+    let updatedShop = results.data[0];
+    res.status(201).send(updatedShop);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }

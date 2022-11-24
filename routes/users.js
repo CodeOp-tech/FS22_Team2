@@ -65,10 +65,4 @@ router.put('/points/:user_id', async function(req, res, next) {
 }
 });
 
-    res.send(getData);
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
-
 module.exports = router;

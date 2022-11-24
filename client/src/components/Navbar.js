@@ -108,10 +108,6 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         }
                     </ul>
                 </div>
-
-               
-    
-         <Button onClick={handleShow}><FiShoppingCart /> ({productsCount} items)</Button>
        
 
         {/* Modal is the pop-up that will appear upon clicking Cart button */}
@@ -153,6 +149,10 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         ?   
                         (
                                 <ul className="navbar-nav">
+                                    {/* SHOPPING CART BUTTON (was originally before modal, moved so only visible on login) */}
+                                     <li>
+                                        <Button onClick={handleShow}><FiShoppingCart /> ({productsCount} items)</Button>
+                                    </li>
                                     <li className="nav-item">
                                         {/* Log out user. Then go to home page. */}
                                         <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>
