@@ -3,6 +3,8 @@
 
 .MySlider {
   margin-top: 90px;
+  font-weight: bold;
+  font-size: 10rem;
 }
 .MySlider img {
   border-radius: 30%;
@@ -10,4 +12,9 @@
 }
 .SliderPics img {
   border-radius: 30%;
+}
+.winners {
+  font-weight: bold;
+  font-size: 5rem;
+  color: #385a65;
 }

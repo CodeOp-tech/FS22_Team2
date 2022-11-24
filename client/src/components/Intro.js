@@ -42,12 +42,14 @@ const Intro = () => {
         </div>
       </div>
 
-      <div className="i-right">
+      {/* <div className="i-right">
         <div className="lady">
           <img src={IntroGal} alt="" />
         </div>
+      </div> */}
+      <div className="lady">
+        <img src={IntroGal} alt="" />
       </div>
-
       {/* <div
         className="blur"
         style={{
