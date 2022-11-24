@@ -121,7 +121,6 @@ function SellerDash(props) {
                   addProductCb={addProduct}
                   showProducts={props.showAllProducts}
                 />{" "}
-                //Getting from the App
               </Col>
               <Col>
                 <SellerList
