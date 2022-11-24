@@ -7,7 +7,7 @@ import { getHome } from "../helpers/geoLocation";
 //import AddressForm from "../components/AddressForm";
 //import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
-//import { geocode } from "../helpers/geo-opencage";
+import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
 import ShopView from "./ShopView";
 
@@ -22,27 +22,8 @@ function UserProfileView(props) {
   const [allShops, setAllShops] = useState("");
   const [error, setError] = useState("");
 
-
   let { userId } = useParams();
 
-  // const filterProducts = ({ searchResult, setSearchResult }) => {
-  //   const [keyword, setKeyword] = useState("");
-  // };
-
-  // const handleChange = (event) => {
-  //   const { value } = event.target;
-  //   setKeyword(event.target.value);
-  // };
-
-  // useEffect(() => {
-  //   fetch("/shops")
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       setShops(json);
-  //     })
-  //     .catch((error) => {});
-  // }, []);
-  
   useEffect(() => {
     getSelectedShops();
   }, []);
@@ -61,15 +42,6 @@ function UserProfileView(props) {
       .catch((error) => {});
   }, []);
 
-  async function getSelectedShops(productString) {
-    let myresponse = await Api.getAllShops(productString);
-    if (myresponse.ok) {
-      setAllShops(myresponse.data);
-    } else {
-      setError(myresponse.error);
-    }
-  }
-
   if (errorMsg) {
     return <h2 style={{ color: "red" }}>{errorMsg}</h2>;
   }
@@ -82,9 +54,10 @@ function UserProfileView(props) {
     setHome(latLng);
   }
   async function getSelectedShops(input) {
-    console.log(input);
+    console.log(input, "******************************");
     let myresponse = await Api.getSearchShops(input);
     if (myresponse.ok) {
+      console.log(myresponse.data);
       setShops(myresponse.data);
     } else {
       setError(myresponse.error);
@@ -117,7 +90,7 @@ function UserProfileView(props) {
     if (myresponse.ok) {
       setShopProfile(myresponse.data);
     } else {
-      setErrorMsg(myresponse.error)
+      setErrorMsg(myresponse.error);
     }
     console.log(shopProfile);
   }
@@ -127,14 +100,16 @@ function UserProfileView(props) {
       <div className="UserProfileView">
         <h1>Hey there, {props.user.username}!</h1>
         <br />
-        <h2> You have <b>{props.user.user_points}</b> points!
-        <br />
-        <button type="submit" className="btn btn-primary">Redeem</button>
+        <h2>
+          {" "}
+          You have <b>{props.user.user_points}</b> points!
+          <br />
+          <button type="submit" className="btn btn-primary">
+            Redeem
+          </button>
         </h2>
         <br />
       </div>
-      <br></br>
-      {/* <Map /> */}
 
       <div className="Demo1View">
         <div className="row mb-5">
@@ -143,44 +118,23 @@ function UserProfileView(props) {
             <p>Enter the products you need and plan your route</p>
 
             <SearchMaps getSelectedShopsCb={getSelectedShops} />
-            {/* {searchResult.map((product) => (
-                <div>{searchResult }</div>
-              ))}
-              filterProducts
-              handleChange /> */}
-
-            {/* <ol>
-              <li>
-                A <code>home</code> query parameter like:{" "}
-                <code>http://localhost:3000?home=oslo</code>
-              </li>
-              <li>Allow the browser to determine your current location</li>
-              <li>Use Plaça Catalunya in Barcelona as a last resort</li>
-            </ol> */}
 
             <h3 className="mt-4"> Check out these stores below </h3>
-            {/* <p>Enter an address to add a blue marker on the map</p>
-             <AddressForm
-              addMarkerCb={(addr) => addMarkerForAddress(addr)}
-              shops={shops}
-            />  */}
           </div>
 
           <div className="col">
-            {home && <MarkerMap 
-            shops={shops} 
-            home={home} 
-            zoom={13}
-            setShopCb={(id) => setShop(id)} />}
+            {home && (
+              <MarkerMap
+                shops={shops}
+                home={home}
+                zoom={13}
+                setShopCb={(id) => setShop(id)}
+              />
+            )}
           </div>
-          
         </div>
-
-        {/* <MarkerTable places={places} /> */}
       </div>
-
       <ShopView />
-      
     </div>
   );
 }

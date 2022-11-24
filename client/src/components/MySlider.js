@@ -19,7 +19,8 @@ export default function MySlider() {
           marginTop: "200px",
         }}
       >
-        <h3>This month's Prizes</h3>
+        <h3 className="winners">This Month's Prizes</h3>
+
         <Slider
           autoplay={true}
           autoplaySpeed={3000}

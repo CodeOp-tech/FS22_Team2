@@ -14,6 +14,7 @@ const Intro = () => {
             Hi!<br></br> Welcome to
             <Typewriter
 
+
             options={{
               autoStart: true,
               loop: true,
@@ -32,21 +33,28 @@ const Intro = () => {
   />
         
 
+
             {/* M.S.B!{" "} */}
           </span>
 
           <span>
-              Want to shop local, have fun and make a difference? MSB helps shoppers find local small businesses that sell what you need, and earn points and prizes for shopping more sustainably. We also help businesses get free promotion to their local customer base. Join today!
+            Want to shop local, have fun and make a difference? MSB helps
+            shoppers find local small businesses that sell what you need, and
+            earn points and prizes for shopping more sustainably. We also help
+            businesses get free promotion to their local customer base. Join
+            today!
           </span>
         </div>
       </div>
 
-      <div className="i-right">
+      {/* <div className="i-right">
         <div className="lady">
           <img src={IntroGal} alt="" />
         </div>
+      </div> */}
+      <div className="lady">
+        <img src={IntroGal} alt="" />
       </div>
-
       {/* <div
         className="blur"
         style={{
