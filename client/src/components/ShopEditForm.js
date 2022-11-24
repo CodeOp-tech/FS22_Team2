@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Col, Row, Button } from 'react-bootstrap';
 import './ShopEditForm.css'
 import Local from "../helpers/Local.js"
+import Popover from 'react-bootstrap/Popover'
 
 const EMPTY_FORM ={
   shop_name:'',

@@ -1,11 +1,11 @@
 export default [
   {
-    id: "1tfjiELNrwYAJeafRYlT9RwOIiD",
-    name: "Grace Hopper",
+    id: "1tfjiEIWBZz2I9lOQYTEeMICALf",
+    name: "Garry Hopper",
   },
   {
     id: "1tfjiFoinFrbdLWlPI52dRLhNlD",
-    name: "Yoshitake Miura",
+    name: "Mel Smith",
   },
   {
     id: "1tfjiDIAS8f2UYgV9ynCqWi7rZD",
@@ -13,10 +13,10 @@ export default [
   },
   {
     id: "1tfjiEIWBZz2I9lOQYTEeMICALg",
-    name: "Grete Hermann",
+    name: "Gale Bing",
   },
   {
     id: "1tfjiCMU9SdFM9BAaIF3mS5UpYf",
-    name: "Chieko Asakawa",
+    name: "Phoebe Roche",
   },
 ].map((winner, position) => ({ ...winner, position }));

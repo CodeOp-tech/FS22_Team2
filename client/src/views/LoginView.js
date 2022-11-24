@@ -65,7 +65,7 @@ function LoginView(props) {
                     
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
-                <div class="SignUpPrompt">
+                <div className="SignUpPrompt">
                     <p>
                         Don't have an account? <NavLink className="nav-link" to="/register">Sign up here.</NavLink>
                     </p>
