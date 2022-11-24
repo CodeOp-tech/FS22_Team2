@@ -6,6 +6,7 @@ function PopUpList(props) {
 
   return (
     <div className="container popuplist">
+
       <div className="row">
         <div className="col-sm-4">
           <img className="popup-img" src={product.url} />
@@ -39,7 +40,9 @@ function PopUpList(props) {
                 </li>
               </ul>
             </div>
+            </div>
           </div>
+        </div>
         </div>
   );
 }
