@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import ProductContext from "../ProductContext";
+import './Search.css'
 
 function Search(props) {
     const [input, setInput] = useState("");
@@ -15,7 +16,7 @@ function Search(props) {
     return (
         <div className="search">
             <form>
-                <input 
+                <input className="search-bar"
                 type="text"
                 placeholder = "type here to search for product..."
                 value={input}

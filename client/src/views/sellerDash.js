@@ -35,40 +35,27 @@ function SellerDash(props) {
     // console.log(formData);
     let options = {
       method: "POST",
-      //headers: { 'Content-Type': 'application/json' }, //remove?
       body:  formData
     };
-
+    let token = Local.getToken();
+    if(token) {
+        options.headers['authorization'] = `Bearer ${token}`;
+    } // add token to headers if it exists in localStorage
   try {
     let response = await fetch(`/products/${Local.getShopId()}`, options); 
-    if (response.ok) {
+      if (response.ok) {
     let result = await response.json();
-    setProductsData(result);
-    getProducts();
-    props.showAllProducts(); // fetches all the products without reload on the online store
+      setProductsData(result);
+      getProducts();
+      props.showAllProducts(); // fetches all the products without reload on the online store
      //note to ask about the reload
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
     }
-    // add token to headers if it exists in localStorage
-    let token = Local.getToken();
-    if(token) {
-        options.headers['authorization'] = `Bearer ${token}`;
-    }
-    
-    try {
-      let response = await fetch(`/products/${Local.getShopId()}`, options); 
-      if (response.ok) {
-      let result = await response.json();
-      setProductsData(result);
-      getProducts(); //note to ask about the reload
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
     } catch (err) {
         console.log(`Network error: ${err.message}`);
-      }
-  }
+    } 
+}
 
   async function deleteProduct(shop_id, product_id) {
     let options = {
@@ -85,20 +72,23 @@ function SellerDash(props) {
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
     }
+    } catch (err) {
+      console.log(`Server error: ${err.message}`);
+    }
   }
 
     async function editProduct(shop_id, product_id, formData) {
       let options = {
       method: 'PUT',
       // headers: { 'Content-Type': 'application/json' },
-      body: formData,
+      body: formData
   };
 
   try {
       let response = await fetch(`/products/${shop_id}/${product_id}`, options);
-      if (response.ok) {
-        let result = await response.json();
-        setProductsData(result);
+        if (response.ok) {
+          let result = await response.json();
+          setProductsData(result);
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }
@@ -106,6 +96,7 @@ function SellerDash(props) {
       console.log(`Server error: ${err.message}`);
     }
   }
+
 
   return (
 <Accordion defaultActiveKey="0" >
@@ -146,5 +137,7 @@ function SellerDash(props) {
     
   );
 }
+
+
 
 export default SellerDash;

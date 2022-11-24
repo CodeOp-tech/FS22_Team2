@@ -5,18 +5,19 @@ import Local from '../helpers/Local';
 
 
 
+
 function EditProduct(props) {
     const [editProductData, setEditProductData] = useState(props.editProductItem);
     const [editFile, setEditFile] = useState(null)
     
-    function handleEditSubmit (e) {
+    function handleEditsSubmit (e) {
       e.preventDefault();
     
       let formData = new FormData();
         formData.append('product_name', editProductData.product_name);
         // formData.append('productimg', editFile, editFile.name)
         formData.append('price', editProductData.price);
-        formData.append('product_description', editProductData.product_description);
+        // formData.append('product_description', editProductData.product_description);
         formData.append('product_quantity', editProductData.product_quantity);
         formData.append('recycled', editProductData.recycled);
         formData.append('no_fridge', editProductData.no_fridge);
@@ -24,9 +25,7 @@ function EditProduct(props) {
         formData.append('local', editProductData.local);
         formData.append('organic', editProductData.organic);
         formData.append('shop_id', editProductData.shop_id);
-        console.log('this is a test', editProductData, formData, editProductData.product_id);
-        console.log('check formData', formData)
-
+      
 
         props.editProductCb( Local.getShopId(), editProductData.product_id, formData );
         // props.editProductCb( editProductData.product_id, editProductData );
@@ -77,14 +76,14 @@ function EditProduct(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <Form className='seller-form' onSubmit={handleEditSubmit}>
+      <Form className='seller-form' onSubmit={handleEditsSubmit}>
       <Form.Group className='mb-3'>
         <Form.Label className='product-name'>
             Product Name </Form.Label>
             <Form.Control
              type='text'
              name='product_name'
-             value={editProductData.product_name}
+             defaultValue={editProductData.product_name}
              onChange={handleEditChange}
              />
       </Form.Group>
@@ -96,7 +95,7 @@ function EditProduct(props) {
              as="textarea"
              name='product_description'
              defaultValue={editProductData.product_description}
-             onChange={handleEditChange}
+            //  onChange={handleEditChange}
              />
         </Form.Group>
          <Row>
