@@ -53,11 +53,11 @@ function MarkerMap(props) {
       {/* Draw a blue marker for each of the places passed as prop */}
       {/* {props.places.map((p) => (
         <Marker key={p.input_address} position={p.latLng}> */}
-      {props.home && (
+      {/* {props.home && (
         <Marker position={props.home} icon={greenMarker}>
           <Popup>YOU ARE HERE</Popup>
         </Marker>
-      )}
+      )} */}
 
       {props.shops.map((p) => (
         <Marker
@@ -66,7 +66,6 @@ function MarkerMap(props) {
           icon={greenMarker}
           >
           <Popup>{breakAddr(p.shop_name)}</Popup>
-          {/* //maybe add a button here to link to shop page! */}
         </Marker>
       ))}
       {/* <h1>{this.props.stadium.name}</h1> */}

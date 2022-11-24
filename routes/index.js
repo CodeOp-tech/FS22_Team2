@@ -5,7 +5,6 @@ const { ensureUserLoggedIn } = require('../middleware/guards');
 // GET home page
 // QUESTION: returns Express index.html, not message below
 router.get("/", function (req, res, next) {
-  console.log("hello jim");
   res.send({ message: 'Welcome to the test homepage!' });
 });
 

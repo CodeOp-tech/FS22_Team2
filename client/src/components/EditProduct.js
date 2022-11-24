@@ -18,55 +18,50 @@ function EditProduct(props) {
         formData.append('price', editProductData.price);
         formData.append('product_description', editProductData.product_description);
         formData.append('product_quantity', editProductData.product_quantity);
+        formData.append('recycled', editProductData.recycled);
+        formData.append('no_fridge', editProductData.no_fridge);
+        formData.append('fair_trade', editProductData.fair_trade);
+        formData.append('local', editProductData.local);
+        formData.append('organic', editProductData.organic);
         formData.append('shop_id', editProductData.shop_id);
-      
         console.log('this is a test', editProductData, formData, editProductData.product_id);
         console.log('check formData', formData)
-        // if(setEditFile){
-        //   ;
-        // }else{
-        //   setEditFile() // needs an if statement to check if the file exists 
-        // }
 
-        props.editProductCb( editProductData.product_id, formData );
+
+        props.editProductCb( Local.getShopId(), editProductData.product_id, formData );
         // props.editProductCb( editProductData.product_id, editProductData );
 
     }
     
-      function handleEditFileChange(e) {
-        console.log('upload', e.target.files[0])
-            setEditFile(e.target.files[0]); 
-        }
+      // function handleEditFileChange(e) {
+      //   console.log('upload', e.target.files[0])
+      //       setEditFile(e.target.files[0]); 
+      //   }
         
-          function handleEditChange (e){
-            let {name, value} = e.target;
-            setEditProductData (data => ({...data, [name]: value}));
-        }
+    function handleEditChange (e){
+        let {name, value} = e.target;
+        setEditProductData (data => ({...data, [name]: value}));
+    }
           
     
-          function handleEditChangeCheck (e) {
-            let checkbox = e.target.checked;
+          // function handleEditChangeCheck (e) {
+          //   let checkbox = e.target.checked;
     
-            setEditProductData((data) => ({
-                ...data, [e.target.name]:checkbox
-            }));
-          }
-          // function handleEditChangeCheck(e) {
-          //   if (e.target.checked) {
-          //     setEditProductData((data) => ({
-          //           ...data, [e.target.name]:1
-          //       }));
-          //   } else {
-          //     setEditProductData((data) => ({
-          //       ...data, [e.target.name]:0
-          //     }));
-          //   }
+          //   setEditProductData((data) => ({
+          //       ...data, [e.target.name]:checkbox
+          //   }));
           // }
-
-    // if(!editProductData){
-    //   return <h2>loading</h2>
-    // }
-
+    function handleEditChangeCheck(e) {
+        if (e.target.checked) {
+          setEditProductData((data) => ({
+              ...data, [e.target.name]:1
+                }));
+      } else {
+          setEditProductData((data) => ({
+              ...data, [e.target.name]:0
+        }));
+      }
+    }
 
   return (
      <div>
@@ -89,16 +84,16 @@ function EditProduct(props) {
             <Form.Control
              type='text'
              name='product_name'
-             defaultValue={editProductData.product_name}
+             value={editProductData.product_name}
              onChange={handleEditChange}
              />
       </Form.Group>
       <Form.Group className='mb-3'>
-        <Form.Label className='product-name'>
+        <Form.Label className='product_description'>
             Product Description 
         </Form.Label>
             <Form.Control 
-             type='textarea'
+             as="textarea"
              name='product_description'
              defaultValue={editProductData.product_description}
              onChange={handleEditChange}

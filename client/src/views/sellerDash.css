@@ -1,0 +1,17 @@
+.editShop-acc{
+    background-color: rgba(92, 172, 154, 0.269);
+}
+
+.accordion-button:not(.collapsed){
+    background-color: rgb(213, 186, 186);
+    color: aqua;
+}
+
+.accordion-button{
+    background-color: rgba(247, 252, 177, 0.621);
+    color: rgb(130, 70, 70);
+}
+
+/* .accordion{
+    color: azure;
+} */

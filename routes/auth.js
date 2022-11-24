@@ -15,8 +15,8 @@ router.post ('/register', async (req,res) => {
     try {
         // add new user to db w/input info
         let sqlPostUser = `
-            INSERT INTO users (username, password, email)
-            VALUES ('${username}', '${hashedPassword}', '${email}');
+            INSERT INTO users (username, password, email, user_points)
+            VALUES ('${username}', '${hashedPassword}', '${email}', 0);
             SELECT LAST_INSERT_ID()
         `;
         

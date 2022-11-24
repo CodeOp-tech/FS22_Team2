@@ -12,7 +12,7 @@ import AddressForm from "../components/AddressForm";
 import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
-import SearchMaps from "../components/SearchMaps";
+
 
 /*
 A 'place' is an obj like this:
@@ -28,13 +28,13 @@ function HomeView(props) {
   //maps below: app stuff
   const [home, setHome] = useState([41.390205, 2.154007]); // center of map //useState 17
   //const [currView, setCurrView] = useState("homeV"); //useState 18
-  const [shops, setShops] = useState([]);
+
   const [listShops, setListShops] = useState([]);
 
   //map app
   useEffect(() => {
     getAndSetHome();
-    getAndSetShops();
+    // getAndSetShops();
   }, []);
 
   //maps
@@ -42,56 +42,58 @@ function HomeView(props) {
     let latLng = await getHome(); // returns [lat, lng]
     setHome(latLng);
   }
-  async function addMarkerForAddress(addr) {
-    // Send a request to OpenCage to geocode 'addr'
-    let myresponse = await geocode(addr);
-    if (myresponse.ok) {
-      if (myresponse.data.latLng) {
-        // Create new 'place' obj
-        let d = myresponse.data;
-        let newShop = {
-          latLng: d.latLng,
-          input_address: addr,
-          formatted_address: d.formatted_address,
-        };
-        // Add it to 'places' state
-        setShops((shops) => [...shops, newShop]);
-      } else {
-        console.log("addMarkerForAddress(): no results found");
-      }
-    } else {
-      console.log("addMarkerForAddress(): response.error:", myresponse.error);
-    }
-  }
 
-  useEffect(() => {
-    fetch("/shops")
-      .then((res) => res.json())
-      .then((json) => {
-        setShops(json);
-      })
-      .catch((error) => {});
-  }, []);
+  // async function addMarkerForAddress(addr) {
+  //   // Send a request to OpenCage to geocode 'addr'
+  //   let myresponse = await geocode(addr);
+  //   if (myresponse.ok) {
+  //     if (myresponse.data.latLng) {
+  //       // Create new 'place' obj
+  //       let d = myresponse.data;
+  //       let newShop = {
+  //         latLng: d.latLng,
+  //         input_address: addr,
+  //         formatted_address: d.formatted_address,
+  //       };
+  //       // Add it to 'places' state
+  //       setShops((shops) => [...shops, newShop]);
+  //     } else {
+  //       console.log("addMarkerForAddress(): no results found");
+  //     }
+  //   } else {
+  //     console.log("addMarkerForAddress(): response.error:", myresponse.error);
+  //   }
+  // }
 
-  async function getAndSetShops() {
-    //    let latLng = await getShops(); // returns [lat, lng]
-    //   //need fetch to get shops
-    //    setShops(latLng);
-  }
-  function searchMapCb(input) {
-    let listShops = shops.filter((p) => {
-      return p.product_name.toLowerCase().includes(input.toLowerCase());
-      // convert both product_name and input to lowercase so not case sensitive
-    });
-    setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
-  }
+  // useEffect(() => {
+  //   fetch("/shops")
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       setShops(json);
+  //     })
+  //     .catch((error) => {});
+  // }, []);
+
+  //    let latLng = await getShops(); // returns [lat, lng]
+  //   //need fetch to get shops
+  //    setShops(latLng);
+
+  //   let listShops = shops.filter((p) => {
+  //     return p.product_name.toLowerCase().includes(input.toLowerCase());
+  //     // convert both product_name and input to lowercase so not case sensitive
+  //   });
+  //   setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
+  // }
 
   return (
     <div>
-
       <Intro />
-      <h2>Congratulations To This Month's WINNERS!</h2>
-      <br></br>
+      <h2>
+        New winners every month!
+      </h2>
+      <span>
+        Earn points and redeem prizes for shopping sustainably! Check out our top sustainable shoppers.
+      </span>
 
       <Podium winners={PodiumData} />
       <hr></hr>
@@ -111,24 +113,23 @@ function HomeView(props) {
               <li>Allow the browser to determine your current location</li>
               <li>Use Plaça Catalunya in Barcelona as a last resort</li>
             </ol> */}
-
-            <h3 className="mt-4"> Add Markers</h3>
-            <p>Enter an address to add a blue marker on the map</p>
-            <AddressForm
-              addMarkerCb={(addr) => addMarkerForAddress(addr)}
-              shops={shops}
-            />
           </div>
-
-          <div className="col">
-            {home && <MarkerMap shops={shops} home={home} zoom={13} />}
-          </div>
+          <h3 className="mt-4"> Add Markers</h3>
+          <p>Enter an address to add a blue marker on the map</p>
+          {/* <AddressForm
+            addMarkerCb={(addr) => addMarkerForAddress(addr)}
+            shops={shops}
+          /> */}
         </div>
 
-        {/* <MarkerTable places={places} /> */}
-      </div>
+        <div className="col">
+          {home && <MarkerMap shops={props.shops} home={home} zoom={13} />}
+        </div>
 
+        <MarkerTable places={places} />
+      </div>
     </div>
   );
 }
+
 export default HomeView;

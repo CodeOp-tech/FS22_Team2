@@ -1,6 +1,6 @@
-/* .card img{
-    border-radius: 0 0 50px 50px;
-} */
+.card img{
+    border-radius: 50px 50px 10px 10px;
+}
 
 .productCard{
     margin: 10px;

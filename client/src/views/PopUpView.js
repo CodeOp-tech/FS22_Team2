@@ -14,7 +14,6 @@ function PopUpView(props) {
   return props.trigger ? (
     <div className="container popup">
       <div className="popup-inner">
-      
         <button className="close-btn" onClick={removePopup}>
           X
         </button>
@@ -23,11 +22,14 @@ function PopUpView(props) {
             <PopUpList className="popup-list" product={product} /> {/* Pass child PopupList product as a prop*/}
             </div>
 
-            <div className="row">
-            <ProductReviewView className="popup-productreview" product={product} /> {/* Pass child ProductRevew product as a prop*/}
-            </div>
+        <div className="row">
+          <ProductReviewView
+            className="popup-productreview"
+            product={product}
+          />{" "}
+          {/* Pass child ProductRevew product as a prop*/}
         </div>
-    </div>
+      </div>
   ) : (
     ""
   );
