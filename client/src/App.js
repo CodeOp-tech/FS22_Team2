@@ -166,7 +166,6 @@ function App() {
   }
 
   /********************* PRODUCT FUNCTIONS *********************/
-
   // GET ALL PRODUCTS (regardless of store)
   async function getProducts() {
     try {

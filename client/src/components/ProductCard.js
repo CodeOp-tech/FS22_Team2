@@ -52,7 +52,6 @@ function ProductCard(props) {
     console.log(cartProducts);
   }
 
-
     function showPopup(id) { // product_id from (props.product.product_id) passed to getProductReviewsCb function below
       setButtonPopup(true);
       getProductReviewsCb(id); // call getProductReviews function in App
