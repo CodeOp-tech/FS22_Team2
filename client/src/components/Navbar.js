@@ -5,7 +5,7 @@ import CartContext from "../CartContext";
 import CartProductModal from "./CartProductModal";
 import { FiShoppingCart } from "react-icons/fi";
 import Local from "../helpers/Local";
-import MSBlogo from "../DC/MSBlogo.png";
+import MSBlogo_transparent from "../DC/MSBlogo_transparent.png";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
@@ -58,7 +58,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
             <div className="container-fluid">
                 <span className="navbar-brand font-weight-bold">
                     <NavLink className="nav-link" to="/">
-                      <img src={MSBlogo} alt= 'MSC Inc.' style={{width:'80px'}}/>
+                      <img src={MSBlogo_transparent} alt= 'MSC Inc.' style={{width:'80px'}}/>
                     </NavLink>
                 </span>
 
