@@ -133,17 +133,9 @@ function UserProfileView(props) {
         </h2>
         <br />
       </div>
-<<<<<<< HEAD
       <br></br>
       {/* <Map /> */}
 
-||||||| merged common ancestors
-
-      {/* <Map /> */}
-
-=======
-
->>>>>>> main
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
