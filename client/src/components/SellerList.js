@@ -41,7 +41,7 @@ return (
           <Row>
             <Col>
               <Card.Img variant='bottom' src={p.url} style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '180px'}}/>
-                <Button className='probtn' onClick={(e) => props.deleteProductCb(p.product_id)} >Delete</Button>
+                <Button className='probtn' onClick={(e) => props.deleteProductCb(p.shop_id, p.product_id)} >Delete</Button>
                 <Button className='probtn'onClick={(e) => handleShow(p.product_id)}>Edit</Button>
             </Col>
             <Col>

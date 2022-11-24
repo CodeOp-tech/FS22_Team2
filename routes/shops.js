@@ -26,7 +26,7 @@ router.get("/search/products", async function (req, res, next) {
   let sql = `SELECT DISTINCT shops.*, products.*
   FROM shops LEFT JOIN products ON shops.shop_id = products.shop_id`;
   let where = makeWhereFromFilters(req.query);
- 
+
   // make optional WHERE-part from query parameters
   // If query parameters were passed, append them to the SELECT statement
   if (where) {
