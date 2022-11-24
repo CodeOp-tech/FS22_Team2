@@ -1,16 +1,39 @@
-.App {
-  text-align: center;
-  font-family: 'Nunito', sans-serif;
-  padding: 0.5rem 3.5rem;
-  overflow: hidden;
-  background-color: #f0efed;
-  margin: 0%;
-  background-color: beige;
 
-
-  /* background-image: url("/Users/meganwalsh/Desktop/CodeOp_Activities/GROUPTWO/FS22_Team2/client/src/DC/MinBack.jpg");
-} */
+* {
+  box-sizing: border-box;
 }
+body {
+  /* background: linear-gradient(45deg, rgb(4, 22, 29),rgba(2, 33, 44, 0.792)); */
+  /*
+  background-attachment: fixed;
+  background-repeat: no-repeat; */
+  background: linear-gradient(
+    -45deg,
+    #86e3ce,
+    #d0e6a5,
+    #ffdd94,
+    #fa897b,
+    #ccabd8
+  );
+  /* background-repeat: no-repeat;
+background-attachment: fixed; */
+  background-size: 400% 400%;
+  animation: backdrop 20s ease infinite;
+}
+
+@keyframes backdrop {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
 
 .App table {
   border-collapse: collapse;

@@ -53,12 +53,8 @@ function ShopEditForm(props) {
       formData.append('small_biz', shopData.small_biz);
       formData.append('min_biz', shopData.min_biz);
       formData.append('wo_biz', shopData.wo_biz);
-      console.log("FORMDATA", formData)
-      console.log("SHOPDATA", shopData)
       props.editShopCb(shopData, Local.getShopId());
-      console.log('Ran editShop function')
-      // setFiles(null);
-      // e.target.reset();
+      alert("Thank you, your shop has been updated!");
     }
 
   function handleFileChange(e) {

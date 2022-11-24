@@ -69,10 +69,6 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/shops">Online Store</NavLink>
                         </li>
-
-                        {/* <li className="nav-item">
-                            <NavLink className="nav-link" to="/shop">Online Store</NavLink>
-                        </li> */}
                         
                         {/* USER PAGES: only visible to logged in users */}
                         {
@@ -86,7 +82,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         {
                             props.user && (
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>User Dash</NavLink>
+                                    <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
                                 </li>
                             )
                         }
@@ -108,10 +104,6 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         }
                     </ul>
                 </div>
-
-               
-    
-         <Button onClick={handleShow}><FiShoppingCart /> ({productsCount} items)</Button>
        
 
         {/* Modal is the pop-up that will appear upon clicking Cart button */}
@@ -153,6 +145,12 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         ?   
                         (
                                 <ul className="navbar-nav">
+                                    {/* SHOPPING CART BUTTON (was originally before modal, moved so only visible on login) */}
+                                     <li>
+                                        <Button onClick={handleShow}><FiShoppingCart /> ({productsCount} items)</Button>
+                                     <li className="nav-item">
+                                        <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
+                                    </li>
                                     <li className="nav-item">
                                         {/* Log out user. Then go to home page. */}
                                         <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>

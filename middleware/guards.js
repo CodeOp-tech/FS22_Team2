@@ -35,7 +35,7 @@ function ensureSameUser(req, res, next) {
 // Make sure user is accessing their own shop
 function ensureShopOwner(req, res, next) {
     let token = _getToken(req);
-    console.log(token);
+    console.log('*********checking shopowner token******',token);
     try {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
@@ -55,7 +55,7 @@ function ensureShopOwner(req, res, next) {
 // get JWT token if found, else return ''
 function _getToken(req) {
     // Return '' if header not found
-
+    
     if ( !('authorization' in req.headers) ) {
         return '';
     }

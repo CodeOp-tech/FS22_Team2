@@ -71,11 +71,12 @@ function ProductCard(props) {
   let find = cartProducts.find((e) => e.id === product.product_id);
 
   return (
-    <Card>
+  
+    <Card className="onlineSCard" style={{ background: 'rgba(146, 218, 200, 0.47)'}}>
 
-      <Card.Body> {/* used to pad content inside a <Card> */}
+     {/* used to pad content inside a <Card> */}
         <div className="image">
-          <Card.Img title="click for more info" className="img" variant="top" src={product.url} />
+          <Card.Img title="click for more info" className="pro-card-img" style={{borderRadius:'30px'}} src={product.url} />
           <div onClick={() => showPopup(product.product_id)} className="overlay">
             <div className="text">
               Click for more product info & product reviews
@@ -83,15 +84,14 @@ function ProductCard(props) {
 
           </div>
         </div>
-        <Card.Title>{product.product_name}</Card.Title>{" "}
+        <Card.Title className="shopTitle" >{product.product_name}</Card.Title>
         {/* using Card.Title, Card.Subtitle, Card.Text inside the Card.Body will line them up nicely */}
 
-        <Card.Text><a onClick={() => navigateShop(product.shop_id)}>from <i className="shopname">{product && product.shop_name || shopProfile && shopProfile.shop_name}</i></a></Card.Text>
-        <Card.Text><i>{totalProductPoints} point(s) rewarded</i></Card.Text>
-        <Card.Text><b>${(product.price).toFixed(2)}</b></Card.Text>
+        <Card.Text className="shopText"><a onClick={() => navigateShop(product.shop_id)}>from <i className="shopname">{product && product.shop_name || shopProfile && shopProfile.shop_name}</i></a> {product.product_description}</Card.Text>
+        <Card.Text className="shopText"><i>{totalProductPoints} point(s) rewarded</i></Card.Text>
+        <Card.Text className="shopText"><b>${(product.price).toFixed(2)}</b></Card.Text>
 
-        <Card.Text>{product.product_description}</Card.Text>
-
+       
         { find ? 
         <>
         <Form as={Row}>
@@ -109,7 +109,7 @@ function ProductCard(props) {
         }
       
 
-      </Card.Body>
+      
 
       {/* Pass product via props to child Popup*/}
       <PopUpView
@@ -119,6 +119,7 @@ function ProductCard(props) {
       />
       
     </Card>
+
   );
 }
 
