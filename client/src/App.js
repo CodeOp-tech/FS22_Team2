@@ -47,14 +47,14 @@ function App() {
   const [searchedByShop, setSearchedByShop] = useState([]); // useState 16
   const [shops, setShops] = useState([]); //useState 17
   const [shopProfile, setShopProfile] = useState([]); // useState18
-  const [reviews, setReviews] = useState([]) // useState 19
+  const [reviews, setReviews] = useState([]); // useState 19
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getProducts();
     getProductsByShop();
-    getPurchasedItemsByUser(); 
+    getPurchasedItemsByUser();
     getPurchasedItemsByShop();
   }, []);
 
@@ -69,16 +69,15 @@ function App() {
   }, [purchases, purchasedItems]); // when purchases & purchasedItems are updated (see addPurchases function), getPurchasedItemsbyUser/Shop is called
 
   useEffect(() => {
-    getTotalCost(); 
+    getTotalCost();
   }, [cartProducts]); // whenever cartProducts are added/removed, total cost must be updated
 
-    fetch("/shops")
-      .then((res) => res.json())
-      .then((json) => {
-        setShops(json);
-      })
-      .catch((error) => {});
-  }, []);
+  fetch("/shops")
+    .then((res) => res.json())
+    .then((json) => {
+      setShops(json);
+    })
+    .catch((error) => {});
 
   /********************* AUTH FUNCTIONS *********************/
 
@@ -116,7 +115,7 @@ function App() {
       // setShop(Local.getShop);
       setShop(myResponse.data.shop);
       setLoginErrorMessage("");
-      getPurchasedItemsByUser(); 
+      getPurchasedItemsByUser();
       // If user has a shop, send them to SellerDash page on login. If not, send them to UserDash
       // console logging "shop" returns null even though shop is saved in localstorage
       // QUESTION: doesn't work, goes to seller page for sellers but stays on login page for buyers
@@ -140,7 +139,7 @@ function App() {
   }
 
   /********************* SHOP FUNCTIONS *********************/
- 
+
   // PUT edit shop info
   async function getShopProfile(shop_id) {
     // update shop @ local shop_id w/shopData info
@@ -152,7 +151,7 @@ function App() {
       setError(myresponse.error);
     }
   }
-  
+
   // PUT edit shop info
   async function editShop(shopData, shop_id) {
     // update shop @ local shop_id w/shopData info
@@ -187,7 +186,7 @@ function App() {
     let myresponse = await Api.getProductsByShop(shop_id); // URGENT NOTE: To update: currently hardcoded
     if (myresponse.ok) {
       setProductsByShop(myresponse.data);
-      console.log(productsByShop)
+      console.log(productsByShop);
     } else {
       setError(myresponse.error);
     }
@@ -368,7 +367,6 @@ function App() {
       }
     }
 
-
     // UPDATE USER PURCHASE POINTS
     let myresponse3 = await Api.addUserPoints(Local.getUserId());
     if (myresponse3.ok) {
@@ -377,7 +375,6 @@ function App() {
     } else {
       setError(myresponse3.error);
     }
-  } 
   }
 
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
@@ -545,52 +542,40 @@ function App() {
                 path="shops"
                 element={<ShopView products={products} reviews={reviews} />}
               />
-
               {/* NOTE: This route shows products of a single selected shop */}
               <Route
                 path="shop"
                 element={<SingleShopView products={productsByShop} />}
               />
-
-<<<<<<< HEAD
-              <Route path="/seller" element={<SellerDash
-                shop={shop}
-                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
-                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
-||||||| 8768a62
-              <Route path="/seller" element={<SellerDash
-                showAllProducts={getProducts}
-                shop={shop}
-                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
-                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
-=======
-
-              <Route path="/seller" 
-              element={
-                <SellerDash
-                  showAllProducts={getProducts}
+              <Route
+                path="/seller"
+                element={
+                  <SellerDash
+                    showAllProducts={getProducts}
                     shop={shop}
-                      getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
-                        editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
->>>>>>> main
-              />}/> {/*remove after*/} 
-
-
+                    getProductsByShopCb={(shop_id) =>
+                      getProductsByShop(shop_id)
+                    }
+                    editShopCb={(formData, shop_id) =>
+                      editShop(formData, shop_id)
+                    }
+                  />
+                }
+              />{" "}
+              {/*remove after*/}
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
-              
-              <Route path="customer_purchases" element={<BuyerPurchaseView />} />
+              <Route
+                path="customer_purchases"
+                element={<BuyerPurchaseView />}
+              />
               <Route path="shop_purchases" element={<SellerPurchaseView />} />
-              
               <Route
                 path="/users/:userId"
                 element={
                   <PrivateRoute>
-                    <UserProfileView 
-                    user={user}
-                    shops={shops} 
-                   />
+                    <UserProfileView user={user} shops={shops} />
                   </PrivateRoute>
                 }
               />

@@ -22,7 +22,6 @@ function UserProfileView(props) {
   const [allShops, setAllShops] = useState("");
   const [error, setError] = useState("");
 
-
   let { userId } = useParams();
 
   // const filterProducts = ({ searchResult, setSearchResult }) => {
@@ -42,7 +41,7 @@ function UserProfileView(props) {
   //     })
   //     .catch((error) => {});
   // }, []);
-  
+
   useEffect(() => {
     getSelectedShops();
   }, []);
@@ -117,7 +116,7 @@ function UserProfileView(props) {
     if (myresponse.ok) {
       setShopProfile(myresponse.data);
     } else {
-      setErrorMsg(myresponse.error)
+      setErrorMsg(myresponse.error);
     }
     console.log(shopProfile);
   }
@@ -127,23 +126,16 @@ function UserProfileView(props) {
       <div className="UserProfileView">
         <h1>Hey there, {props.user.username}!</h1>
         <br />
-        <h2> You have <b>{props.user.user_points}</b> points!
-        <br />
-        <button type="submit" className="btn btn-primary">Redeem</button>
+        <h2>
+          {" "}
+          You have <b>{props.user.user_points}</b> points!
+          <br />
+          <button type="submit" className="btn btn-primary">
+            Redeem
+          </button>
         </h2>
         <br />
       </div>
-<<<<<<< HEAD
-      <br></br>
-      {/* <Map /> */}
-
-||||||| merged common ancestors
-
-      {/* <Map /> */}
-
-=======
-
->>>>>>> main
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
@@ -175,20 +167,21 @@ function UserProfileView(props) {
           </div>
 
           <div className="col">
-            {home && <MarkerMap 
-            shops={shops} 
-            home={home} 
-            zoom={13}
-            setShopCb={(id) => setShop(id)} />}
+            {home && (
+              <MarkerMap
+                shops={shops}
+                home={home}
+                zoom={13}
+                setShopCb={(id) => setShop(id)}
+              />
+            )}
           </div>
-          
         </div>
 
         {/* <MarkerTable places={places} /> */}
       </div>
 
       <ShopView />
-      
     </div>
   );
 }
