@@ -30,6 +30,7 @@ function PopUpView(props) {
           {/* Pass child ProductRevew product as a prop*/}
         </div>
       </div>
+    </div>
   ) : (
     ""
   );
