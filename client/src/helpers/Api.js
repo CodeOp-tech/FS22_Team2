@@ -1,6 +1,7 @@
 import Local from "./Local.js";
 
 class Api {
+
   //_doFetch method - internal use only, to user in other functions
   static async _doFetch(url, method = "GET", body = null) {
     // prep fetch options

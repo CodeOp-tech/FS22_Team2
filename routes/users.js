@@ -66,7 +66,4 @@ router.put("/points/:user_id", async function (req, res, next) {
 }
 });
 
-
-
-
 module.exports = router;

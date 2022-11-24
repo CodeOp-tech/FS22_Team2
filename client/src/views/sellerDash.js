@@ -34,7 +34,6 @@ function SellerDash(props) {
     // console.log(formData);
     let options = {
       method: "POST",
-
       headers:{},
       body:  formData
     };
@@ -43,9 +42,7 @@ function SellerDash(props) {
     if(token) {
         options.headers['authorization'] = `Bearer ${token}`;
     } 
-    console.log(options)// add token to headers if it exists in localStorage
   try {
-    console.log('****Find Shop id*****', Local.getShopId())
     let response = await fetch(`/products/${Local.getShopId()}`, options); 
 
       if (response.ok) {
@@ -54,6 +51,7 @@ function SellerDash(props) {
         getProducts();
         props.showAllProducts(); // fetches all the products without reload on the online store
         //note to ask about the reload
+
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }
@@ -68,7 +66,6 @@ function SellerDash(props) {
     };
     try {
       let response = await fetch(`/products/${shop_id}/${product_id}`, options);
-
       if (response.ok) {
         let result = await response.json();
         setProductsData(result);
