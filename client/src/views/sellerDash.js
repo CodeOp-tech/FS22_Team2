@@ -40,38 +40,38 @@ function SellerDash(props) {
     let token = Local.getToken();
     if(token) {
         options.headers['authorization'] = `Bearer ${token}`;
-    } // add token to headers if it exists in localStorage
-  try {
-    let response = await fetch(`/products/${Local.getShopId()}`, options); 
+    } // add token to headers if it exists in localStorage  
+    try {
+      let response = await fetch(`/products/${Local.getShopId()}`, options); 
       if (response.ok) {
-    let result = await response.json();
+      let result = await response.json();
       setProductsData(result);
       getProducts();
       props.showAllProducts(); // fetches all the products without reload on the online store
-     //note to ask about the reload
-    } else {
-      console.log(`Server error: ${response.status} ${response.statusText}`);
-    }
+       //note to ask about the reload
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
     } catch (err) {
         console.log(`Network error: ${err.message}`);
-    } 
-}
+      }
+  }
 
   async function deleteProduct(shop_id, product_id) {
     let options = {
       method: "DELETE",
     };
-  try {
-    let response = await fetch(`/products/${shop_id}/${product_id}`, options); 
+    try {
+      let response = await fetch(`/products/${shop_id}/${product_id}`, options); 
 
-    if (response.ok) {
-      let result = await response.json();
-      setProductsData(result);
-      getProducts()
-      props.showAllProducts(); //split second loads all products
-    } else {
-      console.log(`Server error: ${response.status} ${response.statusText}`);
-    }
+      if (response.ok) {
+        let result = await response.json();
+        setProductsData(result);
+        getProducts()
+        props.showAllProducts(); //split second loads all products
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
     } catch (err) {
       console.log(`Server error: ${err.message}`);
     }
@@ -86,9 +86,9 @@ function SellerDash(props) {
 
   try {
       let response = await fetch(`/products/${shop_id}/${product_id}`, options);
-        if (response.ok) {
-          let result = await response.json();
-          setProductsData(result);
+      if (response.ok) {
+        let result = await response.json();
+        setProductsData(result);
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }
@@ -98,7 +98,7 @@ function SellerDash(props) {
   }
 
 
-  return (
+return (
 <Accordion defaultActiveKey="0" >
   <Container>
       <Accordion.Item eventKey="0">
