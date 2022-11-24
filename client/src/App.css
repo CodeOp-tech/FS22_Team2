@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -32,18 +33,7 @@ background-attachment: fixed; */
   }
 }
 
-.App {
-  text-align: center;
-  font-family: "Nunito", sans-serif;
-  padding: 0.5rem 3.5rem;
-  overflow: hidden;
-  margin: 0%;
-  /* background-image: url("https://img.freepik.com/free-vector/color-grunge-pattern-liquidity-style-background_1409-1432.jpg?w=1380&t=st=1669299480~exp=1669300080~hmac=242679dea3c13aa9fb8f315780e7647efd79fdde959910aa3e825ad75fb4e76c"); */
-  /* background-size: contain, cover; */
-  /* // background-position: center; Center the image */
-  /* // background-repeat: no-repeat; Do not repeat the image */
-  /* Resize the background image to cover the entire container */
-}
+
 
 .App table {
   border-collapse: collapse;

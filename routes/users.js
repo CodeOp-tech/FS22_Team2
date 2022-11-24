@@ -57,14 +57,16 @@ router.put("/points/:user_id", async function (req, res, next) {
         `UPDATE users SET user_points='${sumVal}' WHERE user_id=${user_id}`
       );
     }
-    const results = await db(
-      `SELECT * FROM users WHERE user_id = ${Number(user_id)}`
-    );
-    let updatedUser = results.data[0];
-    res.send(updatedUser);
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
+
+    const results = await db(`SELECT * FROM users WHERE user_id = ${Number(user_id)}`);
+    let updatedUser = results.data[0]
+    res.send(updatedUser); 
+} catch(err) { 
+    res.status(500).send({ error: err.message })
+}
 });
+
+
+
 
 module.exports = router;

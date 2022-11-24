@@ -18,18 +18,30 @@ const PUBLIC_DIR_URL = 'http://localhost:5000/productImg';
 });
 const upload = multer({ storage });
 
-
 async function sendAllFiles(res) {
   try {
-      let results = await db('SELECT * FROM products');
+      let results = await db(`SELECT * FROM products
+      LEFT JOIN shops ON products.shop_id = shops.shop_id`);
       // Add 'url' property for each file
       let withUrls = results.data.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`}));
       res.send(withUrls);
-
   } catch (err) {
       res.status(500).send({ error: err.message });
   }
 }
+
+
+// async function sendAllFiles(res) {
+//   try {
+//       let results = await db('SELECT * FROM products');
+//       // Add 'url' property for each file
+//       let withUrls = results.data.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`}));
+//       res.send(withUrls);
+
+//   } catch (err) {
+//       res.status(500).send({ error: err.message });
+//   }
+// }
 
 
  //TEST POST
@@ -85,6 +97,7 @@ router.get('/', async function(req, res,) {
   });
 
   // ADD PRODUCT BASED OFF STORE ID
+  // 
   // PROTECTED: user should only be able to edit their own shop info
   // NOTE: front-end fetch must pass shop_id through req.body below 
   router.post("/:shop_id", ensureShopOwner, upload.single ('productimg'), async (req, res) => { // NOTE: front-end fetch must pass shop_id through req.body below 

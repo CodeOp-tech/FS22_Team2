@@ -110,6 +110,7 @@ function UserProfileView(props) {
         </h2>
         <br />
       </div>
+
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">

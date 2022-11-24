@@ -13,22 +13,27 @@ const Intro = () => {
             {" "}
             Hi!<br></br> Welcome to
             <Typewriter
-              options={{
-                autoStart: true,
-                loop: true,
-              }}
-              onInit={(typewriter) => {
-                typewriter
 
-                  .typeString("My Shopping Buddy!")
-                  .pauseFor(2500)
-                  // .changeDelay(1000)
-                  .deleteChars(14)
-                  .typeString("ustainable Business!")
-                  .pauseFor(5000)
-                  .start();
-              }}
-            />
+
+            options={{
+              autoStart: true,
+              loop: true,
+            }}
+            onInit={(typewriter) => {
+              typewriter
+                
+                .typeString('My Shopping Buddy!')
+                .pauseFor(2500)
+                // .changeDelay(1000)
+                .deleteChars(14)
+                .typeString('ustainable Business!')
+                .pauseFor(5000)
+                .start();
+  }}
+  />
+        
+
+
             {/* M.S.B!{" "} */}
           </span>
 

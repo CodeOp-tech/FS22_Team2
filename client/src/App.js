@@ -79,7 +79,9 @@ function App() {
         setShops(json);
       })
       .catch((error) => {});
+
   }, []);
+
   /********************* AUTH FUNCTIONS *********************/
 
   // register new user
@@ -376,7 +378,9 @@ function App() {
     } else {
       setError(myresponse3.error);
     }
+
   }
+
 
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
 
@@ -548,22 +552,20 @@ function App() {
                 path="shop"
                 element={<SingleShopView products={productsByShop} />}
               />
-              <Route
-                path="/seller"
-                element={
-                  <SellerDash
-                    showAllProducts={getProducts}
+
+
+
+              <Route path="/seller" 
+              element={
+                <SellerDash
+                  showAllProducts={getProducts}
                     shop={shop}
-                    getProductsByShopCb={(shop_id) =>
-                      getProductsByShop(shop_id)
-                    }
-                    editShopCb={(formData, shop_id) =>
-                      editShop(formData, shop_id)
-                    }
-                  />
-                }
-              />{" "}
-              {/*remove after*/}
+                      getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+                        editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
+              />}/> {/*remove after*/} 
+
+
+
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />
