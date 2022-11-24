@@ -46,7 +46,10 @@ router.post('/', async function(req, res) {
 
     try {
         await db(sql);
-        let results = await db(`SELECT * FROM reviews WHERE product_id = ${Number(product_id)} ORDER BY review_date DESC`); // product_id taken from req.body
+        let results = await db(`SELECT * FROM reviews 
+        LEFT JOIN users on reviews.user_id = users.user_id
+        WHERE product_id = ${Number(product_id)} 
+        ORDER BY review_date DESC`); // product_id taken from req.body
         let reviews = results.data;
         res.status(201).send(reviews);
     } catch (err) {

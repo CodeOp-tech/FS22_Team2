@@ -13,6 +13,7 @@ import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
 
+
 /*
 A 'place' is an obj like this:
 {
@@ -41,6 +42,7 @@ function HomeView(props) {
     let latLng = await getHome(); // returns [lat, lng]
     setHome(latLng);
   }
+
   // async function addMarkerForAddress(addr) {
   //   // Send a request to OpenCage to geocode 'addr'
   //   let myresponse = await geocode(addr);
@@ -72,17 +74,6 @@ function HomeView(props) {
   //     .catch((error) => {});
   // }, []);
 
-  // useEffect(() => {
-  //   fetch("/shops?products= scarf,coffee")
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       setListShops(json);
-  //     })
-  //     .catch((error) => {});
-  // }, []);
-
-  //Get /shops?product=scarf,sponge
-
   //    let latLng = await getShops(); // returns [lat, lng]
   //   //need fetch to get shops
   //    setShops(latLng);
@@ -94,13 +85,15 @@ function HomeView(props) {
   //   setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
   // }
 
-  //Get /shops?product=scarf,sponge
-
   return (
     <div>
       <Intro />
-      <h2>Congratulations To This Month's WINNERS!</h2>
-      <br></br>
+      <h2>
+        New winners every month!
+      </h2>
+      <span>
+        Earn points and redeem prizes for shopping sustainably! Check out our top sustainable shoppers.
+      </span>
 
       <Podium winners={PodiumData} />
       <hr></hr>

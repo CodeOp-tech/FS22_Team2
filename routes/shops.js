@@ -26,34 +26,12 @@ router.get("/search/products", async function (req, res, next) {
   let sql = `SELECT DISTINCT shops.*, products.*
   FROM shops LEFT JOIN products ON shops.shop_id = products.shop_id`;
   let where = makeWhereFromFilters(req.query);
-  console.log(req.query, "***********************");
+ 
   // make optional WHERE-part from query parameters
   // If query parameters were passed, append them to the SELECT statement
   if (where) {
     sql += ` WHERE products.product_name ${where}`;
   }
-  console.log(sql);
-  // GET all shops (with filter)
-  // router.get("/cats", async (req, res) => {
-  //   let sql = "SELECT * FROM shops";
-  //   let where = makeWhereFromFilters(req.query); // make optional WHERE-part from query parameters
-  //   // If query parameters were passed, append them to the SELECT statement
-  //   if (where) {
-  //     sql += ` WHERE ${productString}`;
-  //   }
-  // });
-
-  //let sql = `SELECT DISTINCT shops.* WHERE products.product_name IN ('coffee', 'scarf', 'belt')`;
-
-  //`SELECT DISTINCT shops.* WHERE products.product_name IN ( "scarf", "sponge")`;
-
-  // FROM shops
-  //      LEFT JOIN products ON shops.shop_id = products.shop_id `;
-
-  //WHERE products.product_name IN ( "scarf", "sponge")
-
-  //  fetch from client (this is the filter) Get /shops?product=scarf,sponge
-
   try {
     let results = await db(sql);
     let shops = results.data;
@@ -80,12 +58,12 @@ router.get("/profile/:shop_id", async function (req, res, next) {
 
 // GET a user's shop info
 // PROTECTED - for editing profile page
-router.get("/:userId", ensureSameUser, async function (req, res, next) {
-  let { userId } = req.params;
+router.get("/:user_id", ensureSameUser, async function (req, res, next) {
+  let { user_id } = req.params;
   let sql = `SELECT users.*, shops.*
       FROM users
       LEFT JOIN shops on users.shop_id = shops.shop_id
-      WHERE user_id = ${Number(userId)}`;
+      WHERE user_id = ${Number(user_id)}`;
 
   try {
     let results = await db(sql);
