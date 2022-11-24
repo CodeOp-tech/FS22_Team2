@@ -74,29 +74,30 @@ CREATE TABLE `products` (
     `fair_trade` BOOLEAN DEFAULT 0,
     `local` BOOLEAN DEFAULT 0,
     `organic` BOOLEAN DEFAULT 0,
+	`total_product_points` INT,
     PRIMARY KEY (`product_id`)
 );
 
-INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic)
+INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic, total_product_points)
 VALUES
-('Laser Cap', 22.90, 'LaserCap.jpeg', 100, 'Caps for every style and season', 'price_1M7OkEBIwndE5957BA27qJ0W', 1, 1, 1, 1, 1, 1),
-('Laser Shirt', 35.00, 'LaserShirt.jpeg', 50, 'Heartbreaker shirts', 'price_1M7OmZBIwndE5957EFWdmtdS', 1, 0, 1, 0, 1, 1),
-('Laser Socks', 11.50, 'LaserSocks.jpeg', 200, 'Keep those toesies safe', 'price_1M7OojBIwndE5957Sqtlqa58', 1, 0, 1, 0, 0, 0),
-('Laser Hoodie', 99.00, 'LaserHoodie.jpeg', 10, 'Only for the cool kids', 'price_1M7OqwBIwndE5957FXt7yuZV', 1, 0, 1, 0, 0, 1),
-('Laser Shorts', 32.00, 'LaserShorts.jpeg', 80, 'For your day-to-day wear', 'price_1M7OsSBIwndE5957gBgfF5Eb', 1, 1, 1, 0, 0, 1),
-('Laser Corduroy Hat', 28.80, 'LaserCord.jpeg', 500, 'Style yourself up with this sweet fabric hat', 'price_1M7OuzBIwndE5957wTZYLx3J', 1, 0, 1, 0, 0, 0),
-('Humana Hoodie Set', 80.80, 'HumanaHoodieSet.jpeg', 50, 'Feel like an absolute beast in this set', 'price_1M7P4aBIwndE5957YszgSQPw', 2, 0, 0, 1, 1, 0),
-('Crochet Scarf', 29.50, 'CrochetScarf.jpeg', 100, 'Scarf to keep you warm', 'price_1M44dEBIwndE5957Cait0D15', 2, 0, 1, 1, 1, 1),
-('Sunglasses', 10.99, 'shades.jpeg', 10, 'Defend yourself from all that shade you be getting wearing these babies', 'price_1M49GDBIwndE5957XZPxGANH', 2, 0, 1, 0, 0, 0),
-('Syra Coffee', 5.99, 'coffee.jpg', 100, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 3, 0, 0, 1, 1, 1),
-('Syra Latte', 7.99, 'SyraLatte.jpeg', 80, 'Latte, batte, schmatte', 'price_1M7P9OBIwndE59574ydbAIho', 3, 0, 0, 1, 1, 1),
-('Fresh apples', 2.99, 'apples.jpeg', 220, 'You know what they say, an apple a day keeps the bad juju away', 'price_1M7PBoBIwndE5957r1gzyYzy', 4, 0, 0, 1, 1, 1),
-('Tomatoes', 5.00, 'tomatoes.jpeg', 300, 'Red red red tomatoes', 'price_1M7PGlBIwndE5957zWTPhXbj', 4, 0, 0, 1, 1, 1),
-('Sweet oranges', 3.20, 'oranges.jpeg', 180, 'Get your dose of vitamin C', 'price_1M7PE6BIwndE5957hUV15Jmt', 4, 0, 0, 0, 1, 1),
-('High-end Camera', 399.99, 'Camera.jpeg', 50, 'The best camera around, we only sell authentic luxe cameras', 'price_1M49HEBIwndE59571OqKQqvk', 5, 0, 1, 0, 0, 0),
-('LV Luxury Belt', 500.99, 'LVbelt.jpeg', 30, 'LV belt, if you have money coming out of your ears #justsaying', 'price_1M44eiBIwndE5957FrOiJum7', 5, 0, 1, 0, 0, 0),
-('Antique Book', 1290.90, 'AntiqueBook.jpeg', 1, 'Absolutely one of a kind, rare, antique book dating back from the 1800s', 'price_1M44eiBIwndE5957FrOiJum7', 5, 0, 1, 0, 0, 0),
-('Handblown vase', 250.00, 'Vase.jpeg', 10, 'Handblown and handcrafted to exquisite perfection', 'price_1M7QCCBIwndE5957i3qBTcW8', 5, 0, 1, 0, 0, 0);
+('Cap', 22.90, 'LaserCap.jpeg', 100, 'Caps for every style and season', 'price_1M7OkEBIwndE5957BA27qJ0W', 1, 1, 1, 1, 1, 1, 5),
+('Shirt', 35.00, 'LaserShirt.jpeg', 50, 'Heartbreaker shirts', 'price_1M7OmZBIwndE5957EFWdmtdS', 1, 0, 1, 0, 1, 1, 3),
+('Socks', 11.50, 'LaserSocks.jpeg', 200, 'Keep those toesies safe', 'price_1M7OojBIwndE5957Sqtlqa58', 1, 0, 1, 0, 0, 0, 1),
+('Hoodie', 99.00, 'LaserHoodie.jpeg', 10, 'Only for the cool kids', 'price_1M7OqwBIwndE5957FXt7yuZV', 1, 0, 1, 0, 0, 1, 2),
+('Shorts', 32.00, 'LaserShorts.jpeg', 80, 'For your day-to-day wear', 'price_1M7OsSBIwndE5957gBgfF5Eb', 1, 1, 1, 0, 0, 1, 3),
+('Hat', 28.80, 'LaserCord.jpeg', 500, 'Style yourself up with this sweet fabric hat', 'price_1M7OuzBIwndE5957wTZYLx3J', 1, 0, 1, 0, 0, 0, 1),
+('Hoodie', 80.80, 'HumanaHoodieSet.jpeg', 50, 'Feel like an absolute beast in this set', 'price_1M7P4aBIwndE5957YszgSQPw', 2, 0, 0, 1, 1, 0, 2),
+('Scarf', 29.50, 'CrochetScarf.jpeg', 100, 'Scarf to keep you warm', 'price_1M44dEBIwndE5957Cait0D15', 2, 0, 1, 1, 1, 1, 4),
+('Sunglasses', 10.99, 'shades.jpeg', 10, 'Defend yourself from all that shade you be getting wearing these babies', 'price_1M49GDBIwndE5957XZPxGANH', 2, 0, 1, 0, 0, 0, 1),
+('Coffee', 5.99, 'coffee.jpg', 100, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 3, 0, 0, 1, 1, 1, 3),
+('Latte', 7.99, 'SyraLatte.jpeg', 80, 'Latte, batte, schmatte', 'price_1M7P9OBIwndE59574ydbAIho', 3, 0, 0, 1, 1, 1, 3),
+('Apples', 2.99, 'apples.jpeg', 220, 'You know what they say, an apple a day keeps the bad juju away', 'price_1M7PBoBIwndE5957r1gzyYzy', 4, 0, 0, 1, 1, 1, 3),
+('Tomatoes', 5.00, 'tomatoes.jpeg', 300, 'Red red red tomatoes', 'price_1M7PGlBIwndE5957zWTPhXbj', 4, 0, 0, 1, 1, 1, 3),
+('Oranges', 3.20, 'oranges.jpeg', 180, 'Get your dose of vitamin C', 'price_1M7PE6BIwndE5957hUV15Jmt', 4, 0, 0, 0, 1, 1, 2),
+('Camera', 399.99, 'Camera.jpeg', 50, 'The best camera around, we only sell authentic luxe cameras', 'price_1M49HEBIwndE59571OqKQqvk', 5, 0, 1, 0, 0, 0, 1),
+('Belt', 500.99, 'LVbelt.jpeg', 30, 'LV belt, if you have money coming out of your ears #justsaying', 'price_1M44eiBIwndE5957FrOiJum7', 5, 0, 1, 0, 0, 0, 1),
+('Book', 1290.90, 'AntiqueBook.jpeg', 1, 'Absolutely one of a kind, rare, antique book dating back from the 1800s', 'price_1M44eiBIwndE5957FrOiJum7', 5, 0, 1, 0, 0, 0, 1),
+('Vase', 250.00, 'Vase.jpeg', 10, 'Handblown and handcrafted to exquisite perfection', 'price_1M7QCCBIwndE5957i3qBTcW8', 5, 0, 1, 0, 0, 0, 1);
 
 CREATE TABLE `purchases` (
 	`purchase_id` INT NOT NULL AUTO_INCREMENT,

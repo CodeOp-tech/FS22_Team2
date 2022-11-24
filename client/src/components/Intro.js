@@ -31,9 +31,7 @@ const Intro = () => {
                 .start();
   }}
   />
-        
-
-
+       
             {/* M.S.B!{" "} */}
           </span>
 

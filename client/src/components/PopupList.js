@@ -5,7 +5,6 @@ function PopUpList(props) {
   const product = props.product; // received from parent PopUpView
 
   return (
-
         <div className="container popuplist">
           <div className="row">
             <div className="col-sm-4">
@@ -34,8 +33,8 @@ function PopUpList(props) {
                 </li>
               </ul>
             </div>
+            </div>
           </div>
-        </div>
   );
 }
 

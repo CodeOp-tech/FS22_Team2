@@ -30,20 +30,6 @@ async function sendAllFiles(res) {
   }
 }
 
-
-// async function sendAllFiles(res) {
-//   try {
-//       let results = await db('SELECT * FROM products');
-//       // Add 'url' property for each file
-//       let withUrls = results.data.map(r => ({...r, url: `${PUBLIC_DIR_URL}/${r.product_image}`}));
-//       res.send(withUrls);
-
-//   } catch (err) {
-//       res.status(500).send({ error: err.message });
-//   }
-// }
-
-
  //TEST POST
  //router.post("/:shop_id", async (req, res) => {
   // let { product_name, product_image, price, product_description, product_quantity, recycled, no_fridge, fair_trade, local, organic } = req.body; 

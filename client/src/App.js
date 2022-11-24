@@ -79,7 +79,6 @@ function App() {
         setShops(json);
       })
       .catch((error) => {});
-
   }, []);
 
   /********************* AUTH FUNCTIONS *********************/
@@ -167,7 +166,6 @@ function App() {
   }
 
   /********************* PRODUCT FUNCTIONS *********************/
-
   // GET ALL PRODUCTS (regardless of store)
   async function getProducts() {
     try {
@@ -380,7 +378,6 @@ function App() {
     }
   }
 
-
   // GET ALL PURCHASED ITEMS (ie. single customer purchases at all shops) TO DISPLAY TO CUSTOMER/BUYER
 
   async function getPurchasedItemsByUser(user_id) {
@@ -551,7 +548,7 @@ function App() {
                 path="shop"
                 element={<SingleShopView products={productsByShop} />}
               />
-
+              
               <Route path="/seller" 
               element={
                 <SellerDash
@@ -559,7 +556,6 @@ function App() {
                   shop={shop}
                   getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
                   editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
-
               />}/> {/*remove after*/} 
 
 
