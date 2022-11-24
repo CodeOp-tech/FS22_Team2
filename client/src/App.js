@@ -552,6 +552,18 @@ function App() {
                 element={<SingleShopView products={productsByShop} />}
               />
 
+<<<<<<< HEAD
+              <Route path="/seller" element={<SellerDash
+                shop={shop}
+                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
+||||||| 8768a62
+              <Route path="/seller" element={<SellerDash
+                showAllProducts={getProducts}
+                shop={shop}
+                getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+                editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
+=======
 
               <Route path="/seller" 
               element={
@@ -560,6 +572,7 @@ function App() {
                     shop={shop}
                       getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
                         editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
+>>>>>>> main
               />}/> {/*remove after*/} 
 
 

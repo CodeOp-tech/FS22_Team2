@@ -20,17 +20,58 @@ const Intro = () => {
             }}
             onInit={(typewriter) => {
               typewriter
+<<<<<<< HEAD
+                
+                .typeString('My Shopping Buddy!')
+||||||| 8768a62
+                
+                .typeString('Mambo!')
+=======
                 // ZOE NOTE: Changed words to more public-friendly, now M words type very slowly on second round - tried messing with other params, gave up
                 .typeString('My')
+>>>>>>> main
                 .pauseFor(2500)
+<<<<<<< HEAD
+                // .changeDelay(1000)
+                .deleteChars(14)
+                .typeString('ustainable Business!')
+                .pauseFor(5000)
+||||||| 8768a62
+                .changeDelay(1000)
+                .deleteChars(5)
+                .typeString('y')
+                .pauseFor(5000)
+=======
                 .changeDelay(1000)
                 .deleteChars(1)
                 .typeString('arketplace')
                 .pauseFor(2000)
+>>>>>>> main
                 .start();
   }}
   />
         
+<<<<<<< HEAD
+||||||| 8768a62
+           
+            <Typewriter
+              options={{
+                autoStart: true,
+                loop: true,
+              }}
+              onInit={(typewriter) => {
+                typewriter
+                  .pauseFor(1000)
+                  .typeString("Snake!")
+                  .pauseFor(2600)
+                  // .changeDelay(800)
+                  .deleteChars(5)
+                  .typeString("hopping")
+                  .pauseFor(4000)
+                  .start();
+              }}
+            />
+=======
            
             <Typewriter
               options={{
@@ -49,7 +90,29 @@ const Intro = () => {
                   .start();
               }}
             />
+>>>>>>> main
 
+<<<<<<< HEAD
+            {/* M.S.B!{" "} */}
+||||||| 8768a62
+            <Typewriter
+              options={{
+                autoStart: true,
+                loop: true,
+              }}
+              onInit={(typewriter) => {
+                typewriter
+                  .pauseFor(2000)
+                  .typeString("Blood!")
+                  .pauseFor(2500)
+                  .deleteChars(5)
+                  .typeString("uddy!")
+                  .pauseFor(3000)
+                  .start();
+              }}
+            />
+            {/* M.S.B!{" "} */}
+=======
             <Typewriter
               options={{
                 autoStart: true,
@@ -66,6 +129,7 @@ const Intro = () => {
                   .start();
               }}
             />
+>>>>>>> main
           </span>
 
           <span>
