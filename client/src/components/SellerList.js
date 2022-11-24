@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from 'react'
 import './SellerList.css'
 import { Card, Col, Row, Button, ButtonToolbar } from 'react-bootstrap';
@@ -17,18 +18,19 @@ const onSave = val => {
 
 const handleClose = () => setShow(false); //to close Modal
 
+
 function handleShow(id) {
   let product = props.productsData.find(p => p.product_id === id)
-  console.log('edit product data', product)
   setEditProductItem(product)
   setShow(true);
  } //to show Modal
 
- function handleEditSubmit(id, formData){
+ function handleEditSubmit(shop_id, product_id, formData){
  setShow(false);
- props.editProductCb(id, formData)
+ props.editProductCb(shop_id, product_id, formData)
  }
  
+
 
 
 return (
@@ -98,7 +100,7 @@ return (
           />
         )}
     </div>
-  )
+  );
 }
 
 export default SellerList;

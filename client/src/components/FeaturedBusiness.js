@@ -73,10 +73,7 @@ const FeaturedBusiness = () => {
               className="expand"
             >
               <p>
-                Syra Coffee no hubiera nacido sin la confluencia de innumerables
-                influencias de todo el mundo. Estamos profundamente enamorados
-                de nuestra Barcelona natal, donde reside la mezcla de raíces,
-                culturas y tradiciones que nos define hoy
+                Syra Coffee has the best coffee around, guaranteed!
               </p>
             </motion.div>
           )}

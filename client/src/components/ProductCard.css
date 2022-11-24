@@ -27,3 +27,9 @@
 .image .overlay:hover {
     opacity: 1;
 }
+
+.shopname {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}

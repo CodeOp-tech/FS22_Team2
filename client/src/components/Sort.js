@@ -1,18 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import ProductContext from "../ProductContext";
 
 function Sort(props) {
-  const [selectSort, setSelectSort] = useState("");
   const { showTotalPointsCb, showHighToLowPriceCb, showLowToHighPriceCb, showShopsAtoZCb } = useContext(ProductContext);
-
-  // const handleChange = (event) => {
-  //   setSelectSort(event.target.value);
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   props.filterCb(input);
-  // };
 
   return (
     // refer to https://www.studytonight.com/bootstrap/solvedbootstrap-dropdown-not-working

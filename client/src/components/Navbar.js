@@ -69,6 +69,10 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/shops">Online Store</NavLink>
                         </li>
+
+                        {/* <li className="nav-item">
+                            <NavLink className="nav-link" to="/shop">Online Store</NavLink>
+                        </li> */}
                         
                         {/* USER PAGES: only visible to logged in users */}
                         {
@@ -82,7 +86,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         {
                             props.user && (
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
+                                    <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>User Dash</NavLink>
                                 </li>
                             )
                         }
@@ -149,9 +153,6 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         ?   
                         (
                                 <ul className="navbar-nav">
-                                     <li className="nav-item">
-                                        <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
-                                    </li>
                                     <li className="nav-item">
                                         {/* Log out user. Then go to home page. */}
                                         <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>
