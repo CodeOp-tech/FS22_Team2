@@ -86,6 +86,7 @@ class Api {
 
     // EDIT/PUT shop info (PROTECTED)
     static async updateShop(shopData, shop_id) {
+        // console.log("Api receives:", shopData);
         let body = { shopData }
         return await this._doFetch(`/shops/edit/${shop_id}`, 'PUT', body);
     }

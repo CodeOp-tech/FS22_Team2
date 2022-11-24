@@ -142,13 +142,12 @@ function App() {
 
   /********************* SHOP FUNCTIONS *********************/
  
-  // PUT edit shop info
+  // GET shop profile
   async function getShopProfile(shop_id) {
     // update shop @ local shop_id w/shopData info
     let myresponse = await Api.getShopProfile(shop_id);
     if (myresponse.ok) {
       setShopProfile(myresponse.data);
-      console.log(myresponse.data);
     } else {
       setError(myresponse.error);
     }
@@ -157,6 +156,7 @@ function App() {
   // PUT edit shop info
   async function editShop(shopData, shop_id) {
     // update shop @ local shop_id w/shopData info
+    //console.log("App editShop receives:", shopData);
     let myresponse = await Api.updateShop(shopData, shop_id);
     if (myresponse.ok) {
       setShop(myresponse.data);
@@ -557,9 +557,9 @@ function App() {
               element={
                 <SellerDash
                   showAllProducts={getProducts}
-                    shop={shop}
-                      getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
-                        editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
+                  shop={shop}
+                  getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
+                  editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
               />}/> {/*remove after*/} 
 
 
