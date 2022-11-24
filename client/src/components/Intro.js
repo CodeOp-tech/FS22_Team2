@@ -21,51 +21,17 @@ const Intro = () => {
             onInit={(typewriter) => {
               typewriter
                 
-                .typeString('Mambo!')
+                .typeString('My Shopping Buddy!')
                 .pauseFor(2500)
-                .changeDelay(1000)
-                .deleteChars(5)
-                .typeString('y')
+                // .changeDelay(1000)
+                .deleteChars(14)
+                .typeString('ustainable Business!')
                 .pauseFor(5000)
                 .start();
   }}
   />
         
-           
-            <Typewriter
-              options={{
-                autoStart: true,
-                loop: true,
-              }}
-              onInit={(typewriter) => {
-                typewriter
-                  .pauseFor(1000)
-                  .typeString("Snake!")
-                  .pauseFor(2600)
-                  // .changeDelay(800)
-                  .deleteChars(5)
-                  .typeString("hopping")
-                  .pauseFor(4000)
-                  .start();
-              }}
-            />
 
-            <Typewriter
-              options={{
-                autoStart: true,
-                loop: true,
-              }}
-              onInit={(typewriter) => {
-                typewriter
-                  .pauseFor(2000)
-                  .typeString("Blood!")
-                  .pauseFor(2500)
-                  .deleteChars(5)
-                  .typeString("uddy!")
-                  .pauseFor(3000)
-                  .start();
-              }}
-            />
             {/* M.S.B!{" "} */}
           </span>
           <span>About us... </span>

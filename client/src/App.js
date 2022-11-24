@@ -510,7 +510,6 @@ function App() {
               />
 
               <Route path="/seller" element={<SellerDash
-                showAllProducts={getProducts}
                 shop={shop}
                 getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
                 editShopCb={(formData, shop_id) => editShop(formData, shop_id) }

@@ -69,18 +69,27 @@ CREATE TABLE `products` (
     `fair_trade` BOOLEAN DEFAULT 0,
     `local` BOOLEAN DEFAULT 0,
     `organic` BOOLEAN DEFAULT 0,
-    `total_product_points` INT,
 	PRIMARY KEY (`product_id`)
 ); 
 
 
-INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic, total_product_points)
+INSERT INTO products (product_name, price, product_image, product_quantity, product_description, stripe_product_id, shop_id, recycled, no_fridge, fair_trade, `local`, organic)
 VALUES
-('Coffee', 5.99, 'coffee.jpg', 20, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 1, 1, 0, 1, 1, 1, 4),
-('Sunglasses', 10.99, 'Sunglasses.jpeg', 10, 'Defend yourself from all that shade you be getting wearing these babies', 'price_1M49GDBIwndE5957XZPxGANH', 2, 0, 1, 0, 0, 0, 1),
-('Camera', 59.99, 'Camera.jpeg', 50, 'The best camera around', 'price_1M49HEBIwndE59571OqKQqvk', 2, 0, 1, 0, 0, 0, 1),
-('Scarf', 30.99, 'Scarf.jpeg', 100, 'Scarf to keep you warm', 'price_1M44dEBIwndE5957Cait0D15', 1, 1, 1, 1, 1, 1, 5),
-('Luxury Belt', 500.99, 'LVbelt.jpeg', 50, 'LV belt, if you have money coming out of your ears', 'price_1M44eiBIwndE5957FrOiJum7', 1, 0, 1, 0, 0, 0, 1);
+('Coffee', 5.99, 'coffee.jpg', 20, 'Coffee brewed and served fresh in-store', 'price_1M44bEBIwndE5957lW1avj2o', 1, 1, 0, 1, 1, 1),
+('Sunglasses', 10.99, 'Sunglasses.jpeg', 10, 'Defend yourself from all that shade you be getting wearing these babies', 'price_1M49GDBIwndE5957XZPxGANH', 2, 0, 1, 0, 0, 0),
+('Camera', 59.99, 'Camera.jpeg', 50, 'The best camera around', 'price_1M49HEBIwndE59571OqKQqvk', 2, 0, 1, 0, 0, 0),
+('Scarf', 30.99, 'hscarf.jpg', 100, 'Scarf to keep you warm', 'price_1M44dEBIwndE5957Cait0D15', 1, 1, 1, 1, 1, 1),
+('Luxury Belt', 500.99, 'LVbelt.jpeg', 50, 'LV belt, if you have money coming out of your ears', 'price_1M44eiBIwndE5957FrOiJum7', 1, 0, 1, 0, 0, 0),
+('Monat Facial Cleanser', 23.99, 'monatClenser.jpg', 14, 'Lightweight cleanser to keep you your face looking fresh!', 'NULL', 1, 1, 1, 1, 1, 1),
+('Diana Handbag', 55, 'dianaBag.jpg', 3, 'Beautiful teal bag, 100% Vegan', 'NULL', 2, 1, 1, 0, 0, 1),
+('Glossier. Exfoliator', 13.99, 'glossierExfo.jpg', 10, 'Checkout the NEW exfoliator from Glossier. 10% AHA/BHA/PHA', 'NULL', 2, 1, 1, 1, 1, 1),
+('Kara Cross-body Bag and Purse', 123.45, 'karaBag.jpg', 8, 'Bright, fun and functional. Perfect for anyone and everyone', 'NULL', 2, 0, 1, 0, 1, 0),
+('KARLY Nude Lipstick', 6.99, 'karlyLip.jpg', 2, 'Beautiful Lips. All day. Every day~! Nearly sold out!', 'NULL', 2, 0, 1, 0, 1, 0),
+('LanCome Siren Red Lipstick', 25.89, 'lacomeLip.jpg', 6, 'Sensual, Sultry, Sexy!', 'NULL', 0, 1, 0, 0, 0, 0),
+('Mario Badescu Facial Spray', 17.66, 'marioBadescuClenser.jpg', 10, 'Facial spray to daily, contains all the good stuff: Aloe, Cucumber and Green Tea', 'NULL', 1, 1, 0, 0, 0, 0), 
+('The Ordinary. Foundation Set', 86.55, 'ordinaryPack.jpg', 5, 'Keep look fabulous and keep your skin happy! Get everything you need in this one set.',  'NULL', 2, 0, 1, 0, 1, 0),
+('YUZFEFI Bag', 120, 'yuzefiBag.jpg', 7, 'Pretty in Pink! Each bag is handmade locally, show some support', 'NULL', 1, 1, 1, 1, 1, 1)
+;
 
 
 CREATE TABLE `purchases` (

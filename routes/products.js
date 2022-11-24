@@ -188,7 +188,9 @@ router.get('/', async function(req, res,) {
   router.delete("/:shop_id/:product_id", async (req, res) => { // NOTE: front-end fetch must pass product_id and shop_id (can be stored in Local.js?) //ADDED THE SHOP ID
     let id = req.params.product_id;
     let shopid = req.params.shop_id;
-  
+    // need shop_id to display only products in said shop, once delete is executed
+
+    // Reference to ...
     try {
         let result = await db(`SELECT * FROM products WHERE product_id = ${id}`); // WHERE id refers to the product_id
         if (result.data.length === 0) {

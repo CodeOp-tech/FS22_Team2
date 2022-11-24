@@ -104,7 +104,7 @@ async function editProduct(id, formData) {
    
 <Accordion defaultActiveKey="0" >
   <Container>
-      <Accordion.Item eventKey="0">
+      <Accordion.Item eventKey="1">
         <Accordion.Header className='editShop-accHead'>Edit You Shop Profile</Accordion.Header>
         <Accordion.Body className='editShop-acc'>
       <Row>
@@ -115,13 +115,13 @@ async function editProduct(id, formData) {
       </Row>
       </Accordion.Body>
       </Accordion.Item>
-      <Accordion.Item eventKey="1">
+      <Accordion.Item eventKey="0">
         <Accordion.Header>Shop Products</Accordion.Header>
         <Accordion.Body>
       <Row>
       <Col>
       <SellerForm addProductCb={addProduct}
-                  showProducts={props.showAllProducts} /> //Getting from the App
+                  showProducts={props.showAllProducts} /> 
       </Col>
       <Col>
       <SellerList productsData={productsData}
