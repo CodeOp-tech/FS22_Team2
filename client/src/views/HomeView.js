@@ -110,8 +110,8 @@ function HomeView(props) {
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
-            <h3>Create Your Shopping List </h3>
-            <p>Enter the products you need and plan your route</p>
+            <h1>Store Locations</h1>
+
             {/* <ol>
               <li>
                 A <code>home</code> query parameter like:{" "}
@@ -121,8 +121,8 @@ function HomeView(props) {
               <li>Use Plaça Catalunya in Barcelona as a last resort</li>
             </ol> */}
           </div>
-          <h3 className="mt-4"> Add Markers</h3>
-          <p>Enter an address to add a blue marker on the map</p>
+          <h3 className="mt-4"> </h3>
+
           {/* <AddressForm
             addMarkerCb={(addr) => addMarkerForAddress(addr)}
             shops={shops}
@@ -132,8 +132,7 @@ function HomeView(props) {
         <div className="col">
           {home && <MarkerMap shops={props.shops} home={home} zoom={13} />}
         </div>
-
-        <MarkerTable places={places} />
+        {/* <MarkerTable places={places} /> */}
       </div>
     </div>
   );

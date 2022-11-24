@@ -3,16 +3,16 @@ import { useParams } from "react-router-dom";
 import Api from "../helpers/Api";
 //map stuff:
 import { getHome } from "../helpers/geoLocation";
-import AddressForm from "../components/AddressForm";
-import MarkerTable from "../components/MarkerTable";
+//import AddressForm from "../components/AddressForm";
+//import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
-import { geocode } from "../helpers/geo-opencage";
+//import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
 
 function UserProfileView(props) {
   //maps below: app stuff
   const [home, setHome] = useState([41.390205, 2.154007]); // center of map
-  const [currView, setCurrView] = useState("homeV");
+  //const [currView, setCurrView] = useState("homeV");
   const [shops, setShops] = useState([]);
   //user stuff:
   const [user, setUser] = useState(null);
@@ -130,13 +130,13 @@ function UserProfileView(props) {
         <br />
         Email: {user.userEmail}
       </div>
-
+      <br></br>
       {/* <Map /> */}
 
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
-            <h3>Create Your Shopping List </h3>
+            <h3>What do you need? </h3>
             <p>Enter the products you need and plan your route</p>
 
             <SearchMaps getSelectedShopsCb={getSelectedShops} />
@@ -155,12 +155,12 @@ function UserProfileView(props) {
               <li>Use Plaça Catalunya in Barcelona as a last resort</li>
             </ol> */}
 
-            <h3 className="mt-4"> Add Markers</h3>
-            <p>Enter an address to add a blue marker on the map</p>
-            {/* <AddressForm
+            <h3 className="mt-4"> Check out these stores below </h3>
+            {/* <p>Enter an address to add a blue marker on the map</p>
+             <AddressForm
               addMarkerCb={(addr) => addMarkerForAddress(addr)}
               shops={shops}
-            /> */}
+            />  */}
           </div>
 
           <div className="col">
