@@ -30,8 +30,8 @@ function joinToJson(results) {
 };
 
 // GET ALL PURCHASED_ITEMS REGARDLESS OF USERS / SHOPS
-router.get('/', async function(req, res,) { 
 
+router.get('/', async function(req, res,) { 
     try {
       let results = await db(`SELECT * FROM purchased_items`); 
       let purchased_items = results.data;  
@@ -42,6 +42,7 @@ router.get('/', async function(req, res,) {
   });
 
 // GET PURCHASED_ITEMS BASED OFF USER ID (USER PURCHASE HISTORY)
+
 // removed ensureSameUser guard b/c was throwing header error
   router.get('/:user_id', async function(req, res,) { 
     let id = req.params.user_id;
@@ -61,9 +62,7 @@ router.get('/', async function(req, res,) {
   } catch (err) {
       res.status(500).send({ error: err.message });
   }
-
   });
-
 
   // GET PURCHASED_ITEMS BASED OFF STORE ID (STORE PURCHASE HISTORY)
   // removed ensureShopOwner guard b/c was throwing header error
@@ -111,7 +110,7 @@ router.get('/', async function(req, res,) {
     }
     }
   
-    
+   
   });
 
   module.exports = router;

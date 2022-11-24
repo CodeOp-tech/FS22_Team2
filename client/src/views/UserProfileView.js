@@ -9,6 +9,7 @@ import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
+import ShopView from "./ShopView";
 
 function UserProfileView(props) {
   //maps below: app stuff
@@ -17,8 +18,10 @@ function UserProfileView(props) {
   const [shops, setShops] = useState([]);
   //user stuff:
   const [errorMsg, setErrorMsg] = useState("");
+  const [shopProfile, setShopProfile] = useState([]);
   const [allShops, setAllShops] = useState("");
   const [error, setError] = useState("");
+
 
   let { userId } = useParams();
 
@@ -39,6 +42,7 @@ function UserProfileView(props) {
   //     })
   //     .catch((error) => {});
   // }, []);
+  
   useEffect(() => {
     getSelectedShops();
   }, []);
@@ -52,6 +56,7 @@ function UserProfileView(props) {
       .then((res) => res.json())
       .then((json) => {
         setShops(json);
+        console.log(shops);
       })
       .catch((error) => {});
   }, []);
@@ -107,6 +112,16 @@ function UserProfileView(props) {
   //   }
   // }
 
+  async function setShop(id) {
+    let myresponse = await Api.getShopProfile(id);
+    if (myresponse.ok) {
+      setShopProfile(myresponse.data);
+    } else {
+      setErrorMsg(myresponse.error)
+    }
+    console.log(shopProfile);
+  }
+
   return (
     <div>
       <div className="UserProfileView">
@@ -150,13 +165,20 @@ function UserProfileView(props) {
           </div>
 
           <div className="col">
-            {home && <MarkerMap shops={shops} home={home} zoom={13} />}
+            {home && <MarkerMap 
+            shops={shops} 
+            home={home} 
+            zoom={13}
+            setShopCb={(id) => setShop(id)} />}
           </div>
           
         </div>
 
         {/* <MarkerTable places={places} /> */}
       </div>
+
+      <ShopView />
+      
     </div>
   );
 }

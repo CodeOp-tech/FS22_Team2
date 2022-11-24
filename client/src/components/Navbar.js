@@ -68,6 +68,10 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/shops">Online Store</NavLink>
                         </li>
+
+                        {/* <li className="nav-item">
+                            <NavLink className="nav-link" to="/shop">Online Store</NavLink>
+                        </li> */}
                         
                         {/* USER PAGES: only visible to logged in users */}
                         {

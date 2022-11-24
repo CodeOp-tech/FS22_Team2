@@ -43,7 +43,6 @@ function HomeView(props) {
     setHome(latLng);
   }
 
-
   // async function addMarkerForAddress(addr) {
   //   // Send a request to OpenCage to geocode 'addr'
   //   let myresponse = await geocode(addr);
@@ -75,17 +74,6 @@ function HomeView(props) {
   //     .catch((error) => {});
   // }, []);
 
-  // useEffect(() => {
-  //   fetch("/shops?products= scarf,coffee")
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       setListShops(json);
-  //     })
-  //     .catch((error) => {});
-  // }, []);
-
-  //Get /shops?product=scarf,sponge
-
   //    let latLng = await getShops(); // returns [lat, lng]
   //   //need fetch to get shops
   //    setShops(latLng);
@@ -96,9 +84,6 @@ function HomeView(props) {
   //   });
   //   setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
   // }
-
-  //Get /shops?product=scarf,sponge
-
 
   return (
     <div>

@@ -59,7 +59,7 @@ function ReviewList() {
                 </div>
 
                 <div className='col-sm-9'>
-                    : {star5 && ((star5 / reviews.length) * 100).toFixed(2)}%
+                    : {star5 && ((star5 / reviews.length) * 100).toFixed(0)}%
                 </div>
             </div>
 
@@ -76,7 +76,7 @@ function ReviewList() {
                 </div>
 
                 <div className='col-sm-9'>
-                    : {star4 && ((star4 / reviews.length) * 100).toFixed(2)}%
+                    : {star4 && ((star4 / reviews.length) * 100).toFixed(0)}%
                 </div>
             </div>
 
@@ -93,7 +93,7 @@ function ReviewList() {
                 </div>
 
                 <div className='col-sm-9'>
-                    : {star3 && ((star3 / reviews.length) * 100).toFixed(2)}%
+                    : {star3 && ((star3 / reviews.length) * 100).toFixed(0)}%
                 </div>
             </div>
 
@@ -110,7 +110,7 @@ function ReviewList() {
                 </div>
 
                 <div className='col-sm-9'>
-                    : {star2 && ((star2 / reviews.length) * 100).toFixed(2)}%
+                    : {star2 && ((star2 / reviews.length) * 100).toFixed(0)}%
                 </div>
             </div>
 
@@ -127,7 +127,7 @@ function ReviewList() {
                 </div>
 
                 <div className='col-sm-9'>
-                    : {star1 && ((star1 / reviews.length) * 100).toFixed(2)}%
+                    : {star1 && ((star1 / reviews.length) * 100).toFixed(0)}%
                 </div>
             </div>
 

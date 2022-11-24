@@ -31,7 +31,6 @@ function SellerDash(props) {
     }
   }
 
-
   async function addProduct(formData) {
     // console.log(formData);
     let options = {
@@ -40,8 +39,6 @@ function SellerDash(props) {
       body:  formData
     };
 
-    
-    
   try {
     let response = await fetch(`/products/${Local.getShopId()}`, options); 
     if (response.ok) {
@@ -52,7 +49,6 @@ function SellerDash(props) {
      //note to ask about the reload
     } else {
       console.log(`Server error: ${response.status} ${response.statusText}`);
-
     }
     // add token to headers if it exists in localStorage
     let token = Local.getToken();
@@ -78,10 +74,7 @@ function SellerDash(props) {
     let options = {
       method: "DELETE",
     };
-
-
   try {
-
     let response = await fetch(`/products/${shop_id}/${product_id}`, options); 
 
     if (response.ok) {
@@ -93,8 +86,6 @@ function SellerDash(props) {
       console.log(`Server error: ${response.status} ${response.statusText}`);
     }
   }
-
-
 
     async function editProduct(shop_id, product_id, formData) {
       let options = {
@@ -117,8 +108,6 @@ function SellerDash(props) {
   }
 
   return (
-    
-   
 <Accordion defaultActiveKey="0" >
   <Container>
       <Accordion.Item eventKey="0">
@@ -149,15 +138,12 @@ function SellerDash(props) {
       
       </Row>
     
-        
+       
       </Accordion.Body>
       </Accordion.Item>
     </Container>
     </Accordion>
     
-
-  
-
   );
 }
 
