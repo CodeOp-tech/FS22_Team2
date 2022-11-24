@@ -10,7 +10,7 @@ function PopUpList(props) {
         <div className="col-sm-4">
           <img className="popup-img" src={product.url} />
         </div>
-        
+
         <div className="container popuplist">
           <div className="row">
             <div className="col-sm-4">
@@ -41,6 +41,8 @@ function PopUpList(props) {
             </div>
           </div>
         </div>
+      </div>
+    </div>
   );
 }
 

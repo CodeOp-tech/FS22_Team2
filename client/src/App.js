@@ -72,13 +72,14 @@ function App() {
     getTotalCost();
   }, [cartProducts]); // whenever cartProducts are added/removed, total cost must be updated
 
-  fetch("/shops")
-    .then((res) => res.json())
-    .then((json) => {
-      setShops(json);
-    })
-    .catch((error) => {});
-
+  useEffect(() => {
+    fetch("/shops")
+      .then((res) => res.json())
+      .then((json) => {
+        setShops(json);
+      })
+      .catch((error) => {});
+  }, []);
   /********************* AUTH FUNCTIONS *********************/
 
   // register new user
