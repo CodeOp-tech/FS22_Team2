@@ -73,12 +73,13 @@ return (
                 {p.recycled === 1}
               </Card.Text > 
               <Card.Text className='proText' style={{padding:'10px' }}>
-                {p.recycled + p.no_fridge + p.fair_trade + p.local + p.organic} 
+               Points: {p.recycled + p.no_fridge + p.fair_trade + p.local + p.organic} 
               </Card.Text >            
               <Row> 
                 <Col> 
                   <Card.Text className='proText'  style={{padding:'5px' }}>
-                    £{p.price}
+                    ${(p.price).toFixed(2)}
+                    
                   </Card.Text>
                 </Col>      
                 <Col>
