@@ -1,9 +1,29 @@
 .popup-list {
     list-style-type: none;
     text-align: left;
+    color: rgb(4, 4, 35);
+    
 }
 
-.popup-img {
+.pointStyle{
+    font-family: 'Paytone One', sans-serif;
+    color: rgb(206, 150, 29);
+    animation: glow 6s ease-in-out infinite;
+
+}
+
+
+
+@keyframes glow {
+from {
+  text-shadow: 0 0 50px #e5f688;
+}
+to {
+  text-shadow: 0 0 50px #aab67d, 0 0 40px #7c7625;
+}
+}
+
+/* .popup-img {
     margin-top: 10px;
     width: 300px;
-}
+} */

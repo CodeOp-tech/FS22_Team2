@@ -10,12 +10,18 @@
     width: 620px;
 }
 
-button {
-    
-}
 
 .addReview {
     position: fixed;
     right: 50px;
     cursor: pointer;
+    border-radius: 10px;
+    width: 200px; 
+    height: 30px;
+    padding: 1px;
+    background-color: orange;
+    border: none;
+    color: white;
+    font-weight: bolder;
+  
 }
