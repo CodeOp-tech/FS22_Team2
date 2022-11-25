@@ -25,7 +25,7 @@ body {
   /* background-repeat: no-repeat;
 background-attachment: fixed; */
   background-size: 600% 600%;
-  animation: backdrop 30s ease infinite;
+  animation: backdrop 50s ease infinite;
 }
 
 @keyframes backdrop {
@@ -65,6 +65,6 @@ h1 {
   position: relative;
 }
 .Demo1View {
-  margin-bottom: 90px;
+  margin-bottom: 0px;
   padding-bottom: 89px;
 }

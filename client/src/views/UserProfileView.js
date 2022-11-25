@@ -117,14 +117,15 @@ function UserProfileView(props) {
       </div>
 
       <div className="Demo1View">
-        <div className="row mb-5">
+        <div className="row">
           <div className="col">
             <h2>What do you need? </h2>
             <h4>Enter the products you need and plan your route</h4>
             <br></br>
+            
             <SearchMaps getSelectedShopsCb={getSelectedShops} />
 
-          <div style={{border:'none', height:'24rem', width:'38rem', marginTop:'20px'}}>
+          <div style={{border:'none', height:'24rem', width:'38rem', marginTop:'50px'}}>
 
                 <textarea
                     className="shopNote"
@@ -138,7 +139,7 @@ function UserProfileView(props) {
 
           </div>
 
-          <div className="col">
+          <div className="col" style={{marginTop:'8.5rem'}}>
             {home && (
               <MarkerMap
                 shops={shops}

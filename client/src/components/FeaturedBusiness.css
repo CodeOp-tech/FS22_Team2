@@ -87,6 +87,7 @@
   line-height: 160%;
 }
 .cardz p {
+
   padding-top: 0.5rem;
   line-height: 150%;
   margin-right: 30px;
@@ -94,7 +95,7 @@
 }
 .featImg {
   padding: 5px;
-  width: fit-content;
+  width: 20rem;
   height: fit-content;
   border-radius: 50%;
 }
