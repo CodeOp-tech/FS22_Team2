@@ -11,7 +11,9 @@ import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
 import ShopView from "./ShopView";
 import "./UserProfileView.css"
-import starr from "../DC/starr.gif"
+import Accordion from "react-bootstrap/Accordion";
+import { Container, Row } from "react-bootstrap";
+
 
 function UserProfileView(props) {
   //maps below: app stuff
@@ -146,7 +148,21 @@ function UserProfileView(props) {
           </div>
         </div>
       </div>
-      <ShopView />
+      <Accordion defaultActiveKey="0">
+        <Container>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>
+            Check out these stores below
+            </Accordion.Header>
+            <Accordion.Body style={{backgroundColor:'lavender'}}>
+              <Row>
+                  <ShopView />
+              </Row>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Container>   
+      </Accordion>
+     
     </div>
   );
 }
