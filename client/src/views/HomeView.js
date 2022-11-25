@@ -89,7 +89,7 @@ function HomeView(props) {
     <div>
       <Intro />
       <h2>
-        New winners every month!
+        Leaderboard
       </h2>
       <span>
         Earn points and redeem prizes for shopping sustainably! Check out our top sustainable shoppers.

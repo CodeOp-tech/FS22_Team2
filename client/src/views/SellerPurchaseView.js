@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import CartContext from "../CartContext";
+import Local from "../helpers/Local.js";
 
 function SellerPurchaseView() {
     const { purchasedItemsByShop } = useContext(CartContext);
   return (
     <div>
-      <h1>Store: Purchase History</h1>
+      <h1>{Local.getShopName()}'s Sales History</h1>
 
       <table className="table table-striped">
             <thead>

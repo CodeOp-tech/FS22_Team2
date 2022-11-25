@@ -19,7 +19,8 @@ export default function MySlider() {
           marginTop: "200px",
         }}
       >
-        <h3 className="winners">This Month's Prizes</h3>
+        <h3 className="winners">Win Prizes!</h3>
+        <p className="para">Earn points for shopping sustainably, and use them to redeem awesome prizes like these from shops in our network.</p>
 
         <Slider
           autoplay={true}

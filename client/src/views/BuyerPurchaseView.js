@@ -6,7 +6,7 @@ function BuyerPurchaseView() {
 
   return (
     <div>
-      <h1>Customer: Purchase History</h1>
+      <h1>My Purchase History</h1>
 
         <table className="table table-striped">
             <thead>
