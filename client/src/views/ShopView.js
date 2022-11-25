@@ -8,13 +8,14 @@ import Sort from "../components/Sort";
 import ProductContext from "../ProductContext";
 import CartContext from "../CartContext";
 
+
 function ShopView(props) {
   const { searched } = useContext(ProductContext);
   const { user } = useContext(CartContext);
 
   return (
     <div className="ShopView container">
-      <h1>Welcome to My Shopping Buddy</h1>
+      <h1>Welcome to MSB...Checkout all our products!</h1>
       { !user ? 
       <h4>Please login/register to begin shopping!</h4>
       : ""
@@ -24,7 +25,7 @@ function ShopView(props) {
           <Search />
         </div>
         <div className="col-sm-2">
-          <Sort />
+          <Sort  />
         </div>
       </div>
       

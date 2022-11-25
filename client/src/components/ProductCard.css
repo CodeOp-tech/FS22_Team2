@@ -5,8 +5,8 @@
 
 .pro-card-img{
     display: block;
-    max-width: 460px;
-    max-height: 300px;
+    max-width: 24rem;
+    height: 17rem;
     border-radius: none;
     object-fit: cover;
 }
@@ -31,22 +31,33 @@
 
 .image .overlay:hover {
     opacity: 1;
-    border-radius: 40px;
+    border-radius: 30px;
 }
 
 .shopname {
-    color: rgb(13, 13, 36);
-    text-decoration: underline;
+    color: rgb(9, 206, 193);
+    font-size: larger;
+    letter-spacing: 2px;
     cursor: pointer;
+    animation: glow 6s ease-in-out infinite;
+    margin-left: 4px;
 }
 
+@keyframes glow {
+    from {
+      text-shadow: 0 0 20px #46e6ff;
+    }
+    to {
+      text-shadow: 0 0 30px #04d2e1, 0 0 10px #9cd0d6;
+    }
+}
 
 
 .onlineSCard{
     border: none;
     border-radius: 30px;
-    height: 42rem;
-    background: rgba(146, 218, 200, 0.47);
+    height: 46rem;
+    /* background-color: rgba(255, 255, 255, 0.858); */
     text-align: center;
 }
 
@@ -59,7 +70,8 @@
     max-height: 30px;
     padding: 3px;
     margin: 20px;
-    background-color: rgba(244, 255, 206, 0.783);
+    background-color: rgba(248, 95, 24, 0.393);
+    color: azure;
     
 }
 
@@ -69,7 +81,48 @@
     border-radius: 10px;
     padding: 3px;
     border-width: 30px;
-    background-color: rgba(244, 255, 206, 0.783);
+    background-color: rgba(246, 236, 173, 0.502);
    
 }
 
+.buybtn{
+    margin-top: 30px;
+    background-color: rgba(101, 212, 172, 0.884);
+    border: none;
+    font-weight: bolder;
+    
+}
+
+.buybtn:hover{
+    background-image:     linear-gradient(
+       to right, 
+       #E7484F,
+       #E7484F 16.65%,
+       #F68B1D 16.65%,
+       #F68B1D 33.3%,
+       #FCED00 33.3%,
+       #FCED00 49.95%,
+       #009E4F 49.95%,
+       #009E4F 66.6%,
+       #00AAC3 66.6%,
+       #00AAC3 83.25%,
+       #732982 83.25%,
+       #732982 100%,
+       #E7484F 100%
+      
+      
+      
+     );
+   animation:slidebg 2s linear infinite;
+ }
+ 
+ 
+ @keyframes slidebg {
+   to {
+     background-position:20vw;
+   }
+ }
+ 
+ .follow{
+   margin-top: 40px;
+ }

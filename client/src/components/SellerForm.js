@@ -74,33 +74,33 @@ function SellerForm(props) {
 
 
    const popoverHoverFocusRecycle = (
-    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'lightcyan'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'teal'}}>{"Made from recycled items? Popover"}</Popover.Header>
+    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Made from recycled items?"}</Popover.Header>
       Products that are made from recyled materials will usually advertise this on the label. Look for a label that says "this product is made from __% recycled paper", or something similar. If the product states that it's made from recycled materials (or if you made this product from recycled materials), check this box. If not or if unknown, leave blank.
     </Popover>
   );
 
   const popoverHoverFocusNoFridge =(
-    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'lightcyan'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'teal'}}>{"Is this product stored at room temperature? (i.e. Does it NOT require heating or refrigeration?)"}</Popover.Header>
+    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Is this product stored at room temperature? (i.e. Does it NOT require heating or refrigeration?)"}</Popover.Header>
     If you don't need to refrigerate this product, check this box! If this product needs to be refrigerated, leave blank.    </Popover>
   )
 
   const popoverHoverFocusFairTrade =(
-    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'lightcyan'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'teal'}}>{"Is this product fair-trade? "}</Popover.Header>
+    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Is this product fair-trade? "}</Popover.Header>
      Is this product fair trade certified? It should have a label that says "fair trade" (it might look like this or this). If you see one of these labels - great, check the box! If not or if unknown, leave blank.    </Popover>
   )
 
   const popoverHoverFocusLocal =(
-    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'lightcyan'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'teal'}}>{"Was is this product locally sourced?"}</Popover.Header>
+    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Was is this product locally sourced?"}</Popover.Header>
     If this item was made in your country, check the box! It should have a label "Made in [country]" somewhere on the packaging. If not or if unknown, leave blank.    </Popover>
   )
 
   const popoverHoverFocusOrganic =(
-    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'lightcyan'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'teal'}}>{"Is this product organic?"}</Popover.Header>
+    <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Is this product organic?"}</Popover.Header>
     Is this product certified organic? It should have a label that says "organic" (it might look like this or this). If you see one of these labels - great, check the box! If not or if unknown, leave blank.    </Popover>
   )
 

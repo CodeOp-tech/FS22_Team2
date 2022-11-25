@@ -10,6 +10,8 @@ import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
 import ShopView from "./ShopView";
+import "./UserProfileView.css"
+import starr from "../DC/starr.gif"
 
 function UserProfileView(props) {
   //maps below: app stuff
@@ -97,17 +99,18 @@ function UserProfileView(props) {
 
   return (
     <div>
-      <div className="UserProfileView">
-        <h1>Hey there, {props.user.username}!</h1>
+      <div className="UserProfileView"style={{ textAlign: 'center'}}>
+      
+        <h1 style={{fontSize:'60px', padding:'10px', color:'white', fontStyle:'oblique', fontWeight:'bolder'}}>Hey there, {props.user.username}!</h1>
         <br />
-        <h2>
+        <h2 className="pointUser">
           {" "}
           You have <b>{props.user.user_points}</b> points!
-          <br />
-          <button type="submit" className="btn btn-primary">
+          <br /></h2>
+         <h3><button type="submit" className="redeembn">
             Redeem
           </button>
-        </h2>
+        </h3> 
         <br />
       </div>
       
@@ -118,8 +121,17 @@ function UserProfileView(props) {
             <p>Enter the products you need and plan your route</p>
 
             <SearchMaps getSelectedShopsCb={getSelectedShops} />
+          <div style={{border:'none', height:'24rem', width:'38rem', marginTop:'20px'}}>
 
-            <h3 className="mt-4"> Check out these stores below </h3>
+                <textarea
+                    className="shopNote"
+                    style={{height:'23rem', width:'38rem'}}
+                    type="text"
+                    name="note"
+                    placeholder="Start your shopping list..."
+                  />
+            </div>
+            <h3 style={{ color:'white', fontWeight:'bolder'}}> Check out these stores below </h3>
           </div>
 
           <div className="col">

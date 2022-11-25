@@ -8,22 +8,22 @@ function PopUpList(props) {
         <div className="container popuplist">
           <div className="row">
             <div className="col-sm-4">
-              <img className="popup-img" src={product.url} />
+              <img className="popup-img" src={product.url} style={{height:'20rem', width:'18rem', borderRadius:'10px', marginRight: '100px'}}/>
             </div>
 
             <div className="col-sm-8">
-              <ul className="popup-list">
+              <ul className="popup-list" style={{marginRight: '100px'}}>
                 <li>
-                  <h2>{product.product_name}</h2> from{" "}
+                  <h1 style={{fontSize:'60px', padding:'10px'}}>{product.product_name}</h1> from{" "}
                   <i>{product.shop_name}</i>
                 </li>
-                <li>{product.product_description}</li>
-                <li>Recycled: {product.recycled}</li>
-                <li>Not refrigerated: {product.no_fridge}</li>
-                <li>Fair trade: {product.fair_trade}</li>
-                <li>Local: {product.local}</li>
-                <li>Organic: {product.organic}</li>
-                <li>
+                <li style={{fontWeight:'bolder', paddingBottom:'30px', fontSize:'25px'}}>{product.product_description}</li>
+                <img style={{width:'70px'}} src={product.recycled===1?"https://img.icons8.com/bubbles/100/null/recycle-sign.png":" "}/>  
+                <img style={{width:'70px'}} src={product.no_fridge===1?"https://img.icons8.com/bubbles/100/null/greenhouse-effect.png":""}/>
+                <img style={{width:'70px'}} src={product.fair_trade===1?"https://img.icons8.com/bubbles/100/000000/certificate.png":""}/>
+                <img style={{width:'70px'}} src={product.local===1?"https://img.icons8.com/bubbles/100/null/shop-local--v1.png":""}/>
+                <img style={{width:'70px'}} src={product.organic===1?"https://img.icons8.com/bubbles/100/000000/sprout.png":""}/>
+                <li className='pointStyle' style={{fontSize:'40px'}}>
                   Total points:{" "}
                   {product.recycled +
                     product.no_fridge +

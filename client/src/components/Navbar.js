@@ -148,6 +148,7 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                                     {/* SHOPPING CART BUTTON (was originally before modal, moved so only visible on login) */}
                                      <li>
                                         <Button onClick={handleShow}><FiShoppingCart /> ({productsCount} items)</Button>
+                                    </li>
                                      <li className="nav-item">
                                         <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
                                     </li>
