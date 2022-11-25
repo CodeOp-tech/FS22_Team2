@@ -9,8 +9,9 @@ const FeaturedBusiness = () => {
   return (
     <div className="FeaturedBusiness">
       <div className="aweBlock">
-        <h1 className="awesome">Our Featured Business This Month...</h1>
-        <p className="para">Check them out ...</p>
+        <h1 className="awesome">Featured Business</h1>
+        <p className="para">This shop not only has awesome clothes at amazing prices, but is a leader in sustainable business practices. Check them out today! </p>
+
       </div>
 
       <div className="cards">

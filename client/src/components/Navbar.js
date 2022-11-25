@@ -5,118 +5,105 @@ import CartContext from "../CartContext";
 import CartProductModal from "./CartProductModal";
 import { FiShoppingCart } from "react-icons/fi";
 import Local from "../helpers/Local";
-import MSBlogo from "../DC/MSBlogo.png";
+import MSBlogo_transparent from "../DC/MSBlogo_transparent.png";
 import "./NavBar.css";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
 function Navbar(props) {
-  const { cartProducts, getTotalCostCb, totalCost, addPurchasesCb } =
-    useContext(CartContext);
+    const { cartProducts, getTotalCostCb, totalCost, addPurchasesCb } = useContext(CartContext);
 
-  const [show, setShow] = useState(false); // initially not show modal
+    const [show, setShow] = useState(false); // initially not show modal
+    
+    function handleClose() {
+        setShow(false);
+    }
 
-  function handleClose() {
-    setShow(false);
-  }
+    function handleShow() {
+        setShow(true);
+        getTotalCostCb();
+    }
 
-  function handleShow() {
-    setShow(true);
-    getTotalCostCb();
-  }
+    async function handleClick() {
+        Local.saveCartProducts(cartProducts);
+        checkout();
+        // NOTE: ACTUAL WORKFLOW SHOULD BE ONLY UPON RECEIVING SUCCESS PAGE, addPurchasesCb() is called
+        // addPurchasesCb();
+    }
 
-  async function handleClick() {
-    Local.saveCartProducts(cartProducts);
-    checkout();
-    // NOTE: ACTUAL WORKFLOW SHOULD BE ONLY UPON RECEIVING SUCCESS PAGE, addPurchasesCb() is called
-    // addPurchasesCb();
-  }
+     // POST to checkout
+     const checkout = async() => {
+        await fetch("http://localhost:5000/stripe/checkout", { 
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ items: cartProducts })
+        }).then((response) => {
+            return response.json();
+        }).then((response) => {
+            if(response.url) {
+                console.log(response.url);
+                window.location.assign(response.url);   
+            }
+        }) 
+    }
 
-  // POST to checkout
-  const checkout = async () => {
-    await fetch("http://localhost:5000/stripe/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: cartProducts }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        if (response.url) {
-          console.log(response.url);
-          window.location.assign(response.url);
-        }
-      });
-  };
+// // use reduce method to get total amount of quantities to display in Cart button below
+const productsCount = cartProducts.reduce((sum, product) => sum + product.quantity, 0);
 
-  // // use reduce method to get total amount of quantities to display in Cart button below
-  const productsCount = cartProducts.reduce(
-    (sum, product) => sum + product.quantity,
-    0
-  );
 
-  return (
-    <nav
-      className="Navbar navbar navbar-expand-sm navbar-dark mb-4"
-      style={{ backgroundColor: "teal" }}
-    >
-      <div className="container-fluid">
-        <span className="navbar-brand font-weight-bold">
-          <NavLink className="nav-link" to="/">
-            <img src={MSBlogo} alt="MSC Inc." style={{ width: "80px" }} />
-          </NavLink>
-        </span>
+    return (
+        <nav className="Navbar navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: 'teal' }}>
+            <div className="container-fluid">
+                <span className="navbar-brand font-weight-bold">
+                    <NavLink className="nav-link" to="/">
+                      <img src={MSBlogo_transparent} alt= 'MSC Inc.' style={{width:'80px'}}/>
+                    </NavLink>
+                </span>
 
-        {/* Left-aligned stuff */}
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            {/* public pages: visible to anyone visiting page */}
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/shops">
-                Online Store
-              </NavLink>
-            </li>
+                {/* Left-aligned stuff */}
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        {/* public pages: visible to anyone visiting page */}
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/shops">Online Store</NavLink>
+                        </li>
+                        
+                        {/* USER PAGES: only visible to logged in users */}
+                        {
+                            props.user && (
+                                <li>
+                                    <NavLink className="nav-link" to="/customer_purchases">Purchase History</NavLink>
+                                </li>
+                            )
+                        }
 
-            {/* USER PAGES: only visible to logged in users */}
-            {props.user && (
-              <li>
-                <NavLink className="nav-link" to="/customer_purchases">
-                  Purchase History
-                </NavLink>
-              </li>
-            )}
+                        {
+                            props.user && (
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>My Profile</NavLink>
+                                </li>
+                            )
+                        }
 
-            {props.user && (
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  to={`/users/${props.user.user_id}`}
-                >
-                  Profile ({props.user.username})
-                </NavLink>
-              </li>
-            )}
-
-            {/* SELLER PAGES: only visible to logged in users who have shops */}
-            {props.shop && (
-              <li>
-                <NavLink className="nav-link" to="/seller">
-                  My Shop
-                </NavLink>
-              </li>
-            )}
-            {props.shop && (
-              <li>
-                <NavLink className="nav-link" to="/shop_purchases">
-                  Sales History
-                </NavLink>
-              </li>
-            )}
-          </ul>
-        </div>
+                        {/* SELLER PAGES: only visible to logged in users who have shops */}
+                        {
+                            props.shop && (
+                                <li>
+                                    <NavLink className="nav-link" to="/seller">My Shop</NavLink>
+                                </li>
+                            )
+                        }
+                        {
+                            props.shop && (
+                                <li>
+                                    <NavLink className="nav-link" to="/shop_purchases">Sales History</NavLink>
+                                </li>
+                            )
+                        }
+                    </ul>
+                </div>
 
         {/* Modal is the pop-up that will appear upon clicking Cart button */}
         <Modal show={show} onHide={handleClose}>
@@ -159,18 +146,20 @@ function Navbar(props) {
                 {
                     props.user
                         ?   
-                        (
+                            (
                                 <ul className="navbar-nav">
-                                    {/* SHOPPING CART BUTTON (was originally before modal, moved so only visible on login) */}
+                                    {/* Shopping cart button */}
                                      <li>
-                                        <Button onClick={handleShow}><FiShoppingCart /> ({productsCount} items)</Button>
+                                        <Button onClick={handleShow}>
+                                            <FiShoppingCart /> ({productsCount} items)
+                                        </Button>
                                     </li>
-                                     <li className="nav-item">
-                                        <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
-                                    </li>
+
+                                    {/* Log out user. Then go to home page. */}
                                     <li className="nav-item">
-                                        {/* Log out user. Then go to home page. */}
-                                        <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>
+                                        <Link className="nav-link" to="/" onClick={props.logoutCb}>
+                                            Logout
+                                        </Link>
                                     </li>
                                 </ul>
                             )
@@ -189,8 +178,6 @@ function Navbar(props) {
             </div>
         </nav>
     );
-
-
 }
 
 export default Navbar;

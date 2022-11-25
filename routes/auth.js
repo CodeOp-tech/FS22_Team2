@@ -56,37 +56,28 @@ router.post('/login', async (req, res) => {
     let { username, password } = req.body;
 
     try {
-        // look for username
-        let userResults = await db(`SELECT * FROM users WHERE username = '${username}'`);
-        // if username not found, throw error
+        let userResults = await db(`SELECT * FROM users WHERE username = '${username}'`); // look for username
         if (userResults.data.length === 0) {
-            res.status(401).send({ error: 'Login failed'});
-        // else if user does exist, save user info & check if passwords match
-        } else {
-            // save user info as object
-            let user = userResults.data[0];
-            // make shop accessible outside if statement
-            let shop = null;
-            // if user.shop_id is not null
-            if (user.shop_id) {
-                // return and save user's shop as an object
+            res.status(401).send({ error: 'Login failed'}); // if username not found, throw error
+        } else { // else user exists, so save user info & check if passwords match
+            let user = userResults.data[0]; // save user info as object
+            let shop = null; // make shop accessible outside if statement
+            if (user.shop_id) { // if user has a shop 
                 let shopResults = await db(`SELECT * FROM shops WHERE shop_id = '${user.shop_id}'`);
                 shop = shopResults.data[0];
-            }
+            } // return and save user's shop as an object
             let passwordsMatch = await bcrypt.compare(password, user.password);
-            if (passwordsMatch) {
-                // add shop_id to token (with comma)
+            if (passwordsMatch) { // if ok, add user info to token payload
                 let payload = { userId : user.user_id, shopId : user.shop_id };
                 let token = jwt.sign(payload, SECRET_KEY);
-                delete user.password;
-                res.send({
+                delete user.password; // remove the password so it doesn't get returned
+                res.send({ // send the user's info to the client
                     message: 'Login succeeded',
                     token: token,
                     user: user,
                     shop: shop
                 });
-            console.log(payload)
-            } else {
+            } else { // if it didn't work, throw error
                 res.status(401).send({ error: 'Login failed' }); 
             }
         }

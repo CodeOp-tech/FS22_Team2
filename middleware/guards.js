@@ -35,19 +35,19 @@ function ensureSameUser(req, res, next) {
 // Make sure user is accessing their own shop
 function ensureShopOwner(req, res, next) {
     let token = _getToken(req);
-    console.log('*********checking shopowner token******',token);
     try {
         // check that token is ok (if not, will throw error)
         let payload = jwt.verify(token, SECRET_KEY);
         // if token is ok, check that shopId matches req params
-
         if (payload.shopId === Number(req.params.shop_id)) {
-            // if okay, will proceed; else will throw error
+            // if okay, proceed with the function
             next();
         } else {
+            // if payload doesn't match params, it's the wrong user
             res.status(403).send({ error: 'Forbidden' });
         }
     } catch(err) {
+        // if some other problem, we can't verify the user
         res.status(401).send({ error: 'Unauthorized' });
     }
 }

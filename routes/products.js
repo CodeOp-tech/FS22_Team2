@@ -129,8 +129,8 @@ router.get('/', async function(req, res,) {
 
   // EDIT PRODUCT BASED OFF PRODUCT ID (shop_id passed in req.body)
   // PROTECT: ensureShopOwner
-
-   // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
+  // NOTE: front-end fetch must pass product_id (can be stored in Local.js?)
+  // NOTE: product_image commented out because it iteracts badly with file upload; fix in future version
   router.put("/:shop_id/:product_id", ensureShopOwner, async (req, res) => {
     let { product_id }  = req.params;
     let { shop_id }  = req.params;
