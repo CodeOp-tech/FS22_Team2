@@ -83,6 +83,17 @@ class Local {
         return shop.shop_id;
     }
 
+    // get current shop name
+    static getShopName() {
+        let shopjson = localStorage.getItem('shop');
+        if (!shopjson) {
+            return '';
+        }
+    
+        let shop = JSON.parse(shopjson);
+        return shop.shop_name;
+    }
+
     /****** CART *****/
     // get total amount in cart, save total
     static saveTotal(amount) {

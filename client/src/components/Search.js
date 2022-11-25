@@ -15,7 +15,7 @@ function Search(props) {
 
     return (
         <div className="search">
-            <form>
+            <form className="searchForm">
                 <input className="search-bar"
                 type="text"
                 placeholder = "type here to search for product..."

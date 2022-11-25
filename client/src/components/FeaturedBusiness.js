@@ -9,9 +9,11 @@ const FeaturedBusiness = () => {
   return (
     <div className="FeaturedBusiness">
       <div className="aweBlock">
-        <h1 className="awesome">Awesome Shops This Month...</h1>
-        <p className="para">Check out them out ...</p>
+        <h1 className="awesome">Featured Business</h1>
+        <p className="para">This shop not only has awesome clothes at amazing prices, but is a leader in sustainable business practices. Check them out today! </p>
+
       </div>
+
       <div className="cards">
         <motion.div
           transition={{ layout: { duration: 1, type: "spring" } }}
@@ -26,7 +28,10 @@ const FeaturedBusiness = () => {
           <motion.h2 layout="position">
             <h2>Laser</h2>
             <div className="featImg">
-              <img src="https://cdn.shopify.com/s/files/1/0449/4613/files/5_064da9be-c43a-48f5-9a11-f175a1e46095_grande.JPG?v=1552569309" />
+              <img
+                className="featImg"
+                src="https://cdn.shopify.com/s/files/1/0449/4613/files/5_064da9be-c43a-48f5-9a11-f175a1e46095_grande.JPG?v=1552569309"
+              />
             </div>
           </motion.h2>
 
@@ -40,13 +45,17 @@ const FeaturedBusiness = () => {
             >
               <p>
                 We try to convey with each collection all these local concepts
-                that may seem invisible to any citizen.
+                that may seem invisible to any citizen.Laser Barcelona was
+                founded in 2010, with the main motivation of expressing our own
+                idea of Barcelona and what it represents to us. Our philosophy
+                is based on curating the entire process, from design through
+                production to distribution in the most independent way possible.
               </p>
             </motion.div>
           )}
         </motion.div>
       </div>
-      <div className="cards">
+      {/* <div>
         <motion.div
           transition={{ layout: { duration: 1, type: "spring" } }}
           layout
@@ -72,14 +81,12 @@ const FeaturedBusiness = () => {
               exit={{ opacity: 0 }}
               className="expand"
             >
-              <p>
-                Syra Coffee has the best coffee around, guaranteed!
-              </p>
+              <p>Syra Coffee has the best coffee around, guaranteed!</p>
             </motion.div>
           )}
         </motion.div>
       </div>
-      <div className="cards">
+      <div>
         <motion.div
           transition={{ layout: { duration: 1, type: "spring" } }}
           layout
@@ -112,8 +119,8 @@ const FeaturedBusiness = () => {
               </p>
             </motion.div>
           )}
-        </motion.div>
-      </div>
+        </motion.div>{" "}
+      </div> */}
     </div>
   );
 };

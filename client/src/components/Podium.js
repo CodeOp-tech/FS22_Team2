@@ -13,12 +13,12 @@ export default function Podium({ winners }) {
         alignItems: "flex-end",
         borderBottom: "1px solid #e5e7eb",
         display: "grid",
-        gap: ".5rem",
+        gap: "1rem",
         gridAutoFlow: "column dense",
         justifyContent: "center",
         justifyItems: "center",
         height: 300,
-        marginTop: "5rem",
+        marginTop: "10rem",
       }}
     >
       {podium.map((winner) => (

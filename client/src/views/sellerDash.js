@@ -100,11 +100,11 @@ function SellerDash(props) {
   }
 
   return (
-    <Accordion defaultActiveKey="0">
+    <Accordion defaultActiveKey="1">
       <Container>
         <Accordion.Item eventKey="0">
           <Accordion.Header className="editShop-accHead">
-            Edit You Shop Profile
+            Edit Your Shop Profile
           </Accordion.Header>
           <Accordion.Body className="editShop-acc">
             <Row>
@@ -113,7 +113,7 @@ function SellerDash(props) {
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
-          <Accordion.Header>Shop Products</Accordion.Header>
+          <Accordion.Header>Manage Your Shop Products</Accordion.Header>
           <Accordion.Body>
             <Row>
               <Col>
@@ -121,7 +121,6 @@ function SellerDash(props) {
                   addProductCb={addProduct}
                   showProducts={props.showAllProducts}
                 />{" "}
-                //Getting from the App
               </Col>
               <Col>
                 <SellerList

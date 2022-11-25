@@ -8,6 +8,7 @@ function Sort(props) {
     // refer to https://www.studytonight.com/bootstrap/solvedbootstrap-dropdown-not-working
     <div className="dropdown my-4" style={{marginLeft:'800px'}}>
       <button
+        style={{backgroundColor:'rgba(101, 212, 172, 0.884)', width:'210px', border:'none'}}
         className="btn btn-primary dropdown-toggle"
         type="button"
         id="dropdownMenuButton1"
