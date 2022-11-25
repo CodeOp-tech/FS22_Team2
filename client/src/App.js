@@ -24,7 +24,6 @@ import HomeView from "./views/HomeView";
 import BuyerPurchaseView from "./views/BuyerPurchaseView";
 import SellerPurchaseView from "./views/SellerPurchaseView";
 import SellerDash from "./views/SellerDash";
-import Points from "./components/Points";
 
 //map stuff!
 import { getHome } from "./helpers/geoLocation";
