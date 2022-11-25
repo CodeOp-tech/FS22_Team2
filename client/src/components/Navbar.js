@@ -124,78 +124,73 @@ function Navbar(props) {
           {/* Modal has a show property that shows items in the cart */}
           <Modal.Header closeButton>
             <Modal.Title>Shopping Cart</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {productsCount > 0 ? (
-              <>
-                <p>Items in your cart:</p>
-                {/* Map through items array, for each item send id, quantity, name and price prop to child CartProductModal */}
-                {cartProducts.map((currentProduct, idx) => (
-                  <CartProductModal
-                    key={idx}
-                    id={currentProduct.id}
-                    quantity={currentProduct.quantity}
-                    name={currentProduct.name}
-                    price={currentProduct.price}
-                  ></CartProductModal>
-                ))}
 
-                {/* To get total, we call getTotalCostCb (function in App) from CartContext pipeline */}
-                <h1>Total: {totalCost}</h1>
+        
+        </Modal.Header>
+        <Modal.Body>
+            {productsCount > 0 ?
+            <>
+            <p>Items in your cart:</p>
+             {/* Map through items array, for each item send id, quantity, name and price prop to child CartProductModal */}
+            {cartProducts.map((currentProduct, idx) => (
+                <CartProductModal key={idx} id={currentProduct.id} 
+                quantity={currentProduct.quantity}
+                name={currentProduct.name}
+                price={currentProduct.price}
+                ></CartProductModal> 
+            ))}
 
-                {/* This button will make a Stripe API call to an actual Stripe account */}
-                <Button variant="success" onClick={() => handleClick()}>
-                  Purchase items!
-                </Button>
-              </>
-            ) : (
-              <h1>
-                No items in your cart.
-                <br />
-                Happy shopping!
-              </h1>
-            )}
-          </Modal.Body>
-        </Modal>
+            {/* To get total, we call getTotalCostCb (function in App) from CartContext pipeline */}
+            <h1>Total: {totalCost}</h1> 
 
-        {/* Login/Logout: right-aligned, based on whether user is logged in */}
-        {props.user ? (
-          <ul className="navbar-nav">
-            {/* SHOPPING CART BUTTON (was originally before modal, moved so only visible on login) */}
-            <li>
-              <Button onClick={handleShow}>
-                <FiShoppingCart /> ({productsCount} items)
-              </Button>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>
-                Profile ({props.user.username})
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              {/* Log out user. Then go to home page. */}
-              <Link className="nav-link" to="/" onClick={props.logoutCb}>
-                Logout
-              </Link>
-            </li>
-          </ul>
-        ) : (
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="nav-link" to="/register">
-                Register
-              </NavLink>
-            </li>
-          </ul>
-        )}
-      </div>
-    </nav>
-  );
+            {/* This button will make a Stripe API call to an actual Stripe account */}
+            <Button variant="success" onClick={() => handleClick()}>
+                Purchase items!
+            </Button>
+            </>
+            :
+            <h1>No items in your cart.<br />Happy shopping!</h1>
+            }
+
+        </Modal.Body>
+      </Modal>
+
+                {/* Login/Logout: right-aligned, based on whether user is logged in */}
+                {
+                    props.user
+                        ?   
+                        (
+                                <ul className="navbar-nav">
+                                    {/* SHOPPING CART BUTTON (was originally before modal, moved so only visible on login) */}
+                                     <li>
+                                        <Button onClick={handleShow}><FiShoppingCart /> ({productsCount} items)</Button>
+                                    </li>
+                                     <li className="nav-item">
+                                        <NavLink className="nav-link" to={`/users/${props.user.user_id}`}>Profile ({props.user.username})</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        {/* Log out user. Then go to home page. */}
+                                        <Link className="nav-link" to="/" onClick={props.logoutCb}>Logout</Link>
+                                    </li>
+                                </ul>
+                            )
+                        :
+                            (
+                                <ul className="navbar-nav">
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/login">Login</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="nav-link" to="/register">Register</NavLink>
+                                    </li>
+                                </ul>
+                            )
+                }
+            </div>
+        </nav>
+    );
+
+
 }
 
 export default Navbar;

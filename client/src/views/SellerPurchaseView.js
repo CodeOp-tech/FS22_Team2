@@ -5,7 +5,10 @@ function SellerPurchaseView() {
   const { purchasedItemsByShop } = useContext(CartContext);
   return (
     <div>
-      <h1>Store: Purchase History</h1>
+
+      <h1 style={{color:'#278080', fontWeight:'bolder'}}>Store: Purchase History</h1>
+
+
       <table className="table table-striped">
         <thead>
           <tr>

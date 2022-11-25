@@ -17,13 +17,15 @@ body {
     #ffdd94,
     #fa897b,
     #ccabd8,
-    #93cf02,
-    #354b86
+
+    #86e3ce
+  
+
   );
   /* background-repeat: no-repeat;
 background-attachment: fixed; */
-  background-size: 400% 400%;
-  animation: backdrop 20s ease infinite;
+  background-size: 600% 600%;
+  animation: backdrop 30s ease infinite;
 }
 
 @keyframes backdrop {

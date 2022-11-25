@@ -15,10 +15,12 @@ function ProductReviewView(props) {
 
     return (
         <div className="container popup-review">
+            <div className="revBottom" style={{marginTop:'90px'}}>
             <h3>Customer Reviews</h3>
             {showAddReview && <AddReview product={product} hideAddReviewCb={hideAddReview}/>}
 
             <ReviewList />
+            </div>
         </div>
     ) 
 }

@@ -35,13 +35,13 @@ function AddReview(props) {
     return (
         <div className="container">
             <div className="row">
-            <p><b>Add Product Review here:</b></p>
+            <p style={{fontSize:'20px'}}><b>Add Product Review here:</b></p>
             </div>
             <form onSubmit={handleSubmit}>
             <div className="stars">
                 <label className="row">
                     <div className="col-sm-3">
-                    Rate out of 5 stars:
+                    <h5>Rate out of 5 stars:</h5>
                     </div>
 
                     <div className="col-sm-9"> 
@@ -57,11 +57,12 @@ function AddReview(props) {
             <div className="reviewTitle">
                 <label className="row">
                     <div className="col-sm-3">
-                    Title of Review:
+                    <h6>Title of Review:</h6>
                     </div>
 
                     <div className="col-sm-9">
                     <input
+                    style={{borderRadius:'10px', border:'none', backgroundColor:'white'}}
                     id="title"
                     name="review_title"
                     type="text"
@@ -78,11 +79,12 @@ function AddReview(props) {
             <div className="reviewText">
                 <label className="row">
                     <div className="col-sm-3">
-                    Review:
+                    <h6>Review:</h6>
                     </div>
 
                     <div className="col-sm-9">
                     <textarea
+                    style={{borderRadius:'10px', border:'none'}}
                     id="review"
                     name="review_body"
                     type="text"

@@ -41,11 +41,12 @@ return (
           <Row>
             <Col>
               <Card.Img variant='bottom' src={p.url} style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '180px'}}/>
-                <Button className='probtn' onClick={(e) => props.deleteProductCb(p.shop_id, p.product_id)} >Delete</Button>
-                <Button className='probtn'onClick={(e) => handleShow(p.product_id)}>Edit</Button>
+                <Button style={{backgroundColor:'indianred'}} className='probtn' onClick={(e) => props.deleteProductCb(p.shop_id, p.product_id)} >Delete</Button>
+                <Button style={{backgroundColor:'#00AAC3'}} className='probtn'onClick={(e) => handleShow(p.product_id)}>Edit</Button>
             </Col>
             <Col>
-              <Card.Title className='proTitle' style={{fontWeight:'bold', padding:'4px', textTransform:'capitalize' }}>
+              <Card.Title className='proTitle' style={{fontWeight:'bold', padding:'4px', textTransform:'capitalize', backgroundColor: 'rgba(248, 95, 24, 0.393)', borderRadius:'10px'
+ }}>
               <EdiText 
                   editButtonContent={<FaPencilAlt/>}
                   saveButtonContent={<TiTickOutline/>}
@@ -59,6 +60,7 @@ return (
                 />
               </Card.Title>
               <Card.Text className='proText' style={{padding:'10px' }}>
+                <h6>Description:</h6>
               <EdiText                 
                   editButtonContent={<FaPencilAlt/>}
                   saveButtonContent={<TiTickOutline/>}
@@ -67,18 +69,19 @@ return (
                   saveButtonClassName="custom-save-button"
                   cancelButtonClassName="custom-cancel-button"
                   type='text'
-                  value={p.product_description}
+                  value= {p.product_description}
                   onSave={onSave}
                 />
                 {p.recycled === 1}
               </Card.Text > 
               <Card.Text className='proText' style={{padding:'10px' }}>
-                {p.recycled + p.no_fridge + p.fair_trade + p.local + p.organic} 
+               Points: {p.recycled + p.no_fridge + p.fair_trade + p.local + p.organic} 
               </Card.Text >            
               <Row> 
                 <Col> 
                   <Card.Text className='proText'  style={{padding:'5px' }}>
-                    £{p.price}
+                    ${(p.price).toFixed(2)}
+                    
                   </Card.Text>
                 </Col>      
                 <Col>
