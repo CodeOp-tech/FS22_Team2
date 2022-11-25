@@ -104,7 +104,7 @@ function ProductCard(props) {
 
   return (
   
-    <Card className="onlineSCard" style={{ background:'rgba(255, 255, 255, 0.858)'}}>
+    <Card className="onlineSCard" style={{ marginRight:'50px', width: '26rem', background:'rgba(255, 255, 255, 0.858)'}}>
 
      {/* used to pad content inside a <Card> */}
         <div className="image">
