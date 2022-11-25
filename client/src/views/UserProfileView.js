@@ -10,6 +10,7 @@ import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
 import ShopView from "./ShopView";
+import Points from "../components/Points";
 
 function UserProfileView(props) {
   //maps below: app stuff
@@ -99,7 +100,7 @@ function UserProfileView(props) {
     <div>
       <div className="UserProfileView">
         <h1>Hey there, {props.user.username}!</h1>
-        <br />
+        <br /> <Points />
         <h2>
           {" "}
           You have <b>{props.user.user_points}</b> points!
@@ -110,16 +111,14 @@ function UserProfileView(props) {
         </h2>
         <br />
       </div>
-      
+
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
-            <h3>What do you need? </h3>
-            <p>Enter the products you need and plan your route</p>
-
+            <h2>What do you need? </h2>
+            <h4>Enter the products you need and plan your route</h4>
+            <br></br>
             <SearchMaps getSelectedShopsCb={getSelectedShops} />
-
-            <h3 className="mt-4"> Check out these stores below </h3>
           </div>
 
           <div className="col">

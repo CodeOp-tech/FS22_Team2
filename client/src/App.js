@@ -24,6 +24,7 @@ import HomeView from "./views/HomeView";
 import BuyerPurchaseView from "./views/BuyerPurchaseView";
 import SellerPurchaseView from "./views/SellerPurchaseView";
 import SellerDash from "./views/SellerDash";
+import Points from "./components/Points";
 
 //map stuff!
 import { getHome } from "./helpers/geoLocation";
@@ -141,7 +142,7 @@ function App() {
   }
 
   /********************* SHOP FUNCTIONS *********************/
-  
+
   // GET shop profile
   async function getShopProfile(shop_id) {
     // update shop @ local shop_id w/shopData info
@@ -548,18 +549,22 @@ function App() {
                 path="shop"
                 element={<SingleShopView products={productsByShop} />}
               />
-              
-              <Route path="/seller" 
-              element={
-                <SellerDash
-                  showAllProducts={getProducts}
-                  shop={shop}
-                  getProductsByShopCb={(shop_id) => getProductsByShop(shop_id)}
-                  editShopCb={(formData, shop_id) => editShop(formData, shop_id) }
-              />}/> {/*remove after*/} 
-
-
-
+              <Route
+                path="/seller"
+                element={
+                  <SellerDash
+                    showAllProducts={getProducts}
+                    shop={shop}
+                    getProductsByShopCb={(shop_id) =>
+                      getProductsByShop(shop_id)
+                    }
+                    editShopCb={(formData, shop_id) =>
+                      editShop(formData, shop_id)
+                    }
+                  />
+                }
+              />{" "}
+              {/*remove after*/}
               {/* Stripe will redirect to either success or cancel path depending on how Stripe is interacted with */}
               <Route path="success" element={<Success />} />
               <Route path="cancel" element={<Cancel />} />

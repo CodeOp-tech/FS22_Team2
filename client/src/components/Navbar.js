@@ -6,6 +6,7 @@ import CartProductModal from "./CartProductModal";
 import { FiShoppingCart } from "react-icons/fi";
 import Local from "../helpers/Local";
 import MSBlogo from "../DC/MSBlogo.png";
+import "./NavBar.css";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
