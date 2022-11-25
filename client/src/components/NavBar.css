@@ -1,0 +1,9 @@
+.Navbar {
+  border-radius: 30px;
+  top: 15px;
+
+  /* display: inline-block; */
+  border: 2px;
+  display: inline-flex;
+  width: 100%;
+}

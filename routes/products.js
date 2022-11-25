@@ -17,7 +17,6 @@ const PUBLIC_DIR_URL = 'http://localhost:5000/productImg';
   }
 });
 const upload = multer({ storage });
-
 async function sendAllFiles(res) {
   try {
       let results = await db(`SELECT * FROM products

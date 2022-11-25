@@ -13,35 +13,36 @@ const Intro = () => {
             {" "}
             Hi!<br></br> Welcome to
             <Typewriter
+              options={{
+                autoStart: true,
+                loop: true,
+              }}
+              onInit={(typewriter) => {
+                typewriter
 
-
-            options={{
-              autoStart: true,
-              loop: true,
-            }}
-            onInit={(typewriter) => {
-              typewriter
-                
-                .typeString('My Shopping Buddy!')
-                .pauseFor(2500)
-                // .changeDelay(1000)
-                .deleteChars(14)
-                .typeString('ustainable Business!')
-                .pauseFor(5000)
-                .start();
-  }}
-  />
-       
+                  .typeString("My Shopping Buddy!")
+                  .pauseFor(2500)
+                  // .changeDelay(1000)
+                  .deleteChars(14)
+                  .typeString("ustainable Business!")
+                  .pauseFor(5000)
+                  .start();
+              }}
+            />
             {/* M.S.B!{" "} */}
           </span>
-
-          <span>
-            Want to shop local, have fun and make a difference? MSB helps
-            shoppers find local small businesses that sell what you need, and
-            earn points and prizes for shopping more sustainably. We also help
-            businesses get free promotion to their local customer base. Join
-            today!
-          </span>
+          <br></br>
+          <div>
+            <strong>
+              <p className="AboutUs">
+                Want to shop local, have fun and make a difference? MSB helps
+                shoppers find local small businesses that sell what you need,
+                and earn points and prizes for shopping more sustainably. We
+                also help businesses get free promotion to their local customer
+                base. Join today!
+              </p>
+            </strong>
+          </div>
         </div>
       </div>
 

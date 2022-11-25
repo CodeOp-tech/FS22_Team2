@@ -6,43 +6,88 @@
   position: relative; */
   margin-bottom: 8rem;
   margin-top: 9rem;
-  margin-bottom: 13rem;
+  margin-bottom: 6rem;
 }
+
+.f-right {
+  flex: 1;
+  position: relative;
+  text-align: right;
+  gap: 2rem;
+}
+.f-right > * {
+  position: absolute;
+  z-index: 1;
+  text-align: right;
+}
+
 .aweBlock {
   margin-top: 90px;
+  display: flex;
+  height: 77vh;
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 1;
+  gap: 2rem;
 }
 .awesome {
   display: flex;
   flex-direction: column;
-  color: #000000;
+  color: #278080;
   font-size: 4.5rem;
   font-weight: bold;
   position: relative;
 }
 
 .para {
-  font-size: 20px;
+  font-size: 30px;
   color: gray;
+  margin: 30px;
 }
 .cards {
+  flex: 1;
+  position: relative;
+  text-align: left;
+  gap: 2rem;
   flex: auto;
   margin: 65px;
 }
 .card {
+  flex: 1;
+  position: relative;
+  text-align: left;
+  gap: 2rem;
+  flex: auto;
+  margin: 75px;
   display: flex;
   background-color: whitesmoke;
   padding: 1rem 0.76rem;
 }
 .card h2 {
-  line-height: 150%;
+  line-height: 160%;
 }
 .card p {
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   line-height: 150%;
+  margin-right: 30px;
+  margin-left: 30px;
 }
-.featImg img {
+.featImg {
   padding: 5px;
   width: fit-content;
   height: fit-content;
   border-radius: 50%;
+}
+.feImdiv {
+  flex: 1;
+  position: relative;
+  text-align: left;
+  gap: 2rem;
+  flex: auto;
+  margin: 65px;
+  display: flex;
+  background-color: whitesmoke;
+  padding: 1rem 0.76rem;
 }

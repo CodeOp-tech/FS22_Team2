@@ -3,6 +3,8 @@ import { Form, Col, Row, Button } from 'react-bootstrap';
 import './ShopEditForm.css'
 import Local from "../helpers/Local.js"
 import Popover from 'react-bootstrap/Popover'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import {TbInfoCircle}  from 'react-icons/tb';
 
 const EMPTY_FORM ={
   shop_name:'',
@@ -18,6 +20,8 @@ const EMPTY_FORM ={
   min_biz: 0,
   wo_biz: 0
 }
+
+
 
 function ShopEditForm(props) {
     const [shopData, setShopData] = useState(props.shop);
@@ -80,6 +84,36 @@ function ShopEditForm(props) {
      }
  }
 
+ const popoverHoverFocusDonate = (
+  <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+  <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Do you donate your surplus stock (instead of throwing it away)?"}</Popover.Header>
+  If your store has surplus stock that you cannot sell, you donate it to local organizations or individuals in need, rather than throwing it away.
+  </Popover>
+);
+
+const popoverHoverFocusLEDlights =(
+  <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+  <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Does your shop use all-LED lighting?"}</Popover.Header>
+  Your business uses 80% or more LED lighting. If you're not sure what kind of bulbs you have, you can look to see if they are labeled "LED" (as opposed to "halogen", "incandescent", etc.). If they are not labeled by type, it will show the wattage - generally, anything under 10 watts will be LED. LEDs conserve a lot of energy, and may save you on energy costs in the long run. If you don't have LEDs and are interested in buying them.</Popover>
+)
+
+const popoverHoverFocusSmallBiz =(
+  <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#E6E6FA'}}> 
+  <Popover.Header as="h5" style={{backgroundColor:'#EDE4F7'}}>{"Do you have 10 or fewer employees? "}</Popover.Header>
+  The European Comission defines a "micro-business" as having 10 or fewer total employees. Small businesses can help boost local economies, and typically have less resources than larger businesses. </Popover>
+)
+
+const popoverHoverFocusMinBiz=(
+  <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+  <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Is your shop owned by someone who is part of a racial or ethnic minority in your country?"}</Popover.Header>
+  Minority-owned business make big contributions to local economies but often face more discrimination. </Popover>
+)
+
+const popoverHoverFocusWoBiz =(
+  <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
+  <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Is your shop owned by a woman, trangender or nonbinary person?"}</Popover.Header>
+  Women+-owned business make big contributions to local economies but often face more discrimination. </Popover>
+)
 
 
   return (
@@ -182,7 +216,9 @@ function ShopEditForm(props) {
         </Form.Group>
 
         <Form.Group className='mb-3'>
+        
             This shop...
+          <Form.Group  style={{display:'-webkit-flex'}}>            
             <Form.Check
              label = 'Donates our surplus stock (instead of throwing it away)'
              type='checkbox'
@@ -190,7 +226,14 @@ function ShopEditForm(props) {
              value={shopData.donate}
              onChange={handleChangeCheck}
              />
-
+             <OverlayTrigger
+              trigger={['hover', 'focus']}
+              placement="right"
+              overlay={popoverHoverFocusDonate}>  
+              <button style={{border:'none', background:'none' }}><TbInfoCircle/></button>
+              </OverlayTrigger> 
+          </Form.Group>
+          <Form.Group  style={{display:'-webkit-flex'}}>            
             <Form.Check
              label='Uses LED lighting'
              type='checkbox'
@@ -198,7 +241,14 @@ function ShopEditForm(props) {
              value={shopData.led_lights}
              onChange={handleChangeCheck}
              />
-        
+             <OverlayTrigger
+              trigger={['hover', 'focus']}
+              placement="right"
+              overlay={popoverHoverFocusLEDlights}>  
+              <button style={{border:'none', background:'none' }}><TbInfoCircle/></button>
+              </OverlayTrigger> 
+          </Form.Group>
+          <Form.Group  style={{display:'-webkit-flex'}}>            
             <Form.Check
              label='Has 10 or fewer employees'
              type='checkbox'
@@ -206,7 +256,14 @@ function ShopEditForm(props) {
              value={shopData.small_biz}
              onChange={handleChangeCheck}
              />
-
+             <OverlayTrigger
+              trigger={['hover', 'focus']}
+              placement="right"
+              overlay={popoverHoverFocusSmallBiz}>  
+              <button style={{border:'none', background:'none' }}><TbInfoCircle/></button>
+              </OverlayTrigger> 
+          </Form.Group>
+          <Form.Group  style={{display:'-webkit-flex'}}>            
             <Form.Check
              label='Is owned by someone who is part of a racial or ethnic minority in our country'
              type='checkbox'
@@ -214,7 +271,14 @@ function ShopEditForm(props) {
              value={shopData.min_biz}
              onChange={handleChangeCheck}
              />
-            
+             <OverlayTrigger
+              trigger={['hover', 'focus']}
+              placement="right"
+              overlay={popoverHoverFocusMinBiz}>  
+              <button style={{border:'none', background:'none' }}><TbInfoCircle/></button>
+              </OverlayTrigger> 
+          </Form.Group>
+          <Form.Group  style={{display:'-webkit-flex'}}>                 
             <Form.Check
              label='Is owned by a woman, trangender or nonbinary person'
              type='checkbox'
@@ -222,6 +286,13 @@ function ShopEditForm(props) {
              value={shopData.wo_biz}
              onChange={handleChangeCheck}
              />
+             <OverlayTrigger
+              trigger={['hover', 'focus']}
+              placement="right"
+              overlay={popoverHoverFocusWoBiz}>  
+              <button style={{border:'none', background:'none' }}><TbInfoCircle/></button>
+              </OverlayTrigger> 
+          </Form.Group>
 
         </Form.Group>
 

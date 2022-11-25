@@ -5,6 +5,7 @@ import PodiumData from "../components/PodiumData";
 import "../App.css";
 import Intro from "../components/Intro";
 import FeaturedBusiness from "../components/FeaturedBusiness";
+import "./HomeView.css";
 
 //map stuff
 import { getHome } from "../helpers/geoLocation";
@@ -12,7 +13,6 @@ import AddressForm from "../components/AddressForm";
 import MarkerTable from "../components/MarkerTable";
 import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
-
 
 /*
 A 'place' is an obj like this:
@@ -42,7 +42,6 @@ function HomeView(props) {
     let latLng = await getHome(); // returns [lat, lng]
     setHome(latLng);
   }
-
   // async function addMarkerForAddress(addr) {
   //   // Send a request to OpenCage to geocode 'addr'
   //   let myresponse = await geocode(addr);
@@ -74,6 +73,17 @@ function HomeView(props) {
   //     .catch((error) => {});
   // }, []);
 
+  // useEffect(() => {
+  //   fetch("/shops?products= scarf,coffee")
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       setListShops(json);
+  //     })
+  //     .catch((error) => {});
+  // }, []);
+
+  //Get /shops?product=scarf,sponge
+
   //    let latLng = await getShops(); // returns [lat, lng]
   //   //need fetch to get shops
   //    setShops(latLng);
@@ -85,20 +95,23 @@ function HomeView(props) {
   //   setListShops(listShops); // "searchedByShop" state set to SingleShopView via ProductContext
   // }
 
+  //Get /shops?product=scarf,sponge
+
   return (
     <div>
       <Intro />
-      <h2>
-        Leaderboard
-      </h2>
-      <span>
-        Earn points and redeem prizes for shopping sustainably! Check out our top sustainable shoppers.
-      </span>
-
+      <div classname="Congrats">
+        <h2>
+          Leaderboard
+        </h2>
+        <span>
+          Earn points and redeem prizes for shopping sustainably! Check out our top sustainable shoppers.
+        </span>
+      </div>
+      
       <Podium winners={PodiumData} />
-      <hr></hr>
-      <MySlider />
 
+      <MySlider />
       <FeaturedBusiness />
       <div className="Demo1View">
         <div className="row mb-5">
@@ -125,6 +138,7 @@ function HomeView(props) {
         <div className="col">
           {home && <MarkerMap shops={props.shops} home={home} zoom={13} />}
         </div>
+        <br></br>
         {/* <MarkerTable places={places} /> */}
       </div>
     </div>

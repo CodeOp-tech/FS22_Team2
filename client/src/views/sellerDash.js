@@ -100,7 +100,7 @@ function SellerDash(props) {
   }
 
   return (
-    <Accordion defaultActiveKey="0">
+    <Accordion defaultActiveKey="1">
       <Container>
         <Accordion.Item eventKey="0">
           <Accordion.Header className="editShop-accHead">

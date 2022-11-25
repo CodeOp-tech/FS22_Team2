@@ -1,1 +1,36 @@
+.redeembn{
+    cursor: pointer;
+    border-radius: 10px;
+    width: 200px; 
+    height: 50px;
+    padding-bottom: 7px;
+    background-color: orange;
+    border: none;
+    color: white;
+    font-weight: bolder;
+    margin-top: 20px;
+    
+}
+.pointUser{
+    font-family: 'Paytone One', sans-serif;
+    color: rgb(251, 251, 251);
+    animation: glow 6s ease-in-out infinite;
+}
+    
+    
+    @keyframes glow {
+    from {
+      text-shadow: 0 0 40px #eba103, 0 0 50px #f1ec90;
+    }
+    to {
+      text-shadow: 0 0 50px #fcf242, 0 0 40px #cd8500;
+    }
+    }
  
+
+.shopNote{
+    border: double rgb(87, 148, 148);
+    opacity: 0.8;
+    background-size: 24px 24px;
+    background-image:  repeating-linear-gradient(0deg, #7cc4cf, #7cc4cf 1.8px, #f7f7e6 1.8px, #f7f7e6);
+};

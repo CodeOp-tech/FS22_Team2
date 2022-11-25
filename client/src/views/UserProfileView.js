@@ -10,6 +10,10 @@ import MarkerMap from "../components/MarkerMap";
 import { geocode } from "../helpers/geo-opencage";
 import SearchMaps from "../components/SearchMaps";
 import ShopView from "./ShopView";
+import "./UserProfileView.css"
+import Accordion from "react-bootstrap/Accordion";
+import { Container, Row } from "react-bootstrap";
+
 
 function UserProfileView(props) {
   //maps below: app stuff
@@ -97,29 +101,41 @@ function UserProfileView(props) {
 
   return (
     <div>
-      <div className="UserProfileView">
-        <h1>Hey there, {props.user.username}!</h1>
+      <div className="UserProfileView"style={{ textAlign: 'center'}}>
+      
+        <h1 style={{fontSize:'60px', padding:'10px', color:'white', fontStyle:'oblique', fontWeight:'bolder'}}>Hey there, {props.user.username}!</h1>
         <br />
-        <h2>
+        <h2 className="pointUser">
           {" "}
           You have <b>{props.user.user_points}</b> points!
-          <br />
-          <button type="submit" className="btn btn-primary">
+          <br /></h2>
+         <h3><button type="submit" className="redeembn">
             Redeem
           </button>
-        </h2>
+        </h3> 
         <br />
       </div>
-      
+
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
-            <h3>What do you need? </h3>
-            <p>Enter the products you need and plan your route</p>
-
+            <h2>What do you need? </h2>
+            <h4>Enter the products you need and plan your route</h4>
+            <br></br>
             <SearchMaps getSelectedShopsCb={getSelectedShops} />
 
-            <h3 className="mt-4"> Check out these stores below </h3>
+          <div style={{border:'none', height:'24rem', width:'38rem', marginTop:'20px'}}>
+
+                <textarea
+                    className="shopNote"
+                    style={{height:'23rem', width:'38rem'}}
+                    type="text"
+                    name="note"
+                    placeholder="Start your shopping list..."
+                  />
+            </div>
+            <h3 style={{ color:'white', fontWeight:'bolder'}}> Check out these stores below </h3>
+
           </div>
 
           <div className="col">
@@ -134,7 +150,21 @@ function UserProfileView(props) {
           </div>
         </div>
       </div>
-      <ShopView />
+      <Accordion defaultActiveKey="0">
+        <Container>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>
+            Check out these stores below
+            </Accordion.Header>
+            <Accordion.Body style={{backgroundColor:'lavender'}}>
+              <Row>
+                  <ShopView />
+              </Row>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Container>   
+      </Accordion>
+     
     </div>
   );
 }

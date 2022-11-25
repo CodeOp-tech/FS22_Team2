@@ -6,11 +6,11 @@ import CartProductModal from "./CartProductModal";
 import { FiShoppingCart } from "react-icons/fi";
 import Local from "../helpers/Local";
 import MSBlogo_transparent from "../DC/MSBlogo_transparent.png";
+import "./NavBar.css";
 // NOTE: React-bootstrap installed to simplify designing Navbar
 // Modal element is when you click on the cart, and it shows the screen on top of the webpage showing all different data related to cart
 
 function Navbar(props) {
-
     const { cartProducts, getTotalCostCb, totalCost, addPurchasesCb } = useContext(CartContext);
 
     const [show, setShow] = useState(false); // initially not show modal
@@ -104,12 +104,15 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
                         }
                     </ul>
                 </div>
-       
 
         {/* Modal is the pop-up that will appear upon clicking Cart button */}
-      <Modal show={show} onHide={handleClose}> {/* Modal has a show property that shows items in the cart */}
-      <Modal.Header closeButton>
+        <Modal show={show} onHide={handleClose}>
+          {" "}
+          {/* Modal has a show property that shows items in the cart */}
+          <Modal.Header closeButton>
             <Modal.Title>Shopping Cart</Modal.Title>
+
+        
         </Modal.Header>
         <Modal.Body>
             {productsCount > 0 ?
@@ -175,7 +178,6 @@ const productsCount = cartProducts.reduce((sum, product) => sum + product.quanti
             </div>
         </nav>
     );
-
 }
 
 export default Navbar;
