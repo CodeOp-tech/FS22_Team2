@@ -25,6 +25,7 @@ function SearchMaps(props) {
           value={input}
           onChange={handleChange}
         />
+        <button>Submit</button>
       </form>
     </div>
   );

@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
 }
@@ -18,8 +17,10 @@ body {
     #ffdd94,
     #fa897b,
     #ccabd8,
+
     #86e3ce
   
+
   );
   /* background-repeat: no-repeat;
 background-attachment: fixed; */
@@ -39,8 +40,6 @@ background-attachment: fixed; */
   }
 }
 
-
-
 .App table {
   border-collapse: collapse;
 }
@@ -56,4 +55,16 @@ background-attachment: fixed; */
 } */
 .SliderPics img {
   border-radius: 30%;
+}
+h1 {
+  display: flex;
+  flex-direction: column;
+  color: #278080;
+  font-size: 4.5rem;
+  font-weight: bold;
+  position: relative;
+}
+.Demo1View {
+  margin-bottom: 90px;
+  padding-bottom: 89px;
 }

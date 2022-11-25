@@ -115,14 +115,15 @@ function UserProfileView(props) {
         </h3> 
         <br />
       </div>
-      
+
       <div className="Demo1View">
         <div className="row mb-5">
           <div className="col">
-            <h3>What do you need? </h3>
-            <p>Enter the products you need and plan your route</p>
-
+            <h2>What do you need? </h2>
+            <h4>Enter the products you need and plan your route</h4>
+            <br></br>
             <SearchMaps getSelectedShopsCb={getSelectedShops} />
+
           <div style={{border:'none', height:'24rem', width:'38rem', marginTop:'20px'}}>
 
                 <textarea
@@ -134,6 +135,7 @@ function UserProfileView(props) {
                   />
             </div>
             <h3 style={{ color:'white', fontWeight:'bolder'}}> Check out these stores below </h3>
+
           </div>
 
           <div className="col">
