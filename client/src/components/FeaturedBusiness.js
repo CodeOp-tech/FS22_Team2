@@ -19,7 +19,7 @@ const FeaturedBusiness = () => {
           transition={{ layout: { duration: 1, type: "spring" } }}
           layout
           onClick={() => setIsOpen(!isOpen)}
-          className="card"
+          className="cardz"
           style={{
             borderRadius: "1rem",
             boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.5",

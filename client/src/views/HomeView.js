@@ -100,15 +100,16 @@ function HomeView(props) {
   return (
     <div>
       <Intro />
+      <br />
       <div classname="Congrats">
-        <h2>
-          Leaderboard
-        </h2>
-        <span>
-          Earn points and redeem prizes for shopping sustainably! Check out our top sustainable shoppers.
-        </span>
+        <h2>Leaderboard</h2>
+        <p className="para">
+          Earn points and redeem prizes for shopping sustainably!
+          <br />
+          Check out our top sustainable shoppers.
+        </p>
       </div>
-      
+
       <Podium winners={PodiumData} />
 
       <MySlider />

@@ -5,3 +5,17 @@ h1 {
   margin-top: 10px;
   text-align: center;
 }
+
+h2 {
+  font: weight 70px;
+  font-size: 50px;
+  color: #385a63;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.para {
+  margin-left: 0px;
+}
+
+
