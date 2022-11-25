@@ -259,21 +259,11 @@ function App() {
             name: product.product_name,
             price: product.price,
             shop_id: product.shop_id,
-
             productPoints:
-              Number(product.recycled) +
-              Number(product.no_fridge) +
-              Number(product.fair_trade) +
-              Number(product.local) +
-              Number(product.organic),
+              Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic),
             // totalPoints created separate from productPoints, to store total points from productPoints multiplied by quantity of product in shopping cart
             totalPoints:
-              (Number(product.recycled) +
-                Number(product.no_fridge) +
-                Number(product.fair_trade) +
-                Number(product.local) +
-                Number(product.organic)) *
-              thisQuantity,
+              (Number(product.recycled) + Number(product.no_fridge) + Number(product.fair_trade) + Number(product.local) + Number(product.organic)) * thisQuantity,
             stripe_id: product.stripe_product_id,
           },
         ]
