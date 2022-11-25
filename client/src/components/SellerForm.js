@@ -37,10 +37,8 @@ function SellerForm(props) {
         formData.append('fair_trade', productData.fair_trade);
         formData.append('local', productData.local);
         formData.append('organic', productData.organic);
-        // logs [object formData], but data gets uploaded correctly
-        // console.log(`product form: ${formData}`);
-        props.addProductCb(formData); //Getting from the SellerDash
-        props.showProducts(); //Getting from the SellerDash
+        props.addProductCb(formData);
+        props.showProducts();
         setProductData(EMPTY_FORM);
         setFiles(null);
         e.target.reset();
@@ -48,7 +46,7 @@ function SellerForm(props) {
       }
 
   function handleFileChange(e) {
-        setFiles(e.target.files[0]); //is the products refering to products.js routes file?
+        setFiles(e.target.files[0]); 
     }
     
       function handleChange (e){
