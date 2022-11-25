@@ -22,7 +22,8 @@ const FeaturedBusiness = () => {
           className="cardz"
           style={{
             borderRadius: "1rem",
-            boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.5",
+            boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.5)",
+            marginRight: '100px'
           }}
         >
           <motion.h2 layout="position">
