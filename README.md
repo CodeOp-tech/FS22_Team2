@@ -24,7 +24,8 @@ In your terminal:
 
 - Access the MySQL interface in your terminal by running `mysql -u root -p`
 - Create a new database called msb: `CREATE DATABASE msb`
-- Add a `.env` file to the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
+- Add a `.env` file to the project folder of this repository containing the MySQL authentication information for MySQL user. See below:
+- Also include a secret key of your choice for authentication and authorization (login/register function). See below:
 
 ```bash
 DB_HOST=localhost
