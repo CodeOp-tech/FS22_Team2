@@ -5,7 +5,7 @@
 
 .pro-card-img{
     display: block;
-    max-width: 24rem;
+    max-width: 25rem;
     height: 17rem;
     border-radius: none;
     object-fit: cover;
@@ -56,7 +56,7 @@
 .onlineSCard{
     border: none;
     border-radius: 30px;
-    height: 56rem;
+    height: 45.5rem;
     /* background-color: rgba(255, 255, 255, 0.858); */
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -91,6 +91,9 @@
     background-color: rgba(101, 212, 172, 0.884);
     border: none;
     font-weight: bolder;
+    width: 375px;
+    margin-left: 20px;
+    border-radius: 10px
     
 }
 

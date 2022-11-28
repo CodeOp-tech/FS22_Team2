@@ -104,11 +104,11 @@ function ProductCard(props) {
 
   return (
   
-    <Card className="onlineSCard" style={{ marginRight:'50px', width: '26rem', background:'rgba(255, 255, 255, 0.858)'}}>
+    <Card className="onlineSCard" style={{ width: '26rem', background:'rgba(255, 255, 255, 0.858)'}}>
 
      {/* used to pad content inside a <Card> */}
         <div className="image">
-          <Card.Img title="click for more info" className="pro-card-img" style={{borderRadius:'30px'}} src={product.url} />
+          <Card.Img title="click for more info" className="pro-card-img" style={{borderRadius:'30px', marginLeft:'9px', padding:'10px'}} src={product.url} />
           <div onClick={() => showPopup(product.product_id)} className="overlay">
             <div className="text" style={{fontWeight:'bolder'}}>
               Click for more product info & product reviews
