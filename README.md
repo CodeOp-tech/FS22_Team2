@@ -17,4 +17,4 @@ DB_PASS=[your password]
 SECRET_KEY=[your secret key]`
 
 - ### Folder for Image upload
--Create a new folder called 'productImg' in the Public folder(server side). This will allow you to upload images directly from your device.
+- Create a new folder called 'productImg' in the Public folder(server side). This will allow you to upload images directly from your device.
