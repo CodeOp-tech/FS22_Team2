@@ -16,5 +16,5 @@ DB_USER=root
 DB_PASS=[your password]
 SECRET_KEY=[your secret key]`
 
-### Add an Image 
-- In the in public folder (on the server side) create a folder called productImg. This is the folder where all your uploaded images will be stored
+- ### Folder for Image upload
+-Create a new folder called 'productImg' in the Public folder(server side). This will allow you to upload images directly from your device.
