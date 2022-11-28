@@ -1,3 +1,4 @@
+
 # Welcome to MSB.inc - My Shopping Buddy / My Sustainable Business
 We are a marketplace app promoting local and sustainable shopping through gamification. 
 - Our app is for customers interested in sustainability, who want a fun and rewarding way to shop locally and sustainably. 
@@ -79,4 +80,5 @@ SECRET_KEY=[your secret key]
 For the powerpoint presentation: `https://docs.google.com/presentation/d/1flIQzhii_hKoPiScQVlcF2tdb3WEoy8oclfKF91masU/edit?usp=sharing`
 
  _This is a student project that was created at [CodeOp](http://codeop.tech), a full stack development bootcamp in Barcelona._
+
 

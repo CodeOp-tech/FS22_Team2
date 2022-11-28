@@ -17,10 +17,7 @@ body {
     #ffdd94,
     #fa897b,
     #ccabd8,
-
     #86e3ce
-  
-
   );
   /* background-repeat: no-repeat;
 background-attachment: fixed; */
@@ -67,6 +64,8 @@ h1 {
   position: relative;
 }
 .Demo1View {
+
   margin-bottom: 0px;
+
   padding-bottom: 89px;
 }
