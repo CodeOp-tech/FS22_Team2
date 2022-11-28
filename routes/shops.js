@@ -55,25 +55,26 @@ router.get("/profile/:shop_id", async function (req, res, next) {
 });
 
 // GET a user's shop info
-// PROTECTED - for editing profile page
-router.get("/:user_id", ensureSameUser, async function (req, res, next) {
-  let { user_id } = req.params;
-  let sql = `SELECT users.*, shops.*
-      FROM users
-      LEFT JOIN shops on users.shop_id = shops.shop_id
-      WHERE user_id = ${Number(user_id)}`;
+// NOT USED - GET is just for showing information, this functionality is covered by the GET shop by shop_id route
+// router.get("/:user_id", ensureSameUser, async function (req, res, next) {
+//   let { user_id } = req.params;
+//   let sql = `SELECT users.*, shops.*
+//       FROM users
+//       LEFT JOIN shops on users.shop_id = shops.shop_id
+//       WHERE user_id = ${Number(user_id)}`;
 
-  try {
-    let results = await db(sql);
-    let user = results.data[0];
-    delete user.password;
-    res.send(user);
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
+//   try {
+//     let results = await db(sql);
+//     let user = results.data[0];
+//     delete user.password;
+//     res.send(user);
+//   } catch (err) {
+//     res.status(500).send({ error: err.message });
+//   }
+// });
 
-// POST create new shop - NOT USED because post only happens on user registration for now
+// POST create new shop
+// NOT USED because post only happens on user registration for now
 // // PROTECTED - user should only be able to create their own shop
 // router.post('/new/:userId', ensureSameUser, async function(req, res, next) {
 // // add new shop (auto-increment, add all other fields, preset points to 0)
