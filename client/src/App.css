@@ -24,8 +24,10 @@ body {
   );
   /* background-repeat: no-repeat;
 background-attachment: fixed; */
+
   background-size: 600% 600%;
   animation: backdrop 50s ease infinite;
+
 }
 
 @keyframes backdrop {

@@ -149,6 +149,7 @@ function ProductCard(props) {
   );
 
   return (
+
     <Card
       className="onlineSCard"
       style={{ width: "26rem", background: "rgba(255, 255, 255, 0.858)" }}
@@ -164,6 +165,7 @@ function ProductCard(props) {
         <div onClick={() => showPopup(product.product_id)} className="overlay">
           <div className="text" style={{ fontWeight: "bolder" }}>
             Click for more product info & product reviews
+
           </div>
         </div>
       </div>

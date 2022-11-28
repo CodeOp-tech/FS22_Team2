@@ -3,12 +3,14 @@
   cursor: pointer;
 }
 
+
 .pro-card-img {
   display: block;
   max-width: 25rem;
   height: 17rem;
   border-radius: none;
   object-fit: cover;
+
 }
 
 .image .overlay {
@@ -59,6 +61,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+
 .shopTitle {
   /* font-family: 'Tajawal', sans-serif; */
   font-weight: bolder;
@@ -69,6 +72,7 @@
   margin: 20px;
   background-color: rgba(248, 95, 24, 0.393);
   color: azure;
+
 }
 
 .shopText {
@@ -92,6 +96,7 @@
   border-radius: 10px;
 }
 
+
 .buybtn:hover {
   background-image: linear-gradient(
     to right,
@@ -110,6 +115,7 @@
     #e7484f 100%
   );
   animation: slidebg 2s linear infinite;
+
 }
 
 @keyframes slidebg {
