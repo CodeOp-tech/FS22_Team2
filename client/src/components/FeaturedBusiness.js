@@ -10,7 +10,7 @@ const FeaturedBusiness = () => {
     <div className="FeaturedBusiness">
       <div className="aweBlock">
         <h1 className="awesome">Featured Business</h1>
-        <p className="para">This shop not only has awesome clothes at amazing prices, but is a leader in sustainable business practices. Check them out today! </p>
+        <p className="para" style={{width:'25rem'}}>This shop not only has awesome clothes at amazing prices, but is a leader in sustainable business practices. Check them out today! </p>
 
       </div>
 
@@ -22,7 +22,8 @@ const FeaturedBusiness = () => {
           className="cardz"
           style={{
             borderRadius: "1rem",
-            boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.5",
+            boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.5)",
+            marginRight: '100px'
           }}
         >
           <motion.h2 layout="position">
@@ -42,6 +43,7 @@ const FeaturedBusiness = () => {
               transition={{ duration: 1 }}
               exit={{ opacity: 0 }}
               className="expand"
+
             >
               <p>
                 We try to convey with each collection all these local concepts

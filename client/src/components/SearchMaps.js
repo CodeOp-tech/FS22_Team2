@@ -19,13 +19,14 @@ function SearchMaps(props) {
     <div className="searchMap">
       <form onSubmit={handleSubmit}>
         <input
-          style={{width:'608px', borderRadius:'5px'}}
+          style={{ width: "608px", borderRadius: "5px" }}
           type="text"
           placeholder="Search for a product..."
           value={input}
           onChange={handleChange}
         />
-        <button>Submit</button>
+        <br />
+        <button className="btn btn-primary">Search</button>
       </form>
     </div>
   );

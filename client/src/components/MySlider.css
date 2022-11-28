@@ -13,10 +13,22 @@
 .SliderPics img {
   border-radius: 30%;
 }
-.winners {
+/* .winners {
   font-weight: bold;
   font-size: 5rem;
   color: #385a65;
   text-align: center;
   margin-bottom: 80px;
+} */
+
+h2 {
+  font: weight 70px;
+  font-size: 50px;
+  color: #385a63;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.para {
+  font-weight: normal;
 }
