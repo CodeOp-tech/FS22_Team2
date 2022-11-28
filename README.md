@@ -36,6 +36,9 @@ SECRET_KEY=[your secret key]
 ```
 - Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create tables 'users', 'shops', 'products', 'purchases', 'purchased-items', and 'reviews' in your database
 
+### Folder for Image upload
+- Create a new folder called 'productImg' in the Public folder(server side). This will allow you to upload images directly from your device.
+
 ### Run the app
 
 1. In the server terminal, type `npm start` to start the server.
@@ -76,3 +79,4 @@ SECRET_KEY=[your secret key]
 For the powerpoint presentation: `https://docs.google.com/presentation/d/1flIQzhii_hKoPiScQVlcF2tdb3WEoy8oclfKF91masU/edit?usp=sharing`
 
  _This is a student project that was created at [CodeOp](http://codeop.tech), a full stack development bootcamp in Barcelona._
+
