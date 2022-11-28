@@ -27,7 +27,7 @@ function StarRating(props) {
             />
             <FaStar
               className="star"
-              color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"} // #ffc107 = yellow, #e4e5e9 = grey
+              color={ratingValue <= (hover || rating) ? "#ffc107" : "#A8A8A8"} // #ffc107 = yellow, #e4e5e9 = grey
               // if rating (old state) is more than newly selected ratingValue (selected star), then light up only the selected stars in yellow
               // hover takes precedence over rating
               size={40}

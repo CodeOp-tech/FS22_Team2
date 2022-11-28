@@ -15,7 +15,8 @@ function ShopView(props) {
 
   return (
     <div className="ShopView container">
-      <h1 style={{color:'white', fontWeight:'bolder'}}>Welcome to MSB...Checkout all our products!</h1>
+      <h2 style={{color:'white', fontWeight:'bolder', textAlign: 'center'}}>Welcome to our online marketplace</h2>
+      <h3 style={{color:'white', fontWeight:'bolder', textAlign: 'center'}}>Happy Shopping!</h3>
       { !user ? 
       <h4>Please login/register to begin shopping!</h4>
       : ""

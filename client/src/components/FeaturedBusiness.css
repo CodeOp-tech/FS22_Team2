@@ -1,11 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
 .FeaturedBusiness {
   padding: 0 3rem 0 3rem;
   display: flex;
   height: 90vh;
   /* flex-direction: column;
   position: relative; */
-  margin-bottom: 8rem;
-  margin-top: 9rem;
+  /* margin-bottom: 8rem; */
+  margin-top: 2rem;
   margin-bottom: 6rem;
 }
 
@@ -32,12 +36,21 @@
   flex: 1;
   gap: 2rem;
 }
-.awesome {
+/* .awesome {
   display: flex;
   flex-direction: column;
   color: #278080;
   font-size: 4.5rem;
   font-weight: bold;
+  position: relative;
+} */
+
+.awesome {
+  display: flex;
+  flex-direction: column;
+  color: #385a63;
+  font: weight 70px;
+  font-size: 50px;
   position: relative;
 }
 
@@ -54,7 +67,7 @@
   flex: auto;
   margin: 65px;
 }
-.card {
+.cardz {
   flex: 1;
   position: relative;
   text-align: left;
@@ -65,10 +78,16 @@
   background-color: whitesmoke;
   padding: 1rem 0.76rem;
 }
-.card h2 {
+
+/* .cardz img {
+  margin: auto;
+} */
+
+.cardz h2 {
   line-height: 160%;
 }
-.card p {
+.cardz p {
+
   padding-top: 0.5rem;
   line-height: 150%;
   margin-right: 30px;
@@ -76,7 +95,7 @@
 }
 .featImg {
   padding: 5px;
-  width: fit-content;
+  width: 20rem;
   height: fit-content;
   border-radius: 50%;
 }

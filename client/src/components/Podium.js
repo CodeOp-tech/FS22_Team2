@@ -18,7 +18,7 @@ export default function Podium({ winners }) {
         justifyContent: "center",
         justifyItems: "center",
         height: 300,
-        marginTop: "10rem",
+        marginTop: "5rem",
       }}
     >
       {podium.map((winner) => (

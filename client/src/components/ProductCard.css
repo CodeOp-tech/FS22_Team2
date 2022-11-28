@@ -1,129 +1,123 @@
 .image {
-    position: relative;
-    cursor: pointer;
+  position: relative;
+  cursor: pointer;
 }
 
-.pro-card-img{
-    display: block;
-    max-width: 24rem;
-    height: 17rem;
-    border-radius: none;
-    object-fit: cover;
+.pro-card-img {
+  display: block;
+  max-width: 25rem;
+  height: 17rem;
+  border-radius: none;
+  object-fit: cover;
 }
-
 
 .image .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.25s;
-    
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s;
 }
 
 .image .overlay:hover {
-    opacity: 1;
-    border-radius: 30px;
+  opacity: 1;
+  border-radius: 30px;
 }
 
 .shopname {
-    color: rgb(9, 206, 193);
-    font-size: larger;
-    letter-spacing: 2px;
-    cursor: pointer;
-    animation: glow 6s ease-in-out infinite;
-    margin-left: 4px;
+  color: rgb(9, 206, 193);
+  font-size: larger;
+  letter-spacing: 2px;
+  cursor: pointer;
+  animation: glow 6s ease-in-out infinite;
+  margin-left: 4px;
 }
 
 @keyframes glow {
-    from {
-      text-shadow: 0 0 20px #46e6ff;
-    }
-    to {
-      text-shadow: 0 0 30px #04d2e1, 0 0 10px #9cd0d6;
-    }
+  from {
+    text-shadow: 0 0 20px #46e6ff;
+  }
+  to {
+    text-shadow: 0 0 30px #04d2e1, 0 0 10px #9cd0d6;
+  }
 }
 
-
-.onlineSCard{
-    border: none;
-    border-radius: 30px;
-    height: 46rem;
-    /* background-color: rgba(255, 255, 255, 0.858); */
-    text-align: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.onlineSCard {
+  border: none;
+  border-radius: 30px;
+  height: 45.5rem;
+  /* background-color: rgba(255, 255, 255, 0.858); */
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.shopTitle{
-   
-    /* font-family: 'Tajawal', sans-serif; */
-    font-weight: bolder;
-    font-style: oblique;
-    border-radius: 10px;
-    max-height: 30px;
-    padding: 3px;
-    margin: 20px;
-    background-color: rgba(248, 95, 24, 0.393);
-    color: azure;
-    
+.shopTitle {
+  /* font-family: 'Tajawal', sans-serif; */
+  font-weight: bolder;
+  font-style: oblique;
+  border-radius: 10px;
+  max-height: 30px;
+  padding: 3px;
+  margin: 20px;
+  background-color: rgba(248, 95, 24, 0.393);
+  color: azure;
 }
 
-.shopText{
-    font-weight: bolder;
-    font-style: oblique;
-    border-radius: 10px;
-    padding: 3px;
-    border-width: 30px;
-    background-color: rgba(246, 236, 173, 0.502);
-   
+.shopText {
+  font-weight: bolder;
+  font-style: oblique;
+  border-radius: 10px;
+  padding: 3px;
+  width: 375px;
+  margin-left: 20px;
+  border-width: 30px;
+  background-color: rgba(246, 236, 173, 0.502);
 }
 
-.buybtn{
-    margin-top: 30px;
-    background-color: rgba(101, 212, 172, 0.884);
-    border: none;
-    font-weight: bolder;
-    
+.buybtn {
+  margin-top: 30px;
+  background-color: rgba(101, 212, 172, 0.884);
+  border: none;
+  font-weight: bolder;
+  width: 375px;
+  margin-left: 20px;
+  border-radius: 10px;
 }
 
-.buybtn:hover{
-    background-image:     linear-gradient(
-       to right, 
-       #E7484F,
-       #E7484F 16.65%,
-       #F68B1D 16.65%,
-       #F68B1D 33.3%,
-       #FCED00 33.3%,
-       #FCED00 49.95%,
-       #009E4F 49.95%,
-       #009E4F 66.6%,
-       #00AAC3 66.6%,
-       #00AAC3 83.25%,
-       #732982 83.25%,
-       #732982 100%,
-       #E7484F 100%
-      
-      
-      
-     );
-   animation:slidebg 2s linear infinite;
- }
- 
- 
- @keyframes slidebg {
-   to {
-     background-position:20vw;
-   }
- }
- 
- .follow{
-   margin-top: 40px;
- }
+.buybtn:hover {
+  background-image: linear-gradient(
+    to right,
+    #e7484f,
+    #e7484f 16.65%,
+    #f68b1d 16.65%,
+    #f68b1d 33.3%,
+    #fced00 33.3%,
+    #fced00 49.95%,
+    #009e4f 49.95%,
+    #009e4f 66.6%,
+    #00aac3 66.6%,
+    #00aac3 83.25%,
+    #732982 83.25%,
+    #732982 100%,
+    #e7484f 100%
+  );
+  animation: slidebg 2s linear infinite;
+}
+
+@keyframes slidebg {
+  to {
+    background-position: 20vw;
+  }
+}
+
+.follow {
+  margin-top: 40px;
+}
