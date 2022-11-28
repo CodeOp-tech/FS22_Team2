@@ -35,10 +35,6 @@ SECRET_KEY=[your secret key]
 2. In the client terminal, type `npm start` to start the client.
 3. Point your browser at `http://localhost:3000`.
 
-## Database Design
-
-https://app.dbdesigner.net/designer/schema/577493
-
 ## Technologies Used
 
 - MySQL for data storage
