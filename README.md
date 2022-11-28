@@ -1,11 +1,17 @@
 # Welcome to MSB.inc (My Shopping Buddy / My Sustainable Business)
-We are a marketplace app promoting local and sustainable shopping through gamification. Our app is for customers interested in sustainability, who want a fun and rewarding way to shop locally and sustainably. It’s also for local small business owners interested in sustainability, who are trying to connect to their local customer base.
+We are a marketplace app promoting local and sustainable shopping through gamification. 
+- Our app is for customers interested in sustainability, who want a fun and rewarding way to shop locally and sustainably. 
+- It is also for local small business owners interested in promoting sustainability, who are looking to connect to their local customer base and receive additional visibility/marketing exposure.
 
 ## User Flow Diagram
 ![User Flow Diagram](client/src/DC/UserFlow.png) 
 
 ## Database Schema
 ![Database Schema](client/src/DC/DBSchema.png) 
+
+## API Routes
+See link below for API routes:
+https://docs.google.com/document/d/1Imo2kaSTolhnP9axvekmA47TIhQiNZgiRTMcxA6obCM/edit?usp=sharing
 
 ## Setup
 
