@@ -15,3 +15,6 @@ DB_NAME=msb
 DB_USER=root
 DB_PASS=[your password]
 SECRET_KEY=[your secret key]`
+
+### Add an Image 
+- In the in public folder (on the server side) create a folder called productImg. This is the folder where all your uploaded images will be stored
