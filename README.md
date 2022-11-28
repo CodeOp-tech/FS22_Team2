@@ -26,13 +26,13 @@ In your terminal:
 - Create a new database called msb: `CREATE DATABASE msb`
 - Add a `.env` file to the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
 
-`
+```bash
 DB_HOST=localhost
 DB_NAME=msb
 DB_USER=root
 DB_PASS=[your password]
 SECRET_KEY=[your secret key]
-`
+```
 - Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create tables 'users', 'shops', 'products', 'purchases', 'purchased-items', and 'reviews' in your database
 
 ### Run the app
