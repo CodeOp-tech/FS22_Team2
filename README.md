@@ -4,6 +4,9 @@ We are a marketplace app promoting local and sustainable shopping through gamifi
 ## User Flow Diagram
 ![User Flow Diagram](client/src/DC/UserFlow.png) 
 
+## Database Schema
+![Database Schema](client/src/DC/DBSchema.png) 
+
 ## Setup
 
 ### Dependencies
