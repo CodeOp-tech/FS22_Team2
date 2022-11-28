@@ -2,7 +2,7 @@
 We are a marketplace app promoting local and sustainable shopping through gamification. Our app is for customers interested in sustainability, who want a fun and rewarding way to shop locally and sustainably. It’s also for local small business owners interested in sustainability, who are trying to connect to their local customer base.
 
 ## User Flow Diagram
-![User Flow Diagram](src/DC/UserFlow.png)
+![User Flow Diagram](client/src/DC/UserFlow.png) 
 
 ## Setup
 
