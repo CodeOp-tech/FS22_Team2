@@ -40,13 +40,13 @@ return (
         style={{width:'auto'}}>
           <Row>
             <Col>
-              <Card.Img variant='bottom' src={p.url} style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '180px'}}/>
+              <Card.Img variant='bottom' src={p.url} style={{objectFit: 'cover', height:'150px', marginBottom:'10px', width: '200px', marginTop:'20px', marginLeft:'20px'}}/>
                 <Button style={{backgroundColor:'indianred'}} className='probtn' onClick={(e) => props.deleteProductCb(p.shop_id, p.product_id)} >Delete</Button>
                 <Button style={{backgroundColor:'#00AAC3'}} className='probtn'onClick={(e) => handleShow(p.product_id)}>Edit</Button>
             </Col>
             <Col>
-              <Card.Title className='proTitle' style={{fontWeight:'bold', padding:'4px', textTransform:'capitalize', backgroundColor: 'rgba(248, 95, 24, 0.393)', borderRadius:'10px'
- }}>
+              <Card.Title className='proTitle' style={{fontWeight:'bold', padding:'4px', textTransform:'capitalize', backgroundColor: 'rgba(248, 95, 24, 0.393)', borderRadius:'10px', marginTop:'20px', marginRight:'20px'
+                }}>
               <EdiText 
                   editButtonContent={<FaPencilAlt/>}
                   saveButtonContent={<TiTickOutline/>}
@@ -79,7 +79,7 @@ return (
               </Card.Text >            
               <Row> 
                 <Col> 
-                  <Card.Text className='proText'  style={{padding:'5px' }}>
+                  <Card.Text className='proText'  style={{padding:'5px', marginBottom:'20px' }}>
                     ${(p.price).toFixed(2)}
                     
                   </Card.Text>

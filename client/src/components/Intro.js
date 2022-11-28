@@ -29,19 +29,15 @@ const Intro = () => {
                   .start();
               }}
             />
-            {/* M.S.B!{" "} */}
           </span>
-          <br></br>
           <div>
-            <strong>
-              <p className="AboutUs">
+              <p className="para">
                 Want to shop local, have fun and make a difference? MSB helps
                 shoppers find local small businesses that sell what you need,
                 and earn points and prizes for shopping more sustainably. We
                 also help businesses get free promotion to their local customer
                 base. Join today!
               </p>
-            </strong>
           </div>
         </div>
       </div>

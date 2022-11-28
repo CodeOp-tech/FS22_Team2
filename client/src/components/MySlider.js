@@ -16,15 +16,17 @@ export default function MySlider() {
         className="MySlider"
         style={{
           margin: "30px",
-          marginTop: "200px",
+          marginTop: "100px",
         }}
       >
-      
         <div>
-          <h3 className="winners">Win Prizes!</h3>
-          <p className="para">Earn points for shopping sustainably, and use them to redeem awesome prizes like these from shops in our network.</p>
+          <h2>Win Prizes!</h2>
+          <p className="para">
+            Earn points for shopping sustainably, and use them to redeem awesome
+            prizes like these from shops in our network.
+          </p>
         </div>
-        
+
         <Slider
           autoplay={true}
           autoplaySpeed={3000}

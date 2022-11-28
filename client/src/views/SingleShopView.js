@@ -19,32 +19,32 @@ function ShopView(props) {
   
   const popoverHoverFocusDonate = (
     <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Do you donate your surplus stock (instead of throwing it away)?"}</Popover.Header>
-    If your store has surplus stock that you cannot sell, you donate it to local organizations or individuals in need, rather than throwing it away.
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"We donate our surplus stock (instead of throwing it away)"}</Popover.Header>
+    If our store has surplus stock that we cannot sell, we donate it to local organizations or individuals in need, rather than throwing it away.
     </Popover>
   );
 
   const popoverHoverFocusLEDlights =(
     <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Does your shop use all-LED lighting?"}</Popover.Header>
-    Your business uses 80% or more LED lighting. If you're not sure what kind of bulbs you have, you can look to see if they are labeled "LED" (as opposed to "halogen", "incandescent", etc.). If they are not labeled by type, it will show the wattage - generally, anything under 10 watts will be LED. LEDs conserve a lot of energy, and may save you on energy costs in the long run. If you don't have LEDs and are interested in buying them.</Popover>
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Our shop uses all-LED lighting"}</Popover.Header>
+    Our business uses 80% or more LED lighting. LEDs conserve a lot of energy, and may save on energy usage and energy costs.</Popover>
   )
 
   const popoverHoverFocusSmallBiz =(
     <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#E6E6FA'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'#EDE4F7'}}>{"Do you have 10 or fewer employees? "}</Popover.Header>
+    <Popover.Header as="h5" style={{backgroundColor:'#EDE4F7'}}>{"We are a small business with 10 or fewer employees"}</Popover.Header>
     The European Comission defines a "micro-business" as having 10 or fewer total employees. Small businesses can help boost local economies, and typically have less resources than larger businesses. </Popover>
   )
 
   const popoverHoverFocusMinBiz=(
     <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Is your shop owned by someone who is part of a racial or ethnic minority in your country?"}</Popover.Header>
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Our shop is owned by someone who is part of a racial or ethnic minority in our country"}</Popover.Header>
     Minority-owned business make big contributions to local economies but often face more discrimination. </Popover>
   )
 
   const popoverHoverFocusWoBiz =(
     <Popover id="popover-trigger-hover-focus" style={{padding: '10px', backgroundColor:'#EDE4F7'}}> 
-    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Is your shop owned by a woman, trangender or nonbinary person?"}</Popover.Header>
+    <Popover.Header as="h5" style={{backgroundColor:'E6E6FA'}}>{"Our shop owned by a woman, trangender or nonbinary person"}</Popover.Header>
     Women+-owned business make big contributions to local economies but often face more discrimination. </Popover>
   )
 
@@ -54,9 +54,9 @@ function ShopView(props) {
 
       <img style={{marginLeft:'350px', border:'solid', borderStyle:'double', borderColor:'white', borderRadius:'30px'}} src={shopProfile.shop_image}></img>
       <div style={{width:'800px', marginLeft:'250px', marginTop: '30px', fontWeight:'bold', color:'white'}}>
-      <h3 style={{textAlign:'center'}}>{shopProfile.shop_description}</h3>
+      <h3 style={{textAlign:'center', color:'#278080'}}>{shopProfile.shop_description}</h3>
       </div>
-      <div style={{width:'800px', marginLeft:'250px', marginTop: '30px', fontWeight:'bold', color:'white', textAlign:'center'}}>
+      <div style={{width:'800px', marginLeft:'250px', marginTop: '30px', fontWeight:'bold', color:'#278080', textAlign:'center'}}>
       <p>Address: {shopProfile.shop_address}</p>
       <p>Website: {shopProfile.website}</p>
       <p>Email: {shopProfile.shop_email}</p> 

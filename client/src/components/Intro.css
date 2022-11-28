@@ -66,3 +66,9 @@
   margin-top: 10px;
   text-align: left;
 }
+
+.para {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 0.5em;
+}
