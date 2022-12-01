@@ -1,16 +1,14 @@
 import { React, useState, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { breakAddr } from "../helpers/utils";
-import {Link} from "react-router-dom";
-
-//import dummylocations from "./dummylocations";
+import { Link } from "react-router-dom";
 
 // Global Leaflet variable; only necessary for the green marker.
 // Everything else is provided by React Leaflet
 const L = window.L;
 
 function MarkerMap(props) {
-  // By default Leaflet only comes with blue markers. We want green too!
+  // By default Leaflet only comes with blue markers. We want green!
   // https://github.com/pointhi/leaflet-color-markers
   let greenMarker = new L.icon({
     iconUrl:
@@ -23,10 +21,10 @@ function MarkerMap(props) {
     shadowSize: [41, 41],
   });
 
-//   function handleClick(id) {
-//   props.setShopCb(id); // in UserProfileView 
-//   console.log("What up?")
-// }
+  //   function handleClick(id) {
+  //   props.setShopCb(id); // in UserProfileView
+  //   console.log("What up?")
+  // }
 
   return (
     <MapContainer
@@ -42,6 +40,7 @@ function MarkerMap(props) {
       <TileLayer
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        //what leaflet asks for to add right img, zoom etc for this {}
       />
 
       {/* Draw the green "YOU ARE HERE" marker */}
@@ -64,14 +63,12 @@ function MarkerMap(props) {
           key={p.shop_name}
           position={[p.latitude, p.longitude]}
           icon={greenMarker}
-          >
+        >
           <Popup>{breakAddr(p.shop_name)}</Popup>
         </Marker>
       ))}
-      {/* <h1>{this.props.stadium.name}</h1> */}
     </MapContainer>
   );
 }
 
 export default MarkerMap;
-

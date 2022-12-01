@@ -10,12 +10,14 @@ const FeaturedBusiness = () => {
     <div className="FeaturedBusiness">
       <div className="aweBlock">
         <h1 className="awesome">Featured Business</h1>
-        <p className="para" style={{width:'25rem'}}>This shop not only has awesome clothes at amazing prices, but is a leader in sustainable business practices. Check them out today! </p>
-
+        <p className="para" style={{ width: "25rem" }}>
+          This shop not only has awesome clothes at amazing prices, but is a
+          leader in sustainable business practices. Check them out today!{" "}
+        </p>
       </div>
 
-      <div className="cards">
-        <motion.div
+      <div classname="cardz">
+        {/* <motion.div
           transition={{ layout: { duration: 1, type: "spring" } }}
           layout
           onClick={() => setIsOpen(!isOpen)}
@@ -23,11 +25,11 @@ const FeaturedBusiness = () => {
           style={{
             borderRadius: "1rem",
             boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.5)",
-            marginRight: '100px'
+            marginRight: "1px",
           }}
         >
           <motion.h2 layout="position">
-            <h2>Laser</h2>
+            Laser
             <div className="featImg">
               <img
                 className="featImg"
@@ -43,7 +45,6 @@ const FeaturedBusiness = () => {
               transition={{ duration: 1 }}
               exit={{ opacity: 0 }}
               className="expand"
-
             >
               <p>
                 We try to convey with each collection all these local concepts
@@ -55,21 +56,21 @@ const FeaturedBusiness = () => {
               </p>
             </motion.div>
           )}
-        </motion.div>
+        </motion.div> */}
       </div>
-      {/* <div>
+      <div>
         <motion.div
           transition={{ layout: { duration: 1, type: "spring" } }}
           layout
           onClick={() => setIsOpen(!isOpen)}
-          className="card"
+          className="cardz"
           style={{
             borderRadius: "1rem",
             boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.5",
           }}
         >
           <motion.h2 layout="position">
-            <h2>Syra Coffee</h2>
+            Syra Cafe
             <div className="featImg">
               <img src="https://cdn.shopify.com/s/files/1/0299/2046/0884/files/gracia.png?v=1653134456" />
             </div>
@@ -83,7 +84,12 @@ const FeaturedBusiness = () => {
               exit={{ opacity: 0 }}
               className="expand"
             >
-              <p>Syra Coffee has the best coffee around, guaranteed!</p>
+              <p>
+                Syra Coffee no hubiera nacido sin la confluencia de innumerables
+                influencias de todo el mundo. Estamos profundamente enamorados
+                de nuestra Barcelona natal, donde reside la mezcla de raíces,
+                culturas y tradiciones que nos define hoy.
+              </p>
             </motion.div>
           )}
         </motion.div>
@@ -93,7 +99,7 @@ const FeaturedBusiness = () => {
           transition={{ layout: { duration: 1, type: "spring" } }}
           layout
           onClick={() => setIsOpen(!isOpen)}
-          className="card"
+          className="cardz"
           style={{
             borderRadius: "1rem",
             boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.5",
@@ -117,12 +123,13 @@ const FeaturedBusiness = () => {
               <p>
                 Improve the living conditions of the most disadvantaged
                 communities on the planet and facilitate their economic and
-                social progress. Promote the circular economy.
+                social progress. Promote the circular economy. Check out Humana
+                today!You won't regret it!
               </p>
             </motion.div>
           )}
         </motion.div>{" "}
-      </div> */}
+      </div>
     </div>
   );
 };

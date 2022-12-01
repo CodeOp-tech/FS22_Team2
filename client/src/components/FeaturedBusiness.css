@@ -3,16 +3,20 @@
 }
 
 .FeaturedBusiness {
-  padding: 0 3rem 0 3rem;
+  /* padding: 0 3rem 0 3rem;
   display: flex;
   height: 90vh;
 
   /* flex-direction: column;
   position: relative; */
   /* margin-bottom: 8rem; */
-  margin-top: 2rem;
+  /* margin-top: 2rem;
 
   margin-bottom: 6rem;
+}  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .f-right {
@@ -28,10 +32,10 @@
 }
 
 .aweBlock {
-  margin-top: 90px;
+  /* margin-top: 500px; */
   display: flex;
   height: 77vh;
-  margin-top: 6rem;
+  margin-top: 18rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -61,14 +65,15 @@
   color: gray;
   margin: 30px;
 }
-.cards {
+/* .cards {
   flex: 1;
   position: relative;
   text-align: left;
   gap: 2rem;
   flex: auto;
   margin: 65px;
-}
+} */
+
 .cardz {
   flex: 1;
   position: relative;
@@ -89,19 +94,18 @@
   line-height: 160%;
 }
 .cardz p {
-
   padding-top: 0.5rem;
   line-height: 150%;
   margin-right: 30px;
   margin-left: 30px;
 }
-.featImg {
+.featImg img {
   padding: 5px;
   width: 20rem;
   height: fit-content;
   border-radius: 50%;
 }
-.feImdiv {
+/* .feImdiv {
   flex: 1;
   position: relative;
   text-align: left;
@@ -111,4 +115,4 @@
   display: flex;
   background-color: whitesmoke;
   padding: 1rem 0.76rem;
-}
+} */
